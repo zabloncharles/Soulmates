@@ -7,9 +7,8 @@
 
 import SwiftUI
 import Lottie
-import FirebaseFirestore
 import Firebase
-struct HomeView: View {
+struct StandoutsView: View {
     @AppStorage("saveinfo") var saveinfo = ""
     @ObservedObject var viewModel = UserViewModel()
     @State var pregnancyChance = "Low"
@@ -31,15 +30,16 @@ struct HomeView: View {
     @AppStorage("signInAnimation") var signInAnimation = false
     @State private var offset = CGSize.zero
     @State var hideCard = false
+    @State var nomoreCards = false
     @State var pageAppeared = false
-    @State var dislike = false
+    
     
     @State var number = matchCardData.count
     @State var backViewSize: CGFloat = 80
     
     
     private func getCardOffset(_ geometry: GeometryProxy, id: Int) -> CGFloat {
-        return  CGFloat(number - 1 - id) * -20
+        return  CGFloat(number - 1 - id) * -10
     }
     // Compute what the max ID in the given users array is.
     /// Return the CardViews width for the given offset in the array
@@ -50,10 +50,7 @@ struct HomeView: View {
         let offset = CGFloat(number - 1 - id) * 10
         return  offset
     }
-    private func get3d(_ geometry: GeometryProxy, id: Int) -> CGFloat {
-        let offset = CGFloat(number - 1 - id) * 10
-        return  offset
-    }
+    
     // Compute what the max ID in the given users array is.
     private var maxID: Int {
         return  matchCardData.map{ $0.usernumber}.max() ?? 0
@@ -63,94 +60,72 @@ struct HomeView: View {
     var body: some View {
         
             ZStack {
-                
+                GeometryReader { reader in
                 BackgroundView()
                     .edgesIgnoringSafeArea(.all)
                 
-                        GeometryReader { reader in
-                            
-                                
-                         //   ScrollView(.vertical){
-                    
+                
                 VStack {
-                   
-                    
-                    
                     welcoming
-                        .offset(y: showProfile ? -600 : 0)
+                        .offset(y: showProfile ? -600 : pageAppeared ? 0 : -300)
                         .animation(.spring(), value: showProfile)
-                        .offset(y: pageAppeared ? 0 : reader.size.height * -1)
-                        
-                   
-                                
-                                
                     
-                    VStack {
-                        VStack{
-                            
-                                                
-                                                
-                            ForEach(Array(matchCardData.enumerated().reversed()), id: \.offset) { index, section in
-                                                    if index != 0 {  }
-                                                    if section.usernumber > self.maxID - 3   {
-                                                        
-                                                        ProfileCard(showProfile: $showProfile, matchcard: $matchcard, section: section, namespace: namespace, hideCard: $hideCard, number: $number, index: index)
-                                                          //  .frame(width:reader.size.width - 20, height:  530)
-                                                        
-                                                            .frame( height: 530)
-                                                            .padding(.horizontal,self.getCardWidth(reader, id: index) )
-                                                            .padding(.top,0)
-                                                            .padding(.bottom,20)
-                                                            .padding(.horizontal, 8)
-                                                            .rotation3DEffect(.degrees(self.get3d(reader, id: index)), axis: (x:10 ,y:0, z:0))
-                                                            .offset(y: self.getCardOffset(reader, id: index))
-                                                            .animation(.spring())
-                                                        
-                                                        
-                                                    }
-                                                }
-                            }.offset(y: pageAppeared ? 0 : reader.size.height * 2)
-                            .opacity(pageAppeared ? 1 : 0)
+                    
+                    if nomoreCards {
+                        nocards
                     }
-                        
-                }.padding(.top, reader.size.height / 13 )
-                                    
-                                
-                                
-                            
-                            
-                         
-                            
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
+                   
                     
-              //  }
+                    
+                   
+                    if !nomoreCards {
+                        VStack {
+                                 
+                                        ZStack{
+                                            
+                                            
+                                            ForEach(Array(matchCardData.enumerated()), id: \.offset) { index, section in
+                                                if index != 0 {  }
+                                                if section.usernumber > self.maxID - 3   {
+                                                    
+                                                    Standoutcard(showProfile: $showProfile, matchcard: $matchcard, section: section, namespace: namespace, hideCard: $hideCard, number: $number, index: index, nomorecards: $nomoreCards)
+                                                
+                                                   
+                                                        .frame( height: 570)
+                                                        .padding(.horizontal,self.getCardWidth(reader, id: index) )
+                                                        .padding(.top,30)
+                                                        .padding(.horizontal, 5)
+                                                     .rotation3DEffect(.degrees(-1), axis: (x:10 ,y:0, z:0))
+                                                    .offset(y: self.getCardOffset(reader, id: index))
+                                                    .animation(.spring())
+                                                    
+                                                }
+                                            }
+                                          
+                                        }
+                                  
+                        }.offset(x: pageAppeared ? 0 : 300)
+                    }
+                    
+              
+                }
                 
                 
                 
                 if showProfile {
+                    
+                    
                     FullProfileView(namespace: namespace, matchcard: $matchcard, showProfile: $showProfile)
                         .matchedGeometryEffect(id: "page", in: namespace, isSource: showProfile)
+                    
+                    
                     
                 }
                 
                 
             }
-                
-                navigation
-                    .offset(y: showProfile || !pageAppeared ? -200 : 0)
-                    .animation(.spring(), value: showProfile)
             }.onAppear{
-                withAnimation(.spring().speed(0.4)){
+                withAnimation(.spring()){
                     pageAppeared = true
                 }
             }
@@ -160,6 +135,52 @@ struct HomeView: View {
                 }
             }
         
+    }
+    
+    var nocards: some View {
+        VStack {
+            VStack {
+                LottieView(filename: "loveflying" ,loop: true)
+                    .frame(width: 100)
+                
+            }.offset( x:25, y:400)
+                .opacity(0.8)
+            
+            VStack {
+                LottieView(filename: "nomorecards" ,loop: true)
+                    .frame(width: 280)
+                
+            }.offset(y:-160)
+            
+            
+            VStack {
+                
+                
+                
+                
+                VStack(alignment: .center, spacing: 20.0) {
+                    
+                    Text("You're new here! No explore cards yet")
+                        .font(.headline)
+                    Text("Come back later and check for new profiles in your area.")
+                        .foregroundColor(.gray)
+                        .multilineTextAlignment(.center)
+                    HStack {
+                        Text("Try boosting your profile")
+                            .font(.body)
+                            .fontWeight(.semibold)
+                    }.padding(.horizontal,15)
+                        .padding(.vertical,10)
+                        .background(Color(red: 1.0, green: 0.0, blue: 0.0, opacity: 1.0))
+                        .cornerRadius(30)
+                }.padding(10)
+                    .offset(y: -190)
+                
+                
+                
+            }.padding(20)
+            Spacer()
+        }
     }
     
     var navigation: some View {
@@ -176,121 +197,28 @@ struct HomeView: View {
     var welcoming : some View {
         VStack {
             
-            HStack(spacing: 16){
-                VStack(alignment: .leading, spacing: 5) {
-                    
-                    ShimmerVar(text: "W\("elcome back \(data()[1])".lowercased())" , useCustomFont: true)
-                    ///  ShimmerVar(text: "W\("elcome back vera".lowercased())" , useCustomFont: true)
-                    
-                    VStack {
-                        if show {
-                            
-                            
-                            VStack {
-                                Text(welcomeMessage)
-                                
-                                    .opacity(show ? 1:0)
-                                
-                                    .onDisappear{
-                                        show = false
-                                    }
-                                
-                            }
-                            
-                            
-                            
-                            
-                        } else {
-                            Text("Find your soulmate")
-                                .onAppear{
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                                        show = true
-                                    }
-                                }
-                            
-                        }
+            HStack {
+                HStack {
+                    Image(systemName: "person.2.fill")
+                    Text("Explore")
                         
-                    }.font(.subheadline)
-                        .animation(.spring(), value: show)
-                        .transition(.asymmetric(
-                            insertion: .move(edge: .bottom),
-                            removal: .move(edge: .top)
-                        ))
-                    
-                    
-                    
-                    
-                }
-                
-                
-                
+                }.font(.title3)
+                    .fontWeight(.bold)
                 Spacer()
-                Image("Background 9")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .clipShape(Circle())
-                    .frame(width: 70, height: 70)
-                    .overlay(
-                        VStack {
-                            //days left
-                            Text("4")
-                                .font(.subheadline)
-                            //Text(Int(data()[3]) ?? 0 < 1 ? "Day" :"Days")
-                            Text("Matches")
-                                .font(.caption2)
-                                .fontWeight(.light)
-                        }
-                    )
-                    .background(
-                        Circle()
-                            .fill(Color("offWhite"))
-                            .overlay(
-                                Circle()
-                                    .stroke(Color.gray, lineWidth: 4)
-                                    .blur(radius: 4)
-                                    .offset(x: 2, y: 2)
-                                    .mask(Circle().fill(LinearGradient(Color("black"), Color.clear)))
-                            )
-                            .overlay(
-                                Circle()
-                                    .stroke(Color("offWhite"), lineWidth: 8)
-                                    .blur(radius: 4)
-                                    .offset(x: -2, y: -2)
-                                    .mask(Circle().fill(LinearGradient(Color.clear, Color("black"))))
-                            )
-                            .padding(-1.3)
-                    )
-            }
-            .padding(.vertical, 10)
-            .padding(.horizontal, 20)
-            .background(Color("offWhite"))
-            .scaleEffect(welcomingisTapped ? 0.98 : 1)
-            .offwhitebutton(isTapped: welcomingisTapped, isToggle: false, cornerRadius: 15, action: .constant(false))
-            .padding(.horizontal,20)
-            .padding(.bottom, 5)
-            .onAppear {
+                HStack {
+                    Image(systemName: "fleuron")
+                    Text("Boost")
+                }.padding(.horizontal,12)
+                    .padding(.vertical,5)
+                    .background(Color.blue.opacity(0.3))
+                    .cornerRadius(20)
                 
-                getuserData()
-                animateChance = true
+            }.padding(15).offwhitebutton(isTapped: false, isToggle: false, cornerRadius: 15, action:  .constant(false))
                 
-                withAnimation(.spring(response: 1.9, dampingFraction: 1.5, blendDuration: 8)) {
-                    if signInAnimation {
-                        appeared = true
-                    }
-                }
-            }
-            .onDisappear {
-                withAnimation(.spring()) {
-                    
-                    appeared = false
-                    signInAnimation = false
-                    
-                }
-            }
             
             typeofprofiles
             
-        }
+        }.padding(20)
         
     }
     
@@ -300,9 +228,7 @@ struct HomeView: View {
                 Text("Compatible")
                     .padding(.vertical,5)
                     .padding(.horizontal,8)
-                
-                    .cornerRadius(40)
-                    .offwhitebutton(isTapped: welcomingisTapped, isToggle: false, cornerRadius: 20, action:  .constant(false))
+                    .offwhitebutton(isTapped: welcomingisTapped, isToggle: false, cornerRadius: 15, action:  .constant(false))
                 
                 Spacer()
                 Text("Active")
@@ -321,9 +247,8 @@ struct HomeView: View {
                 .foregroundColor(.black)
             
             
-        }.padding(.horizontal)
-            .padding(.top,10)
-            .padding(.bottom,13)
+        }
+            .padding(.top,20)
     }
     
     var profile : some View {
@@ -518,19 +443,26 @@ struct HomeView: View {
         if cycle >= 1 && cycle <= 2{
             welcomeMessage = "Possible To Conceive"
         }
-        else
-        {
+        else if cycle >= 3 && cycle <= 7{
             welcomeMessage = "You're on a roll, you have many matches today"
             
         }
-      
+        else if cycle >= 8 && cycle <= 9{
+            welcomeMessage = "Possible To Conceive"
+        }
+        else if cycle >= 10 && cycle <= 21{
+            welcomeMessage = "Unlikely to Conceive"
+        }
+        else if cycle >= 22 && cycle <= 28{
+            welcomeMessage = "Menstruation: Least Fertile"
+        }
     }
     
 }
 
 
 
-struct HomeView_Previews: PreviewProvider {
+struct StandoutsView_Previews: PreviewProvider {
     static var previews: some View {
         
         ViewController()

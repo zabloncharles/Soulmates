@@ -39,6 +39,11 @@ struct NotificationModel: Identifiable {
 
 var messageSections = [
     NotificationModel(name: "john Bates", message: "Hey bro", numberofmessages: 4, avatar: "ob1", background: "ob1", online: true),
-    NotificationModel(name: "Ben Stiller", message: "Hey bro", numberofmessages: 3, avatar: "cover3", background: "cover2", online: false)
+    NotificationModel(name: "Ben Stiller", message: "Reset your CSS, set up your fonts and create your first React component", numberofmessages: 3, avatar: "cover3", background: "cover2", online: false),
+    NotificationModel(name: "Ced Rits", message: "Hey bro", numberofmessages: 3, avatar: "cover3", background: "cover2", online: false),
+    NotificationModel(name: "Jim Stiller", message: "Hey bro", numberofmessages: 3, avatar: "cover3", background: "cover2", online: false),
+    NotificationModel(name: "Terr Gill", message: "Hey bro", numberofmessages: 3, avatar: "cover3", background: "cover2", online: false),
+    NotificationModel(name: "Ben Stiller", message: "Hey bro", numberofmessages: 3, avatar: "cover3", background: "cover2", online: false),
+    NotificationModel(name: "Nija Wersa", message: "Hey bro", numberofmessages: 3, avatar: "cover3", background: "cover2", online: false)
    
 ]

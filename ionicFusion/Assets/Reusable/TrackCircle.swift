@@ -12,13 +12,13 @@ struct TrackCircle: View {
     
     @State var appear = false
     var background : String = "image_03"
-    var value: String = "0"
+    var value: String = ""
     var name : String =  "Period"
     var percent : Double = 0.90
     @State var appeared = false
     @State var trackcircleappeared = false
     @State var tapped = false
-    @State var colors = [Color.red,Color.blue,Color.white]
+    @State var colors = [Color.red,Color.blue,Color.green]
     
     
     var body: some View {
@@ -43,7 +43,7 @@ struct TrackCircle: View {
                     tapped.toggle()
                 }
             }
-            nameundercircle
+           // nameundercircle
             
         }
         
@@ -69,7 +69,7 @@ struct TrackCircle: View {
         VStack {
             Circle() // the blue dial
             
-                .trim(from: 0, to: appear ? 0.99 : 0)
+                .trim(from: 0, to: appear ? percent : 0)
             
                 .stroke(style: StrokeStyle(lineWidth: 2, lineCap: .round))
                 .fill(

@@ -14,36 +14,28 @@ struct MessagesView: View {
     @State var text = ""
     @Binding var section: NotificationModel
     @State var hideNav = false
-    @State var texty = ""
     @State var scrolling = CGFloat(0)
     
     
     var body: some View {
         NavigationView {
             ZStack {
-             
-                    
-                
-                  
-                    
-                    content
+                content
                 cover
-                       
-                   
-                   
-                
-              
-                
                 texting
               
-                Text(texty)
-            }.blueNavigation
+                
+            }
             .zIndex(1)
         }.onAppear{
-            hidemainTab = true
+            withAnimation(.spring()) {
+                hidemainTab = true
+            }
         }
         .onDisappear {
-            hidemainTab = false
+            withAnimation(.spring()) {
+                hidemainTab = false
+            }
         }
     }
     
@@ -65,11 +57,7 @@ struct MessagesView: View {
             .mask(
                 RoundedRectangle(cornerRadius: 0)
             )
-    //        .overlay(
-    //            Image(horizontalSizeClass == .compact ? "Waves 1" : "Waves 2")
-    //                .frame(maxHeight: .infinity, alignment: .bottom)
-    //                .accessibility(hidden: true)
-    //        )
+    
             .overlay(
                 VStack(alignment: .leading, spacing: 8) {
                     
@@ -87,12 +75,12 @@ struct MessagesView: View {
                                     .padding(-2)
                                     
                             )
-                            .frame(width: 70, height: 70)
+                            .frame(width: 60, height: 60)
                             .newoffwhite(offwhiteisTapped: false, cornerradius: 180)
                             .padding(10)
                         VStack{
                             Text(section.name)
-                            .font(.title).bold()
+                                .font(.title2).bold()
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .foregroundColor(.primary)
                         
@@ -108,46 +96,25 @@ struct MessagesView: View {
                          
                         }
                         Spacer()
+                        
+                        Image(systemName: "exclamationmark.circle")
+                            .foregroundColor(.gray )
+                            .font(.title2)
+                            .padding(.trailing,10)
                     }
                     
                 
                    
                 }
-                    .padding(1)
-                    .background(Color("offwhite"))
-                    .cornerRadius(19)
-                    .offwhite(offwhitecolor: .white.opacity(0.30), offwhitecolorShadow: .black.opacity(0.30), offwhiteisTapped: false)
-                   // .frame(maxHeight: .infinity, alignment: .bottom)
+                    .background(Color("offwhite").opacity(0.5))
+                    .background(.ultraThinMaterial)
+                    .cornerRadius(15)
+                  
+                    .frame(maxHeight: .infinity, alignment: .bottom)
                     .padding(20)
-                    .offset(y: 70)
+                    .offset(y: 80)
             )
-            .overlay(
-               
-                    HStack(spacing:1) {
-                        Button {
-                            presentationMode.wrappedValue.dismiss()
-                        } label: {
-                       HStack(spacing:3) {
-                           Image(systemName: "chevron.left")
-                        Text("Back")
-
-                       }
-                        }
-                        
-                        Spacer()
-                        
-                        Image(systemName: "info.circle")
-                            .foregroundColor(.secondary)
-                    }
-                        .foregroundColor(.white)
-                        .font(.headline)
-                        .padding(20)
-                        .padding(.top, 6)
-                        .padding(.leading, -7)
-                
-               
-                
-        )
+         
             Spacer()
         }//.offset(y: scrolling > 20.0 ? -CGFloat(scrolling - 20) : CGFloat(scrolling - 20))
         .edgesIgnoringSafeArea(.all)
@@ -155,9 +122,9 @@ struct MessagesView: View {
     
     var content: some View {
         
-        VStack {
+        ScrollView (showsIndicators: false){
             
-            ScrollView{
+            VStack{
                  Spacer()
                 VStack {
                     ScrollViewReader { proxy in
@@ -171,44 +138,60 @@ struct MessagesView: View {
                                 }
                         }
                     }
-                }//.padding(.top, 50)
-                 .padding(.bottom, 70)
+                }
             }
                
-                //.padding(.top, 54)
+                .padding(.top, 114)
+                .padding(.bottom,90)
             .coordinateSpace(name: "scroll")
-        }.background(Color("background"))
+        }.background(Color("offwhite"))
         
         
         
     }
     var texting: some View {
-        VStack{
-            Spacer()
-            
-            HStack {
-                TextField("Message" , text: $text)
-                    .padding(.vertical)
-                    .padding(.leading, 55)
-                    .background(Color.offWhite)
-                    .cornerRadius(25)
-                    .overlay(  Image(systemName: "pencil.circle.fill")
-                                .font(.largeTitle)
-                                .foregroundColor(.white)
-                                .offset(x: -145)
+       
+           
+            VStack{
+                Spacer()
+                
+                HStack {
+                    TextField("Message" , text: $text)
+                        .padding(.vertical)
+                        .padding(.leading, 55)
+                        .background(Color("offwhite"))
+                        .cornerRadius(25)
+                        .overlay(  Image(systemName: "pencil.circle.fill")
+                                    .font(.largeTitle)
+                                    .foregroundColor(.white)
+                                    .offset(x: -145)
+                        )
+                        .offwhitebutton(isTapped: false, isToggle: false, cornerRadius: 25, action:  .constant(false))
+                    
+                    Button(action: buttonsend) {
+                        Image(systemName: "arrow.up.circle.fill")
+                            .font(.largeTitle)
+                            .foregroundColor(.blue)
+                            .neumorphiccircle(padding: -5, opacity: 1)
+                    }
+                    
+                }.padding()
+                   // .background(Color("offwhite"))
+                    .background(
+                        VStack{
+                            Rectangle()
+                                .fill(Color("offwhite"))
+                                .frame(width: .infinity,height: 190)
+                                .cornerRadius(35)
+                                .offset(y:55)
+                        }
+                           
+                            
                     )
-                    .offwhitebutton(isTapped: false, isToggle: false, cornerRadius: 25)
-                
-                Button(action: buttonsend) {
-                    Image(systemName: "arrow.up.circle.fill")
-                        .font(.largeTitle)
-                        .foregroundColor(.blue)
-                        .neumorphiccircle(padding: -5, opacity: 1)
-                }
-                
-            }.padding()
-                .background(Color.offWhite)
-        }
+                    
+            }
+           
+        
     }
     var scrollDetection: some View {
         GeometryReader { proxy in

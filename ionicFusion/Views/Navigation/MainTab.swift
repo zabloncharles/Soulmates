@@ -10,6 +10,10 @@ struct MainTab: View {
     @AppStorage("notifications") var showNotifications = false
     @AppStorage("editcalendar") var showEditCalendar = false
     @Namespace var namespace
+    @State var course = Course(index: 1, title: "hey", subtitle: "what", text: "they", image: "image_02", background: "image_01", logo: "image_04")
+   // @State var matchcard = MatchCardData(name: "", location: "", quote: "", profilepic: "", background: "", work: "", matchscore: "")
+    @State var matchcard = matchCardData[0]
+    @State var selectedSection = messageSections[0]
  
 
     var body: some View {
@@ -19,20 +23,20 @@ struct MainTab: View {
                 VStack{
                     
                     if self.selected == 0{
-                        HomeView()
+                        HomeView(course: $course, matchcard: $matchcard)
                             
                     }
                    if self.selected == 1{
-                       ExploreView()
+                      LikesView()
                           
                     }
                     if self.selected == 2{
                        
-                        CommunityView()
+                        StandoutsView(course: $course, matchcard: $matchcard)
                     }
                     if self.selected == 3{
-                      //  AccountView(namespace: namespace, course: .constant(courses[0]))
-                        LibraryView()
+                        NotificationsDetail(namespace: namespace, notification: $selectedSection)
+                        
                     }
                 }
             }
@@ -40,24 +44,7 @@ struct MainTab: View {
             FloatingTabbar(selected: self.$selected)
                
                 .offset(y:  hidemainTab && (selected != 0)  ? UIScreen.main.bounds.height * 0.19 : 0)
-        
-                
-            
-            //  Show the sheet views
-          //  .sheet(isPresented: $showAccount) {
-           .fullScreenCover(isPresented: $showAccount){
-              SettingsView()
-                  
-          }
-           .fullScreenCover(isPresented: $showNotifications){
-               NotificationsDetail(namespace: namespace, notification: .constant(messageSections[0]))
-               
-           }
-           .fullScreenCover(isPresented: $showEditCalendar){
-               SetView()
-               
-           }
-            
+                .animation(.spring(), value: hidemainTab)
         }
         
     }
@@ -66,8 +53,9 @@ struct MainTab: View {
 
 struct MainTab_Previews: PreviewProvider {
     static var previews: some View {
-        MainTab()
-            .preferredColorScheme(.dark)
+       // MainTab( course: .constant(Course))
+        ViewController()
+           // .preferredColorScheme(.dark)
             
     }
 }
@@ -91,9 +79,9 @@ struct FloatingTabbar : View {
                 
                   
                 TabIcon(selected: $selected, selectedicon: 0, icon: "house", tappedicon: $tappedicon )
-                TabIcon(selected: $selected, selectedicon: 1, icon: "magnifyingglass", tapped: "", tappedicon: $tappedicon )
+                TabIcon(selected: $selected, selectedicon: 1, icon: "fleuron", tapped: "", tappedicon: $tappedicon )
                 TabIcon(selected: $selected, selectedicon: 2, icon: "person.2" , tappedicon: $tappedicon )
-                TabIcon(selected: $selected, selectedicon: 3, icon: "calendar" , tapped: "" , tappedicon: $tappedicon )
+                TabIcon(selected: $selected, selectedicon: 3, icon: "bubble.left.and.bubble.right" , tapped: "" , tappedicon: $tappedicon )
            
                 
                 
@@ -156,6 +144,8 @@ struct TabIcon: View {
             VStack{
                 Image(systemName: self.selected == selectedicon ? "\(icon)\(tapped)" : icon)
                     .foregroundColor(self.selected == selectedicon ? .red  : .gray).padding(.horizontal)
+                   // .shadow(color:  Color.white.opacity(0.1), radius: 1.2, x:tappedicon ? -1 : 1, y:tappedicon ? -1 : 1 )
+                   // .shadow(color: Color.black.opacity(0.5),radius: 1.2, x:tappedicon  ? 1 : -1, y:tappedicon  ? 1 : -1)
                     .background(Circle()
                                     .fill(self.selected == selectedicon ? .red : .clear)
                                     .animation(.spring(), value: tapped)
@@ -163,6 +153,7 @@ struct TabIcon: View {
                                     .blur(radius: 19)
                                     .opacity(0.4)
                     )
+                    
                                     
                 if self.selected == selectedicon {
                     

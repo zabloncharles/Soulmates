@@ -22,9 +22,63 @@ var messages = [
         
     ),
     MessagesModel(
-        message: "Hey monet",
+        message: "What up dawg",
         time: "2:34 PM",
         response: true
+        
+    ),
+    MessagesModel(
+        message: "Nothing",
+        time: "2:34 PM",
+        response: false
+        
+    ),
+    MessagesModel(
+        message: "Hey john, you are going tot the mall. makes sure to let me know the time please",
+        time: "2:34 PM",
+        response: true
+        
+    ),
+    MessagesModel(
+        message: "So what is going on, why are you not talking to me men",
+        time: "2:34 PM",
+        response: true
+        
+    ),
+    MessagesModel(
+        message: "Say something so i know your alright okay.",
+        time: "2:34 PM",
+        response: false
+        
+    ),
+    MessagesModel(
+        message: "What up dawg",
+        time: "2:34 PM",
+        response: true
+        
+    ),
+    MessagesModel(
+        message: "Nothing",
+        time: "2:34 PM",
+        response: false
+        
+    ),
+    MessagesModel(
+        message: "Hey john, you are going tot the mall. makes sure to let me know the time please",
+        time: "2:34 PM",
+        response: true
+        
+    ),
+    MessagesModel(
+        message: "So what is going on, why are you not talking to me men",
+        time: "2:34 PM",
+        response: true
+        
+    ),
+    MessagesModel(
+        message: "Say something so i know your alright okay.",
+        time: "2:34 PM",
+        response: false
         
     )
 ]

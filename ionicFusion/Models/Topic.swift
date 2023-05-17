@@ -2,7 +2,7 @@
 //  Topic.swift
 //  Topic
 //
-//  Created by Meng To on 2021-08-05.
+//  
 //
 
 import SwiftUI

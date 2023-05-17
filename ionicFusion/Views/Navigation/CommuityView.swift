@@ -166,7 +166,7 @@ struct CommunityView: View {
                                    
                                     NavigationLink(destination:
                                     
-                                                    CommentsView(section: $selectedCourse)
+                                                   // CommentsView(section: $selectedCourse)
                                         .onAppear{
                                             selectedCourse = course
                                         }
@@ -279,7 +279,7 @@ struct CommunityView: View {
                         VStack(spacing: 20) {
                             ForEach(postData) { item in
                                 NavigationLink(destination:
-                                                CommentsView(section: $selectedCourse)
+                                              //  CommentsView(section: $selectedCourse)
                                     .onAppear{
                                         selectedCourse = item
                                     }

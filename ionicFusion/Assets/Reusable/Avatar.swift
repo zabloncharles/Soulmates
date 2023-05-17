@@ -16,7 +16,9 @@ struct Avatar: View {
                 AsyncImage(url: URL(string: "\(user.avatar)")) { phase in
                     switch phase {
                         case .empty:
-                            ProgressView()
+                          //  ProgressView()
+                            Image(systemName: "person.crop.circle")
+                                .font(.largeTitle)
                         case .success(let image):
                             image.resizable()
                         case .failure(_):
@@ -24,7 +26,9 @@ struct Avatar: View {
                             Image(systemName: "person.crop.circle")
                                 .font(.largeTitle)
                         @unknown default:
-                            Color.gray
+                          //  Color.gray
+                            Image(systemName: "person.crop.circle")
+                                .font(.largeTitle)
                     }
                 }
             }

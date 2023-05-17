@@ -27,7 +27,7 @@ struct MessageBubble: View {
                         .font(.subheadline)
                         .padding(.horizontal, 11.0)
                         .padding(.vertical, 9.0)
-                        .newoffwhite(offwhiteisTapped: messageTapped, cornerradius: 14)
+                        .newoffwhite(offwhiteisTapped: messageTapped, cornerradius: 20)
                         .padding(.bottom,9)
                         .onTapGesture {
                             withAnimation(.spring()) {
@@ -55,7 +55,7 @@ struct MessageBubble: View {
                         .padding(.horizontal, 11.0)
                         .padding(.vertical, 9.0)
                         .background(.blue)
-                        .newoffwhite(offwhiteisTapped: messageTapped, cornerradius: 14)
+                        .newoffwhite(offwhiteisTapped: messageTapped, cornerradius: 20)
                         .padding(.bottom,9)
                         .onTapGesture {
                             withAnimation(.spring()) {

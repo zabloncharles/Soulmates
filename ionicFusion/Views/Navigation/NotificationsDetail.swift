@@ -17,7 +17,7 @@ struct NotificationsDetail: View {
     @State var appear = [false, false, false]
     @State var selectedSection = messageSections[0]
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
-   
+    @State var pageAppeared = false
  
     
     var body: some View {
@@ -37,17 +37,20 @@ struct NotificationsDetail: View {
             .ignoresSafeArea()}
              
             
-//
-//            .fullScreenCover(isPresented: $showSection) {
-//                MessagesView(section: $selectedSection)
-//            }
-            
         }
-           BackButton()
+       
+        }.onAppear{
+            withAnimation(.spring()){
+                pageAppeared = true
+            }
+        }
+        .onDisappear{
+            withAnimation(.spring()){
+                pageAppeared = false
+            }
         }
         .zIndex(1)
        
-        .blueNavigation
     }
     
     var cover: some View {
@@ -62,11 +65,14 @@ struct NotificationsDetail: View {
                 .frame(height: scrollY > 0 ? 220 + scrollY : 220)
               
                 .background(
-                    //Image(course.background)
-                    Image(wallpaper)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        
+                   // Image(course.background)
+                  //  Image(wallpaper)
+                   Rectangle()
+                    .fill(Color("background"))
+                    
+                      //  .resizable()
+                      //  .aspectRatio(contentMode: .fill)
+
                         .offset(y: scrollY > 0 ? -scrollY : 0)
                         .scaleEffect(scrollY > 0 ? scrollY / 1000 + 1 : 1)
                         .blur(radius: scrollY > 0 ? scrollY / 10 : 0)
@@ -81,49 +87,44 @@ struct NotificationsDetail: View {
                
                 .overlay(
                     VStack(alignment: .trailing, spacing: 8) {
-                  
-                        
-                        Text("Notifications")
-                            .font(.subheadline)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .foregroundStyle(Color("black"))
-                      
+                        HStack {
+                            HStack {
+                                Image(systemName: "fleuron")
+                                Text("Messages")
+                                
+                            }.font(.title3)
+                                .fontWeight(.bold)
+                            Spacer()
+                            HStack {
+                                Image(systemName: notification.numberofmessages > 0 ? "bell.badge.fill" : "bell")
+                                Text("5")
+                            }.padding(.horizontal,12)
+                                .padding(.vertical,5)
+                                .background(Color.blue.opacity(0.3))
+                                .cornerRadius(20)
+                            
+                        }.padding(15)
+                            .offwhitebutton(isTapped: false, isToggle: false, cornerRadius: 15, action:  .constant(false))
+                            
                         
                    
                         Text("By default, Fusion alerts you whenever someone, or extension wants to send you notifications. You can change this setting at any time.")
                             .font(.footnote)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .foregroundStyle(Color("black"))
+                            .padding(.horizontal,10)
+                            .padding(.top,10)
                             
                             
                         
                         Divider()
                             .foregroundColor(.secondary)
-                            .opacity(0.7)
+                            .opacity(0.9)
                             
-                            HStack{
-                            Text("Messages")
-                                .font(.caption)
-                                .padding(.trailing)
-                                .foregroundStyle(Color("black"))
-//                            LogoView(image: "Logo 3")
-                                Spacer()
-                                Image(systemName: notification.numberofmessages > 0 ? "bell.badge.fill" : "bell")
-                                    .font(.caption)
-                            }
                             
-                                
-                        
-                      
                         .accessibilityElement(children: .combine)
                     }
-                    .padding(20)
-                    .background(Color("offwhite"))
-                    .cornerRadius(15)
-                    .offwhite(offwhitecolor: .black.opacity(0.20), offwhitecolorShadow: .black.opacity(0.30), offwhiteisTapped: false)
-                    .padding(10)
-                    .padding(.vertical, 20)
-                   
+                    
                     .background(
                         Rectangle()
                             .fill(Color("offWhite"))
@@ -132,23 +133,30 @@ struct NotificationsDetail: View {
                    
                     .offset(y:scrollY > 0 ? -scrollY  : scrollY)
                     .frame(maxHeight: .infinity, alignment: .bottom)
-                    .offset(y: 50)
-                    .padding(0)
+                    .offset(y: 15)
+                    .padding(20)
                 )
             }
             .frame(height: 150)
+            .offset(y: pageAppeared ?  0 : -120)
             
             sectionsSection
+                .offset(y: pageAppeared ?  0 : 520)
+                .opacity(pageAppeared ?  1 : 0 )
                 
         }
     }
     
     var sectionsSection: some View {
         
-        VStack(spacing: 13) {
+        VStack(spacing: 10) {
            
             ForEach(Array(messageSections.enumerated()), id: \.offset) { index, section in
-                if index != 0 {  }
+                if index != 0 {     Rectangle()
+                        .fill(Color.black.opacity(0.2))
+                        .frame(height: 0.34)
+                      
+                 }
                 NavigationLink(destination:
                                 MessagesView(section: $selectedSection)
                     .onAppear{
@@ -163,7 +171,7 @@ struct NotificationsDetail: View {
             }
         }
         .padding(20)
-        .padding(.vertical, 80)
+        .padding(.vertical, 60)
         
     }
     

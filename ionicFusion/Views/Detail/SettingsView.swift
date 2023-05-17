@@ -93,10 +93,7 @@ struct SettingsView: View {
                 .animation(.spring(), value: showNotification)
             
         }
-        .fullScreenCover(isPresented: $showEditCalendar){
-            SetView()
-            
-        }
+      
         
         .onAppear {
             withAnimation(.spring()) {

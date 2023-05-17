@@ -25,7 +25,7 @@ struct SmallClock: View {
                 Circle()
                     .fill(Color("offWhite"))
                     .frame(width: width - smallClockSize, height: width - smallClockSize)
-                    .newoffwhite(offwhiteisTapped: false, cornerradius: 80)
+                   // .newoffwhite(offwhiteisTapped: false, cornerradius: 80)
                     .onTapGesture{
                         withAnimation(.spring()) {
                             smallClockTapped.toggle()
@@ -34,7 +34,7 @@ struct SmallClock: View {
                 
                 //"Your-Ovulation-Period"
                 HStack {
-                    CircleText(radius: 80, text: "Your-Car".uppercased(), kerning: 10, height: 140, width: 70, font: .caption2)
+                    CircleText(radius: 80, text: "Your-Match".uppercased(), kerning: 10, height: 140, width: 70, font: .caption2)
                     //                        .background(
                     //                            Circle()
                     //                                .trim(from: 0.0, to: 0.99 )
