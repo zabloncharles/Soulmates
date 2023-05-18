@@ -171,7 +171,6 @@ struct OnboardingView: View {
                     
                     .padding(.vertical, 9)
                     .padding(.horizontal, 8)
-                    .newoffwhite(offwhiteisTapped: signinPressed, cornerradius: 11)
                     .scaleEffect(signinPressed ? 0.97 : 1)
                     .onTapGesture {
                         withAnimation(.spring()) {
@@ -279,7 +278,7 @@ struct WelcomeMessage: View {
                   
             }
             .scaleEffect(appears ? 1 : 0.96)
-            .offwhite(offwhitecolor: switching < 1 ? .clear : .purple, offwhitecolorShadow: .black, offwhiteisTapped: appears)
+           
             .onTapGesture {
                 withAnimation(.spring()){
                     appears.toggle()
@@ -328,7 +327,6 @@ struct WelcomeMessage: View {
                             .fill(.ultraThinMaterial)
                             .opacity(0)
                     )
-                    .newoffwhite(offwhiteisTapped: messageeTapped, cornerradius: 15)
                    // .rotation3DEffect(Angle(degrees: messageeTapped ? 180 : 0), axis: (x: 0, y: 180, z: 0))
                     .animation(.spring(), value: messageeTapped)
       
@@ -442,7 +440,6 @@ struct OnboardThirdPage: View {
                                     .blendMode(.lighten)
                             }
                             .customField(icon: "pencil")
-                            .newoffwhite(offwhiteisTapped: false, cornerradius: 15)
                             .focused($isFirstnameFocused)
                            
                             .onTapGesture {
@@ -463,7 +460,6 @@ struct OnboardThirdPage: View {
                                 
                             }
                             .customField(icon: "pencil.slash")
-                            .newoffwhite(offwhiteisTapped: false, cornerradius: 15)
                             .focused($isLastnameFocused)
                             
                             .onTapGesture {
@@ -472,7 +468,6 @@ struct OnboardThirdPage: View {
                       
                     }
                 }.padding()
-                    .newoffwhite(offwhiteisTapped: false, cornerradius: 15)
             }
             }
            
@@ -588,7 +583,6 @@ struct OnboardSecondPage: View {
                         
                     }
                     .datePickerStyle(WheelDatePickerStyle())
-                    .newoffwhite(offwhiteisTapped: appears, cornerradius: 21)
                     .onChange(of: birthDate) { newValue in
                         convertAge()
                     }
@@ -884,7 +878,6 @@ struct FinalPage: View {
                         
                         
                     }
-                    .newoffwhite(offwhiteisTapped: appeared, cornerradius: 17)
                     .padding(.vertical, 10)
                     
                     .onAppear{
@@ -921,7 +914,6 @@ struct FinalPage: View {
                                        
                                 }
                                 .customField(icon: "envelope.open.fill")
-                                .newoffwhite(offwhiteisTapped: false, cornerradius: 15)
                                 .focused($isEmailFocused)
                             
                             
@@ -933,13 +925,11 @@ struct FinalPage: View {
                                         
                                 }
                                 .customField(icon: "key.fill")
-                                .newoffwhite(offwhiteisTapped: false, cornerradius: 15)
                                 .focused($isPasswordFocused)
                             
                             
                         }
                     }.padding()
-                        .newoffwhite(offwhiteisTapped: false, cornerradius: 18)
                         
                     
                 }.padding(.horizontal,20)

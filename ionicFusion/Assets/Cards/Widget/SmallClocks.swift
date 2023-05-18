@@ -164,7 +164,6 @@ struct SmallClock2: View {
                     .frame(width: width - smallClockSize, height: width - smallClockSize)
                     .shadow(color:  Color("black").opacity(0.2), radius: 10, x: 10, y: 10)
                     .shadow(color: Color("white").opacity(0.9 ), radius: 10, x: -5, y: -5)
-                    .newoffwhite(offwhiteisTapped: false, cornerradius: 80)
                 
                 HStack {
                     Text("Low".uppercased())
@@ -246,7 +245,6 @@ struct SmallClock3: View {
                 
                     .shadow(color: Color("black").opacity(0.2), radius: 10, x: 10, y: 10)
                     .shadow(color: Color("white").opacity(0.9 ), radius: 10, x: -5, y: -5)
-                    .newoffwhite(offwhiteisTapped: false, cornerradius: 80)
                 
                 
                 //Small Clock Tick

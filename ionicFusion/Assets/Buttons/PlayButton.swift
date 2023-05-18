@@ -29,7 +29,6 @@ struct PlayButton: View {
         .frame(width: 120, height: 120)
         .background(.ultraThinMaterial)
         .cornerRadius(60)
-        .modifier(OutlineOverlay(cornerRadius: 60))
         .overlay(CircularView(value: 0.25, lineWidth: 8))
         .shadow(color: Color("Shadow").opacity(0.2), radius: 30, x: 0, y: 30)
         .overlay(

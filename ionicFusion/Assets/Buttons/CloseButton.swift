@@ -14,7 +14,7 @@ struct CloseButton: View {
             .foregroundColor(.secondary)
             .padding(8)
             .background(.ultraThinMaterial, in: Circle())
-            .backgroundStyle(cornerRadius: 18)
+            
     }
 }
 

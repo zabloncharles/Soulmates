@@ -40,7 +40,6 @@ struct AngularButton: View {
             Text(title)
                 .fontWeight(.semibold)
                 .frame(maxWidth: .infinity, maxHeight: 50)
-                .newoffwhite(offwhiteisTapped: tap, cornerradius: 15)
                 .frame(height: 50)
                 .accentColor(.primary.opacity(0.7))
                 .background(.clear)

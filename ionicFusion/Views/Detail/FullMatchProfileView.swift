@@ -9,7 +9,6 @@ import SwiftUI
 
 struct CourseView: View {
     var namespace: Namespace.ID
-    @Binding var course: Course
     var isAnimated = true
     
     @State var viewState: CGSize = .zero
@@ -257,7 +256,7 @@ struct CourseView_Previews: PreviewProvider {
     @Namespace static var namespace
     
     static var previews: some View {
-        CourseView(namespace: namespace, course: .constant(courses[0]))
-            
+      //  CourseView(namespace: namespace, course: .constant(courses[0]))
+            ViewController()
     }
 }

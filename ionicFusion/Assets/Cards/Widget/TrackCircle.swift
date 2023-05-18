@@ -87,7 +87,6 @@ struct TrackCircle: View {
                 }
                 .padding(-5.0)
                 .scaleEffect(tapped ? 1.059 : 1)
-                .offwhite(offwhitecolor: Color("black"), offwhitecolorShadow: Color("white"), offwhiteisTapped: false)
                 .neumorphiccircle(padding: -9.3, opacity: tapped ? 1 : 0)
         }
     }
@@ -135,7 +134,6 @@ struct TrackCircle: View {
                 .multilineTextAlignment(.center)
                 .padding(.vertical, 4)
                 .padding(.horizontal, 13)
-                .newoffwhite(offwhiteisTapped: false, cornerradius: 11)
                 .padding(.top, 9)
         }
     }

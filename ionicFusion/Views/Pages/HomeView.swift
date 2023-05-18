@@ -17,7 +17,6 @@ struct HomeView: View {
     @State var animateChance = false
     @State var show = false
     @State var showProfile = false
-    @Binding var course: Course
     @Binding var matchcard : MatchCardData
     @State var showStatusBar = true
     @State var contentHasScrolled = false

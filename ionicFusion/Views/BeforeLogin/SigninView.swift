@@ -355,7 +355,6 @@ struct SigninView: View {
                         .autocapitalization(.none)
                         .disableAutocorrection(true)
                         .customField(icon: "envelope.open.fill")
-                        .newoffwhite(offwhiteisTapped: isEmailFocused, cornerradius: 15)
                         .overlay(
                             GeometryReader { proxy in
                                 let offset = proxy.frame(in: .named("stack")).minY + 32
@@ -383,7 +382,6 @@ struct SigninView: View {
                     SecureField("Password", text: $password)
                         .textContentType(.password)
                         .customField(icon: "key.fill")
-                        .newoffwhite(offwhiteisTapped: isPasswordFocused, cornerradius: 15)
                         .focused($isPasswordFocused)
                         .onChange(of: isPasswordFocused, perform: { isPasswordFocused in
                             if isPasswordFocused {
@@ -399,7 +397,6 @@ struct SigninView: View {
                 }//.offset(y: !infoTapped ? 0 : UIScreen.main.bounds.height * 0.3)
                
                 .padding()
-                .newoffwhite(offwhiteisTapped: false, cornerradius: 15)
                 
                 Button {
                     //model.dismissModal.toggle()

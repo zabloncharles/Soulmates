@@ -136,7 +136,7 @@ struct SettingsView: View {
                             Text(convertAge())
                         .padding(.horizontal, 13)
                             .padding(.vertical, 9)
-                            .newoffwhite(offwhiteisTapped: false, cornerradius: 9)
+                            
                             
                         birthdaypicker
                             .frame(maxWidth: .infinity)
@@ -148,7 +148,7 @@ struct SettingsView: View {
                             .fontWeight(.regular)
                             .padding(.horizontal, 13)
                             .padding(.vertical, 9)
-                            .newoffwhite(offwhiteisTapped: birthdaycompleteTapped, cornerradius: 9)
+                            
                             .onTapGesture {
                                 withAnimation(.spring()) {
                                     birthdaycompleteTapped = true
@@ -347,7 +347,7 @@ struct SettingsView: View {
             
         }
         .datePickerStyle(WheelDatePickerStyle())
-        .newoffwhite(offwhiteisTapped: false, cornerradius: 21)
+
         .frame(maxWidth: .infinity)
         
         
@@ -477,7 +477,6 @@ struct SettingsView: View {
                            
                        }.padding(.trailing, 10)
                     }.padding(.vertical, 2)
-                    .newoffwhite(offwhiteisTapped: textFielde == 1, cornerradius: 11)
                     
                     HStack {
                         SettingSelections(title: "Email")
@@ -511,7 +510,6 @@ struct SettingsView: View {
                         
                     }
                     .padding(.vertical, 2)
-                    .newoffwhite(offwhiteisTapped: textFielde == 2, cornerradius: 11)
                     
                     
                     HStack {
@@ -563,7 +561,6 @@ struct SettingsView: View {
                             
                         }.padding(.trailing, 10)
                     }.padding(.vertical, 2)
-                        .newoffwhite(offwhiteisTapped: textFielde == 5, cornerradius: 11)
                     
                     
                     HStack {
@@ -612,14 +609,12 @@ struct SettingsView: View {
                             
                         }.padding(.trailing, 10)
                     }.padding(.vertical, 2)
-                        .newoffwhite(offwhiteisTapped: textFielde == 5, cornerradius: 11)
                    
                     
                   
                     
                 }.padding(10)
                     .padding(.vertical, 2)
-                    .newoffwhite(offwhiteisTapped: false, cornerradius: 15)
                     .padding()
                     .offset(x: textFielde == 10 ? 540 : 0)
                     .animation(.spring(), value: textFielde)
@@ -643,13 +638,11 @@ struct SettingsView: View {
                             })
                     }
                     .padding(.trailing, 10)
-                    .newoffwhite(offwhiteisTapped: textFielde == 4, cornerradius: 11)
            
                     
                 }.padding()
                     .padding(.vertical,-7)
                     .padding(.horizontal,-7)
-                    .newoffwhite(offwhiteisTapped: false, cornerradius: 15)
                     .padding()
                     .offset(x: textFielde == 10 ? 540 : 0)
                     .animation(.spring(), value: textFielde)
@@ -710,7 +703,6 @@ struct SettingsView: View {
                                 
                         }.padding(.horizontal, textFielde > 8 ? 17 : 50)
                         .padding(.vertical, textFielde > 8 ? 17 : 14)
-                        .newoffwhite(offwhiteisTapped: textFielde > 8 ? true : false, cornerradius: 13)
                         
                             .padding(.top, 20)
                            .offset(y: textFielde == 10 ? 140 : 0)

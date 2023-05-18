@@ -10,7 +10,6 @@ struct MainTab: View {
     @AppStorage("notifications") var showNotifications = false
     @AppStorage("editcalendar") var showEditCalendar = false
     @Namespace var namespace
-    @State var course = Course(index: 1, title: "hey", subtitle: "what", text: "they", image: "image_02", background: "image_01", logo: "image_04")
    // @State var matchcard = MatchCardData(name: "", location: "", quote: "", profilepic: "", background: "", work: "", matchscore: "")
     @State var matchcard = matchCardData[0]
     @State var selectedSection = messageSections[0]
@@ -23,7 +22,7 @@ struct MainTab: View {
                 VStack{
                     
                     if self.selected == 0{
-                        HomeView(course: $course, matchcard: $matchcard)
+                        HomeView( matchcard: $matchcard)
                             
                     }
                    if self.selected == 1{
@@ -32,7 +31,7 @@ struct MainTab: View {
                     }
                     if self.selected == 2{
                        
-                        StandoutsView(course: $course, matchcard: $matchcard)
+                        StandoutsView(matchcard: $matchcard)
                     }
                     if self.selected == 3{
                         NotificationsDetail(namespace: namespace, notification: $selectedSection)
@@ -42,9 +41,10 @@ struct MainTab: View {
             }
             
             FloatingTabbar(selected: self.$selected)
-               
+                
                 .offset(y:  hidemainTab && (selected != 0)  ? UIScreen.main.bounds.height * 0.19 : 0)
                 .animation(.spring(), value: hidemainTab)
+                
         }
         
     }
@@ -75,37 +75,35 @@ struct FloatingTabbar : View {
             let hasHomeIndicator = proxy.safeAreaInsets.bottom > 0
            
             
-            HStack( alignment: .center, spacing: 10.0){
+            HStack( alignment: .center, spacing: 17.0){
                 
                   
-                TabIcon(selected: $selected, selectedicon: 0, icon: "house", tappedicon: $tappedicon )
-                TabIcon(selected: $selected, selectedicon: 1, icon: "fleuron", tapped: "", tappedicon: $tappedicon )
-                TabIcon(selected: $selected, selectedicon: 2, icon: "person.2" , tappedicon: $tappedicon )
-                TabIcon(selected: $selected, selectedicon: 3, icon: "bubble.left.and.bubble.right" , tapped: "" , tappedicon: $tappedicon )
+                TabIcon(selected: $selected, selectedicon: 0, icon: "house", name:"Home" ,tappedicon: $tappedicon )
+                TabIcon(selected: $selected, selectedicon: 1, icon: "fleuron",name:"Likes" , tappedicon: $tappedicon )
+                TabIcon(selected: $selected, selectedicon: 2, icon: "person.2" , name:"Explore" ,tappedicon: $tappedicon )
+                TabIcon(selected: $selected, selectedicon: 3, icon: "bubble.left.and.bubble.right",name:"Chats" , tappedicon: $tappedicon )
            
                 
                 
             }
             .frame(maxWidth: .infinity, maxHeight: hasHomeIndicator ? 64 : 64)
           
-            .background(Color("offwhite"))
+            .background(Color("background"))
            
             .background(Image("cover2")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             
                             .offset(x: self.selected == 0 ? -90 : self.selected == 1 ?  -20 : self.selected == 2 ? 40 :self.selected == 3 ? 90 : 0)
-                            
-                            //.animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 1), value: $tappedicon)
                             .animation(.spring(response: 0.8, dampingFraction: 0.5, blendDuration: 1), value: selected)
                             
                            
             )
-           // .cornerRadius( 30)
-            .newoffwhite(offwhiteisTapped: false, cornerradius: 30)
+            
+            .offwhitebutton(isTapped: tappedicon, isToggle: false, cornerRadius: 36, action: .constant(false))
             .scaleEffect(tappedicon ? 0.97 : 1)
             .animation(.spring(), value: tappedicon)
-            .padding(.horizontal, 80.0) //makes tabbar smaller
+            .padding(.horizontal, 79.0) //makes tabbar smaller
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
             
             
@@ -127,6 +125,7 @@ struct TabIcon: View {
     var selectedicon : Int = 0
     var icon : String = "person"
     var tapped: String = ".fill"
+    var name = "Name"
     let generator = UINotificationFeedbackGenerator()
     @Binding var tappedicon : Bool
    
@@ -141,41 +140,28 @@ struct TabIcon: View {
                 tappedicon = false
             }
         }) {
-            VStack{
-                Image(systemName: self.selected == selectedicon ? "\(icon)\(tapped)" : icon)
-                    .foregroundColor(self.selected == selectedicon ? .red  : .gray).padding(.horizontal)
-                   // .shadow(color:  Color.white.opacity(0.1), radius: 1.2, x:tappedicon ? -1 : 1, y:tappedicon ? -1 : 1 )
-                   // .shadow(color: Color.black.opacity(0.5),radius: 1.2, x:tappedicon  ? 1 : -1, y:tappedicon  ? 1 : -1)
-                    .background(Circle()
-                                    .fill(self.selected == selectedicon ? .red : .clear)
-                                    .animation(.spring(), value: tapped)
-                                    .frame(width: 40, height: 30)
-                                    .blur(radius: 19)
-                                    .opacity(0.4)
+            VStack(spacing:2){
+                VStack {
+                    Image(systemName: self.selected == selectedicon ? "\(icon)\(tapped)" : icon)
+                        .foregroundColor(self.selected == selectedicon ? .red  : .gray).padding(.horizontal)
+                        .background(Circle()
+                                        .fill(self.selected == selectedicon ? .red : .clear)
+                                        .animation(.spring(), value: tapped)
+                                        
+                                        .blur(radius: 19)
+                                        .opacity(0.4)
                     )
-                    
-                                    
+                }.frame(width: 40, height: 30)
                 if self.selected == selectedicon {
-                    
                     withAnimation(.spring(response: 0.8, dampingFraction: 0.4, blendDuration: 1)) {
                         Rectangle()
                             .fill(.red)
                             .frame(width: 8, height: 1)
-                            
                     }
-                   
-                     
-                     
-                       
-                        
-                } else {
-                    Rectangle()
-                       .fill(.red)
-                       .frame(width: 8, height: 1)
-                       .opacity(0)
-                    
                 }
-                
+                Text(name)
+                    .font(.footnote)
+                    .foregroundColor(self.selected == selectedicon ? .red : .gray)
             }
              
         }

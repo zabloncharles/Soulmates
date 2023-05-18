@@ -93,8 +93,7 @@ struct SectionView: View {
                     .foregroundColor(.secondary)
                 
                 HStack {
-                    LogoView(image: "Avatar 1")
-                        .accessibility(hidden: true)
+                    
                     Text("Taught by Meng To and Stephanie Diep")
                         .font(.footnote.weight(.medium))
                         .foregroundStyle(.secondary)
@@ -105,7 +104,6 @@ struct SectionView: View {
                 .background(
                     Rectangle()
                         .fill(.ultraThinMaterial)
-                        .backgroundStyle(cornerRadius: 30)
                 )
                 .frame(maxHeight: .infinity, alignment: .bottom)
                 .padding(20)

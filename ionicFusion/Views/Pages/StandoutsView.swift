@@ -9,24 +9,11 @@ import SwiftUI
 import Lottie
 import Firebase
 struct StandoutsView: View {
-    @AppStorage("saveinfo") var saveinfo = ""
     @ObservedObject var viewModel = UserViewModel()
-    @State var pregnancyChance = "Low"
-    @State var welcomeMessage = ""
-    @State var animateChance = false
-    @State var show = false
     @State var showProfile = false
-    @Binding var course: Course
     @Binding var matchcard : MatchCardData
-    @State var showStatusBar = true
-    @State var contentHasScrolled = false
-    @State var appeared = false
-    @State var clockAppeared = false
     @Namespace var namespace
-    @State var clockisTapped = false
     @State var welcomingisTapped = false
-    @State var animateGreeting = false
-    @State var cycleChangeSoon = false
     @AppStorage("signInAnimation") var signInAnimation = false
     @State private var offset = CGSize.zero
     @State var hideCard = false
@@ -181,11 +168,6 @@ struct StandoutsView: View {
             }.padding(20)
             Spacer()
         }
-    }
-    
-    var navigation: some View {
-        NavigationBar( title: "Soulmate",
-                       contentHasScrolled: $contentHasScrolled)
     }
     
     var topspacer: some View{
@@ -429,34 +411,15 @@ struct StandoutsView: View {
     
     
     //return an array of string
-    func data()->[String]{
-        
-        //   var data = saveinfo
-        let data = "Bridget,Miller,5,4,Possible,4,04/25/2000,z.test@gmail.com"
-        
-        // 0:name , 1:lname , 2:notifications, 3:period, 4:medium, 5:cycledate, 6:age, 7:email
-        return data.components(separatedBy: ",")
-    }
-    func getuserData(){
-        let cycle = Int(data()[2]) ?? 0
-        
-        if cycle >= 1 && cycle <= 2{
-            welcomeMessage = "Possible To Conceive"
-        }
-        else if cycle >= 3 && cycle <= 7{
-            welcomeMessage = "You're on a roll, you have many matches today"
-            
-        }
-        else if cycle >= 8 && cycle <= 9{
-            welcomeMessage = "Possible To Conceive"
-        }
-        else if cycle >= 10 && cycle <= 21{
-            welcomeMessage = "Unlikely to Conceive"
-        }
-        else if cycle >= 22 && cycle <= 28{
-            welcomeMessage = "Menstruation: Least Fertile"
-        }
-    }
+//    func data()->[String]{
+//        
+//        //   var data = saveinfo
+//        let data = "Bridget,Miller,5,4,Possible,4,04/25/2000,z.test@gmail.com"
+//        
+//        // 0:name , 1:lname , 2:notifications, 3:period, 4:medium, 5:cycledate, 6:age, 7:email
+//        return data.components(separatedBy: ",")
+//    }
+ 
     
 }
 

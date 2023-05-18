@@ -38,7 +38,6 @@ struct RecommendedComponent: View {
                 
                 
             }.frame(width: 160, height: 222)
-                  .newoffwhite(offwhiteisTapped: tapped, cornerradius: 18)
                   .padding(.bottom,5)
                   .overlay(
                     VStack {

@@ -76,7 +76,6 @@ struct MessagesView: View {
                                     
                             )
                             .frame(width: 60, height: 60)
-                            .newoffwhite(offwhiteisTapped: false, cornerradius: 180)
                             .padding(10)
                         VStack{
                             Text(section.name)

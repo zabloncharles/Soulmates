@@ -52,7 +52,7 @@ struct LauchView: View {
                     
                     
                 }.scaleEffect(appears ? 1 : 0.96)
-                  .offwhite(offwhitecolor: .purple, offwhitecolorShadow: .black, offwhiteisTapped: appears)
+                  
             }
           ViewController()
                 .offset(x: complete ? 0 : UIScreen.main.bounds.width * 2.09)
