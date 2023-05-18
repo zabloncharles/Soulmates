@@ -64,7 +64,7 @@ struct Standoutcard: View {
                 }
             )
         
-            .offwhiteCard(isToggle: false, cornerRadius: 15, action: $showProfile, matchcard: $matchcard, section: section)
+            .offwhiteCard(isToggle: false, cornerRadius: 15, action: $showProfile, shadow: true, matchcard: $matchcard, section: section)
             .padding(.horizontal,10)
             .padding(.bottom,15)
             .background(
@@ -144,7 +144,11 @@ struct Standoutcard: View {
         }
         
         if !dislike && (index >= 1) {
-            matchCardData.remove(at: section.usernumber)
+            if  matchCardData.indices.contains(section.usernumber) {
+                matchCardData.remove(at: section.usernumber)
+            }
+            
+            
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 
             }

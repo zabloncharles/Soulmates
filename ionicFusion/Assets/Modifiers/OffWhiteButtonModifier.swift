@@ -52,6 +52,38 @@ extension View {
     }
 }
 
+
+
+struct OffwhiteButtonTapped2: ViewModifier {
+    @State var isTapped: Bool
+    @State var cornerRadius: CGFloat = 15
+ 
+    
+    
+    func body(content: Content) -> some View {
+        ZStack {
+            if isTapped {
+                content
+                    .background(Color("offwhite"))
+                    .cornerRadius(cornerRadius)
+                    .shadow(color:  .black.opacity(0.3), radius: 10, x:10, y: 10 )
+                    .shadow(color: Color("white").opacity( 0.9 ),radius: -5, x:-5, y: -5)
+                .scaleEffect(isTapped ? 0.97 : 1)
+            } else {
+                content
+            }
+            
+        }
+        
+    }
+}
+
+extension View {
+    func offwhitebutton2(isTapped: Bool, cornerRadius: CGFloat) -> some View {
+        self.modifier(OffwhiteButtonTapped2(isTapped: isTapped, cornerRadius: cornerRadius))
+    }
+}
+
 //:MARK this card has offwhite and can click to linked action using binding---------------------------------------------------------------------------
 
 struct CardTapped: ViewModifier {
@@ -59,7 +91,7 @@ struct CardTapped: ViewModifier {
     @State var cornerRadius: CGFloat = 15
     @Binding var action: Bool
     @State var animate = false
-
+@State var shadow = true
     @Binding var matchcard : MatchCardData
     var section : MatchCardData
   
@@ -68,8 +100,8 @@ struct CardTapped: ViewModifier {
         content
             .background(Color("offwhite"))
             .cornerRadius(cornerRadius)
-            .shadow(color:  .black.opacity(0.3), radius: 10, x:animate ? -5 : 10, y:animate ? -5 : 10 )
-            .shadow(color: Color("white").opacity(0.9),radius: 10, x:animate  ? 10 : -5, y:animate  ? 10 : -5)
+            .shadow(color:  .black.opacity(shadow ? 0.3 : 0), radius: 10, x:animate ? -5 : 10, y:animate ? -5 : 10 )
+            .shadow(color: Color("white").opacity(shadow ? 0.9 : 0),radius: 10, x:animate  ? 10 : -5, y:animate  ? 10 : -5)
             .scaleEffect(animate && !isToggle ? 0.97 : 1)
         
             .onTapGesture {
@@ -108,8 +140,8 @@ struct CardTapped: ViewModifier {
 }
 
 extension View {
-    func offwhiteCard(isToggle: Bool, cornerRadius: CGFloat ,action : Binding<Bool>, matchcard : Binding<MatchCardData>, section : MatchCardData) -> some View {
-        self.modifier(CardTapped(isToggle: isToggle, cornerRadius: cornerRadius, action: action, matchcard: matchcard, section: section))
+    func offwhiteCard(isToggle: Bool, cornerRadius: CGFloat ,action : Binding<Bool>, shadow : Bool, matchcard : Binding<MatchCardData>, section : MatchCardData) -> some View {
+        self.modifier(CardTapped(isToggle: isToggle, cornerRadius: cornerRadius, action: action, shadow: shadow, matchcard: matchcard, section: section))
     }
 }
 

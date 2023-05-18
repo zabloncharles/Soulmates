@@ -21,7 +21,6 @@ struct HomeView: View {
     @State var showStatusBar = true
     @State var contentHasScrolled = false
     @State var appeared = false
-    @State var clockAppeared = false
     @Namespace var namespace
     @State var clockisTapped = false
     @State var welcomingisTapped = false
@@ -32,13 +31,18 @@ struct HomeView: View {
     @State var hideCard = false
     @State var pageAppeared = false
     @State var dislike = false
-    
+    @State var nomorecards = false
+    @State var profiletype = 0
     @State var number = matchCardData.count
     @State var backViewSize: CGFloat = 80
-    
+    @State var dragsize = CGSize.zero
+    @State var pressed = false
     
     private func getCardOffset(_ geometry: GeometryProxy, id: Int) -> CGFloat {
-        return  CGFloat(number - 1 - id) * -20
+        return CGFloat(number - 1 - id) - 10  //moves all up or down
+    }
+    private func getCardOffsete(_ geometry: GeometryProxy, id: Int) -> CGFloat {
+        return CGFloat(number - 1 - id) - 510 // puts cards together
     }
     // Compute what the max ID in the given users array is.
     /// Return the CardViews width for the given offset in the array
@@ -72,65 +76,47 @@ struct HomeView: View {
                          //   ScrollView(.vertical){
                     
                 VStack {
-                   
-                    
-                    
                     welcoming
                         .offset(y: showProfile ? -600 : 0)
                         .animation(.spring(), value: showProfile)
                         .offset(y: pageAppeared ? 0 : reader.size.height * -1)
                         
-                   
+                        
+                            VStack{
                                 
-                                
-                    
-                    VStack {
-                        VStack{
-                            
-                                                
-                                                
-                            ForEach(Array(matchCardData.enumerated().reversed()), id: \.offset) { index, section in
-                                                    if index != 0 {  }
-                                                    if section.usernumber > self.maxID - 3   {
-                                                        
-                                                        ProfileCard(showProfile: $showProfile, matchcard: $matchcard, section: section, namespace: namespace, hideCard: $hideCard, number: $number, index: index)
-                                                          //  .frame(width:reader.size.width - 20, height:  530)
-                                                        
-                                                            .frame( height: 530)
-                                                            .padding(.horizontal,self.getCardWidth(reader, id: index) )
-                                                            .padding(.top,0)
-                                                            .padding(.bottom,20)
-                                                            .padding(.horizontal, 8)
-                                                            .rotation3DEffect(.degrees(self.get3d(reader, id: index)), axis: (x:10 ,y:0, z:0))
-                                                            .offset(y: self.getCardOffset(reader, id: index))
-                                                            .animation(.spring())
-                                                        
-                                                        
+                                                    
+                                                    
+                                ForEach(Array(matchCardData.enumerated()), id: \.offset) { index, section in
+                                                        if index != 0 {  }
+                                                        if section.usernumber > self.maxID - 3   {
+                                                            
+                                                            ProfileCard(showProfile: $showProfile, matchcard: $matchcard, section: section, namespace: namespace, number: $number, index: index,dragsize:$dragsize)
+                                                              //  .frame(width:reader.size.width - 20, height:  530)
+                                                            
+                                                                .frame( height: 520)
+                                                               // .padding(.horizontal,self.getCardWidth(reader, id: index) )
+                                                                .padding(.top,0)
+                                                                .padding(.bottom, self.getCardOffsete(reader, id: index))
+                                                                .padding(.horizontal, 9)
+                                                               // .rotation3DEffect(.degrees(self.get3d(reader, id: index)), axis: (x:10 ,y:0, z:0))
+                                                            
+                                                               // .offset(y: self.getCardOffset(reader, id: index))
+                                                                .offset(y:dragsize.height/2)
+                                                                .offset(y: self.getCardOffset(reader, id: index))
+                                                                .animation(.spring())
+                                                            
+                                                            
+                                                        }
                                                     }
-                                                }
-                            }.offset(y: pageAppeared ? 0 : reader.size.height * 2)
-                            .opacity(pageAppeared ? 1 : 0)
-                    }
+                                }.offset(y: pageAppeared ? 0 : reader.size.height * 2)
+                                .opacity(pageAppeared ? 1 : 0)
+                        
+                    
+                  
+                    
                         
                 }.padding(.top, reader.size.height / 13 )
-                                    
-                                
-                                
-                            
-                            
-                         
-                            
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
+                       
                     
               //  }
                 
@@ -148,6 +134,7 @@ struct HomeView: View {
                 navigation
                     .offset(y: showProfile || !pageAppeared ? -200 : 0)
                     .animation(.spring(), value: showProfile)
+                
             }.onAppear{
                 withAnimation(.spring().speed(0.4)){
                     pageAppeared = true
@@ -161,6 +148,44 @@ struct HomeView: View {
         
     }
     
+    
+    var nocards: some View {
+        VStack {
+            VStack {
+                LottieView(filename: "loveflying" ,loop: true)
+                    .frame(width: 100)
+                    .opacity(pageAppeared ? 1 : 0)
+                
+            }.offset( x:-40, y:280)
+                .opacity(0.7)
+            
+            VStack {
+                LottieView(filename: "girllikingstuff" ,loop: true)
+                    .frame(width: 280)
+                    .opacity(pageAppeared ? 1 : 0)
+                
+            }
+            
+            VStack(alignment: .center, spacing: 20.0) {
+                
+                Text("Opps! No profiles yet")
+                    .font(.headline)
+                Text("Nothing to seee here. Likes are more intentional on Soulmate so don't worry, They'll come in very soon.")
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal,25)
+                HStack {
+                    Text("Try boosting your profile")
+                        .font(.body)
+                        .fontWeight(.semibold)
+                }.padding(.horizontal,15)
+                    .padding(.vertical,10)
+                    .background(Color(red: 1.0, green: 0.0, blue: 0.0, opacity: 1.0))
+                    .cornerRadius(30)
+            }.padding(10)
+                .opacity(pageAppeared ? 1 : 0)
+        }.offset(y:-210)
+    }
     var navigation: some View {
         NavigationBar( title: "Soulmate",
                        contentHasScrolled: $contentHasScrolled)
@@ -268,26 +293,22 @@ struct HomeView: View {
             .padding(.horizontal,20)
             .padding(.bottom, 5)
             .onAppear {
-                
                 getuserData()
                 animateChance = true
-                
                 withAnimation(.spring(response: 1.9, dampingFraction: 1.5, blendDuration: 8)) {
-                    if signInAnimation {
-                        appeared = true
-                    }
+                    
                 }
             }
             .onDisappear {
                 withAnimation(.spring()) {
-                    
-                    appeared = false
-                    signInAnimation = false
+                   
                     
                 }
             }
             
             typeofprofiles
+            
+            
             
         }
         
@@ -296,19 +317,15 @@ struct HomeView: View {
     var typeofprofiles : some View {
         HStack{
             HStack {
-                Text("Compatible")
-                    .padding(.vertical,5)
-                    .padding(.horizontal,8)
                 
-                    .cornerRadius(40)
-                    .offwhitebutton(isTapped: welcomingisTapped, isToggle: false, cornerRadius: 20, action:  .constant(false))
-                
+                TypeofMenuRow(tap: $profiletype, selected: 0, placeholder: "Compatible")
+               
                 Spacer()
-                Text("Active")
+                TypeofMenuRow( tap: $profiletype, selected: 1, placeholder: "Active")
                 Spacer()
-                Text("Nearby")
+                TypeofMenuRow( tap: $profiletype, selected: 2, placeholder: "Near")
                 Spacer()
-                Text("New Here")
+                TypeofMenuRow(tap: $profiletype, selected: 3, placeholder: "New Here")
                 
                 
             }
@@ -536,4 +553,55 @@ struct HomeView_Previews: PreviewProvider {
         
         
     }
+}
+
+
+struct TypeofMenuRow:  View {
+    @State var pressed = false
+    @Binding var tap : Int
+    var selected = 0
+    var placeholder = "name?"
+    
+    
+    var body: some View {
+        VStack {
+            ZStack {
+                if tap == selected  {
+                    Text(placeholder)
+                        .padding(.vertical,5)
+                        .padding(.horizontal,8)
+                        //.background(tap == selected ? Color.green : Color.blue)
+                       
+                        
+                        .offwhitebutton2(isTapped: true, cornerRadius: 15)
+                        
+                    .scaleEffect(pressed ? 0.97 : 1)
+                }
+                
+               else {
+                Text(placeholder)
+                    .padding(.vertical,5)
+                    .padding(.horizontal,8)
+                    .scaleEffect(pressed ? 0.97 : 1)
+                  
+                }
+            }
+            .onTapGesture {
+                
+                
+                withAnimation(.spring()) {
+                    pressed = true
+                    tap = selected
+                }
+                
+                
+                
+                
+            }
+           
+        }
+        
+       
+    }
+  
 }

@@ -13,14 +13,15 @@ struct ProfileCard: View {
     var section : MatchCardData
     @State var welcomingisTapped = false
     var namespace: Namespace.ID
-    @Binding var hideCard : Bool
     @State var backViewSize: CGFloat = 80
     @State var size: CGSize = .zero
     @Binding var number : Int
     var index : Int
     @State var dislike = false
-  @State var nomorecards = false
-    
+    @State var nomorecards = false
+    @Binding var dragsize : CGSize
+    @State var show = false
+    @State var hide = false
     
     var body: some View {
         VStack {
@@ -47,34 +48,62 @@ struct ProfileCard: View {
                                 VStack {
                                     HStack {
                                         Image(systemName: "person.and.background.dotted")
-                                        Text("\(number)")
+                                        Text("\(section.usernumber)")
+                                       // Text("number = \(number) number = \(index) usrnumber = \(section.usernumber)")
                                     }
                                 } .padding(.horizontal,10)
                                     .padding(.vertical,4)
                                     .background(.ultraThinMaterial)
-                                    .cornerRadius(6)
-                                    .offset(x:-150,y:-230)
+                                    .cornerRadius(9)
+                                    .offset(x:-150,y:-220)
                             )
                       
                       
                     }
                 )
                 
-                .offwhiteCard(isToggle: false, cornerRadius: 15, action: $showProfile, matchcard: $matchcard, section: section)
+                .offwhiteCard(isToggle: !show, cornerRadius: 25, action: $showProfile, shadow: false, matchcard: $matchcard, section: section)
                 .padding(.bottom,12)
-                .offset(self.size)
+                .padding(show ?  0 : 40)
+                .offset(y:hide ? 750 : self.size.height)
                 .animation(.spring(), value: self.size)
-                
+                .gesture(DragGesture().onChanged({ (value) in
+                   
+                        self.size = value.translation
+                        self.dragsize = value.translation
+                    
+                })
+                    .onEnded({ (value) in
+                        self.size = .zero
+                        self.dragsize = .zero
+                       // removeCard()
+                    }))
                     .background(
                         VStack {
+                            
+                            //if dislike is tapped DO THIS
                             if dislike {
                                 Color.black
                                     .opacity(0)
                                     .onAppear{
-                                        removeCard()
+                                       
+                                        withAnimation(.spring().speed(0.5)) {
+                                            hide = true
+                                        }
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                                            removeCard()
+                                        }
+                                        
                                     }
+                                    
                             }
                         }.opacity(0))
+                    .onAppear{
+                        withAnimation(.spring()) {
+                            show = true
+                        }
+                    }
+                    
             
         }
        
@@ -95,21 +124,24 @@ struct ProfileCard: View {
         
         if dislike {
           
-            withAnimation(.spring().delay(2)){
+            withAnimation(.spring()){
                 
                 self.size = CGSize(width: -500, height: 0)
                 
-                    matchCardData.remove(at: section.usernumber)
+                    
                
             }
-            
+            if section.usernumber >= 0 {
+                matchCardData.remove(at: section.usernumber)
+            }
         }
         
        
-        if index < 1 {
-            nomorecards = true
-        } else {
+        if matchCardData.indices.contains(section.usernumber){
+            
             nomorecards = false
+        } else {
+            nomorecards = true
         }
         
         
@@ -172,7 +204,7 @@ struct ProfileInfoCard: View {
                 
                 VStack(alignment: .leading, spacing: 5) {
                     
-                    HStack {
+                    HStack(spacing:2) {
                         Image(systemName: "house")
                             .font(.system(size: 18, weight: .medium))
                         
@@ -182,15 +214,18 @@ struct ProfileInfoCard: View {
                             .fontWeight(.semibold)
                             .lineLimit(2)
                         
-                    }.foregroundColor(.secondary)
-                    Text(section.quote)
-                        .font(.footnote)
-                        .multilineTextAlignment(.leading)
-                        .lineLimit(2)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .foregroundColor(.secondary)
+                    }.foregroundColor(.primary)
+                    HStack {
+                        Image(systemName: "highlighter")
+                        Text(" \"\(section.quote)\" ")
+                            .font(.footnote)
+                            .multilineTextAlignment(.leading)
+                            .lineLimit(2)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        .foregroundColor(.primary)
+                    }
                     
-                }
+                }.foregroundColor(.black)
                 
                 HStack {
                     Rectangle()
@@ -260,10 +295,27 @@ struct ProfileInfoCard: View {
                     
                     
                 } .frame(maxWidth: .infinity)
-                    .padding(10)
+                    .padding(15)
+                    .background(.ultraThinMaterial)
+                    .cornerRadius(30)
+                    .padding(5)
                     .padding(.bottom, 5)
             }.padding()
-                .offwhitebutton(isTapped: welcomingisTapped, isToggle: false, cornerRadius: 20, action:  .constant(false))
+               //
+                .background(
+                    Image("licensebg")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .opacity(0.4)
+                )
+                .background(
+                    Image("image_06")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        
+                )
+                //.offwhitebutton(isTapped: welcomingisTapped, isToggle: false, cornerRadius: 20, action:  .constant(false))
+                .background(.ultraThinMaterial)
                 .cornerRadius(25.0)
             
                 .overlay(
@@ -276,7 +328,7 @@ struct ProfileInfoCard: View {
                             SmallClock()
                         )
                         .padding([.top],-139)
-                        .padding([.leading],199)
+                        .padding([.leading],240)
                     
                     
                 )

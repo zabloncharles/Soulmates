@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct LikesView: View {
+    @State var pageAppeared = false
     var body: some View {
         ZStack {
             VStack {
                 LottieView(filename: "loveflying" ,loop: true)
                     .frame(width: 100)
+                    .opacity(pageAppeared ? 1 : 0)
                 
             }.offset( x:-40, y:280)
                 .opacity(0.7)
@@ -20,6 +22,7 @@ struct LikesView: View {
             VStack {
                 LottieView(filename: "girllikingstuff" ,loop: true)
                     .frame(width: 280)
+                    .opacity(pageAppeared ? 1 : 0)
                 
             }.offset(y:-160)
             
@@ -42,6 +45,7 @@ struct LikesView: View {
                         .cornerRadius(20)
                         
                 }.padding(15).offwhitebutton(isTapped: false, isToggle: false, cornerRadius: 15, action:  .constant(false))
+                    .offset(y: pageAppeared ? 0 : -300)
                 
                 Spacer()
              
@@ -61,12 +65,23 @@ struct LikesView: View {
                         .background(Color(red: 1.0, green: 0.0, blue: 0.0, opacity: 1.0))
                         .cornerRadius(30)
                 }.padding(10)
+                    .opacity(pageAppeared ? 1 : 0)
                     
                     
                     
                 Spacer()
             }.padding(20)
         }.background(Color("background"))
+            .onAppear{
+                withAnimation(.spring().speed(0.4)){
+                    pageAppeared = true
+                }
+            }
+            .onDisappear{
+                withAnimation(.spring()){
+                    pageAppeared = false
+                }
+            }
     }
 }
 
