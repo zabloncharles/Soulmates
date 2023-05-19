@@ -62,9 +62,9 @@ struct ProfileCard: View {
                     }
                 )
                 
-                .offwhiteCard(isToggle: !show, cornerRadius: 25, action: $showProfile, shadow: false, matchcard: $matchcard, section: section)
+                .offwhiteCard(isToggle: show, cornerRadius: 25, action: $showProfile, shadow: false, matchcard: $matchcard, section: section)
                 .padding(.bottom,12)
-                .padding(show ?  0 : 40)
+                .padding(show ?  0 : 10)
                 .offset(y:hide ? 750 : self.size.height)
                 .animation(.spring(), value: self.size)
                 .gesture(DragGesture().onChanged({ (value) in
@@ -87,10 +87,10 @@ struct ProfileCard: View {
                                     .opacity(0)
                                     .onAppear{
                                        
-                                        withAnimation(.spring().speed(0.5)) {
+                                        withAnimation(.spring()) {
                                             hide = true
                                         }
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                             removeCard()
                                         }
                                         
@@ -296,7 +296,7 @@ struct ProfileInfoCard: View {
                             Circle()
                                 .fill(Color("offwhite"))
                                 .frame(width:46, height:  46)
-                                .offwhitebutton(isTapped: welcomingisTapped, isToggle: false, cornerRadius: 60, action:  $dislike)
+                                .offwhitebutton(isTapped: welcomingisTapped, isToggle: true, cornerRadius: 60, action:  $dislike)
                         )
                     
                     Spacer()
@@ -325,7 +325,7 @@ struct ProfileInfoCard: View {
                                 Circle()
                                     .fill(Color("offwhite"))
                                     .frame(width:46, height:  46)
-                                    .offwhitebutton(isTapped: welcomingisTapped, isToggle: false, cornerRadius: 60, action:  .constant(false))
+                                    .offwhitebutton(isTapped: welcomingisTapped, isToggle: false, cornerRadius: 60, action:  $showProfile)
                                 
                                 
                             }
@@ -362,8 +362,9 @@ struct ProfileInfoCard: View {
                         
                 )
                 //.offwhitebutton(isTapped: welcomingisTapped, isToggle: false, cornerRadius: 20, action:  .constant(false))
-                .background(.ultraThinMaterial)
-                .cornerRadius(25.0)
+                .cornerRadius(20.0)
+                .scaleEffect( dislike ?  0.97 : 1)
+                .shadow(color:  .black.opacity(0.6), radius: 8, x:3, y: 2 )
             
                 .overlay(
                     Image("Avatar 2")

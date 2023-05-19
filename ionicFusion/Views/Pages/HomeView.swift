@@ -36,25 +36,27 @@ struct HomeView: View {
     @State var number = matchCardData.count
     @State var backViewSize: CGFloat = 80
     @State var dragsize = CGSize.zero
-    @State var pressed = false
+    @State var menupressed = false
+    @State var differentpage = false
+    @State var slidecardsfromright = false
     
-    private func getCardOffset(_ geometry: GeometryProxy, id: Int) -> CGFloat {
-        return CGFloat(number - 1 - id) - 10  //moves all up or down
+    private func getCardOffset(_ geometry: GeometryProxy, id: Int, count: Int) -> CGFloat {
+        return CGFloat(count - 1 - id) - 10  //moves all up or down
     }
-    private func getCardOffsete(_ geometry: GeometryProxy, id: Int) -> CGFloat {
-        return CGFloat(number - 1 - id) - 510 // puts cards together
+    private func getCardOffsete(_ geometry: GeometryProxy, id: Int, count: Int) -> CGFloat {
+        return CGFloat(count - 1 - id) - 510 // puts cards together
     }
     // Compute what the max ID in the given users array is.
     /// Return the CardViews width for the given offset in the array
     /// - Parameters:
     ///   - geometry: The geometry proxy of the parent
     ///   - id: The ID of the current user
-    private func getCardWidth(_ geometry: GeometryProxy, id: Int) -> CGFloat {
-        let offset = CGFloat(number - 1 - id) * 10
+    private func getCardWidth(_ geometry: GeometryProxy, id: Int, count: Int) -> CGFloat {
+        let offset = CGFloat(count - 1 - id) * 10
         return  offset
     }
-    private func get3d(_ geometry: GeometryProxy, id: Int) -> CGFloat {
-        let offset = CGFloat(number - 1 - id) * 10
+    private func get3d(_ geometry: GeometryProxy, id: Int, count: Int) -> CGFloat {
+        let offset = CGFloat(count - 1 - id) * 10
         return  offset
     }
     // Compute what the max ID in the given users array is.
@@ -86,31 +88,64 @@ struct HomeView: View {
                                 
                                                     
                                                     
-                                ForEach(Array(matchCardData.enumerated()), id: \.offset) { index, section in
-                                                        if index != 0 {  }
-                                                        if section.usernumber > self.maxID - 3   {
-                                                            
-                                                            ProfileCard(showProfile: $showProfile, matchcard: $matchcard, section: section, namespace: namespace, number: $number, index: index,dragsize:$dragsize)
-                                                              //  .frame(width:reader.size.width - 20, height:  530)
-                                                            
-                                                                .frame( height: 520)
-                                                                .padding(.horizontal,self.getCardWidth(reader, id: index) )
-                                                                .padding(.top,0)
-                                                                .padding(.bottom, self.getCardOffsete(reader, id: index))
-                                                                .padding(.horizontal, 9)
-                                                               // .rotation3DEffect(.degrees(self.get3d(reader, id: index)), axis: (x:10 ,y:0, z:0))
-                                                            
-                                                               // .offset(y: self.getCardOffset(reader, id: index))
-                                                                .offset(y:dragsize.height/2)
-                                                                .offset(y: self.getCardOffset(reader, id: index))
-                                                                .animation(.spring())
-                                                            
-                                                            
-                                                        }
-                                                    }
+                                if profiletype == 0 {
+                                    ForEach(Array(matchCardData.enumerated()), id: \.offset) { index, section in
+                                        if index != 0 {  }
+                                        if section.usernumber > self.maxID - 3   {
+                                            
+                                            
+                                            
+                                            ProfileCard(showProfile: $showProfile, matchcard: $matchcard, section: section, namespace: namespace, number: $number, index: index,dragsize:$dragsize)
+                                            
+                                                .frame( height: 520)
+                                            //.padding(.horizontal,self.getCardWidth(reader, id: index) )
+                                                .padding(.top,0)
+                                                .padding(.bottom, self.getCardOffsete(reader, id: index, count: matchCardData.count))
+                                                .padding(.horizontal, 9)
+                                            // .rotation3DEffect(.degrees(self.get3d(reader, id: index)), axis: (x:10 ,y:0, z:0))
+                                                .offset(y:dragsize.height/2)
+                                                .offset(y: self.getCardOffset(reader, id: index, count: matchCardData.count))
+                                            
+                                                .animation(.spring())
+                                            
+                                            
+                                            
+                                            
+                                        }
+                                    }
+                                }
+                                
+                                if profiletype == 1 {
+                                    ForEach(Array(matchCardActiveData.enumerated()), id: \.offset) { index, section in
+                                        if index != 0 {  }
+                                        if section.usernumber > self.maxID - 3   {
+                                            
+                                            
+                                            
+                                            ProfileCard(showProfile: $showProfile, matchcard: $matchcard, section: section, namespace: namespace, number: $number, index: index,dragsize:$dragsize)
+                                            
+                                                .frame( height: 520)
+                                            //.padding(.horizontal,self.getCardWidth(reader, id: index) )
+                                                .padding(.top,0)
+                                                .padding(.bottom, self.getCardOffsete(reader, id: index, count: matchCardData.count))
+                                                .padding(.horizontal, 9)
+                                            // .rotation3DEffect(.degrees(self.get3d(reader, id: index)), axis: (x:10 ,y:0, z:0))
+                                                .offset(y:dragsize.height/2)
+                                                .offset(y: self.getCardOffset(reader, id: index, count: matchCardData.count))
+                                            
+                                                .animation(.spring())
+                                            
+                                            
+                                            
+                                            
+                                        }
+                                    }
+                                }
+
+                                                    
                                 }.offset(y: pageAppeared ? 0 : reader.size.height * 2)
                                 .opacity(pageAppeared ? 1 : 0)
-                        
+                                
                     
                   
                     
@@ -318,14 +353,14 @@ struct HomeView: View {
         HStack{
             HStack {
                 
-                TypeofMenuRow(tap: $profiletype, selected: 0, placeholder: "Compatible")
+                TypeofMenuRow(pressed: $menupressed, tap: $profiletype, selected: 0, placeholder: "Compatible")
                
                 Spacer()
-                TypeofMenuRow( tap: $profiletype, selected: 1, placeholder: "Active")
+                TypeofMenuRow( pressed: $menupressed, tap: $profiletype, selected: 1, placeholder: "Active")
                 Spacer()
-                TypeofMenuRow( tap: $profiletype, selected: 2, placeholder: "Near")
+                TypeofMenuRow( pressed: $menupressed, tap: $profiletype, selected: 2, placeholder: "Near")
                 Spacer()
-                TypeofMenuRow(tap: $profiletype, selected: 3, placeholder: "New Here")
+                TypeofMenuRow(pressed: $menupressed, tap: $profiletype, selected: 3, placeholder: "New Here")
                 
                 
             }
@@ -557,7 +592,7 @@ struct HomeView_Previews: PreviewProvider {
 
 
 struct TypeofMenuRow:  View {
-    @State var pressed = false
+    @Binding var pressed : Bool
     @Binding var tap : Int
     var selected = 0
     var placeholder = "name?"
