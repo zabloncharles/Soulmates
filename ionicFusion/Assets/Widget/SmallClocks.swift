@@ -8,14 +8,10 @@
 import SwiftUI
 ///Small clock code starts her----------------------------------------------------------------------
 struct SmallClock: View {
-    @AppStorage("cycle") var cycle = 0
-   // @State var currentTime = Time(sec: 0, min: 0, hour: 0)
-    @State var receiver = Timer.publish(every: 1, on: .current, in: .default).autoconnect()
+    @State var cycle = 0
     var width = UIScreen.main.bounds.width
     @State var smallClockSize : CGFloat = 320
     @State var tapped = false
-    var periodCount = 60
-    @State var days = 0
     @State var smallClockAppeared = false
     @State var smallClockTapped = false
     
@@ -34,107 +30,100 @@ struct SmallClock: View {
                 
                 //"Your-Ovulation-Period"
                 HStack {
-                    CircleText(radius: 80, text: "Your-Match".uppercased(), kerning: 10, height: 140, width: 70, font: .caption2)
-                    //                        .background(
-                    //                            Circle()
-                    //                                .trim(from: 0.0, to: 0.99 )
-                    //                                .stroke(style: StrokeStyle(lineWidth: 14, lineCap: .round))
-                    //                                .fill(.angularGradient(colors: [Color("offwhite")], center: .center, startAngle: .degrees(110), endAngle: .degrees(60)))
-                    //                                .rotationEffect(.degrees(140)) //turn it around
-                    //
-                    //                                .padding(-29)
-                    //                        )
+                    CircleText(radius: 60, text: "Your-Match".uppercased(), kerning: 10, height: 140, width: 70, font: .caption2)
+                                            .background(
+                                                Circle()
+                                                    .trim(from: 0.0, to: 0.99 )
+                                                    .stroke(style: StrokeStyle(lineWidth: 1, lineCap: .round))
+                                                    .fill(.angularGradient(colors: [Color("offwhite")], center: .center, startAngle: .degrees(110), endAngle: .degrees(60)))
+                                                    .rotationEffect(.degrees(140)) //turn it around
+                    
+                                                    .padding(-14)
+                                            )
                     
                     
                 }
-                
-                
-                
-                
-                
-                
-                //                Circle() // the blue dial
-                //
-                //                    .trim(from: 0, to: 0.99 )
-                //                    .stroke(style: StrokeStyle(lineWidth: 2, lineCap: .round))
-                //                    .fill(.angularGradient(colors: [.green,.green,.green,.pink,.red,.green], center: .center, startAngle: .degrees(454), endAngle: .degrees(0)))
-                //                    .frame(width: (width - 233) / 2, height: 70)
-                //                    .rotationEffect(.degrees(10))
-                Image(systemName: "drop.circle")
+                Image(systemName: "fleuron")
                     .font(.largeTitle)
-                    .foregroundColor(.red)
+                    .foregroundColor(.gray)
                 
-                
+                HStack {
+                    CircleText(radius: 80, text: " 0%  15%  30%  45%  60%  100%".uppercased(), kerning: 10, height: 90, width:170, font: .caption2)
+                       
+                    
+                    
+                }
+                Image(systemName: "fleuron")
+                    .font(!smallClockAppeared ? .footnote : .largeTitle)
+                    .foregroundColor(.gray)
+                    
                 
                 // black seconds
                 ForEach(0..<60, id: \.self){ numbers in //tick size in circle
                     Rectangle()
                         .foregroundColor(.red)
-                        .frame(width: 5, height: (width - 383) / 17)
+                        .frame(width: 10, height: (width - 383) / 207)
                     
                         .offset(y: (width - 235) / 4)
-                        .rotationEffect(.init(degrees: Double(numbers) * 1.34))//how many you want shown
-                        .rotationEffect(.degrees(100))
+                        .rotationEffect(.init(degrees: Double(numbers) * 100.34))//how many you want shown
+                        .rotationEffect(.degrees(smallClockAppeared ? -70 :  20))
                     
                     //Small Clock Tick
                     Rectangle()
-                        .fill(Color("black"))
+                        .fill(.gray)
                         .frame(width: 1, height: (width - 322) / 5)
                         .overlay(
                         Image(systemName: "arrowtriangle.down.fill")
-                            .foregroundColor(Color("black"))
+                            .foregroundColor(.gray)
                             .font(.caption2)
                             .rotationEffect(.degrees(180))
                             .offset(y: -7)
                         )
                         .offset(y: (width - 460) / 1)
-                        .rotationEffect(.init(degrees: Double(abs(smallClockAppeared ? abs(cycle) : -54)) * 13.3))
-                        .rotationEffect(.degrees(-13))
-                        .onAppear {
-                            withAnimation(.spring(response: 2, dampingFraction: 2, blendDuration: 7)) {
-                                smallClockAppeared = true
-                            }
-                        }
-                        .onDisappear {
-                            withAnimation(.spring()) {
-                                smallClockAppeared = false
-                            }
-                        }
-                    //                    Circle()
-                    //                        .fill(Color("black"))
-                    //                        .frame(width: 5, height: 5)
-                    
+                    //2 = 0 // 13.6 = 15% // 22.6 = 30% // 31.0 = 45% // 40 = 60% // 50 = 100%
+                        .rotationEffect(.init(degrees: Double(abs(smallClockAppeared ? abs(getpercent()) : 40)) * 20 / 3 - 15))
+                        .rotationEffect(.degrees(-180))
+                        
+               
                 }
-                //.offset(x: -(width - 40) / 4)
+               
                 
             }
-            .scaleEffect(smallClockTapped ? 0.97 : 1)
+            
           
             
+        }.onAppear {
+            withAnimation(.spring()) {
+                smallClockAppeared = true
+            }
+        }
+        .onDisappear {
+            withAnimation(.spring()) {
+                smallClockAppeared = false
+            }
         }
     }
-    func getOvulationFunc(){
+    func getpercent() ->  Double  {
         
-        if cycle >= 1 && cycle <= -2{
-            // "Possible To Conceive"
-            days = 65
-            
+        var thepercent = 0.0
+        
+        if cycle == 0 {
+            thepercent = 2
+        } else if cycle == 15 {
+            thepercent = 13.6
+        } else if cycle == 30 {
+            thepercent = 22.6
+        } else if cycle == 45 {
+            thepercent = 31.0
+        } else if cycle == 60 {
+            thepercent = 40
+        } else if cycle == 100 {
+            thepercent = 50
         }
-        else if cycle >= 3 && cycle <= -7{
-            // "Ovulation: \"The Fertile Window\"Best Chance of Conception"
-            days = 70
-        }
-        else if cycle >= 8 && cycle <= -9{
-            // "Possible To Conceive"
-        }
-        else if cycle >= 10 && cycle <= -21{
-            // "Unlikely to Conceive"
-        }
-        else if cycle >= 22 && cycle <= -28{
-            // "Menstruation: Least Fertile"
-            days = 42
-        }
+        
+        return thepercent
     }
+   
 }
 
 

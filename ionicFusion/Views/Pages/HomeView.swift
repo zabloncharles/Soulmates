@@ -94,7 +94,7 @@ struct HomeView: View {
                                                               //  .frame(width:reader.size.width - 20, height:  530)
                                                             
                                                                 .frame( height: 520)
-                                                               // .padding(.horizontal,self.getCardWidth(reader, id: index) )
+                                                                .padding(.horizontal,self.getCardWidth(reader, id: index) )
                                                                 .padding(.top,0)
                                                                 .padding(.bottom, self.getCardOffsete(reader, id: index))
                                                                 .padding(.horizontal, 9)

@@ -58,7 +58,7 @@ struct ProfileCard: View {
                                     .offset(x:-150,y:-220)
                             )
                       
-                      
+                        
                     }
                 )
                 
@@ -160,19 +160,19 @@ struct ProfileInfoCard: View {
     @Binding var dislike : Bool
     
     var body : some View {
-        VStack(alignment: .leading, spacing: 8.0) {
+        VStack(alignment: .leading, spacing: 0.0) {
             Spacer()
             
             
-            VStack(spacing: 2) {
-                
-                HStack{
+            VStack(alignment: .leading, spacing: 0) {
+          
                     VStack(alignment: .leading,spacing: 0) {
                         HStack(alignment: .center) {
                             Text(section.name)
                                 .font(.largeTitle)
                                 .fontWeight(.bold)
                                 .lineLimit(1)
+                                .shadow(color:  .black.opacity(0.2), radius: 2, x:3, y: 2 )
                                 
                             
                             Image(systemName: "checkmark.seal.fill")
@@ -180,6 +180,32 @@ struct ProfileInfoCard: View {
                                 .foregroundColor(.blue)
                         }
                         
+                       
+                        
+                    }.padding(.bottom,5)
+                    
+                    
+                    
+                    
+                
+                
+                HStack {
+                    VStack {
+                       Image("Avatar 2")
+                            .resizable()
+                            .frame(width: 90, height: 90)
+                            .cornerRadius(6)
+                            
+                    }.overlay(
+                        Text("\(section.name)")
+                            .font(.custom("Carlotte", size: 40))
+                            .foregroundStyle(.primary)
+                            .opacity(0.5)
+                            .offset(y:100)
+                    )
+                    Spacer()
+                    
+                    VStack(alignment: .leading, spacing: 5) {
                         HStack(spacing: 3.5){
                             Image(systemName: "circle.fill")
                                 .font(.system(size: 10, weight: .medium))
@@ -190,42 +216,57 @@ struct ProfileInfoCard: View {
                                 .fontWeight(.semibold)
                                 .lineLimit(2)
                                 .foregroundColor(.secondary)
-                                
+                            
                         }
                         
-                    }
-                    
-                    
-                    
-                    
-                    Spacer()
-                    
+                        HStack(spacing:2) {
+                            Image(systemName: "house")
+                                .font(.system(size: 18, weight: .medium))
+                            
+                            
+                            Text(section.location)
+                                .font(.footnote)
+                                .fontWeight(.semibold)
+                                .lineLimit(2)
+                            
+                        }.foregroundColor(.primary)
+                        HStack(spacing:20) {
+                            HStack {
+                                Text("SEX:")
+                                    .font(.footnote)
+                                    .fontWeight(.regular)
+                                    .lineLimit(2)
+                                Text("Female")
+                                    .font(.footnote)
+                                    .fontWeight(.semibold)
+                                .lineLimit(2)
+                            }
+                            
+                            
+                            HStack {
+                                Text("Height:")
+                                    .font(.footnote)
+                                    .fontWeight(.regular)
+                                    .lineLimit(2)
+                                Text("5-09")
+                                    .font(.footnote)
+                                    .fontWeight(.semibold)
+                                    .lineLimit(2)
+                            }
+                            
+                        }.foregroundColor(.primary)
+                        HStack {
+                            Image(systemName: "highlighter")
+                            Text(" \"\(section.quote)\" ")
+                                .font(.footnote)
+                                .multilineTextAlignment(.leading)
+                                .lineLimit(2)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            .foregroundColor(.primary)
+                        }
+                        
+                    }.foregroundColor(.black)
                 }
-                
-                VStack(alignment: .leading, spacing: 5) {
-                    
-                    HStack(spacing:2) {
-                        Image(systemName: "house")
-                            .font(.system(size: 18, weight: .medium))
-                        
-                        
-                        Text(section.location)
-                            .font(.footnote)
-                            .fontWeight(.semibold)
-                            .lineLimit(2)
-                        
-                    }.foregroundColor(.primary)
-                    HStack {
-                        Image(systemName: "highlighter")
-                        Text(" \"\(section.quote)\" ")
-                            .font(.footnote)
-                            .multilineTextAlignment(.leading)
-                            .lineLimit(2)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        .foregroundColor(.primary)
-                    }
-                    
-                }.foregroundColor(.black)
                 
                 HStack {
                     Rectangle()
@@ -299,13 +340,19 @@ struct ProfileInfoCard: View {
                     .background(.ultraThinMaterial)
                     .cornerRadius(30)
                     .padding(5)
-                    .padding(.bottom, 5)
+                   
             }.padding()
                //
                 .background(
                     Image("licensebg")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
+                        .opacity(0.4)
+                )
+                .background(
+                    Image("aries")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
                         .opacity(0.4)
                 )
                 .background(
@@ -319,15 +366,17 @@ struct ProfileInfoCard: View {
                 .cornerRadius(25.0)
             
                 .overlay(
-                    Image(section.profilepic)
+                    Image("Avatar 2")
                         .resizable(resizingMode: .stretch)
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 80.0, height: 80.0)
+                        .opacity(0.0)
                         .cornerRadius(60)
                         .background(
                             SmallClock()
+                                .scaleEffect(0.84)
                         )
-                        .padding([.top],-139)
+                        .padding([.top],-99)
                         .padding([.leading],240)
                     
                     

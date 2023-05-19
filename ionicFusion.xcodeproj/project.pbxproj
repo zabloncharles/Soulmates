@@ -297,7 +297,6 @@
 			children = (
 				F7569D522A104A8D00FE3E84 /* ProfileCard.swift */,
 				F7569D602A11F36700FE3E84 /* StandoutCard.swift */,
-				F73F32412A1605170038A6D3 /* Widget */,
 			);
 			path = Cards;
 			sourceTree = "<group>";
@@ -414,6 +413,7 @@
 		F7A313AF27F4CFE100F9F550 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				F73F32412A1605170038A6D3 /* Widget */,
 				F73F32402A1604E50038A6D3 /* Cards */,
 				F7A3140027F4CFE100F9F550 /* Reusable */,
 				F7A313B027F4CFE100F9F550 /* Misc */,
