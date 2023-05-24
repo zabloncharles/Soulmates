@@ -29,7 +29,7 @@ struct NotificationsDetail: View {
              
             }
             .coordinateSpace(name: "scroll")
-            .background(Color("background"))
+            .background(BackgroundView())
             .mask(RoundedRectangle(cornerRadius: appear[0] ? 0 : 30))
             .mask(RoundedRectangle(cornerRadius: viewState.width / 3))
             .scaleEffect(-viewState.width/500 + 1)
@@ -64,21 +64,21 @@ struct NotificationsDetail: View {
                 .frame(maxWidth: .infinity)
                 .frame(height: scrollY > 0 ? 220 + scrollY : 220)
               
-                .background(
-                   // Image(course.background)
-                  //  Image(wallpaper)
-                   Rectangle()
-                    .fill(Color("background"))
-                    
-                      //  .resizable()
-                      //  .aspectRatio(contentMode: .fill)
-
-                        .offset(y: scrollY > 0 ? -scrollY : 0)
-                        .scaleEffect(scrollY > 0 ? scrollY / 1000 + 1 : 1)
-                        .blur(radius: scrollY > 0 ? scrollY / 10 : 0)
-                        .accessibility(hidden: true)
-                        
-                )
+//                .background(
+//                   // Image(course.background)
+//                  //  Image(wallpaper)
+//                   Rectangle()
+//                    .fill(Color("offwhiteneo"))
+//
+//                      //  .resizable()
+//                      //  .aspectRatio(contentMode: .fill)
+//
+//                        .offset(y: scrollY > 0 ? -scrollY : 0)
+//                        .scaleEffect(scrollY > 0 ? scrollY / 1000 + 1 : 1)
+//                        .blur(radius: scrollY > 0 ? scrollY / 10 : 0)
+//                        .accessibility(hidden: true)
+//
+//                )
                 .mask(
                     RoundedRectangle(cornerRadius: 0)
                         
@@ -143,6 +143,7 @@ struct NotificationsDetail: View {
             sectionsSection
                 .offset(y: pageAppeared ?  0 : 520)
                 .opacity(pageAppeared ?  1 : 0 )
+                .padding(.bottom, 30)
                 
         }
     }

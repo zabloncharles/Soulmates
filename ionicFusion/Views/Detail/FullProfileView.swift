@@ -23,7 +23,7 @@ struct FullProfileView: View {
     
     var body: some View {
         ZStack {
-           
+           BackgroundView()
             ScrollView {
                 cover
                     .matchedGeometryEffect(id: "som\(matchcard.usernumber)", in: namespace)
@@ -34,7 +34,6 @@ struct FullProfileView: View {
                    
             }
             .coordinateSpace(name: "scroll")
-            .background(Color("offwhite"))
             .mask(RoundedRectangle(cornerRadius: viewState.width / 3))
             .scaleEffect(-viewState.width/500 + 1)
             .gesture(drag)
@@ -144,45 +143,44 @@ struct FullProfileView: View {
                                     .multilineTextAlignment(.leading)
                                     .lineLimit(2)
                                     .frame(maxWidth: .infinity, alignment: .leading)
-                                    .foregroundColor(.black)
+                                    .foregroundColor(Color("black"))
                                 Spacer(minLength: 0.1)
                                 
                                 
                                 HStack(spacing: 3.9){
                                     Image(systemName: "graduationcap")
                                         .font(.system(size: 18, weight: .medium))
-                                        .foregroundColor(.black)
+                                       
                                     
                                     Text("Minnesota University")
                                         .font(.footnote)
                                         .fontWeight(.semibold)
                                         .lineLimit(2)
-                                        .foregroundColor(.black)
-                                }
+                                        
+                                }.foregroundColor(Color("black"))
                                 
                                 HStack {
                                     Image(systemName: "building")
                                         .font(.system(size: 18, weight: .medium))
-                                        .foregroundColor(.black)
+                                     
                                     
                                     Text("Works in Rochester")
                                         .font(.footnote)
                                         .fontWeight(.semibold)
                                         .lineLimit(2)
-                                        .foregroundColor(.black)
-                                }
+                                        }.foregroundColor(Color("black"))
                                 
                                 HStack {
                                     Image(systemName: "location")
                                         .font(.system(size: 18, weight: .medium))
-                                        .foregroundColor(.black)
+                                       
                                     
                                     Text("12 miles away")
                                         .font(.footnote)
                                         .fontWeight(.semibold)
                                         .lineLimit(2)
-                                        .foregroundColor(.black)
-                                }
+                                       
+                                }.foregroundColor(Color("black"))
                             }
                             .padding(20)
                             .background(Color("offwhite"))
@@ -199,7 +197,7 @@ struct FullProfileView: View {
                                     
                                     Image(systemName: "hand.thumbsup")
                                         .font(.title).bold()
-                                        .foregroundColor(.black)
+                                        .foregroundColor(Color("black"))
                                     
                                     Text("First Date Idea?")
                                         .font(.title2).bold()
@@ -208,7 +206,7 @@ struct FullProfileView: View {
                                     .font(.footnote)
                                     .multilineTextAlignment(.leading)
                                     .lineLimit(3)
-                                    .foregroundColor(.black)
+                                    .foregroundColor(Color("black"))
                                 
                                 
                                 VStack(spacing: 26.0) {
@@ -294,7 +292,7 @@ struct FullProfileView: View {
                                         
                                         Image(systemName: "hand.thumbsup")
                                             .font(.title).bold()
-                                            .foregroundColor(.black)
+                                           
                                         
                                         Text("Likes")
                                             .font(.title).bold()
@@ -304,7 +302,7 @@ struct FullProfileView: View {
                                         .font(.callout)
                                         .multilineTextAlignment(.leading)
                                         .lineLimit(3)
-                                        .foregroundColor(.black)
+                                        
                                     
                                     
                                     HStack {
@@ -326,7 +324,8 @@ struct FullProfileView: View {
                                             .background(Color(hue: 1.0, saturation: 0.348, brightness: 0.929))
                                             .cornerRadius(15)
                                     }
-                                }.padding()
+                                }.foregroundColor(Color("black"))
+                                .padding()
                                 .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 18, action: $liked)
                                 .padding(.bottom,25)
                                     
@@ -364,7 +363,6 @@ struct FullProfileView: View {
                                     
                                     Image(systemName: "teddybear")
                                         .font(.title).bold()
-                                        .foregroundColor(.black)
                                     
                                     Text("Lifestyle")
                                         .font(.title).bold()
@@ -375,7 +373,7 @@ struct FullProfileView: View {
                                     .multilineTextAlignment(.leading)
                                     .lineLimit(2)
                                     .frame(maxWidth: .infinity, alignment: .leading)
-                                    .foregroundColor(.black)
+                                    
                                 
                                 
                                 
@@ -388,7 +386,8 @@ struct FullProfileView: View {
                                     
                                     
                                 }
-                            }.padding(20)
+                            }.foregroundColor(Color("black"))
+                            .padding(20)
                                 .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 19, action: $liked)
                                 .padding(.bottom,95)
 

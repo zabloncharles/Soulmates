@@ -11,15 +11,17 @@ struct MessagesView: View {
     @AppStorage("hidemainTab") var hidemainTab = false
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.presentationMode) var presentationMode
-    @State var text = ""
+    @State var text = "yo"
     @Binding var section: NotificationModel
     @State var hideNav = false
     @State var scrolling = CGFloat(0)
-    
-    
+    @State var scrolledItem: Int = 0
+  
+    @FocusState private var keyboardFocus: Bool
     var body: some View {
         NavigationView {
             ZStack {
+              BackgroundView()
                 content
                 cover
                 texting
@@ -105,7 +107,7 @@ struct MessagesView: View {
                 
                    
                 }
-                    .background(Color("offwhite").opacity(0.5))
+                    .background(Color("white").opacity(0.5))
                     .background(.ultraThinMaterial)
                     .cornerRadius(15)
                   
@@ -121,29 +123,52 @@ struct MessagesView: View {
     
     var content: some View {
         
-        ScrollView (showsIndicators: false){
-            
+                    
             VStack{
                  Spacer()
                 VStack {
+                    
                     ScrollViewReader { proxy in
-                    ForEach(Array(messages.enumerated()), id: \.offset) { index, section in
-                            if index != 0 {  }
-                        
-                            MessageBubble(section: section)
-                            .tag(index)
-                                .onAppear{
-                                    proxy.scrollTo((Array(messages.enumerated()).endIndex)-1)
+                        ScrollView (showsIndicators: false){
+                            
+                            VStack {
+                                ForEach(Array(messages.enumerated()), id: \.offset) { index, section in
+                                    if index != 0 {  }
+                                    
+                                    MessageBubble(section: section)
+                                        .tag(index)
+                                        .onAppear{
+                                            proxy.scrollTo((Array(messages.enumerated()).endIndex)-1)
+                                        }
+                                    
+                                       
                                 }
+                            }.onPreferenceChange(ScrollViewOffsetPreferenceKey.self) { offset in
+                                let itemIndex = Int(offset.y / 20)
+                                if scrolledItem != itemIndex {
+                                    scrolledItem = itemIndex
+                                    // Perform any desired action when the scroll changes
+                                }
+                            }
+                            .background(GeometryReader { geometry in
+                                Color.clear
+                                    .preference(key: ScrollViewOffsetPreferenceKey.self, value: geometry.frame(in: .named("scrollView")).origin)
+                            })
+                            .coordinateSpace(name: "scrollView")
                         }
                     }
-                }
+                
+                
             }
                
                 .padding(.top, 114)
                 .padding(.bottom,90)
             .coordinateSpace(name: "scroll")
         }.background(Color("offwhiteneo"))
+            //.overlay(Text("\(scrolledItem)"))
+            .onTapGesture{
+                keyboardFocus = false
+            }
         
         
         
@@ -155,10 +180,11 @@ struct MessagesView: View {
                 Spacer()
                 
                 HStack {
-                    TextField("Message" , text: $text)
+                    TextField("Message\(scrolledItem)" , text: $text)
                         .padding(.vertical)
                         .padding(.leading, 55)
                         .background(Color("offwhite"))
+                        .focused($keyboardFocus)
                         .cornerRadius(25)
                         .overlay(  Image(systemName: "pencil.circle.fill")
                                     .font(.largeTitle)
@@ -203,19 +229,19 @@ struct MessagesView: View {
                     if offset > 1120 {
                        
                        // hideNav = true
-                        // text = "ii\(offset)"
+                       //  text = "ii\(offset)"
                     }
                     if offset > 903 && offset < 1120 {
                         withAnimation(.easeInOut) {
                             
-                           //  text = "yo\(offset)"
+                          //   text = "yo\(offset)"
                         }
                     }
                     else {
                         withAnimation(.easeInOut) {
                           
-                            // text = "huh\(offset)"
-                            scrolling = offset
+                           //  text = "huh\(offset)"
+                          //  scrolling = offset
                         }
                         
                         
@@ -240,3 +266,10 @@ struct MessagesView_Previews: PreviewProvider {
 
 
 
+struct ScrollViewOffsetPreferenceKey: PreferenceKey {
+    static var defaultValue: CGPoint = .zero
+    
+    static func reduce(value: inout CGPoint, nextValue: () -> CGPoint) {
+        value = nextValue()
+    }
+}

@@ -70,62 +70,59 @@ struct HomeView: View {
             ZStack {
                 
                 BackgroundView()
-                    .edgesIgnoringSafeArea(.all)
-                
-                        GeometryReader { reader in
-                          
-                    
+                ScrollView {
+                       
                             VStack {
                                 welcoming
-                                   .opacity(showProfile ? 0 : 1)
+                                    .opacity(showProfile ? 0 : 1)
                                     .animation(.spring(), value: showProfile)
-                                    .padding(.top,60)
-                                    .offset(y: pageAppeared ? 0 : reader.size.height * -1)
+                                    .padding(.top,70)
+                                //.offset(y: pageAppeared ? 0 : reader.size.height * -1)
                                 
                                 if profiletype == 0 {
-                                    ScrollView {
+                                    
+                                    ForEach(Array(matchCardData.enumerated()), id: \.offset) { index, section in
+                                        if index != 0 {  }
+                                        MatchCard(section: section, namespace: namespace)
+                                        
+                                    }
+                                    
+                                } else if profiletype == 1 {
+                                    
+                                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
                                         ForEach(Array(matchCardData.enumerated()), id: \.offset) { index, section in
                                             if index != 0 {  }
-                                            MatchCard(section: section, namespace: namespace)
-                                                
+                                            SmallMatchActive(matchcard: $matchcard, showprof: $showProfile, section: section, namespace: namespace)
+                                                .frame(width: 230, height: 260)
                                         }
-                                    }
-                                } else if profiletype == 1 {
-                                    ScrollView {
-                                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
-                                            ForEach(Array(matchCardData.enumerated()), id: \.offset) { index, section in
-                                                if index != 0 {  }
-                                                SmallMatchActive(matchcard: $matchcard, showprof: $showProfile, section: section, namespace: namespace)
-                                                    .frame(width: 230, height: 260)
-                                            }
-                                        }.padding(.horizontal, 10)
-                                    }
+                                    }.padding(.horizontal, 10)
+                                    
                                 }
                                 else if profiletype == 2 {
-                                    ScrollView {
-                                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
-                                            ForEach(Array(matchCardData.enumerated()), id: \.offset) { index, section in
-                                                if index != 0 {  }
-                                                SmallMatchActive(matchcard: $matchcard, showprof: $showProfile, section: section, namespace: namespace)
-                                                    .frame(width: 230, height: 260)
-                                            }
-                                        }.padding(.horizontal, 10)
-                                    }
+                                    
+                                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
+                                        ForEach(Array(matchCardData.enumerated()), id: \.offset) { index, section in
+                                            if index != 0 {  }
+                                            SmallMatchActive(matchcard: $matchcard, showprof: $showProfile, section: section, namespace: namespace)
+                                                .frame(width: 230, height: 260)
+                                        }
+                                    }.padding(.horizontal, 10)
+                                    
                                 }
                                 else if profiletype == 3 {
-                                    ScrollView {
-                                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
-                                            ForEach(Array(matchCardData.enumerated()), id: \.offset) { index, section in
-                                                if index != 0 {  }
-                                                SmallMatchActive(matchcard: $matchcard, showprof: $showProfile, section: section, namespace: namespace)
-                                                    .frame(width: 230, height: 250)
-                                            }
-                                        }.padding(.horizontal, 10)
-                                    }
+                                    
+                                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
+                                        ForEach(Array(matchCardData.enumerated()), id: \.offset) { index, section in
+                                            if index != 0 {  }
+                                            SmallMatchActive(matchcard: $matchcard, showprof: $showProfile, section: section, namespace: namespace)
+                                                .frame(width: 230, height: 250)
+                                        }
+                                    }.padding(.horizontal, 10)
+                                    
                                 }
+                            }.padding(.bottom,90)
                                 
-                                
-                            }
+                            
                 
                 
                 if showProfile {
@@ -198,12 +195,7 @@ struct HomeView: View {
                        contentHasScrolled: $contentHasScrolled)
     }
     
-    var topspacer: some View{
-        Rectangle()
-            .frame(width: 100, height: 70)
-            .opacity(0)
-        
-    }
+ 
     var welcoming : some View {
         VStack {
             
@@ -242,11 +234,11 @@ struct HomeView: View {
                         }
                         
                     }.font(.subheadline)
-                        .animation(.spring(), value: show)
-                        .transition(.asymmetric(
-                            insertion: .move(edge: .bottom),
-                            removal: .move(edge: .top)
-                        ))
+//                        .animation(.spring(), value: show)
+//                        .transition(.asymmetric(
+//                            insertion: .move(edge: .bottom),
+//                            removal: .move(edge: .top)
+//                        ))
                     
                     
                     
@@ -270,6 +262,7 @@ struct HomeView: View {
                             Text("Matches")
                                 .font(.caption2)
                                 .fontWeight(.light)
+                                .foregroundColor(.primary)
                         }
                     )
                     .background(
@@ -294,7 +287,6 @@ struct HomeView: View {
             }
             .padding(.vertical, 10)
             .padding(.horizontal, 20)
-            .background(Color("offWhite"))
             .scaleEffect(welcomingisTapped ? 0.98 : 1)
             .offwhitebutton(isTapped: welcomingisTapped, isToggle: false, cornerRadius: 15, action: .constant(false))
             .padding(.horizontal,20)
@@ -314,7 +306,7 @@ struct HomeView: View {
             }
             
             typeofprofiles
-            
+                
             
             
         }
@@ -349,181 +341,7 @@ struct HomeView: View {
             .padding(.bottom,13)
     }
     
-    var profile : some View {
-        VStack(alignment: .leading, spacing: 8.0) {
-            Spacer()
-            
-            
-            VStack(spacing: 2) {
-                
-                HStack{
-                    VStack(alignment: .leading,spacing: 0) {
-                        HStack(alignment: .center) {
-                            Text("Jenna Mars")
-                                .font(.largeTitle)
-                                .fontWeight(.bold)
-                            
-                                .lineLimit(1)
-                            
-                            Image(systemName: "checkmark.seal.fill")
-                                .font(.system(size: 22, weight: .medium))
-                                .foregroundColor(.blue)
-                        }
-                        
-                        HStack(spacing: 3.5){
-                            Image(systemName: "circle.fill")
-                                .font(.system(size: 10, weight: .medium))
-                                .foregroundColor(.green)
-                            
-                            Text("Online now")
-                                .font(.footnote)
-                                .fontWeight(.semibold)
-                                .lineLimit(2)
-                                .foregroundColor(.secondary)
-                        }
-                        
-                    }
-                    
-                    
-                    
-                    
-                    Spacer()
-                    
-                }
-                
-                VStack(alignment: .leading, spacing: 5) {
-                    
-                    HStack {
-                        Image(systemName: "house")
-                            .font(.system(size: 18, weight: .medium))
-                        
-                        
-                        Text("Lives in Rochester")
-                            .font(.footnote)
-                            .fontWeight(.semibold)
-                            .lineLimit(2)
-                        
-                    }.foregroundColor(.secondary)
-                    Text("Fun loving and looking to settle up with this stuff and do me. its really not like that said no one ever.")
-                        .font(.footnote)
-                        .multilineTextAlignment(.leading)
-                        .lineLimit(2)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .foregroundColor(.secondary)
-                    
-                }
-                
-                HStack {
-                    Rectangle()
-                        .frame(height: 0.2)
-                        .opacity(0.1)
-                        .padding(5)
-                }
-                HStack{
-                    Image(systemName: "arrow.counterclockwise")
-                        .font(.system(size: 26, weight: .bold))
-                        .foregroundColor( Color.teal)
-                    
-                        .background(
-                            Circle()
-                                .fill(Color("offwhite"))
-                                .frame(width:46, height:  46)
-                                .offwhitebutton(isTapped: welcomingisTapped, isToggle: false, cornerRadius: 60, action:  .constant(false))
-                        )
-                    
-                    Spacer()
-                    
-                    Image(systemName: "xmark")
-                        .font(.system(size: 26, weight: .bold))
-                        .foregroundColor( Color.red)
-                    
-                        .background(
-                            Circle()
-                                .fill(Color("offwhite"))
-                                .frame(width:46, height:  46)
-                                .offwhitebutton(isTapped: welcomingisTapped, isToggle: false, cornerRadius: 60, action:  .constant(false))
-                        )
-                    
-                    Spacer()
-                    
-                    Image(systemName: "star.fill")
-                        .font(.system(size: 26, weight: .thin))
-                        .foregroundColor( Color.blue)
-                    
-                        .background(
-                            Circle()
-                                .fill(Color("offwhite"))
-                                .frame(width:46, height:  46)
-                                .offwhitebutton(isTapped: welcomingisTapped, isToggle: false, cornerRadius: 60, action:  .constant(false))
-                        )
-                    
-                    Spacer()
-                    
-                    Image(systemName: "heart.fill")
-                        .font(.system(size:  26, weight: .bold))
-                        .foregroundColor(Color.green)
-                    
-                        .background(
-                            
-                            
-                            ZStack {
-                                Circle()
-                                    .fill(Color("offwhite"))
-                                    .frame(width:46, height:  46)
-                                    .offwhitebutton(isTapped: welcomingisTapped, isToggle: false, cornerRadius: 60, action:  .constant(false))
-                                
-                                
-                            }
-                            
-                            
-                        )
-                    
-                    
-                    
-                } .frame(maxWidth: .infinity)
-                    .padding(10)
-            }.padding()
-                .offwhitebutton(isTapped: welcomingisTapped, isToggle: false, cornerRadius: 20, action:  .constant(false))
-                .cornerRadius(25.0)
-            
-                .overlay(
-                    Image("Avatar 3")
-                        .resizable(resizingMode: .stretch)
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 80.0, height: 80.0)
-                        .cornerRadius(60)
-                        .background(
-                            SmallClock()
-                        )
-                        .padding([.top],-139)
-                        .padding([.leading],199)
-                    
-                    
-                )
-        }
-        .padding(.all, 20.0)
-        
-        
-        .frame(height:  530)
-        .background(
-            
-            ZStack{
-                Image("image_02")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                
-                Image("image_02")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .blur(radius: 5)
-                    .mask(LinearGradient(gradient: Gradient(colors: [.clear, .clear, .black,.black]), startPoint: .top, endPoint: .bottom))
-            }
-        )
-        
-        .offwhitebutton(isTapped: welcomingisTapped, isToggle: false, cornerRadius: 25, action:  .constant(false))
-        .padding(.horizontal,10)
-        .padding(.bottom,15)
-    }
+    
     
     
     //return an array of string

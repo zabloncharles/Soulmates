@@ -26,10 +26,8 @@ struct GetImage: View {
                     .resizable()
                     .aspectRatio(contentMode: .fill)
             } else {
-               // Text("Image loading...")
-                Image("image_02")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
+                Text("Image loading...")
+               
             }
         }
         .onAppear {

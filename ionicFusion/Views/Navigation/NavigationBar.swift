@@ -91,7 +91,7 @@ struct NavigationBar: View {
                 .frame(width: 36, height: 36)
                 .foregroundColor(showEditCalendar ? .red : .secondary)
                 .background(selected == 3 ? Color.black.opacity(0) : Color("offwhite"))
-                
+                .cornerRadius(30)
                 .scaleEffect(showEditCalendar ? 0.97 : 1)
                 .overlay(
                     VStack{

@@ -11,6 +11,7 @@ struct LikesView: View {
     @State var pageAppeared = false
     var body: some View {
         ZStack {
+            BackgroundView()
             VStack {
                 LottieView(filename: "loveflying" ,loop: true)
                     .frame(width: 100)
@@ -71,7 +72,7 @@ struct LikesView: View {
                     
                 Spacer()
             }.padding(20)
-        }.background(Color("background"))
+        }
             .onAppear{
                 withAnimation(.spring().speed(0.4)){
                     pageAppeared = true

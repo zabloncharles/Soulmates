@@ -13,7 +13,11 @@ struct ShuffleMatchesView: View {
     var body: some View {
         VStack{
             FullProfileView(namespace: namespace, matchcard: $matchcard, showProfile: .constant(false))
-                .background(Color("offwhite"))
+                .background(
+            Image("Blob 1")
+                .offset(x: -154, y: -340)
+                .edgesIgnoringSafeArea(.all)
+                .blur(radius: 58))
         }
     }
 }

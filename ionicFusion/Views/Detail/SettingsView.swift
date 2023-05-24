@@ -49,7 +49,7 @@ struct SettingsView: View {
         ZStack {
             
             //Background
-           Color("offwhiteneo").ignoresSafeArea()
+           BackgroundView()
             
             //First Section
             wallpaperandsettingsinfo

@@ -74,12 +74,14 @@ struct SigninView: View {
                         .edgesIgnoringSafeArea(.all)
                         .blur(radius: 58)
                         .opacity(signInTapped ? 0 : 1)
+                        
                 )
                     .background(
                         BackgroundView()
                             .edgesIgnoringSafeArea(.all)
                             .opacity(!animate ? 1 : 0.001)
                             .animation(.easeInOut(duration: 6), value: animate)
+                            .opacity(0)
                     )
                     .statusBar(hidden: false)
                     

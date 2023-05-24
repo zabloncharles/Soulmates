@@ -11,6 +11,7 @@ import SwiftUI
 
 struct NotificationRow: View {
     var section: NotificationModel
+    
     @State var isTapped = false
     
     var body: some View {

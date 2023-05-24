@@ -94,7 +94,7 @@ struct FloatingTabbar : View {
             }
             .frame(maxWidth: .infinity, maxHeight: hasHomeIndicator ? 64 : 64)
           
-            .background(Color("background"))
+            .background(Color("offwhite"))
            
             .background(Image("cover2")
                             .resizable()
