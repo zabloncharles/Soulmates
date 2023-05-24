@@ -10,10 +10,14 @@ import SwiftUI
 struct ViewController: View {
     @AppStorage("signIn") var signIn = false
     @AppStorage("doneIntro") var doneIntro = false
-    @AppStorage("firstday") var firstday = false
+   
     
     var body: some View {
-        MainTab()
+        if signIn {
+            MainTab()
+        } else {
+            SigninView(signIn: $signIn, doneIntro: $doneIntro)
+        }
 //        ZStack {
 //            //Stay signed in
 //          // if signIn && doneIntro {

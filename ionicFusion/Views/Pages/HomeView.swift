@@ -32,7 +32,7 @@ struct HomeView: View {
     @State var pageAppeared = false
     @State var dislike = false
     @State var nomorecards = false
-    @State var profiletype = 0
+    @State var profiletype = 1
     @State var number = matchCardData.count
     @State var backViewSize: CGFloat = 80
     @State var dragsize = CGSize.zero
@@ -73,88 +73,59 @@ struct HomeView: View {
                     .edgesIgnoringSafeArea(.all)
                 
                         GeometryReader { reader in
-                            
-                                
-                         //   ScrollView(.vertical){
+                          
                     
-                VStack {
-                    welcoming
-                        .offset(y: showProfile ? -600 : 0)
-                        .animation(.spring(), value: showProfile)
-                        .offset(y: pageAppeared ? 0 : reader.size.height * -1)
-                        
-                        
-                            VStack{
+                            VStack {
+                                welcoming
+                                   .opacity(showProfile ? 0 : 1)
+                                    .animation(.spring(), value: showProfile)
+                                    .padding(.top,60)
+                                    .offset(y: pageAppeared ? 0 : reader.size.height * -1)
                                 
-                                                    
-                                                    
                                 if profiletype == 0 {
-                                    ForEach(Array(matchCardData.enumerated()), id: \.offset) { index, section in
-                                        if index != 0 {  }
-                                        if section.usernumber > self.maxID - 3   {
-                                            
-                                            
-                                            
-                                            ProfileCard(showProfile: $showProfile, matchcard: $matchcard, section: section, namespace: namespace, number: $number, index: index,dragsize:$dragsize)
-                                            
-                                                .frame( height: 520)
-                                            //.padding(.horizontal,self.getCardWidth(reader, id: index) )
-                                                .padding(.top,0)
-                                                .padding(.bottom, self.getCardOffsete(reader, id: index, count: matchCardData.count))
-                                                .padding(.horizontal, 9)
-                                            // .rotation3DEffect(.degrees(self.get3d(reader, id: index)), axis: (x:10 ,y:0, z:0))
-                                                .offset(y:dragsize.height/2)
-                                                .offset(y: self.getCardOffset(reader, id: index, count: matchCardData.count))
-                                            
-                                                .animation(.spring())
-                                            
-                                            
-                                            
-                                            
+                                    ScrollView {
+                                        ForEach(Array(matchCardData.enumerated()), id: \.offset) { index, section in
+                                            if index != 0 {  }
+                                            MatchCard(section: section, namespace: namespace)
+                                                
                                         }
+                                    }
+                                } else if profiletype == 1 {
+                                    ScrollView {
+                                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
+                                            ForEach(Array(matchCardData.enumerated()), id: \.offset) { index, section in
+                                                if index != 0 {  }
+                                                SmallMatchActive(matchcard: $matchcard, showprof: $showProfile, section: section, namespace: namespace)
+                                                    .frame(width: 230, height: 260)
+                                            }
+                                        }.padding(.horizontal, 10)
+                                    }
+                                }
+                                else if profiletype == 2 {
+                                    ScrollView {
+                                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
+                                            ForEach(Array(matchCardData.enumerated()), id: \.offset) { index, section in
+                                                if index != 0 {  }
+                                                SmallMatchActive(matchcard: $matchcard, showprof: $showProfile, section: section, namespace: namespace)
+                                                    .frame(width: 230, height: 260)
+                                            }
+                                        }.padding(.horizontal, 10)
+                                    }
+                                }
+                                else if profiletype == 3 {
+                                    ScrollView {
+                                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
+                                            ForEach(Array(matchCardData.enumerated()), id: \.offset) { index, section in
+                                                if index != 0 {  }
+                                                SmallMatchActive(matchcard: $matchcard, showprof: $showProfile, section: section, namespace: namespace)
+                                                    .frame(width: 230, height: 250)
+                                            }
+                                        }.padding(.horizontal, 10)
                                     }
                                 }
                                 
-                                if profiletype == 1 {
-                                    ForEach(Array(matchCardActiveData.enumerated()), id: \.offset) { index, section in
-                                        if index != 0 {  }
-                                        if section.usernumber > self.maxID - 3   {
-                                            
-                                            
-                                            
-                                            ProfileCard(showProfile: $showProfile, matchcard: $matchcard, section: section, namespace: namespace, number: $number, index: index,dragsize:$dragsize)
-                                            
-                                                .frame( height: 520)
-                                            //.padding(.horizontal,self.getCardWidth(reader, id: index) )
-                                                .padding(.top,0)
-                                                .padding(.bottom, self.getCardOffsete(reader, id: index, count: matchCardData.count))
-                                                .padding(.horizontal, 9)
-                                            // .rotation3DEffect(.degrees(self.get3d(reader, id: index)), axis: (x:10 ,y:0, z:0))
-                                                .offset(y:dragsize.height/2)
-                                                .offset(y: self.getCardOffset(reader, id: index, count: matchCardData.count))
-                                            
-                                                .animation(.spring())
-                                            
-                                            
-                                            
-                                            
-                                        }
-                                    }
-                                }
-
-                                                    
-                                }.offset(y: pageAppeared ? 0 : reader.size.height * 2)
-                                .opacity(pageAppeared ? 1 : 0)
                                 
-                    
-                  
-                    
-                        
-                }.padding(.top, reader.size.height / 13 )
-                       
-                    
-              //  }
-                
+                            }
                 
                 
                 if showProfile {
@@ -167,8 +138,9 @@ struct HomeView: View {
             }
                 
                 navigation
-                    .offset(y: showProfile || !pageAppeared ? -200 : 0)
+                    .offset(y:!pageAppeared ? -200 : 0)
                     .animation(.spring(), value: showProfile)
+                    .opacity(showProfile ? 0 : 1)
                 
             }.onAppear{
                 withAnimation(.spring().speed(0.4)){
@@ -284,7 +256,7 @@ struct HomeView: View {
                 
                 
                 Spacer()
-                Image("Background 9")
+                Image("Background 2")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .clipShape(Circle())

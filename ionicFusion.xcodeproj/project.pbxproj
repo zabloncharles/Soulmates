@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		217A2403164EC0396CC256FB /* Pods_ionicFusion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E80590F914965A253665F93F /* Pods_ionicFusion.framework */; };
+		F70636302A1D5742007A9FEF /* ShuffleMatchesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F706362F2A1D5742007A9FEF /* ShuffleMatchesView.swift */; };
+		F70636322A1D6398007A9FEF /* MatchCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F70636312A1D6398007A9FEF /* MatchCard.swift */; };
+		F70636342A1D6A92007A9FEF /* SmallMatchActive.swift in Sources */ = {isa = PBXBuildFile; fileRef = F70636332A1D6A92007A9FEF /* SmallMatchActive.swift */; };
+		F70636362A1D8960007A9FEF /* GetImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F70636352A1D8960007A9FEF /* GetImage.swift */; };
 		F73C196127F8ADAE0017C97B /* LauchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73C196027F8ADAE0017C97B /* LauchView.swift */; };
 		F73F32342A138C800038A6D3 /* DragsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73F32332A138C800038A6D3 /* DragsCard.swift */; };
 		F73F32362A1522880038A6D3 /* nomorecards.json in Resources */ = {isa = PBXBuildFile; fileRef = F73F32352A1522880038A6D3 /* nomorecards.json */; };
@@ -137,6 +141,10 @@
 		3810BA9C8BFADD1E82FD59A0 /* Pods-ionicFusion.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ionicFusion.debug.xcconfig"; path = "Target Support Files/Pods-ionicFusion/Pods-ionicFusion.debug.xcconfig"; sourceTree = "<group>"; };
 		AE85A53419AEF9DF87AD4BA4 /* Pods-ionicFusion.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ionicFusion.release.xcconfig"; path = "Target Support Files/Pods-ionicFusion/Pods-ionicFusion.release.xcconfig"; sourceTree = "<group>"; };
 		E80590F914965A253665F93F /* Pods_ionicFusion.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ionicFusion.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F706362F2A1D5742007A9FEF /* ShuffleMatchesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuffleMatchesView.swift; sourceTree = "<group>"; };
+		F70636312A1D6398007A9FEF /* MatchCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchCard.swift; sourceTree = "<group>"; };
+		F70636332A1D6A92007A9FEF /* SmallMatchActive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallMatchActive.swift; sourceTree = "<group>"; };
+		F70636352A1D8960007A9FEF /* GetImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetImage.swift; sourceTree = "<group>"; };
 		F73C196027F8ADAE0017C97B /* LauchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauchView.swift; sourceTree = "<group>"; };
 		F73F32332A138C800038A6D3 /* DragsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragsCard.swift; sourceTree = "<group>"; };
 		F73F32352A1522880038A6D3 /* nomorecards.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = nomorecards.json; sourceTree = "<group>"; };
@@ -297,6 +305,8 @@
 			children = (
 				F7569D522A104A8D00FE3E84 /* ProfileCard.swift */,
 				F7569D602A11F36700FE3E84 /* StandoutCard.swift */,
+				F70636312A1D6398007A9FEF /* MatchCard.swift */,
+				F70636332A1D6A92007A9FEF /* SmallMatchActive.swift */,
 			);
 			path = Cards;
 			sourceTree = "<group>";
@@ -311,6 +321,7 @@
 				F7A3140C27F4CFE100F9F550 /* MessageBubble.swift */,
 				F7A3141427F4CFE100F9F550 /* Avatar.swift */,
 				F7A3141627F4CFE100F9F550 /* Notification.swift */,
+				F70636352A1D8960007A9FEF /* GetImage.swift */,
 			);
 			path = Widget;
 			sourceTree = "<group>";
@@ -341,6 +352,7 @@
 				F7A3136A27F4CDD100F9F550 /* NotificationsDetail.swift */,
 				F7569D562A11DE9900FE3E84 /* LikesView.swift */,
 				F7A3135D27F4CDD100F9F550 /* HomeView.swift */,
+				F706362F2A1D5742007A9FEF /* ShuffleMatchesView.swift */,
 			);
 			path = Pages;
 			sourceTree = "<group>";
@@ -802,8 +814,10 @@
 				F7A3143327F4CFE100F9F550 /* NavigationExten.swift in Sources */,
 				F7A3143427F4CFE100F9F550 /* Animations.swift in Sources */,
 				F7A3138127F4CDD100F9F550 /* NotificationsDetail.swift in Sources */,
+				F70636342A1D6A92007A9FEF /* SmallMatchActive.swift in Sources */,
 				F7A3142727F4CFE100F9F550 /* Modifiers.swift in Sources */,
 				F73F32342A138C800038A6D3 /* DragsCard.swift in Sources */,
+				F70636302A1D5742007A9FEF /* ShuffleMatchesView.swift in Sources */,
 				F7A3146B27F4CFE100F9F550 /* NotificationRow.swift in Sources */,
 				F7A3142927F4CFE100F9F550 /* TextModifiers.swift in Sources */,
 				F7A3147527F4CFE100F9F550 /* ImagePicker.swift in Sources */,
@@ -859,11 +873,13 @@
 				F7A3146E27F4CFE100F9F550 /* RecommendedComponent.swift in Sources */,
 				F7A3148327F4CFE100F9F550 /* SmallClocks.swift in Sources */,
 				F7A3146D27F4CFE100F9F550 /* CircleLabel.swift in Sources */,
+				F70636322A1D6398007A9FEF /* MatchCard.swift in Sources */,
 				F7A3139B27F4CDEA00F9F550 /* TopicModel.swift in Sources */,
 				F7A3141F27F4CFE100F9F550 /* SuccessView.swift in Sources */,
 				F7A3146627F4CFE100F9F550 /* SectionRow.swift in Sources */,
 				F7A3138827F4CDD100F9F550 /* MessagesView.swift in Sources */,
 				F7A3139E27F4CDEA00F9F550 /* CourseSection.swift in Sources */,
+				F70636362A1D8960007A9FEF /* GetImage.swift in Sources */,
 				F7A3137E27F4CDD100F9F550 /* OnboardingView.swift in Sources */,
 				F7A313A527F4CDEA00F9F550 /* UserModel.swift in Sources */,
 				F7569D652A11FDE600FE3E84 /* MatchData.swift in Sources */,

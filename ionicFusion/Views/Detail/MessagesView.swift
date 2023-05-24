@@ -143,7 +143,7 @@ struct MessagesView: View {
                 .padding(.top, 114)
                 .padding(.bottom,90)
             .coordinateSpace(name: "scroll")
-        }.background(Color("offwhite"))
+        }.background(Color("offwhiteneo"))
         
         
         
@@ -179,7 +179,7 @@ struct MessagesView: View {
                     .background(
                         VStack{
                             Rectangle()
-                                .fill(Color("offwhite"))
+                                .fill(.ultraThinMaterial)
                                 .frame(width: .infinity,height: 190)
                                 .cornerRadius(35)
                                 .offset(y:55)

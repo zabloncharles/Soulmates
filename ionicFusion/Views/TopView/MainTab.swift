@@ -22,8 +22,8 @@ struct MainTab: View {
                 VStack{
                     
                     if self.selected == 0{
-                        HomeView( matchcard: $matchcard)
-                            
+                       // HomeView( matchcard: $matchcard)
+                            ShuffleMatchesView()
                     }
                    if self.selected == 1{
                       LikesView()
@@ -31,10 +31,15 @@ struct MainTab: View {
                     }
                     if self.selected == 2{
                        
-                        StandoutsView(matchcard: $matchcard)
+                       // StandoutsView(matchcard: $matchcard)
+                        HomeView( matchcard: $matchcard)
                     }
                     if self.selected == 3{
                         NotificationsDetail(namespace: namespace, notification: $selectedSection)
+                        
+                    }
+                    if self.selected == 4{
+                        SettingsView()
                         
                     }
                 }
@@ -82,6 +87,7 @@ struct FloatingTabbar : View {
                 TabIcon(selected: $selected, selectedicon: 1, icon: "fleuron",name:"Likes" , tappedicon: $tappedicon )
                 TabIcon(selected: $selected, selectedicon: 2, icon: "person.2" , name:"Explore" ,tappedicon: $tappedicon )
                 TabIcon(selected: $selected, selectedicon: 3, icon: "bubble.left.and.bubble.right",name:"Chats" , tappedicon: $tappedicon )
+                TabIcon(selected: $selected, selectedicon: 4, icon: "person.2.badge.gearshape",name:"Profile" , tappedicon: $tappedicon )
            
                 
                 
@@ -101,9 +107,11 @@ struct FloatingTabbar : View {
             )
             
             .offwhitebutton(isTapped: tappedicon, isToggle: false, cornerRadius: 36, action: .constant(false))
+         //   .background(.ultraThinMaterial)
+           // .cornerRadius(36)
             .scaleEffect(tappedicon ? 0.97 : 1)
             .animation(.spring(), value: tappedicon)
-            .padding(.horizontal, 79.0) //makes tabbar smaller
+            .padding(.horizontal, 61.0) //makes tabbar smaller
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
             
             

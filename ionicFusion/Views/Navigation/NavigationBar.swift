@@ -38,14 +38,7 @@ struct NavigationBar: View {
                 VStack{
                     HStack{
                         VStack {
-                        if selected != 0 {
-                            Text(" \(title)")
-                                    .font(.custom("p", size: 30))
-                                    .foregroundStyle(.primary)
-                                 
-                               
-                                
-                        } else {
+                      
                             Text("\(title)")
                                 .font(.custom("MrDafoe-Regular", size: contentHasScrolled ? 30 : 42))
                                 .foregroundStyle(.primary)
@@ -53,7 +46,7 @@ struct NavigationBar: View {
                                 .padding(.horizontal,15)
                                 .offset(y: contentHasScrolled ? 9 : 0)
                                
-                          }
+                          
                         }
                         .onTapGesture {
                             hidemainTab = false

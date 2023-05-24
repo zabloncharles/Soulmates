@@ -10,7 +10,8 @@ struct OffwhiteButtonTapped: ViewModifier {
     @State var isTapped: Bool
     @State var isToggle: Bool
     @State var cornerRadius: CGFloat = 15
-    @Binding var action : Bool 
+    @Binding var action : Bool
+    let generator = UINotificationFeedbackGenerator()
     
     
     func body(content: Content) -> some View {
@@ -22,6 +23,8 @@ struct OffwhiteButtonTapped: ViewModifier {
             .scaleEffect(isTapped ? 0.97 : 1)
         
             .onTapGesture {
+                let impactMed = UIImpactFeedbackGenerator(style: .light)
+                impactMed.impactOccurred()
                 if isToggle {
                    
                     withAnimation(.spring())  {

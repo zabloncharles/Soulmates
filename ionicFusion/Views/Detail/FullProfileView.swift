@@ -16,6 +16,7 @@ struct FullProfileView: View {
     @State var selectedSection = courseSections[0]
     @State var showText = false
     @State var dislike = false
+    @State var liked = false
     
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.presentationMode) var presentationMode
@@ -25,7 +26,7 @@ struct FullProfileView: View {
            
             ScrollView {
                 cover
-                    .matchedGeometryEffect(id: "Cardbackground", in: namespace)
+                    .matchedGeometryEffect(id: "som\(matchcard.usernumber)", in: namespace)
                     
                 content
                     .offset(y: showText ? 0 : 650)
@@ -33,9 +34,8 @@ struct FullProfileView: View {
                    
             }
             .coordinateSpace(name: "scroll")
-            .background(Color("Background"))
+            .background(Color("offwhite"))
             .mask(RoundedRectangle(cornerRadius: viewState.width / 3))
-            .shadow(color: Color("Shadow").opacity(0.5), radius: 30, x: 0, y: 10)
             .scaleEffect(-viewState.width/500 + 1)
             .gesture(drag)
             .onAppear{
@@ -48,25 +48,37 @@ struct FullProfileView: View {
             }
             .ignoresSafeArea()
             
-            Button {
-                
-                withAnimation(.spring()) {
-                    showProfile = false
-                    showText = false
-                }
-                
-            } label: {
-                CloseButton()
+           
+      
+            
+            
+            VStack {
+                HStack {
+                    Text(matchcard.name)
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .padding(10)
+                        .background(.ultraThinMaterial)
+                        .cornerRadius(15)
+                    Spacer()
+                    Button {
+                        
+                        withAnimation(.spring()) {
+                            showProfile = false
+                            showText = false
+                        }
+                        
+                    } label: {
+                        Image(systemName: "heart.slash")
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .foregroundColor(.red)
+                    }
+                }.padding(.horizontal,25)
+                Spacer()
             }
-            
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-            .padding(30)
-            .ignoresSafeArea()
-            
-            
-            
         }
-        
+        .matchedGeometryEffect(id: "wholecard\(matchcard.usernumber)", in: namespace)
         .zIndex(1)
         
         
@@ -77,41 +89,29 @@ struct FullProfileView: View {
             let scrollY = proxy.frame(in: .named("scroll")).minY
            
             VStack {
+                
                 Spacer()
             }
             .frame(maxWidth: .infinity)
             .frame(height: scrollY > 0 ? 500 + scrollY : 500)
            
             .background(
-                Image(matchcard.background)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    
+              //  Image(matchcard.background)
+              //      .resizable()
+                  //  .aspectRatio(contentMode: .fill)
+                    GetImage()
+                       
                     .offset(y: scrollY > 0 ? -scrollY : 0)
                     .scaleEffect(scrollY > 0 ? scrollY / 1000 + 1 : 1)
                     .blur(radius: scrollY > 0 ? scrollY / 10 : 0)
                     .accessibility(hidden: true)
+                    
             )
             
-            .overlay(
-                Image(horizontalSizeClass == .compact ? "Waves 1" : "Waves 2")
-                    .foregroundColor(Color("background"))
-                    .frame(maxHeight: .infinity, alignment: .bottom)
-                    .offset(y: scrollY > 0 ? -scrollY : 0)
-                    .scaleEffect(scrollY > 0 ? scrollY / 500 + 1 : 1)
-                    .accessibility(hidden: true)
-                    .blur(radius: 10)
-            )
-            .overlay(
-                ProfileInfoCard(showProfile: .constant(false), section: matchcard, namespace: namespace, dislike: $dislike)
-                    .offset(y: scrollY > 0 ? -scrollY * 1.5 : 0)
-                    .frame(maxHeight: .infinity, alignment: .bottom)
-                    .matchedGeometryEffect(id: "Infocard", in: namespace)
-                    .offset(y: 10)
-                    .padding(20)
-            )
+            .cornerRadius(8)
+
         }
-        .frame(height: 500)
+        .frame(height: 400)
     }
     
     var content: some View {
@@ -185,20 +185,108 @@ struct FullProfileView: View {
                                 }
                             }
                             .padding(20)
+                            .background(Color("offwhite"))
+                            .cornerRadius(19)
                           
                             
-                            VStack {
-                                Image("image_04")
-                                    .resizable()
+                            
+                            VStack(alignment: .leading, spacing: 15.0){
+                                Rectangle()
+                                    .fill(Color.gray)
+                                    .frame(height: 0.1)
+                                HStack {
+                                    
+                                    
+                                    Image(systemName: "hand.thumbsup")
+                                        .font(.title).bold()
+                                        .foregroundColor(.black)
+                                    
+                                    Text("First Date Idea?")
+                                        .font(.title2).bold()
+                                }
+                                Text("What would you like to do with \(matchcard.name) on a first date? :)")
+                                    .font(.footnote)
+                                    .multilineTextAlignment(.leading)
+                                    .lineLimit(3)
+                                    .foregroundColor(.black)
                                 
-                                    .frame(maxWidth: .infinity , maxHeight:  400)
                                 
+                                VStack(spacing: 26.0) {
+                                    HStack {
+                                        HStack(spacing: 4.0) {
+                                            Text("Bar")
+                                            Spacer()
+
+                                            Image(systemName: "wineglass")
+                                            
+                                                .padding(.horizontal, 10)
+                                            .padding(.vertical, 5)
+                                        }
+                                           
+                                    }.padding(12)
+                                        .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 14, action: $liked)
+                                    
+                                    HStack {
+                                        HStack(spacing: 4.0) {
+                                            
+                                            Text("Dinner")
+                                            Spacer()
+                                            Image(systemName: "fork.knife")
+                                            
+                                                .padding(.horizontal, 10)
+                                            .padding(.vertical, 5)
+                                        }
+                                        
+                                    }.padding(12)
+                                        .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 14, action: $liked)
+                                    
+                                    HStack {
+                                        HStack(spacing: 4.0) {
+                                            
+                                            Text("Other")
+                                            Spacer()
+                                            Image(systemName: "eyes.inverse")
+                                           
+                                                .padding(.horizontal, 10)
+                                            .padding(.vertical, 5)
+                                        }
+                                        
+                                    }.padding(12)
+                                        .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 14, action: $liked)
+                                }
+                            }.padding()
+                            
+                            
+                            
+                            
+                            
+                            ZStack {
+                                VStack {
+                                    Image("image_04")
+                                        .resizable()
+                                    
+                                        .frame(maxWidth: .infinity , maxHeight:  400)
+                                    
+                                }
+                                VStack {
+                                    Spacer()
+                                    HStack {
+                                        Spacer()
+                                        Image(systemName: "heart.circle.fill")
+                                            
+                                            .font(.largeTitle)
+                                            .foregroundColor(.white)
+                                    }.padding()
+                                        .padding(.horizontal, 20)
+                                }
                             }.padding(-20)
                                 .padding(.bottom,20)
+                                .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 14, action: $liked)
+                            
                             
                            
                             
-                            VStack(alignment: .leading, spacing: 25.0) {
+                        
                                 
                                 VStack(alignment: .leading, spacing: 15.0){
                                     HStack {
@@ -210,12 +298,12 @@ struct FullProfileView: View {
                                         
                                         Text("Likes")
                                             .font(.title).bold()
+                                        Spacer()
                                     }
                                     Text("Fun loving and looking to settle up with this stuff and do me. its really not like that said no one ever.")
-                                        .font(.footnote)
+                                        .font(.callout)
                                         .multilineTextAlignment(.leading)
                                         .lineLimit(3)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
                                         .foregroundColor(.black)
                                     
                                     
@@ -223,40 +311,50 @@ struct FullProfileView: View {
                                         Text("Singing")
                                             .padding(.horizontal, 10)
                                             .padding(.vertical, 5)
-                                            .background(Color(hue: 0.386, saturation: 0.68, brightness: 0.935))
+                                            .background(Color(hue: 0.975, saturation: 0.635, brightness: 0.937))
                                             .cornerRadius(15)
                                         
                                         Text("Dancing")
                                             .padding(.horizontal, 10)
                                             .padding(.vertical, 5)
-                                            .background(Color(hue: 0.76, saturation: 0.507, brightness: 0.92))
+                                            .background(Color(hue: 0.76, saturation: 0.163, brightness: 0.717))
                                             .cornerRadius(15)
                                         
                                         Text("Traveling")
                                             .padding(.horizontal, 10)
                                             .padding(.vertical, 5)
-                                            .background(Color.purple)
+                                            .background(Color(hue: 1.0, saturation: 0.348, brightness: 0.929))
                                             .cornerRadius(15)
                                     }
+                                }.padding()
+                                .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 18, action: $liked)
+                                .padding(.bottom,25)
+                                    
+                                    
+                                    
+                            ZStack {
+                                VStack {
+                                    Image("image_08")
+                                        .resizable()
+                                    
+                                        .frame(maxWidth: .infinity , maxHeight:  400)
+                                    
                                 }
-                                
-
-                                
-                                
-                            }
-                            
-                            .padding(20)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                           
-                            
-                            
-                            VStack {
-                                Image("image_06")
-                                    .resizable()
-                                
-                                    .frame(maxWidth: .infinity , maxHeight:  400)
-                                
+                                VStack {
+                                    Spacer()
+                                    HStack {
+                                        Spacer()
+                                        Image(systemName: "heart.circle.fill")
+                                        
+                                            .font(.largeTitle)
+                                            .foregroundColor(.white)
+                                    }.padding()
+                                        .padding(.horizontal, 20)
+                                }
                             }.padding(-20)
+                                .padding(.bottom,20)
+                                .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 14, action: $liked)
+                                
                                 
                             
                             
@@ -273,7 +371,7 @@ struct FullProfileView: View {
                                 }
                                 
                                 Text("Fun loving and looking to settle up with this stuff and do me. ")
-                                    .font(.footnote)
+                                    .font(.callout)
                                     .multilineTextAlignment(.leading)
                                     .lineLimit(2)
                                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -285,12 +383,14 @@ struct FullProfileView: View {
                                     Text("Dog")
                                         .padding(.horizontal, 10)
                                         .padding(.vertical, 5)
-                                        .background(Color.purple)
+                                        .background(Color(hue: 1.0, saturation: 0.348, brightness: 0.929))
                                         .cornerRadius(15)
                                     
                                     
                                 }
                             }.padding(20)
+                                .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 19, action: $liked)
+                                .padding(.bottom,95)
 
                             
                         }
@@ -305,7 +405,7 @@ struct FullProfileView: View {
                
         }.padding(.bottom,20)
             
-            .background(Color("Background"))
+            
             
         
         
@@ -355,3 +455,4 @@ struct FullMatchProfileView_Previews: PreviewProvider {
         
     }
 }
+

@@ -27,7 +27,8 @@ struct MessageBubble: View {
                         .font(.subheadline)
                         .padding(.horizontal, 11.0)
                         .padding(.vertical, 9.0)
-                        
+                        .background(Color.gray)
+                        .cornerRadius(9)
                         .padding(.bottom,9)
                         .onTapGesture {
                             withAnimation(.spring()) {
@@ -55,7 +56,7 @@ struct MessageBubble: View {
                         .padding(.horizontal, 11.0)
                         .padding(.vertical, 9.0)
                         .background(.blue)
-                        
+                        .cornerRadius(9)
                         .padding(.bottom,9)
                         .onTapGesture {
                             withAnimation(.spring()) {

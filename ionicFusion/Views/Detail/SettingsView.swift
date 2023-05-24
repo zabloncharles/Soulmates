@@ -8,6 +8,7 @@
 import SwiftUI
 import Firebase
 import FirebaseAuth
+import FirebaseFirestore
 
 
 struct SettingsView: View {
@@ -48,7 +49,7 @@ struct SettingsView: View {
         ZStack {
             
             //Background
-           Color("background").ignoresSafeArea()
+           Color("offwhiteneo").ignoresSafeArea()
             
             //First Section
             wallpaperandsettingsinfo
@@ -82,9 +83,6 @@ struct SettingsView: View {
             
             
             
-            
-            BackButton()
-            
             birthdaypickerandblur
             
             Notification(title: notificationMessage, notification: "Notification", showNotification: $showNotification)
@@ -97,14 +95,10 @@ struct SettingsView: View {
         
         .onAppear {
             withAnimation(.spring()) {
-                hidemainTab = true
-            }
-        }
-        .onDisappear {
-            withAnimation(.spring()) {
                 hidemainTab = false
             }
         }
+       
 //        .onChange(of: notificationMessage) { newValue in
 //            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
 //                showNotification = true
@@ -175,16 +169,24 @@ struct SettingsView: View {
            
             
             VStack(alignment: .leading) {
-                Text("Settings")
-                    .font(.title)
-                    .fontWeight(.bold)
-                Text(showWallpaperPicker ? "Change your wallpaper" : textFielde == 1 ? "Change your name" : textFielde == 2 ? "Change your email" : textFielde == 3 ? "Change your zodiac" : textFielde == 4 ? "Activate your account" : textFielde == 0 ? "Change your profile information." : "Manage your account")
-                    .font(.headline)
-                    .fontWeight(.regular)
-                    .foregroundColor(Color("black"))
+                HStack{
+                    HStack {
+                        Text("Settings")
+                            .font(.title)
+                            .fontWeight(.bold)
+                        Spacer()
+                    }
+                    Text(showWallpaperPicker ? "Change your wallpaper" : textFielde == 1 ? "Change your name" : textFielde == 2 ? "Change your email" : textFielde == 3 ? "Change your zodiac" : textFielde == 4 ? "Activate your account" : textFielde == 0 ? "Change your profile information." : "Manage your account")
+                        .font(.headline)
+                        .fontWeight(.regular)
+                        .foregroundColor(Color("black"))
+                        .multilineTextAlignment(.trailing)
+                }
                
-            }.padding(.horizontal, 20)
-            
+            }.padding(10)
+                .offwhitebutton(isTapped: false, isToggle: false, cornerRadius: 12, action: .constant(false))
+                .padding(.horizontal, 20)
+                .padding(.bottom, 10)
             
             
             
@@ -609,7 +611,7 @@ struct SettingsView: View {
                             
                         }.padding(.trailing, 10)
                     }.padding(.vertical, 2)
-                   
+                    
                     
                   
                     
@@ -618,37 +620,6 @@ struct SettingsView: View {
                     .padding()
                     .offset(x: textFielde == 10 ? 540 : 0)
                     .animation(.spring(), value: textFielde)
-                    
-              
-               
-                VStack {
-                    HStack {
-                        SettingSelections(title: "Activate Account")
-                        Spacer()
-                        settingsMenuItems(text:"Activate", icon: "checkmark.circle", itemTapped: false)
-                            .overlay(Rectangle()
-                                        .opacity(0.02)
-                                        .cornerRadius(10)
-                                        .onTapGesture {
-                                withAnimation(.spring()){
-                                    textFielde = 4
-                                    showNotification.toggle()
-                                    textFielde = 0
-                                }
-                            })
-                    }
-                    .padding(.trailing, 10)
-           
-                    
-                }.padding()
-                    .padding(.vertical,-7)
-                    .padding(.horizontal,-7)
-                    .padding()
-                    .offset(x: textFielde == 10 ? 540 : 0)
-                    .animation(.spring(), value: textFielde)
-                    .padding(.top,-20)
-               
-             
                     
                 VStack(alignment: .center) {
                 
@@ -703,17 +674,18 @@ struct SettingsView: View {
                                 
                         }.padding(.horizontal, textFielde > 8 ? 17 : 50)
                         .padding(.vertical, textFielde > 8 ? 17 : 14)
-                        
-                            .padding(.top, 20)
+                        .offwhitebutton(isTapped: textFielde == 10, isToggle: false, cornerRadius: 15, action: .constant(false))
+                            .padding(.top,10)
                            .offset(y: textFielde == 10 ? 140 : 0)
                             .animation(.spring(), value: textFielde)
                             .scaleEffect(textFielde == 5 ? 0.97 : 1)
                             .opacity(textFielde == 5 ? 0 : 1)
-                    
+                    Spacer()
                 }
                    
-                Spacer()
+                
             }
+            
         }
         
         
@@ -860,6 +832,7 @@ struct SettingsView: View {
         try! Auth.auth().signOut()
         
         signInAnimation = true
+        signIn = false
     }
     func changePic(){
         
