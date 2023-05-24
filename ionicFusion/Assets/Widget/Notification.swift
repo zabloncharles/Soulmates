@@ -215,6 +215,7 @@ struct Notification: View {
 struct settingsEditor_Previews: PreviewProvider {
     static var previews: some View {
         // Notification(showNotification: .constant(false))
-        SettingsView()
+       // SettingsView()
+        ViewController()
     }
 }

@@ -11,7 +11,12 @@ import FirebaseFirestore
 import Firebase
 struct HomeView: View {
     @AppStorage("saveinfo") var saveinfo = ""
+    
     @ObservedObject var viewModel = UserViewModel()
+    @State private var users: [User] = [] // Array to hold the user data
+    @State var profiles: [UserStruct] = []// Array to hold the user data
+    @Binding var currentUser: UserStruct? // Variable to hold the user data
+    @State var theuser = matchDummy[0]
     @State var pregnancyChance = "Low"
     @State var welcomeMessage = ""
     @State var animateChance = false
@@ -32,13 +37,15 @@ struct HomeView: View {
     @State var pageAppeared = false
     @State var dislike = false
     @State var nomorecards = false
-    @State var profiletype = 1
+    @State var profiletype = 0
     @State var number = matchCardData.count
     @State var backViewSize: CGFloat = 80
     @State var dragsize = CGSize.zero
     @State var menupressed = false
     @State var differentpage = false
     @State var slidecardsfromright = false
+    
+    @State var errors = "nun"
     
     private func getCardOffset(_ geometry: GeometryProxy, id: Int, count: Int) -> CGFloat {
         return CGFloat(count - 1 - id) - 10  //moves all up or down
@@ -72,63 +79,73 @@ struct HomeView: View {
                 BackgroundView()
                 ScrollView {
                        
-                            VStack {
-                                welcoming
-                                    .opacity(showProfile ? 0 : 1)
-                                    .animation(.spring(), value: showProfile)
-                                    .padding(.top,70)
-                                //.offset(y: pageAppeared ? 0 : reader.size.height * -1)
-                                
-                                if profiletype == 0 {
+                    if !showProfile {
+                        VStack {
+                                    welcoming
+                                        .opacity(showProfile ? 0 : 1)
+                                        .animation(.spring(), value: showProfile)
+                                        .padding(.top,70)
+                                    //.offset(y: pageAppeared ? 0 : reader.size.height * -1)
                                     
-                                    ForEach(Array(matchCardData.enumerated()), id: \.offset) { index, section in
-                                        if index != 0 {  }
-                                        MatchCard(section: section, namespace: namespace)
+                                    if profiletype == 0 {
+                                        
+                                        if profiles.isEmpty {
+                                            nocards
+                                                .padding(.top, 290)
+                                               
+                                        } else {
+                                            ForEach(profiles) { user in
+                                               // Text("\(user.firstname)") // Display the first name of the user
+                                                MatchCard(section: user, namespace: namespace, showProfile: $showProfile)
+                                                    .frame( height: 530)
+                                            }
+                                        }
+                                        
+                                    } else if profiletype == 1 {
+                                        
+                                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
+                                            ForEach(profiles) { user in
+                                                // Text("\(user.firstname)") // Display the first name of the user
+                                                SmallMatchActive(matchcard: $matchcard, showprof: $showProfile, section: user, namespace: namespace)
+                                                    .frame(width: 230, height: 260)
+                                            }
+                                        }.padding(.horizontal, 10)
                                         
                                     }
-                                    
-                                } else if profiletype == 1 {
-                                    
-                                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
-                                        ForEach(Array(matchCardData.enumerated()), id: \.offset) { index, section in
-                                            if index != 0 {  }
-                                            SmallMatchActive(matchcard: $matchcard, showprof: $showProfile, section: section, namespace: namespace)
-                                                .frame(width: 230, height: 260)
-                                        }
-                                    }.padding(.horizontal, 10)
-                                    
-                                }
-                                else if profiletype == 2 {
-                                    
-                                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
-                                        ForEach(Array(matchCardData.enumerated()), id: \.offset) { index, section in
-                                            if index != 0 {  }
-                                            SmallMatchActive(matchcard: $matchcard, showprof: $showProfile, section: section, namespace: namespace)
-                                                .frame(width: 230, height: 260)
-                                        }
-                                    }.padding(.horizontal, 10)
-                                    
-                                }
-                                else if profiletype == 3 {
-                                    
-                                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
-                                        ForEach(Array(matchCardData.enumerated()), id: \.offset) { index, section in
-                                            if index != 0 {  }
-                                            SmallMatchActive(matchcard: $matchcard, showprof: $showProfile, section: section, namespace: namespace)
-                                                .frame(width: 230, height: 250)
-                                        }
-                                    }.padding(.horizontal, 10)
-                                    
-                                }
-                            }.padding(.bottom,90)
+                                    else if profiletype == 2 {
+                                        
+                                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
+                                            ForEach(Array(matchCardData.enumerated()), id: \.offset) { index, section in
+                                                if index != 0 {  }
+                                                Rectangle()
+                                              //  SmallMatchActive(matchcard: $matchcard, showprof: $showProfile, section: section, namespace: namespace)
+                                                    .frame(width: 230, height: 260)
+                                            }
+                                        }.padding(.horizontal, 10)
+                                        
+                                    }
+                                    else if profiletype == 3 {
+                                        
+                                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
+                                            ForEach(Array(matchCardData.enumerated()), id: \.offset) { index, section in
+                                                if index != 0 {  }
+                                               // SmallMatchActive(matchcard: $matchcard, showprof: $showProfile, section: section, namespace: namespace)
+                                                    Rectangle()
+                                                    .frame(width: 230, height: 250)
+                                            }
+                                        }.padding(.horizontal, 10)
+                                        
+                                    }
+                        }.padding(.bottom,90)
+                    }
                                 
                             
                 
                 
                 if showProfile {
-                    FullProfileView(namespace: namespace, matchcard: $matchcard, showProfile: $showProfile)
-                        .matchedGeometryEffect(id: "page", in: namespace, isSource: showProfile)
-                    
+                    FullProfileView(namespace: namespace, user: $currentUser, matchcard: $matchcard, showProfile: $showProfile)
+                      //  .matchedGeometryEffect(id: "page", in: namespace, isSource: showProfile)
+
                 }
                 
                 
@@ -142,6 +159,7 @@ struct HomeView: View {
             }.onAppear{
                 withAnimation(.spring().speed(0.4)){
                     pageAppeared = true
+                    fetchUsers()
                 }
             }
             .onDisappear{
@@ -197,12 +215,15 @@ struct HomeView: View {
     
  
     var welcoming : some View {
+        
         VStack {
-            
+           
             HStack(spacing: 16){
                 VStack(alignment: .leading, spacing: 5) {
                     
-                    ShimmerVar(text: "W\("elcome back \(data()[1])".lowercased())" , useCustomFont: true)
+                   
+                        ShimmerVar(text: "W\("elcome back \(currentUser?.firstname ?? "Umm")".lowercased())" , useCustomFont: true)
+                    
                     ///  ShimmerVar(text: "W\("elcome back vera".lowercased())" , useCustomFont: true)
                     
                     VStack {
@@ -234,12 +255,10 @@ struct HomeView: View {
                         }
                         
                     }.font(.subheadline)
-//                        .animation(.spring(), value: show)
-//                        .transition(.asymmetric(
-//                            insertion: .move(edge: .bottom),
-//                            removal: .move(edge: .top)
-//                        ))
-                    
+                        .onAppear{
+                            getuserData()
+                        }
+//
                     
                     
                     
@@ -248,15 +267,16 @@ struct HomeView: View {
                 
                 
                 Spacer()
-                Image("Background 2")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
+//                Image(currentUser?.avatar ?? "Avatar 1")
+//                    .resizable()
+//                    .aspectRatio(contentMode: .fill)
+                ImageViewer(url: currentUser?.avatar ?? "")
                     .clipShape(Circle())
                     .frame(width: 70, height: 70)
                     .overlay(
                         VStack {
                             //days left
-                            Text("4")
+                            Text("\(currentUser?.matches ?? 0)")
                                 .font(.subheadline)
                             //Text(Int(data()[3]) ?? 0 < 1 ? "Day" :"Days")
                             Text("Matches")
@@ -292,7 +312,7 @@ struct HomeView: View {
             .padding(.horizontal,20)
             .padding(.bottom, 5)
             .onAppear {
-                getuserData()
+                
                 animateChance = true
                 withAnimation(.spring(response: 1.9, dampingFraction: 1.5, blendDuration: 8)) {
                     
@@ -339,29 +359,67 @@ struct HomeView: View {
         }.padding(.horizontal)
             .padding(.top,10)
             .padding(.bottom,13)
+            .onAppear{
+               
+            }
     }
     
     
-    
-    
-    //return an array of string
-    func data()->[String]{
+  
+    private func fetchUsers() {
+        let db = Firestore.firestore()
+        let user = Auth.auth().currentUser
+        let usersRef = db.collection("users").whereField("email", isNotEqualTo: user?.email ?? "")
         
-        //   var data = saveinfo
-        let data = "Bridget,Miller,5,4,Possible,4,04/25/2000,z.test@gmail.com"
-        
-        // 0:name , 1:lname , 2:notifications, 3:period, 4:medium, 5:cycledate, 6:age, 7:email
-        return data.components(separatedBy: ",")
+        usersRef.getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error fetching users: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let documents = querySnapshot?.documents else {
+                print("No documents found.")
+                return
+            }
+            
+            let users = documents.compactMap { document in
+                let documentData = document.data()
+                
+                return UserStruct(
+                    firstname: documentData["firstname"] as? String ?? "",
+                    lastname: documentData["lastname"] as? String ?? "",
+                    notifications: documentData["notifications"] as? String ?? "",
+                    avatar: documentData["avatar"] as? String ?? "",
+                    cyclechange: documentData["cyclechange"] as? String ?? "",
+                    birthday: documentData["birthday"] as? String ?? "",
+                    email: documentData["email"] as? String ?? "",
+                    aboutme: documentData["aboutme"] as? String ?? "",
+                    education: documentData["education"] as? String ?? "",
+                    work: documentData["work"] as? String ?? "",
+                    images: documentData["images"] as? [String] ?? [],
+                    likes: documentData["likes"] as? [String] ?? [],
+                    location: documentData["location"] as? [String] ?? [],
+                    lookingfor: documentData["lookingfor"] as? String ?? "",
+                    online: documentData["online"] as? Bool ?? false,
+                    password: documentData["password"] as? String ?? "",
+                    matches: documentData["matches"] as? Int ?? 0,
+                    age: documentData["age"] as? String ?? "", lifestyle: documentData["lifestyle"] as? [String] ?? [],
+                    lifestyledesc: documentData["lifestyledesc"] as? String ?? ""
+                )
+            }
+            
+            self.profiles = users
+        }
     }
     func getuserData(){
-        let cycle = Int(data()[2]) ?? 0
+        let cycle =  0
         
         if cycle >= 1 && cycle <= 2{
-            welcomeMessage = "Possible To Conceive"
+            welcomeMessage = "Start matching to find your soulmate"
         }
         else
         {
-            welcomeMessage = "You're on a roll, you have many matches today"
+            welcomeMessage = "You're on a roll, you have matches :)"
             
         }
       

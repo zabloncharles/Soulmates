@@ -99,15 +99,15 @@ struct StandoutsView: View {
                 
                 
                 
-                if showProfile {
-                    
-                    
-                    FullProfileView(namespace: namespace, matchcard: $matchcard, showProfile: $showProfile)
-                        .matchedGeometryEffect(id: "page", in: namespace, isSource: showProfile)
-                    
-                    
-                    
-                }
+//                if showProfile {
+//                    
+//                    
+//                    FullProfileView(namespace: namespace, matchcard: $matchcard, showProfile: $showProfile)
+//                        .matchedGeometryEffect(id: "page", in: namespace, isSource: showProfile)
+//                    
+//                    
+//                    
+//                }
                 
                 
             }

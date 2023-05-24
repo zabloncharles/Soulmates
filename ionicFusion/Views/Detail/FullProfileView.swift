@@ -9,15 +9,18 @@ import SwiftUI
 
 struct FullProfileView: View {
     var namespace: Namespace.ID
+    @Binding var user: UserStruct? // Variable to hold the user dat
     @Binding var matchcard : MatchCardData
+    @ObservedObject var viewModel = UserViewModel()
     var isAnimated = true
     @Binding var showProfile : Bool
     @State var viewState: CGSize = .zero
     @State var selectedSection = courseSections[0]
+    @State var selectedItem = matchDummy[0]
     @State var showText = false
     @State var dislike = false
     @State var liked = false
-    
+    @State var showMore = false
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.presentationMode) var presentationMode
     
@@ -26,7 +29,7 @@ struct FullProfileView: View {
            BackgroundView()
             ScrollView {
                 cover
-                    .matchedGeometryEffect(id: "som\(matchcard.usernumber)", in: namespace)
+                  //  .matchedGeometryEffect(id: "som\(matchcard.usernumber)", in: namespace)
                     
                 content
                     .offset(y: showText ? 0 : 650)
@@ -53,7 +56,7 @@ struct FullProfileView: View {
             
             VStack {
                 HStack {
-                    Text(matchcard.name)
+                    Text(user?.firstname ?? "")
                         .font(.title)
                         .fontWeight(.bold)
                         .padding(10)
@@ -131,14 +134,14 @@ struct FullProfileView: View {
                                     Text("About Me")
                                         .font(.title).bold()
                                     
-                                    Text("23")
+                                    Text(user?.age ?? "")
                                         .font(.title3).bold()
                                         .padding(5)
                                         .background(Color.orange)
                                         .cornerRadius(60)
                                 }
                                 
-                                Text("Fun loving and looking to settle up with this stuff and do me. its really not like that said no one ever.")
+                                Text(user?.aboutme ?? "Nothing yet!")
                                     .font(.footnote)
                                     .multilineTextAlignment(.leading)
                                     .lineLimit(2)
@@ -152,7 +155,7 @@ struct FullProfileView: View {
                                         .font(.system(size: 18, weight: .medium))
                                        
                                     
-                                    Text("Minnesota University")
+                                    Text(user?.education ?? "")
                                         .font(.footnote)
                                         .fontWeight(.semibold)
                                         .lineLimit(2)
@@ -164,7 +167,7 @@ struct FullProfileView: View {
                                         .font(.system(size: 18, weight: .medium))
                                      
                                     
-                                    Text("Works in Rochester")
+                                    Text("Works in \(user?.work ?? "")")
                                         .font(.footnote)
                                         .fontWeight(.semibold)
                                         .lineLimit(2)
@@ -175,10 +178,13 @@ struct FullProfileView: View {
                                         .font(.system(size: 18, weight: .medium))
                                        
                                     
-                                    Text("12 miles away")
-                                        .font(.footnote)
-                                        .fontWeight(.semibold)
+                                    HStack {
+                                        DistanceView()
+                                            .font(.footnote)
+                                            .fontWeight(.semibold)
                                         .lineLimit(2)
+                                        
+                                    }
                                        
                                 }.foregroundColor(Color("black"))
                             }
@@ -260,10 +266,9 @@ struct FullProfileView: View {
                             
                             ZStack {
                                 VStack {
-                                    Image("image_04")
-                                        .resizable()
-                                    
-                                        .frame(maxWidth: .infinity , maxHeight:  400)
+                                    ImageViewer(url: user?.images[0] ?? "")
+                                       
+                                        .frame(maxWidth: .infinity , minHeight:  400)
                                     
                                 }
                                 VStack {
@@ -306,23 +311,11 @@ struct FullProfileView: View {
                                     
                                     
                                     HStack {
-                                        Text("Singing")
-                                            .padding(.horizontal, 10)
-                                            .padding(.vertical, 5)
-                                            .background(Color(hue: 0.975, saturation: 0.635, brightness: 0.937))
-                                            .cornerRadius(15)
+                                        ForEach(user?.likes ?? [""], id: \.self) { like in
+                                            LikesPill(placeholder: like)
+                                        }
                                         
-                                        Text("Dancing")
-                                            .padding(.horizontal, 10)
-                                            .padding(.vertical, 5)
-                                            .background(Color(hue: 0.76, saturation: 0.163, brightness: 0.717))
-                                            .cornerRadius(15)
-                                        
-                                        Text("Traveling")
-                                            .padding(.horizontal, 10)
-                                            .padding(.vertical, 5)
-                                            .background(Color(hue: 1.0, saturation: 0.348, brightness: 0.929))
-                                            .cornerRadius(15)
+                                       
                                     }
                                 }.foregroundColor(Color("black"))
                                 .padding()
@@ -333,10 +326,10 @@ struct FullProfileView: View {
                                     
                             ZStack {
                                 VStack {
-                                    Image("image_08")
-                                        .resizable()
+                                    ImageViewer(url: user?.images[0] ?? "")
                                     
-                                        .frame(maxWidth: .infinity , maxHeight:  400)
+                                        .frame(maxWidth: .infinity , minHeight:  400)
+                                    
                                     
                                 }
                                 VStack {
@@ -368,27 +361,26 @@ struct FullProfileView: View {
                                         .font(.title).bold()
                                 }
                                 
-                                Text("Fun loving and looking to settle up with this stuff and do me. ")
+                                Text(user?.lifestyledesc ?? "")
                                     .font(.callout)
                                     .multilineTextAlignment(.leading)
-                                    .lineLimit(2)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .lineLimit(showMore ? 10 : 3)
                                     
                                 
                                 
                                 
                                 HStack {
-                                    Text("Dog")
-                                        .padding(.horizontal, 10)
-                                        .padding(.vertical, 5)
-                                        .background(Color(hue: 1.0, saturation: 0.348, brightness: 0.929))
-                                        .cornerRadius(15)
+                                    ForEach(user?.lifestyle ?? [""], id: \.self) { like in
+                                        LikesPill(placeholder: like)
+                                    }
                                     
                                     
                                 }
                             }.foregroundColor(Color("black"))
                             .padding(20)
-                                .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 19, action: $liked)
+                            
+                                .offwhitebutton(isTapped: liked, isToggle: true, cornerRadius: 20, action: $showMore)
+                                
                                 .padding(.bottom,95)
 
                             
@@ -407,7 +399,7 @@ struct FullProfileView: View {
             
             
         
-        
+      
         
         
     }
@@ -442,7 +434,9 @@ struct FullProfileView: View {
     
     
     
-   
+    func getLocation(){
+        
+    }
 }
 
 struct FullMatchProfileView_Previews: PreviewProvider {

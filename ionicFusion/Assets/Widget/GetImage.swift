@@ -54,3 +54,56 @@ struct GetImage: View {
         }.resume()
     }
 }
+
+struct ImageViewer: View {
+    @State private var image: Image?
+    var url : String
+    @State var spin = false
+    var body: some View {
+        VStack {
+            if let image = image {
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .blur(radius: spin ? 10 : 0)
+                    .onAppear{
+                        withAnimation(.spring()) {
+                            spin = false
+                        }
+                    }
+            } else {
+                Image("image_02")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .blur(radius: spin ? 20 : 0)
+                    .onAppear{
+                        withAnimation(.spring()) {
+                            spin = true
+                        }
+                    }
+            }
+        }
+        .onAppear {
+            loadImageFromAPI()
+        }
+    }
+    
+    func loadImageFromAPI() {
+        guard let url = URL(string: url.count > 1 ? url : "https://source.unsplash.com/random/?female,beautiful") else {
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+                return
+            }
+            
+            if let data = data, let uiImage = UIImage(data: data) {
+                DispatchQueue.main.async {
+                    self.image = Image(uiImage: uiImage)
+                }
+            }
+        }.resume()
+    }
+}

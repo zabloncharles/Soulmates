@@ -2,8 +2,13 @@
 
 
 import SwiftUI
+import FirebaseFirestore
+import Firebase
 
 struct MainTab: View {
+    @State private var users: [User] = [] // Array to hold the user data
+    @State var currentUser: UserStruct? // Variable to hold the user data
+    @State var user: UserStruct? // Variable to hold the user dat
     @AppStorage("currentPage") var selected = 0
     @AppStorage("showAccount") var showAccount = false
     @AppStorage("hidemainTab") var hidemainTab = false
@@ -32,26 +37,116 @@ struct MainTab: View {
                     if self.selected == 2{
                        
                        // StandoutsView(matchcard: $matchcard)
-                        HomeView( matchcard: $matchcard)
+                        HomeView( currentUser: $currentUser, matchcard: $matchcard)
                     }
                     if self.selected == 3{
                         NotificationsDetail(namespace: namespace, notification: $selectedSection)
                         
                     }
-                    if self.selected == 4{
-                        SettingsView()
-                        
-                    }
+//                    if self.selected == 4{
+//                        SettingsView()
+//                        
+//                    }
                 }
             }
+            
+            
+//            if showProfile {
+//                FullProfileView(namespace: namespace,user: $user, matchcard: $matchcard, showProfile: $showProfile)
+//            }
             
             FloatingTabbar(selected: self.$selected)
                 
                 .offset(y:  hidemainTab && (selected != 0)  ? UIScreen.main.bounds.height * 0.19 : 0)
                 .animation(.spring(), value: hidemainTab)
+            
+            
+            
+            
+            
                 
+        }.onAppear{
+            fetchCurrentUser()
         }
         
+    }
+    
+    private func fetchCurrentUser() {
+        
+        let db = Firestore.firestore()
+        let user = Auth.auth().currentUser
+        let usersRef = db.collection("users").whereField("email", isEqualTo: user?.email ?? "")
+        
+        usersRef.getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error fetching users: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let documents = querySnapshot?.documents else {
+                print("No documents found.")
+                return
+            }
+            
+            if let documentData = documents.first?.data() {
+                let user = UserStruct(
+                    firstname: documentData["firstname"] as? String ?? "",
+                    lastname: documentData["lastname"] as? String ?? "",
+                    notifications: documentData["notifications"] as? String ?? "",
+                    avatar: documentData["avatar"] as? String ?? "",
+                    cyclechange: documentData["cyclechange"] as? String ?? "",
+                    birthday: documentData["birthday"] as? String ?? "",
+                    email: documentData["email"] as? String ?? "",
+                    aboutme: documentData["aboutme"] as? String ?? "",
+                    education: documentData["education"] as? String ?? "",
+                    work: documentData["work"] as? String ?? "",
+                    images: documentData["images"] as? [String] ?? [],
+                    likes: documentData["likes"] as? [String] ?? [],
+                    location: documentData["location"] as? [String] ?? [],
+                    lookingfor: documentData["lookingfor"] as? String ?? "",
+                    online: documentData["online"] as? Bool ?? false,
+                    password: documentData["password"] as? String ?? "",
+                    matches: documentData["matches"] as? Int ?? 0,
+                    age: documentData["age"] as? String ?? "", lifestyle: documentData["lifestyle"] as? [String] ?? [],
+                    lifestyledesc: documentData["lifestyledesc"] as? String ?? ""
+                )
+                
+                self.currentUser = user
+            } else {
+                print("User document not found")
+            }
+        }
+        //        let db = Firestore.firestore()
+        //        let usersRef = db.collection("users")
+        //
+        //        usersRef.getDocuments { (querySnapshot, error) in
+        //            if let error = error {
+        //                print("Error fetching users: \(error.localizedDescription)")
+        //                return
+        //            }
+        //
+        //            guard let documents = querySnapshot?.documents else {
+        //                print("No documents found.")
+        //                return
+        //            }
+        //
+        //            self.users = documents.compactMap { queryDocumentSnapshot in
+        //                let data = queryDocumentSnapshot.data()
+        //
+        //                // Map Firestore data to your User struct or class
+        //                if let fname = data["fname"] as? String,
+        //                   let lname = data["lname"] as? String,
+        //                   let email = data["email"] as? String,
+        //                   let notifications = data["notifications"] as? String,
+        //                   let avatar = data["avatar"] as? String,
+        //                   let cyclechange = data["cyclechange"] as? String,
+        //                   let birthday = data["birthday"] as? String {
+        //                    return User(fname: fname, lname: lname, notifications: notifications, avatar: avatar, cyclechange: cyclechange, birthday: birthday, email: email)
+        //                } else {
+        //                    return nil
+        //                }
+        //            }
+        //        }
     }
 }
 

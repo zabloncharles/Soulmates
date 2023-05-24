@@ -28,7 +28,7 @@ struct OffwhiteButtonTapped: ViewModifier {
                 if isToggle {
                    
                     withAnimation(.spring())  {
-                        action = true
+                        action.toggle()
                         isTapped.toggle()
                     }
                 } else {

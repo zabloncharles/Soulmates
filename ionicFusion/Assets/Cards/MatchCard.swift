@@ -16,12 +16,12 @@ struct MatchCard_Previews: PreviewProvider {
 }
 
 struct MatchCard: View {
-
-    var section : MatchCardData
+//    @AppStorage("currentclickedprof") var sectionData : UserStruct = []
+    var section : UserStruct
     var namespace: Namespace.ID
     @State var dislike = false
     @State var welcomingisTapped = false
-   
+    @Binding var showProfile : Bool
     
     
     
@@ -37,23 +37,23 @@ struct MatchCard: View {
                 .background(
                     
                     ZStack{
-                        Image(section.background)
+                        Image("image_02")
                             .resizable(resizingMode: .stretch)
                             .aspectRatio(contentMode: .fill)
-                            .matchedGeometryEffect(id: "\(section.background)", in: namespace)
+                          //  .matchedGeometryEffect(id: "\(section.background)", in: namespace)
                         
-                        Image(section.background)
+                        Image("image_02")
                             .resizable(resizingMode: .stretch)
                             .aspectRatio(contentMode: .fill)
                             .blur(radius: 5)
-                            .matchedGeometryEffect(id: "\(section.background)", in: namespace)
+                         //   .matchedGeometryEffect(id: "\(section.background)", in: namespace)
                         
                             .mask(LinearGradient(gradient: Gradient(colors: [.clear, .clear, .black,.black]), startPoint: .top, endPoint: .bottom))
                             .overlay(
                                 VStack {
                                     HStack {
                                         Image(systemName: "person.and.background.dotted")
-                                        Text("\(section.usernumber)" )
+                                        Text("\(section.age)" )
                                     }
                                 } .padding(.horizontal,10)
                                     .padding(.vertical,4)
@@ -65,9 +65,22 @@ struct MatchCard: View {
                         
                     }
                 )
-                .offwhitebutton(isTapped: dislike, isToggle: false, cornerRadius: 15, action: $welcomingisTapped)
+                .offwhitebutton(isTapped: dislike, isToggle: false, cornerRadius: 15, action: $showProfile)
                 .padding(.horizontal)
                 .padding(.vertical,10)
+                .background(
+                    VStack{
+                        Color.black
+                            .opacity(0)
+                            .onAppear{
+                                if showProfile {
+//                                    theuser  = section
+                                    showProfile = true
+                                }
+                            }
+                   
+                }
+                )
                 //
                
      
@@ -93,7 +106,7 @@ struct MatchCard: View {
                 HStack{
                     VStack(alignment: .leading,spacing: 0) {
                         HStack(alignment: .center) {
-                            Text(section.name)
+                            Text(section.firstname + " " + section.lastname)
                                 .font(.largeTitle)
                                 .fontWeight(.bold)
                                 .lineLimit(1)
@@ -107,9 +120,9 @@ struct MatchCard: View {
                         HStack(spacing: 3.5){
                             Image(systemName: "circle.fill")
                                 .font(.system(size: 10, weight: .medium))
-                                .foregroundColor(section.status == 0 ? .red : .green)
+                                .foregroundColor(!section.online ? .red : .green)
                             
-                            Text(section.status == 0 ?  "Offline" : "Online now")
+                            Text(!section.online ?  "Offline" : "Online now")
                                 .font(.footnote)
                                 .fontWeight(.semibold)
                                 .lineLimit(2)
@@ -133,13 +146,13 @@ struct MatchCard: View {
                             .font(.system(size: 18, weight: .medium))
                         
                         
-                        Text(section.location)
+                        Text(section.location[0])
                             .font(.footnote)
                             .fontWeight(.semibold)
                             .lineLimit(2)
                         
                     }.foregroundColor(.secondary)
-                    Text(section.quote)
+                    Text(section.aboutme)
                         .font(.footnote)
                         .multilineTextAlignment(.leading)
                         .lineLimit(2)
@@ -224,10 +237,11 @@ struct MatchCard: View {
                 .cornerRadius(25.0)
             
                 .overlay(
-                    Image(section.profilepic)
-                        .resizable(resizingMode: .stretch)
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 80.0, height: 80.0)
+                    //Image(section.avatar)
+                    ImageViewer(url: section.avatar)
+                       // .resizable(resizingMode: .stretch)
+                      //  .aspectRatio(contentMode: .fill)
+                        .frame(width: 90.0, height: 90.0)
                         .cornerRadius(60)
                         .background(
                             SmallClock()
@@ -237,6 +251,7 @@ struct MatchCard: View {
                     
                     
                 )
+               
         }
     }
 

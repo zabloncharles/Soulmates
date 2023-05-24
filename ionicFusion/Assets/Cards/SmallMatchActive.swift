@@ -19,7 +19,7 @@ struct SmallMatchActive_Previews: PreviewProvider {
 struct SmallMatchActive: View {
     @Binding var matchcard : MatchCardData
     @Binding var showprof : Bool
-    var section : MatchCardData
+    var section : UserStruct
     var namespace: Namespace.ID
     @State var dislike = false
     @State var welcomingisTapped = false
@@ -36,7 +36,7 @@ struct SmallMatchActive: View {
                     HStack {
                         VStack(alignment: .leading) {
                             HStack(spacing: 3.0) {
-                                Text(section.name)
+                                Text(section.firstname + " " + section.lastname)
                                     .lineLimit(1)
                                     .foregroundColor(.white)
                                 Image(systemName: "checkmark.seal.fill")
@@ -44,18 +44,19 @@ struct SmallMatchActive: View {
                             }
                             HStack(spacing: 3.0) {
                                 Image(systemName: "circle.fill")
-                                    .foregroundColor(.green)
+                                    .foregroundColor(section.online ? .green : .red)
                                     .font(.caption2)
-                                Text("5 minutes ago")
+                                Text(section.online ? "5 minutes ago" : "Offline")
                                     .font(.footnote)
                                     .foregroundColor(Color.gray)
                                 .lineLimit(1)
                             }
                         }
                         Spacer()
-                        Image(section.profilepic)
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
+                       // Image(section.avatar)
+                        ImageViewer(url: section.avatar)
+                           // .resizable()
+                           // .aspectRatio(contentMode: .fill)
                             .frame(width: 50, height: 50)
                             .cornerRadius(60)
                     }.padding(6)
@@ -70,9 +71,9 @@ struct SmallMatchActive: View {
               
                
         }.background(
-            Image(section.background)
+            Image("image_03")
                 .resizable()
-                .matchedGeometryEffect(id: "som\(section.usernumber)", in: namespace)
+               // .matchedGeometryEffect(id: "som\(section.usernumber)", in: namespace)
         )
             .offwhitebutton(isTapped: dislike, isToggle: false, cornerRadius: 10, action: $welcomingisTapped)
             
@@ -81,7 +82,7 @@ struct SmallMatchActive: View {
                 if welcomingisTapped {
                     Color.clear
                         .onAppear{
-                            matchcard = section
+                           // matchcard = section
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                 showprof = true
                                 welcomingisTapped = false
