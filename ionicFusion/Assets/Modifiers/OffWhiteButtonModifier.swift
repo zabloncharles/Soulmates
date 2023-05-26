@@ -28,7 +28,11 @@ struct OffwhiteButtonTapped: ViewModifier {
                 if isToggle {
                    
                     withAnimation(.spring())  {
-                        action.toggle()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            withAnimation(.spring()) {
+                                action.toggle()
+                            }
+                        }
                         isTapped.toggle()
                     }
                 } else {
@@ -40,6 +44,7 @@ struct OffwhiteButtonTapped: ViewModifier {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                         withAnimation(.spring()) {
                             isTapped = false
+                          //  action = true
                         }
                         
                     }
