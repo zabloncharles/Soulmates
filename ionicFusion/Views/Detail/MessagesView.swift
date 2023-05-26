@@ -6,6 +6,9 @@
 //
 
 import SwiftUI
+import Firebase
+import FirebaseFirestore
+import FirebaseAuth
 
 struct MessagesView: View {
     @AppStorage("hidemainTab") var hidemainTab = false
@@ -16,14 +19,20 @@ struct MessagesView: View {
     @State var hideNav = false
     @State var scrolling = CGFloat(0)
     @State var scrolledItem: Int = 0
-  
+    @State private var chatMessages: [Message] = []
+    @State private var messageText = ""
+    @State private var sender = "John"
+    
     @FocusState private var keyboardFocus: Bool
+    @State private var typing = false
     var body: some View {
         NavigationView {
             ZStack {
               BackgroundView()
                 content
-                cover
+              
+                    cover
+               
                 texting
               
                 
@@ -47,7 +56,7 @@ struct MessagesView: View {
                 Spacer()
             }
             .frame(maxWidth: .infinity)
-            .frame(height: 120)
+            .frame(height: 110)
          
             .background(
                // Image(section.background)
@@ -117,57 +126,54 @@ struct MessagesView: View {
             )
          
             Spacer()
-        }//.offset(y: scrolling > 20.0 ? -CGFloat(scrolling - 20) : CGFloat(scrolling - 20))
+        }//.offset(y: CGFloat(scrolledItem - 20))
+        .offset(y: hideNav ? 0 : 0)
         .edgesIgnoringSafeArea(.all)
     }
     
     var content: some View {
         
-                    
+        ScrollView (showsIndicators: false){
+            scrollDetection
             VStack{
-                 Spacer()
+                
                 VStack {
                     
-                    ScrollViewReader { proxy in
-                        ScrollView (showsIndicators: false){
+                    
+                        
                             
                             VStack {
-                                ForEach(Array(messages.enumerated()), id: \.offset) { index, section in
-                                    if index != 0 {  }
+                                
+                                ForEach(chatMessages.sorted(by: { $1.timestamp > $0.timestamp })) {section in
+                                 
                                     
-                                    MessageBubble(section: section)
-                                        .tag(index)
-                                        .onAppear{
-                                            proxy.scrollTo((Array(messages.enumerated()).endIndex)-1)
+                                    MessageBubble1(section: section)
+                                        .onLongPressGesture {
+                                           deleteMessage(messageID: section.documentID)
                                         }
+                                  //  Text("\(section.id)")
                                     
                                        
                                 }
-                            }.onPreferenceChange(ScrollViewOffsetPreferenceKey.self) { offset in
-                                let itemIndex = Int(offset.y / 20)
-                                if scrolledItem != itemIndex {
-                                    scrolledItem = itemIndex
-                                    // Perform any desired action when the scroll changes
-                                }
                             }
-                            .background(GeometryReader { geometry in
-                                Color.clear
-                                    .preference(key: ScrollViewOffsetPreferenceKey.self, value: geometry.frame(in: .named("scrollView")).origin)
-                            })
                             .coordinateSpace(name: "scrollView")
                         }
-                    }
-                
-                
             }
-               
-                .padding(.top, 114)
+                
+                
+            
+            
+               .padding(.top, 90)
                 .padding(.bottom,90)
             .coordinateSpace(name: "scroll")
         }.background(Color("offwhiteneo"))
-            //.overlay(Text("\(scrolledItem)"))
+       
+            .overlay(Text("\(scrolledItem)"))
             .onTapGesture{
                 keyboardFocus = false
+            }
+            .onAppear{
+                fetchMessages()
             }
         
         
@@ -180,7 +186,7 @@ struct MessagesView: View {
                 Spacer()
                 
                 HStack {
-                    TextField("Message\(scrolledItem)" , text: $text)
+                    TextField("Type your message", text: $messageText)
                         .padding(.vertical)
                         .padding(.leading, 55)
                         .background(Color("offwhite"))
@@ -191,13 +197,25 @@ struct MessagesView: View {
                                     .foregroundColor(.white)
                                     .offset(x: -145)
                         )
-                        .offwhitebutton(isTapped: false, isToggle: false, cornerRadius: 25, action:  .constant(false))
+                        .offwhitebutton(isTapped: typing, isToggle: true, cornerRadius: 25, action:  $typing)
+                        .onChange(of: typing) { newValue in
+                            if keyboardFocus {
+                                typing = true
+                            } else {
+                                typing = false
+                            }
+                        }
                     
-                    Button(action: buttonsend) {
                         Image(systemName: "arrow.up.circle.fill")
-                            .font(.largeTitle)
-                            .foregroundColor(.blue)
-                            .neumorphiccircle(padding: -5, opacity: 1)
+                        .font(.largeTitle)
+                        .foregroundColor(messageText.count < 1 ? .gray : .blue)
+                        .neumorphiccircle(padding: -5, opacity: 1)
+                        .onTapGesture{
+                           if messageText.count > 0 {
+                               sendMessage(text: messageText, sender: sender)
+                               messageText = ""
+                            }
+                        
                     }
                     
                 }.padding()
@@ -214,7 +232,7 @@ struct MessagesView: View {
                             
                     )
                     
-            }
+            }.offset(y: hideNav ? 0 : 0)
            
         
     }
@@ -225,23 +243,21 @@ struct MessagesView: View {
         }
         .onPreferenceChange(ScrollPreferenceKey.self) { offset in
             withAnimation(.easeInOut) {
-                
-                    if offset > 1120 {
+                scrolledItem = Int(offset)
+                keyboardFocus = false
+                typing = false
+                if offset < 11 || offset > 50 {
                        
-                       // hideNav = true
-                       //  text = "ii\(offset)"
-                    }
-                    if offset > 903 && offset < 1120 {
-                        withAnimation(.easeInOut) {
-                            
-                          //   text = "yo\(offset)"
+                        withAnimation(.spring()) {
+                            hideNav = true
+                           
                         }
+                    
                     }
+                 
                     else {
-                        withAnimation(.easeInOut) {
-                          
-                           //  text = "huh\(offset)"
-                          //  scrolling = offset
+                        withAnimation(.spring()) {
+                            hideNav = false
                         }
                         
                         
@@ -250,9 +266,73 @@ struct MessagesView: View {
                 }
             }
         }
-    func buttonsend(){
+    func sendMessage(text: String, sender: String) {
+        let db = Firestore.firestore()
+        let messageRef = db.collection("users").document("E2FzpaP15CVyce9uvimm").collection("messages").document("Uq85VmqlQged6RRDNg0y").collection("messages").document("individual").collection("9oU5CqpvCwCDAezknYLG").document()
         
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let timestampString = dateFormatter.string(from: Date())
+        
+        let messageData: [String: Any] = [
+            "text": text,
+            "sender": true,
+            "timestamp": timestampString,
+            "documentID": messageRef.documentID // Save the document ID as a field
+        ]
+        
+        messageRef.setData(messageData) { error in
+            if let error = error {
+                print("Error adding message: \(error.localizedDescription)")
+            } else {
+                print("Message added successfully")
+            }
+        }
+       
+        
+      
     }
+  
+    private func fetchMessages() {
+        let db = Firestore.firestore()
+        let usersRef = db.collection("users").document("E2FzpaP15CVyce9uvimm").collection("messages").document("Uq85VmqlQged6RRDNg0y").collection("messages").document("individual").collection("9oU5CqpvCwCDAezknYLG")
+            .addSnapshotListener { snapshot, error in
+                guard let documents = snapshot?.documents else {
+                    print("Error fetching documents: \(error?.localizedDescription ?? "Unknown error")")
+                    return
+                }
+                
+                // Process the updated documents and update your UI accordingly
+                // For example, you can update an @State variable holding chat messages
+                let messages = documents.map { document -> Message in
+                    let data = document.data()
+                    let name = data["name"] as? String ?? ""
+                    let docid = data["documentID"] as? String ?? ""
+                    let text = data["text"] as? String ?? ""
+                    let sender = data["sender"] as? Bool ?? false
+                    let timestamp = data["timestamp"] as? String ?? ""
+                    return Message(documentID: docid, name: name, text: text, sender: sender, timestamp: timestamp)
+                    
+                }
+                self.chatMessages = messages
+            }
+    }
+    
+    func deleteMessage(messageID: String) {
+        let db = Firestore.firestore()
+        let messageRef = db.collection("users").document("E2FzpaP15CVyce9uvimm").collection("messages").document("Uq85VmqlQged6RRDNg0y").collection("messages").document("individual").collection("9oU5CqpvCwCDAezknYLG").document(messageID)
+        
+        messageRef.delete { error in
+            if let error = error {
+                print("Error deleting message: \(error.localizedDescription)")
+            } else {
+                print("Message deleted successfully")
+            }
+        }
+    }
+    
+    
+
     }
 
 

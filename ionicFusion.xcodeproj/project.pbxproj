@@ -14,7 +14,6 @@
 		F70636362A1D8960007A9FEF /* GetImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F70636352A1D8960007A9FEF /* GetImage.swift */; };
 		F706363B2A1E6F6E007A9FEF /* DistanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F706363A2A1E6F6E007A9FEF /* DistanceView.swift */; };
 		F706363D2A1E76AF007A9FEF /* LikesPill.swift in Sources */ = {isa = PBXBuildFile; fileRef = F706363C2A1E76AF007A9FEF /* LikesPill.swift */; };
-		F706363F2A1E9022007A9FEF /* test2.swift in Sources */ = {isa = PBXBuildFile; fileRef = F706363E2A1E9022007A9FEF /* test2.swift */; };
 		F73C196127F8ADAE0017C97B /* LauchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73C196027F8ADAE0017C97B /* LauchView.swift */; };
 		F73F32342A138C800038A6D3 /* DragsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73F32332A138C800038A6D3 /* DragsCard.swift */; };
 		F73F32362A1522880038A6D3 /* nomorecards.json in Resources */ = {isa = PBXBuildFile; fileRef = F73F32352A1522880038A6D3 /* nomorecards.json */; };
@@ -136,6 +135,8 @@
 		F7A3148327F4CFE100F9F550 /* SmallClocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A3141E27F4CFE100F9F550 /* SmallClocks.swift */; };
 		F7A391C527F4C24800E5237F /* ionicFusionApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A391C427F4C24800E5237F /* ionicFusionApp.swift */; };
 		F7A391CC27F4C24900E5237F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7A391CB27F4C24900E5237F /* Preview Assets.xcassets */; };
+		F7A4AC242A20A3A5007E4690 /* MessageB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A4AC232A20A3A5007E4690 /* MessageB.swift */; };
+		F7A4AC262A20ABC6007E4690 /* ChatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A4AC252A20ABC6007E4690 /* ChatsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -148,7 +149,6 @@
 		F70636352A1D8960007A9FEF /* GetImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetImage.swift; sourceTree = "<group>"; };
 		F706363A2A1E6F6E007A9FEF /* DistanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceView.swift; sourceTree = "<group>"; };
 		F706363C2A1E76AF007A9FEF /* LikesPill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesPill.swift; sourceTree = "<group>"; };
-		F706363E2A1E9022007A9FEF /* test2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test2.swift; sourceTree = "<group>"; };
 		F73C196027F8ADAE0017C97B /* LauchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauchView.swift; sourceTree = "<group>"; };
 		F73F32332A138C800038A6D3 /* DragsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragsCard.swift; sourceTree = "<group>"; };
 		F73F32352A1522880038A6D3 /* nomorecards.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = nomorecards.json; sourceTree = "<group>"; };
@@ -271,6 +271,8 @@
 		F7A391C127F4C24800E5237F /* ionicFusion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ionicFusion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7A391C427F4C24800E5237F /* ionicFusionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ionicFusionApp.swift; sourceTree = "<group>"; };
 		F7A391CB27F4C24900E5237F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		F7A4AC232A20A3A5007E4690 /* MessageB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageB.swift; sourceTree = "<group>"; };
+		F7A4AC252A20ABC6007E4690 /* ChatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -329,11 +331,12 @@
 				F7A3140227F4CFE100F9F550 /* TrackCircle.swift */,
 				F7A3140627F4CFE100F9F550 /* NotificationRow.swift */,
 				F7A3140C27F4CFE100F9F550 /* MessageBubble.swift */,
+				F7A4AC232A20A3A5007E4690 /* MessageB.swift */,
 				F7A3141427F4CFE100F9F550 /* Avatar.swift */,
 				F7A3141627F4CFE100F9F550 /* Notification.swift */,
 				F70636352A1D8960007A9FEF /* GetImage.swift */,
 				F706363C2A1E76AF007A9FEF /* LikesPill.swift */,
-				F706363E2A1E9022007A9FEF /* test2.swift */,
+				F7A4AC252A20ABC6007E4690 /* ChatsView.swift */,
 			);
 			path = Widget;
 			sourceTree = "<group>";
@@ -830,7 +833,6 @@
 				F73F32342A138C800038A6D3 /* DragsCard.swift in Sources */,
 				F70636302A1D5742007A9FEF /* ShuffleMatchesView.swift in Sources */,
 				F7A3146B27F4CFE100F9F550 /* NotificationRow.swift in Sources */,
-				F706363F2A1E9022007A9FEF /* test2.swift in Sources */,
 				F7A3142927F4CFE100F9F550 /* TextModifiers.swift in Sources */,
 				F7A3147527F4CFE100F9F550 /* ImagePicker.swift in Sources */,
 				F7A3137527F4CDD100F9F550 /* NavigationBar.swift in Sources */,
@@ -852,6 +854,7 @@
 				F7A3137627F4CDD100F9F550 /* HomeView.swift in Sources */,
 				F706363D2A1E76AF007A9FEF /* LikesPill.swift in Sources */,
 				F7569D532A104A8D00FE3E84 /* ProfileCard.swift in Sources */,
+				F7A4AC242A20A3A5007E4690 /* MessageB.swift in Sources */,
 				F7569D612A11F36700FE3E84 /* StandoutCard.swift in Sources */,
 				F7569D572A11DE9900FE3E84 /* LikesView.swift in Sources */,
 				F7A3142427F4CFE100F9F550 /* AnimatedBlobView.swift in Sources */,
@@ -893,6 +896,7 @@
 				F7A3139E27F4CDEA00F9F550 /* CourseSection.swift in Sources */,
 				F70636362A1D8960007A9FEF /* GetImage.swift in Sources */,
 				F7A3137E27F4CDD100F9F550 /* OnboardingView.swift in Sources */,
+				F7A4AC262A20ABC6007E4690 /* ChatsView.swift in Sources */,
 				F7A313A527F4CDEA00F9F550 /* UserModel.swift in Sources */,
 				F7569D652A11FDE600FE3E84 /* MatchData.swift in Sources */,
 			);

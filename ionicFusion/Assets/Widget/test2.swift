@@ -1,57 +1,63 @@
 import SwiftUI
 import Firebase
+import FirebaseFirestore
+import FirebaseAuth
 
 struct UserListView: View {
-    @State private var users: [Usere] = [] // Variable to hold the users' data
+    @State private var chatMessages: [Message] = []
     
     var body: some View {
-        VStack(alignment: .leading) {
-            if users.isEmpty {
-                Text("Loading users...")
-            } else {
-                ForEach(users) { user in
-                    Text("\(user.fname)\(users.count)") // Display the first name of the user
+        ScrollView {
+            VStack(alignment: .leading) {
+                if chatMessages.isEmpty {
+                    Text("Loading users...")
+                } else {
+                    ForEach(chatMessages) { user in
+                        MessageBubble1(section: user)
+                    }
                 }
+                Spacer()
             }
+            .onAppear {
+                fetchUsers()
         }
-        .onAppear {
-            fetchUsers()
         }
     }
     
     private func fetchUsers() {
         let db = Firestore.firestore()
-        let user = Auth.auth().currentUser
-        let usersRef = db.collection("users").whereField("email", isNotEqualTo: user?.email ?? "")
-        
-        usersRef.getDocuments { (querySnapshot, error) in
-            if let error = error {
-                print("Error fetching users: \(error.localizedDescription)")
-                return
-            }
-            
-            guard let documents = querySnapshot?.documents else {
-                print("No documents found.")
-                return
-            }
-            
-            let users = documents.compactMap { document in
-                let documentData = document.data()
+        let usersRef = db.collection("users").document("E2FzpaP15CVyce9uvimm").collection("messages").document("Uq85VmqlQged6RRDNg0y").collection("messages")
+            .addSnapshotListener { snapshot, error in
+                guard let documents = snapshot?.documents else {
+                    print("Error fetching documents: \(error?.localizedDescription ?? "Unknown error")")
+                    return
+                }
                 
-                return Usere(
-                    fname: documentData["firstname"] as? String ?? ""
-                )
+                // Process the updated documents and update your UI accordingly
+                // For example, you can update an @State variable holding chat messages
+                let messages = documents.map { document -> Message in
+                    let data = document.data()
+                    let name = data["name"] as? String ?? ""
+                    let text = data["text"] as? String ?? ""
+                    let sender = data["sender"] as? Bool ?? false
+                    let timestamp = data["timestamp"] as? Date ?? Date()
+                    return Message(name: name, text: text, sender: sender, timestamp: timestamp)
+                    
+                }
+                self.chatMessages = messages
             }
-            
-            self.users = users
-        }
     }
 }
 
-struct Usere: Identifiable {
-    var id = UUID()
-    var fname: String
-}
+    struct Message: Identifiable {
+        let id = UUID()
+        let name: String
+        let text: String
+        let sender: Bool
+        let timestamp: Date
+    }
+    
+    
 struct MainTaeb_Previews: PreviewProvider {
     static var previews: some View {
         // MainTab( course: .constant(Course))
