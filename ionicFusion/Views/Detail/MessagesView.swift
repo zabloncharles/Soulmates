@@ -15,11 +15,13 @@ struct MessagesView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.presentationMode) var presentationMode
     @State var text = "yo"
-    @Binding var section: NotificationModel
+    //@Binding var section: NotificationModel
     @State var hideNav = false
     @State var scrolling = CGFloat(0)
     @State var scrolledItem: Int = 0
     @State private var chatMessages: [Message] = []
+    var log : SomeUsers
+   // var holdData : [IncomingMessage]
     @State private var messageText = ""
     @State private var sender = "John"
     @State var guardSending = false
@@ -66,10 +68,11 @@ struct MessagesView: View {
          
             .background(
                // Image(section.background)
-                Image("image_10")
-                    .resizable(resizingMode: .stretch)
-                    .aspectRatio(contentMode: .fill)
-                    .accessibility(hidden: true)
+               // Image("image_10")
+                  //  .resizable(resizingMode: .stretch)
+                   // .aspectRatio(contentMode: .fill)
+                  //  .accessibility(hidden: true)
+                ImageViewer(url: "")
             )
             .mask(
                 RoundedRectangle(cornerRadius: 0)
@@ -80,10 +83,10 @@ struct MessagesView: View {
                     
                     
                     HStack {
-                        Image(section.avatar)
-                            .resizable(resizingMode: .stretch)
-                            .aspectRatio(contentMode: .fill)
-                            
+                       // Image(holdData.name)
+                       //     .resizable(resizingMode: .stretch)
+                         //   .aspectRatio(contentMode: .fill)
+                        ImageViewer(url: "")
                             .cornerRadius(80)
                             .mask(Circle())
                             .background(
@@ -95,16 +98,17 @@ struct MessagesView: View {
                             .frame(width: 60, height: 60)
                             .padding(10)
                         VStack{
-                            Text(section.name)
+                            Text(log.name.capitalized)
+                            Text(log.docid)
                                 .font(.title2).bold()
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .foregroundColor(.primary)
                         
                             HStack(spacing:2) {
                                 Image(systemName: "circlebadge.fill")
-                                    .foregroundColor(section.online == false ? .red : .green)
+                                    .foregroundColor( .green)
                                     .font(.caption2)
-                                Text(section.online == true ? "Online" : "Was online 5 minutes ago")
+                                Text("Was online 5 minutes ago")
                                 .font(.footnote)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             .foregroundColor(.primary.opacity(0.7))
@@ -168,11 +172,11 @@ struct MessagesView: View {
                                         .id(section.id)
                                         .onAppear {
                                       
-                                            withAnimation(.spring()) {
+                                           // withAnimation {
                                                     scrollViewProxy.scrollTo((chatMessages.last?.id), anchor: .bottom)
                                                     scrollToBottom = true
                                                 
-                                                }
+                                              //  }
                                                                                  }
                                     
                                     
@@ -215,7 +219,7 @@ struct MessagesView: View {
                     keyboardFocus = false
                 }
                 .onAppear{
-                    fetchMessages()
+                   fetchMessages()
                 }
             
         }.padding(.bottom, 96)
@@ -256,8 +260,9 @@ struct MessagesView: View {
                         .foregroundColor(messageText.count < 1 ? .gray : guardSending ? .red : .blue)
                         .neumorphiccircle(padding: -5, opacity: 1)
                         .onTapGesture{
+                            
                            if messageText.count > 0 && !guardSending{
-                               sendMessage(text: messageText, sender: sender)
+                               sendMessage(message: messageText)
                                messageText = ""
                            } else {
                                if !guardSending {
@@ -374,100 +379,101 @@ struct MessagesView: View {
         }
     }
     
-       func sendMessage(text: String, sender: String) {
+    func sendMessage(message: String) {
+        let user = Auth.auth().currentUser
         let db = Firestore.firestore()
-        let messageRef = db.collection("users").document("E2FzpaP15CVyce9uvimm").collection("messages").document("Uq85VmqlQged6RRDNg0y").collection("messages").document("individual").collection("9oU5CqpvCwCDAezknYLG").document()
+        let collectionRef = db.collection("messages").document(log.docid)
+            .collection("log")
+        
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let timestampString = dateFormatter.string(from: Date())
+        dateFormatter.dateFormat = "MMM d, yyyy 'at' h:mm:ss a"
+        let timeinstring = dateFormatter.string(from: Date())
         
-        let messageData: [String: Any] = [
-            "text": text,
-            "sender": true,
-            "timestamp": timestampString,
-            "documentID": messageRef.documentID // Save the document ID as a field
+        
+        let dateFormatter2 = DateFormatter()
+        dateFormatter2.dateFormat = "h:mm a"
+        let timeinstring2 = dateFormatter2.string(from: Date())
+        
+        
+        let data: [String: Any] = [
+            "text": message,
+            "time":  timeinstring,
+            "stamp": timeinstring2,
+            "sender": user?.email ?? ""
+            // Add more fields and values as needed
         ]
         
-        messageRef.setData(messageData) { error in
+        collectionRef.addDocument(data: data) { error in
             if let error = error {
-                print("Error adding message: \(error.localizedDescription)")
+                typeWriteText("Error adding document: \(error.localizedDescription)") {
+                    //nothing
+                }
+                print("Error adding document: \(error.localizedDescription)")
             } else {
-                print("Message added successfully")
+                print("Document added successfully")
+                typeWriteText("Message sent successfully") {
+                    //nothing
+                }
             }
         }
-       
-        
-      
     }
   
-  //  private func fetchMessages() {
-//        let db = Firestore.firestore()
-//        let usersRef = db.collection("users").document("E2FzpaP15CVyce9uvimm").collection("messages").document("Uq85VmqlQged6RRDNg0y").collection("messages").document("individual").collection("9oU5CqpvCwCDAezknYLG")
-//            .addSnapshotListener { snapshot, error in
-//                guard let documents = snapshot?.documents else {
-//                    print("Error fetching documents: \(error?.localizedDescription ?? "Unknown error")")
-//                    return
-//                }
-//
-//                // Process the updated documents and update your UI accordingly
-//                // For example, you can update an @State variable holding chat messages
-//                let messages = documents.map { document -> Message in
-//                    let data = document.data()
-//                    let name = data["name"] as? String ?? ""
-//                    let docid = data["documentID"] as? String ?? ""
-//                    let text = data["text"] as? String ?? ""
-//                    let sender = data["sender"] as? Bool ?? false
-//                    let timestamp = data["timestamp"] as? String ?? ""
-//                    return Message(documentID: docid, name: name, text: text, sender: sender, timestamp: timestamp)
-//
-//                }
-//                self.chatMessages = messages
-//            }
-    
-   // }
-    func fetchMessages() {
-        let fakeMessages = [
-            Message(documentID: "0", name: "John", text: "?", sender: true, timestamp: "10:30 AM"),
-            Message(documentID: "1", name: "John", text: "Hello", sender: true, timestamp: "10:30 AM"),
-            Message(documentID: "2", name: "Alice", text: "Hi there", sender: false, timestamp: "10:35 AM"),
-            Message(documentID: "3", name: "John", text: "How are you?", sender: true, timestamp: "10:40 AM"),
-            Message(documentID: "4", name: "Alice", text: "I'm doing great!", sender: false, timestamp: "10:45 AM"),
-            Message(documentID: "5", name: "John", text: "What have you been up to?", sender: true, timestamp: "11:00 AM"),
-            Message(documentID: "6", name: "Alice", text: "Just working on some projects", sender: false, timestamp: "11:15 AM"),
-            Message(documentID: "7", name: "John", text: "That's great!", sender: true, timestamp: "11:30 AM"),
-            Message(documentID: "8", name: "Alice", text: "I'm learning new technologies too", sender: false, timestamp: "11:45 AM"),
-            Message(documentID: "9", name: "John", text: "We should catch up sometime", sender: true, timestamp: "12:00 PM"),
-            Message(documentID: "10", name: "Alice", text: "Definitely! Let's plan something", sender: false, timestamp: "12:15 PM"),
-            Message(documentID: "11", name: "John", text: "Sure, how about next week?", sender: true, timestamp: "12:30 PM"),
-            Message(documentID: "12", name: "Alice", text: "Sounds good to me!", sender: false, timestamp: "12:45 PM"),
-            Message(documentID: "13", name: "John", text: "Great! I'll send you the details", sender: true, timestamp: "1:00 PM"),
-            Message(documentID: "14", name: "Alice", text: "Looking forward to it!", sender: false, timestamp: "1:15 PM"),
-            Message(documentID: "15", name: "John", text: "See you soon!", sender: true, timestamp: "1:30 PM"),
-            // Add more fake messages as needed
-        ]
+    private func fetchMessages() {
+        let user = Auth.auth().currentUser
+        let db = Firestore.firestore()
+        let usersRef = db.collection("messages")
+            .document(log.docid) // Specify the document ID in the "messages" collection
+            .collection("log") // Go one collection deeper
+           // .whereField("email", arrayContains: holdData.email) //
+           // .whereField("email", arrayContains: user?.email)
 
-        
-        chatMessages = fakeMessages
+
+            .addSnapshotListener { snapshot, error in
+                guard let documents = snapshot?.documents else {
+                    print("Error fetching documents: \(error?.localizedDescription ?? "Unknown error")")
+                    return
+                }
+
+                // Process the updated documents and update your UI accordingly
+                // For example, you can update an @State variable holding chat messages
+                let messages = documents.map { document -> Message in
+                    let data = document.data()
+                    let name = data["name"] as? String ?? ""
+                    let docid = data["documentID"] as? String ?? ""
+                    let text = data["text"] as? String ?? ""
+                    let sender = data["sender"] as? String ?? ""
+                    let stamp = data["stamp"] as? String ?? ""
+                    
+                    let timestamp = data["timestamp"] as? String ?? ""
+                    return Message(documentID: docid, name: name, text: text, sender: sender, timestamp: timestamp, stamp:stamp)
+
+                }
+                self.chatMessages = messages
+            }
+
     }
-    func deleteMessage(messageID: String) {
-        withAnimation {
-            chatMessages.remove(at: Int(messageID) ?? 0)
-        }
-    }
-    
+
 //    func deleteMessage(messageID: String) {
-//        let db = Firestore.firestore()
-//        let messageRef = db.collection("users").document("E2FzpaP15CVyce9uvimm").collection("messages").document("Uq85VmqlQged6RRDNg0y").collection("messages").document("individual").collection("9oU5CqpvCwCDAezknYLG").document(messageID)
-//
-//        messageRef.delete { error in
-//            if let error = error {
-//                print("Error deleting message: \(error.localizedDescription)")
-//            } else {
-//                print("Message deleted successfully")
-//            }
+//        withAnimation {
+//            chatMessages.remove(at: Int(messageID) ?? 0)
 //        }
 //    }
+    
+    func deleteMessage(messageID: String) {
+        let db = Firestore.firestore()
+        let messageRef = db.collection("messages")
+            .document(log.docid) // Specify the document ID in the "messages" collection
+            .collection("log").document(messageID) // Go one collection deeper
+
+        messageRef.delete { error in
+            if let error = error {
+                print("Error deleting message: \(error.localizedDescription)")
+            } else {
+                print("Message deleted successfully")
+            }
+        }
+    }
     
     
 
@@ -476,8 +482,8 @@ struct MessagesView: View {
 
 struct MessagesView_Previews: PreviewProvider {
     static var previews: some View {
-       MessagesView(section: .constant(messageSections[0]))
-       // ViewController()
+      // MessagesView(section: .constant(messageSections[0]))
+        ViewController()
     }
 }
 
@@ -490,4 +496,15 @@ struct ScrollViewOffsetPreferenceKey: PreferenceKey {
     static func reduce(value: inout CGPoint, nextValue: () -> CGPoint) {
         value = nextValue()
     }
+}
+
+
+struct Message: Identifiable {
+    let id = UUID()
+    let documentID: String
+    let name: String
+    let text: String
+    let sender: String
+    let timestamp: String
+    let stamp: String
 }

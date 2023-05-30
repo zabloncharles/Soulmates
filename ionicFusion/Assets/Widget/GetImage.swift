@@ -15,9 +15,11 @@ struct GetImage_Previews: PreviewProvider {
     }
 }
 
-
-struct GetImage: View {
+struct GetImageAlert: View {
     @State private var image: Image?
+    @State var url = ""
+    @Binding var loaded : Bool
+    
     
     var body: some View {
         VStack {
@@ -25,8 +27,69 @@ struct GetImage: View {
                 image
                     .resizable()
                     .aspectRatio(contentMode: .fill)
+                    .animation(.easeIn, value: loaded)
+                    .onAppear{
+                       
+                            loaded = true
+                      
+                    }
+                
+                
             } else {
-                Text("Image loading...")
+                
+                LottieView(filename: "paperplaneloading" ,loop: true)
+                    .frame(width: 400)
+                
+                
+                
+                
+            }
+        }
+        .onAppear {
+            loadImageFromAPI()
+        }
+    }
+    
+    func loadImageFromAPI() {
+        //url.isEmpty ? "https://source.unsplash.com/random/?female,beautiful" : 
+        guard let url = URL(string: url) else {
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+                return
+            }
+            
+            if let data = data, let uiImage = UIImage(data: data) {
+                DispatchQueue.main.async {
+                    self.image = Image(uiImage: uiImage)
+                }
+            }
+        }.resume()
+    }
+}
+
+struct GetImage: View {
+    @State private var image: Image?
+    
+    
+    var body: some View {
+        VStack {
+            if let image = image {
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                
+                
+            } else {
+             
+                    LottieView(filename: "paperplaneloading" ,loop: true)
+                        .frame(width: 400)
+                    
+                
+                  
                
             }
         }

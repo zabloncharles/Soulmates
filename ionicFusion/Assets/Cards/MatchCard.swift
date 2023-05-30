@@ -17,11 +17,11 @@ struct MatchCard_Previews: PreviewProvider {
 
 struct MatchCard: View {
 //    @AppStorage("currentclickedprof") var sectionData : UserStruct = []
-    var section : UserStruct
+    @State var section : UserStruct = fakeUser
     var namespace: Namespace.ID
     @State var dislike = false
     @State var welcomingisTapped = false
-    @Binding var showProfile : Bool
+    let completion: () -> Void
     
     
     
@@ -33,7 +33,7 @@ struct MatchCard: View {
                 .padding(.all, 20.0)
             
             
-            .frame(height:  530)
+                .frame(width: 400,height:  500)
                 .background(
                     
                     ZStack{
@@ -65,35 +65,16 @@ struct MatchCard: View {
                         
                     }
                 )
-                .offwhitebutton(isTapped: dislike, isToggle: false, cornerRadius: 15, action: $showProfile)
-                .padding(.horizontal)
-                .padding(.vertical,10)
-                .background(
-                    VStack{
-                        Color.black
-                            .opacity(0)
-                            .onAppear{
-                                if showProfile {
-//                                    theuser  = section
-                                    showProfile = true
-                                }
-                            }
-                   
+                .background(Color.gray)
+                .cornerRadius(20)
+                .padding(.horizontal,20)
+                .padding(.vertical)
+                .neoButton(isToggle: false) {
+                    //
+                    completion()
                 }
-                )
-                //
-               
-     
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+              
+              
     }
     
     var info : some View {

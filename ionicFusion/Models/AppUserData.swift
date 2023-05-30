@@ -1,0 +1,58 @@
+//
+//  AppUserData.swift
+//  ionicFusion
+//
+//  Created by Zablon Charles on 5/28/23.
+//
+
+
+import SwiftUI
+
+
+struct UserStruct: Identifiable {
+    var id = UUID()
+    var firstname: String
+    var lastname: String
+    var notifications: String
+    var avatar: String
+    var cyclechange: String
+    var birthday: String
+    var email: String
+    var aboutme: String
+    var education: String
+    var work: String
+    var images: [String]
+    var likes: [String]
+    var location: [String]
+    var lookingfor: String
+    var online: Bool
+    var password: String
+    var matches: Int
+    var age: String
+    var lifestyle: [String]
+    var lifestyledesc: String
+}
+
+
+var userStruct = [
+    UserStruct(firstname: "Samantha", lastname: "Doe", notifications: "2", avatar: "https://images.unsplash.com/photo-1440589473619-3cde28941638?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8ZmVtYWxlJTIwYmVhdXR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60", cyclechange: "24", birthday: "01/01/1995", email: "johndoe@example.com", aboutme: "I enjoy playing sports and reading books.", education: "University of XYZ", work: "XYZ Corporation", images: ["https://source.unsplash.com/random/?female,friends,beautiful", "https://source.unsplash.com/random/?female,beautiful"], likes: ["Like 1", "Like 2"], location: ["New York"], lookingfor: "Dating", online: true, password: "p@ssw0rd", matches: 5, age: "28", lifestyle: ["Healthy lifestyle"], lifestyledesc: "I follow a healthy lifestyle and focus on eating nutritious food. I'm also passionate about fitness and enjoy running and practicing yoga."),
+    UserStruct(firstname: "Emma", lastname: "Smith", notifications: "1", avatar: "https://images.unsplash.com/photo-1508184964240-ee96bb9677a7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGZlbWFsZSUyMGJlYXV0fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60", cyclechange: "12", birthday: "05/12/1992", email: "emmasmith@example.com", aboutme: "I'm a music lover and enjoy painting.", education: "ABC College", work: "ABC Company", images: ["https://source.unsplash.com/random/?female,friends,beautiful", "https://source.unsplash.com/random/?female,beautiful"], likes: ["Like 3"], location: ["Los Angeles"], lookingfor: "Friendship", online: false, password: "pass123", matches: 2, age: "31", lifestyle: ["Active lifestyle"], lifestyledesc: "I lead an active lifestyle and engage in activities like swimming, cycling, and playing tennis."),
+    UserStruct(firstname: "Jessica", lastname: "Johnson", notifications: "3", avatar: "https://images.unsplash.com/photo-1514626585111-9aa86183ac98?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjR8fGZlbWFsZSUyMGJlYXV0fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60", cyclechange: "36", birthday: "10/08/1990", email: "michaeljohnson@example.com", aboutme: "I'm a foodie and love to travel.", education: "City College", work: "Tech Startup", images: ["https://source.unsplash.com/random/?female,friends,beautiful", "https://source.unsplash.com/random/?female,beautiful"], likes: ["Like 4", "Like 5"], location: ["London"], lookingfor: "Long-term relationship", online: true, password: "password123", matches: 7, age: "33", lifestyle: ["Yoga and meditation"], lifestyledesc: "I practice yoga and meditation regularly to maintain a balance in life. I'm also an avid traveler and enjoy exploring new cultures and cuisines."),
+    UserStruct(firstname: "Olivia", lastname: "Brown", notifications: "5", avatar: "https://images.unsplash.com/photo-1500336624523-d727130c3328?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzF8fGZlbWFsZSUyMGJlYXV0fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60", cyclechange: "48", birthday: "03/20/1988", email: "oliviabrown@example.com", aboutme: "I love photography and nature.", education: "University of ABC", work: "Design Studio", images: ["https://source.unsplash.com/random/?female,friends,beautiful", "https://source.unsplash.com/random/?female,beautiful"], likes: ["Like 6", "Like 7"], location: ["Paris"], lookingfor: "Casual dating", online: true, password: "qwerty", matches: 4, age: "35", lifestyle: ["Art and culture"], lifestyledesc: "I'm passionate about art and culture. I enjoy visiting art exhibitions and museums, and I also love capturing moments through photography.")
+]
+
+
+var userNoStruct = [
+    UserStruct(firstname: "", lastname: "", notifications: "", avatar: "", cyclechange: "24", birthday: "", email: "", aboutme: "", education: "", work: "", images: ["", ""], likes: ["", ""], location: [""], lookingfor: "", online: true, password: "", matches: 0, age: "00", lifestyle: [""], lifestyledesc: "")
+    ]
+
+
+var fakeUser = UserStruct(firstname: "Samantha", lastname: "Doe", notifications: "2", avatar: "https://images.unsplash.com/photo-1440589473619-3cde28941638?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8ZmVtYWxlJTIwYmVhdXR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60", cyclechange: "24", birthday: "01/01/1995", email: "johndoe@example.com", aboutme: "I enjoy playing sports and reading books.", education: "University of XYZ", work: "XYZ Corporation", images: ["https://source.unsplash.com/random/?female,friends,beautiful", "https://source.unsplash.com/random/?female,beautiful"], likes: ["Like 1", "Like 2"], location: ["New York"], lookingfor: "Dating", online: true, password: "p@ssw0rd", matches: 5, age: "28", lifestyle: ["Healthy lifestyle"], lifestyledesc: "I follow a healthy lifestyle and focus on eating nutritious food. I'm also passionate about fitness and enjoy running and practicing yoga.")
+
+
+var compatibleFakeUsers = [
+    UserStruct(firstname: "Samantha", lastname: "Doe", notifications: "2", avatar: "https://images.unsplash.com/photo-1440589473619-3cde28941638?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8ZmVtYWxlJTIwYmVhdXR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60", cyclechange: "24", birthday: "01/01/1995", email: "johndoe@example.com", aboutme: "I enjoy playing sports and reading books.", education: "University of XYZ", work: "XYZ Corporation", images: ["https://source.unsplash.com/random/?female,friends,beautiful", "https://source.unsplash.com/random/?female,beautiful"], likes: ["Like 1", "Like 2"], location: ["New York"], lookingfor: "Dating", online: true, password: "p@ssw0rd", matches: 5, age: "28", lifestyle: ["Healthy lifestyle"], lifestyledesc: "I follow a healthy lifestyle and focus on eating nutritious food. I'm also passionate about fitness and enjoy running and practicing yoga."),
+    UserStruct(firstname: "Emma", lastname: "Smith", notifications: "1", avatar: "https://images.unsplash.com/photo-1508184964240-ee96bb9677a7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGZlbWFsZSUyMGJlYXV0fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60", cyclechange: "12", birthday: "05/12/1992", email: "emmasmith@example.com", aboutme: "I'm a music lover and enjoy painting.", education: "ABC College", work: "ABC Company", images: ["https://source.unsplash.com/random/?female,friends,beautiful", "https://source.unsplash.com/random/?female,beautiful"], likes: ["Like 3"], location: ["Los Angeles"], lookingfor: "Friendship", online: false, password: "pass123", matches: 2, age: "31", lifestyle: ["Active lifestyle"], lifestyledesc: "I lead an active lifestyle and engage in activities like swimming, cycling, and playing tennis."),
+    UserStruct(firstname: "Jessica", lastname: "Johnson", notifications: "3", avatar: "https://images.unsplash.com/photo-1514626585111-9aa86183ac98?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjR8fGZlbWFsZSUyMGJlYXV0fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60", cyclechange: "36", birthday: "10/08/1990", email: "michaeljohnson@example.com", aboutme: "I'm a foodie and love to travel.", education: "City College", work: "Tech Startup", images: ["https://source.unsplash.com/random/?female,friends,beautiful", "https://source.unsplash.com/random/?female,beautiful"], likes: ["Like 4", "Like 5"], location: ["London"], lookingfor: "Long-term relationship", online: true, password: "password123", matches: 7, age: "33", lifestyle: ["Yoga and meditation"], lifestyledesc: "I practice yoga and meditation regularly to maintain a balance in life. I'm also an avid traveler and enjoy exploring new cultures and cuisines."),
+    UserStruct(firstname: "Olivia", lastname: "Brown", notifications: "5", avatar: "https://images.unsplash.com/photo-1500336624523-d727130c3328?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzF8fGZlbWFsZSUyMGJlYXV0fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60", cyclechange: "48", birthday: "03/20/1988", email: "oliviabrown@example.com", aboutme: "I love photography and nature.", education: "University of ABC", work: "Design Studio", images: ["https://source.unsplash.com/random/?female,friends,beautiful", "https://source.unsplash.com/random/?female,beautiful"], likes: ["Like 6", "Like 7"], location: ["Paris"], lookingfor: "Casual dating", online: true, password: "qwerty", matches: 4, age: "35", lifestyle: ["Art and culture"], lifestyledesc: "I'm passionate about art and culture. I enjoy visiting art exhibitions and museums, and I also love capturing moments through photography.")
+    ]

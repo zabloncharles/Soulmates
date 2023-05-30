@@ -6,6 +6,9 @@
 //
 
 import SwiftUI
+import Firebase
+import FirebaseFirestore
+import FirebaseAuth
 
 struct NotificationsDetail: View {
     @AppStorage("wallpaper") var wallpaper = "ob1"
@@ -18,7 +21,16 @@ struct NotificationsDetail: View {
     @State var selectedSection = messageSections[0]
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @State var pageAppeared = false
- 
+    @State private var incomingMessages: [IncomingMessage] = []
+    @State private var chatMessages: [Message] = []
+    @State private var log: [Log] = []
+    @State private var someUsers: [SomeUsers] = []
+    @State var currentViewed = ""
+    @State var texter = ""
+    @State var messagesWithNames: [MessageWithName] = []
+    
+    
+    //  @State var fakeincomingMessages = IncomingMessage(name: "", text: "", timestamp: "")
     
     var body: some View {
         ZStack {
@@ -26,6 +38,8 @@ struct NotificationsDetail: View {
               VStack {
               ScrollView(showsIndicators: false) {
               cover
+                
+               
              
             }
             .coordinateSpace(name: "scroll")
@@ -90,7 +104,7 @@ struct NotificationsDetail: View {
                         HStack {
                             HStack {
                                 Image(systemName: "fleuron")
-                                Text("Messages")
+                                Text(texter.isEmpty ? "Messages" : texter)
                                 
                             }.font(.title3)
                                 .fontWeight(.bold)
@@ -145,27 +159,33 @@ struct NotificationsDetail: View {
                 .opacity(pageAppeared ?  1 : 0 )
                 .padding(.bottom, 30)
                 
+        }.onAppear{
+            fetchIncomingMessages()
         }
     }
+  
     
     var sectionsSection: some View {
         
         VStack(spacing: 10) {
            
-            ForEach(Array(messageSections.enumerated()), id: \.offset) { index, section in
-                if index != 0 {     Rectangle()
-                        .fill(Color.black.opacity(0.2))
-                        .frame(height: 0.34)
-                      
-                 }
+            ForEach(someUsers) {  section in
+              
                 NavigationLink(destination:
-                                MessagesView(section: $selectedSection)
-                    .onAppear{
-                        selectedSection = section
+                                ZStack {
+                    MessagesView(log: section)
+                                 
+                        .onAppear{
+                        //    fetchLog(log: section.docid)
                     }
+                    
+                }
                 )
                 {
-                    NotificationRow(section: section)
+                    ZStack {
+                        NotificationRow(section: section)
+                  
+                    }
                         
                    
                 }
@@ -211,6 +231,52 @@ struct NotificationsDetail: View {
     
  
     
+    func fetchIncomingMessages() {
+        let user = Auth.auth().currentUser
+        let db = Firestore.firestore()
+        
+        db.collection("messages").getDocuments { snapshot, error in
+            if let error = error {
+                // Handle the error
+                print("Error fetching messages: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let documents = snapshot?.documents else {
+                // Handle no documents found
+                return
+            }
+            
+            var emailu = documents.compactMap { $0.data()["email"] as? [String] }
+                .filter { $0.contains(user?.email ?? "") }
+                .flatMap { $0 }
+            
+            let newEmail = emailu
+                .filter { $0 != user?.email }
+            
+            db.collection("users").whereField("email", in: newEmail).getDocuments { snapshot, error in
+                if let error = error {
+                    // Handle the error
+                    print("Error fetching users: \(error.localizedDescription)")
+                    return
+                }
+                
+                guard let documents = snapshot?.documents else {
+                    // Handle no documents found
+                    return
+                }
+                
+                
+                self.someUsers = documents.compactMap { document in
+                    let data = document.data()
+                    let docid = document.documentID
+                    let firstname = data["firstname"] as? String ?? ""
+                    return SomeUsers(name: firstname, docid: docid)
+                }
+            }
+        }
+    }
+    
    
 }
 
@@ -221,4 +287,28 @@ struct NotificationsDetail_Previews: PreviewProvider {
       //  NotificationsDetail(namespace: namespace, notification: .constant(messageSections[0]))
            ViewController()
     }
+}
+
+
+struct IncomingMessage: Identifiable {
+    let id = UUID()
+    let email: String
+    let docid: String
+    let userName: String
+}
+struct Log: Identifiable {
+    let id = UUID()
+    let email: [String]
+}
+
+struct SomeUsers: Identifiable {
+    let id = UUID()
+    let name: String
+    let docid: String
+}
+
+struct MessageWithName: Identifiable {
+    let id = UUID()
+    let message: String
+    let userName: String
 }

@@ -18,7 +18,7 @@ struct BackgroundView: View {
                 Image("Blob 1")
                     .resizable()
                     .offset(x: -14, y: -340)
-                    .blur(radius: 58)
+                    .blur(radius: 68)
                                     
             }
         }.edgesIgnoringSafeArea(.all)

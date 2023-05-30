@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct User: Identifiable {
     var id = UUID()
     var fname: String
@@ -18,30 +19,6 @@ struct User: Identifiable {
     var email: String
 }
 
-
-struct UserStruct: Identifiable {
-    var id = UUID()
-    var firstname: String
-    var lastname: String
-    var notifications: String
-    var avatar: String
-    var cyclechange: String
-    var birthday: String
-    var email: String
-    var aboutme: String
-    var education: String
-    var work: String
-    var images: [String]
-    var likes: [String]
-    var location: [String]
-    var lookingfor: String
-    var online: Bool
-    var password: String
-    var matches: Int
-    var age: String
-    var lifestyle: [String]
-    var lifestyledesc: String
-}
 
 
 struct Userr: Identifiable {

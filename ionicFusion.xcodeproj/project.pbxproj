@@ -26,6 +26,12 @@
 		F7569D5F2A11EAB200FE3E84 /* StandoutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7569D5E2A11EAB200FE3E84 /* StandoutsView.swift */; };
 		F7569D612A11F36700FE3E84 /* StandoutCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7569D602A11F36700FE3E84 /* StandoutCard.swift */; };
 		F7569D652A11FDE600FE3E84 /* MatchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7569D642A11FDE600FE3E84 /* MatchData.swift */; };
+		F79594592A246B5B00636776 /* sadheart.json in Resources */ = {isa = PBXBuildFile; fileRef = F79594582A246B5B00636776 /* sadheart.json */; };
+		F795945B2A24791600636776 /* NeoModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = F795945A2A24791600636776 /* NeoModifier.swift */; };
+		F795945D2A252EF200636776 /* TextWriterAppear.swift in Sources */ = {isa = PBXBuildFile; fileRef = F795945C2A252EF200636776 /* TextWriterAppear.swift */; };
+		F79594612A25E91700636776 /* CompatibleCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79594602A25E91700636776 /* CompatibleCard.swift */; };
+		F79594632A268D8700636776 /* ActiveCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79594622A268D8700636776 /* ActiveCard.swift */; };
+		F79594652A269E3400636776 /* ViewProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79594642A269E3400636776 /* ViewProfileView.swift */; };
 		F7A3117E27F4CB0500F9F550 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7A3117D27F4CB0500F9F550 /* GoogleService-Info.plist */; };
 		F7A3135827F4CDB400F9F550 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A3135727F4CDB300F9F550 /* ViewController.swift */; };
 		F7A3137527F4CDD100F9F550 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A3135C27F4CDD100F9F550 /* NavigationBar.swift */; };
@@ -137,6 +143,13 @@
 		F7A391CC27F4C24900E5237F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7A391CB27F4C24900E5237F /* Preview Assets.xcassets */; };
 		F7A4AC242A20A3A5007E4690 /* MessageB.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A4AC232A20A3A5007E4690 /* MessageB.swift */; };
 		F7A4AC262A20ABC6007E4690 /* ChatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A4AC252A20ABC6007E4690 /* ChatsView.swift */; };
+		F7A4AC282A212FE5007E4690 /* Sender.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A4AC272A212FE5007E4690 /* Sender.swift */; };
+		F7D847E62A22BE6400E1E273 /* messageprev.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D847E52A22BE6400E1E273 /* messageprev.swift */; };
+		F7D847E92A24153B00E1E273 /* SendMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D847E82A24153B00E1E273 /* SendMatch.swift */; };
+		F7D847ED2A2449B400E1E273 /* paperplaneloading.json in Resources */ = {isa = PBXBuildFile; fileRef = F7D847EC2A2449B400E1E273 /* paperplaneloading.json */; };
+		F7D847EF2A244D4300E1E273 /* AppUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D847EE2A244D4300E1E273 /* AppUserData.swift */; };
+		F7D847F12A245C9600E1E273 /* dislikebrokeheart.json in Resources */ = {isa = PBXBuildFile; fileRef = F7D847F02A245C9600E1E273 /* dislikebrokeheart.json */; };
+		F7D847F32A245E0000E1E273 /* flyingpaperbirdchasinglove.json in Resources */ = {isa = PBXBuildFile; fileRef = F7D847F22A245E0000E1E273 /* flyingpaperbirdchasinglove.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -161,6 +174,12 @@
 		F7569D5E2A11EAB200FE3E84 /* StandoutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandoutsView.swift; sourceTree = "<group>"; };
 		F7569D602A11F36700FE3E84 /* StandoutCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandoutCard.swift; sourceTree = "<group>"; };
 		F7569D642A11FDE600FE3E84 /* MatchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchData.swift; sourceTree = "<group>"; };
+		F79594582A246B5B00636776 /* sadheart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sadheart.json; sourceTree = "<group>"; };
+		F795945A2A24791600636776 /* NeoModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeoModifier.swift; sourceTree = "<group>"; };
+		F795945C2A252EF200636776 /* TextWriterAppear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextWriterAppear.swift; sourceTree = "<group>"; };
+		F79594602A25E91700636776 /* CompatibleCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompatibleCard.swift; sourceTree = "<group>"; };
+		F79594622A268D8700636776 /* ActiveCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveCard.swift; sourceTree = "<group>"; };
+		F79594642A269E3400636776 /* ViewProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProfileView.swift; sourceTree = "<group>"; };
 		F7A3117D27F4CB0500F9F550 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F7A3135727F4CDB300F9F550 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F7A3135C27F4CDD100F9F550 /* NavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
@@ -273,6 +292,13 @@
 		F7A391CB27F4C24900E5237F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F7A4AC232A20A3A5007E4690 /* MessageB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageB.swift; sourceTree = "<group>"; };
 		F7A4AC252A20ABC6007E4690 /* ChatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsView.swift; sourceTree = "<group>"; };
+		F7A4AC272A212FE5007E4690 /* Sender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sender.swift; sourceTree = "<group>"; };
+		F7D847E52A22BE6400E1E273 /* messageprev.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = messageprev.swift; sourceTree = "<group>"; };
+		F7D847E82A24153B00E1E273 /* SendMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMatch.swift; sourceTree = "<group>"; };
+		F7D847EC2A2449B400E1E273 /* paperplaneloading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = paperplaneloading.json; sourceTree = "<group>"; };
+		F7D847EE2A244D4300E1E273 /* AppUserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUserData.swift; sourceTree = "<group>"; };
+		F7D847F02A245C9600E1E273 /* dislikebrokeheart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dislikebrokeheart.json; sourceTree = "<group>"; };
+		F7D847F22A245E0000E1E273 /* flyingpaperbirdchasinglove.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = flyingpaperbirdchasinglove.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -319,6 +345,8 @@
 				F7569D602A11F36700FE3E84 /* StandoutCard.swift */,
 				F70636312A1D6398007A9FEF /* MatchCard.swift */,
 				F70636332A1D6A92007A9FEF /* SmallMatchActive.swift */,
+				F79594602A25E91700636776 /* CompatibleCard.swift */,
+				F79594622A268D8700636776 /* ActiveCard.swift */,
 			);
 			path = Cards;
 			sourceTree = "<group>";
@@ -337,6 +365,9 @@
 				F70636352A1D8960007A9FEF /* GetImage.swift */,
 				F706363C2A1E76AF007A9FEF /* LikesPill.swift */,
 				F7A4AC252A20ABC6007E4690 /* ChatsView.swift */,
+				F7A4AC272A212FE5007E4690 /* Sender.swift */,
+				F7D847E52A22BE6400E1E273 /* messageprev.swift */,
+				F795945C2A252EF200636776 /* TextWriterAppear.swift */,
 			);
 			path = Widget;
 			sourceTree = "<group>";
@@ -375,6 +406,7 @@
 		F7A3135927F4CDD100F9F550 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F7D847E72A24152400E1E273 /* PopUp */,
 				F73F32442A1609D40038A6D3 /* BeforeLogin */,
 				F73F32432A1609390038A6D3 /* TopView */,
 				F73F32452A160A1C0038A6D3 /* Pages */,
@@ -408,6 +440,7 @@
 				F7A3136B27F4CDD100F9F550 /* SettingsView.swift */,
 				F7A3136D27F4CDD100F9F550 /* SectionView.swift */,
 				F7A3137127F4CDD100F9F550 /* MessagesView.swift */,
+				F79594642A269E3400636776 /* ViewProfileView.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -424,6 +457,7 @@
 				F7A3139327F4CDEA00F9F550 /* MessagesModel.swift */,
 				F7A3139627F4CDEA00F9F550 /* UserModel.swift */,
 				F7569D642A11FDE600FE3E84 /* MatchData.swift */,
+				F7D847EE2A244D4300E1E273 /* AppUserData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -485,6 +519,7 @@
 				F7A313BD27F4CFE100F9F550 /* TextModifiers.swift */,
 				F7A313BE27F4CFE100F9F550 /* CustomFieldModifier.swift */,
 				F7A313BF27F4CFE100F9F550 /* AnimatableFontModifier.swift */,
+				F795945A2A24791600636776 /* NeoModifier.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -530,6 +565,9 @@
 		F7A313CE27F4CFE100F9F550 /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
+				F79594582A246B5B00636776 /* sadheart.json */,
+				F7D847F02A245C9600E1E273 /* dislikebrokeheart.json */,
+				F7D847F22A245E0000E1E273 /* flyingpaperbirdchasinglove.json */,
 				F73F32352A1522880038A6D3 /* nomorecards.json */,
 				F7A313CF27F4CFE100F9F550 /* woman3.json */,
 				F7A313D027F4CFE100F9F550 /* girlwaving.json */,
@@ -538,6 +576,7 @@
 				F7A313D227F4CFE100F9F550 /* birth.json */,
 				F7A313D327F4CFE100F9F550 /* error.json */,
 				F7A313D427F4CFE100F9F550 /* error1.json */,
+				F7D847EC2A2449B400E1E273 /* paperplaneloading.json */,
 				F7A313D527F4CFE100F9F550 /* ergirl.json */,
 				F7A313D627F4CFE100F9F550 /* lock.json */,
 				F7A313D727F4CFE100F9F550 /* confetti.json */,
@@ -658,6 +697,14 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		F7D847E72A24152400E1E273 /* PopUp */ = {
+			isa = PBXGroup;
+			children = (
+				F7D847E82A24153B00E1E273 /* SendMatch.swift */,
+			);
+			path = PopUp;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -718,10 +765,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7D847F32A245E0000E1E273 /* flyingpaperbirdchasinglove.json in Resources */,
 				F7A391CC27F4C24900E5237F /* Preview Assets.xcassets in Resources */,
 				F7A3145627F4CFE100F9F550 /* error3.json in Resources */,
 				F7A3143727F4CFE100F9F550 /* girlwaving.json in Resources */,
 				F7A3145A27F4CFE100F9F550 /* girlonphone.json in Resources */,
+				F7D847ED2A2449B400E1E273 /* paperplaneloading.json in Resources */,
 				F7A3143927F4CFE100F9F550 /* birth.json in Resources */,
 				F7A3144027F4CFE100F9F550 /* loading.json in Resources */,
 				F7A3144227F4CFE100F9F550 /* girlpic1.json in Resources */,
@@ -742,12 +791,14 @@
 				F7A3145227F4CFE100F9F550 /* woman1.json in Resources */,
 				F7A3144A27F4CFE100F9F550 /* girlsitting.json in Resources */,
 				F73F32382A156D340038A6D3 /* redpoof.json in Resources */,
+				F79594592A246B5B00636776 /* sadheart.json in Resources */,
 				F73F32362A1522880038A6D3 /* nomorecards.json in Resources */,
 				F7A3146427F4CFE100F9F550 /* Minimalistic Light.otf in Resources */,
 				F7A3145427F4CFE100F9F550 /* error2.json in Resources */,
 				F7A3145F27F4CFE100F9F550 /* Aloka.otf in Resources */,
 				F7A3143A27F4CFE100F9F550 /* error.json in Resources */,
 				F7A3145827F4CFE100F9F550 /* girlcheckingonly.json in Resources */,
+				F7D847F12A245C9600E1E273 /* dislikebrokeheart.json in Resources */,
 				F7A3146227F4CFE100F9F550 /* Houdient.ttf in Resources */,
 				F7A3146327F4CFE100F9F550 /* Mignitte.ttf in Resources */,
 				F7A3144B27F4CFE100F9F550 /* girlpic2dark.json in Resources */,
@@ -831,24 +882,29 @@
 				F70636342A1D6A92007A9FEF /* SmallMatchActive.swift in Sources */,
 				F7A3142727F4CFE100F9F550 /* Modifiers.swift in Sources */,
 				F73F32342A138C800038A6D3 /* DragsCard.swift in Sources */,
+				F7D847E62A22BE6400E1E273 /* messageprev.swift in Sources */,
 				F70636302A1D5742007A9FEF /* ShuffleMatchesView.swift in Sources */,
 				F7A3146B27F4CFE100F9F550 /* NotificationRow.swift in Sources */,
 				F7A3142927F4CFE100F9F550 /* TextModifiers.swift in Sources */,
 				F7A3147527F4CFE100F9F550 /* ImagePicker.swift in Sources */,
 				F7A3137527F4CDD100F9F550 /* NavigationBar.swift in Sources */,
+				F79594652A269E3400636776 /* ViewProfileView.swift in Sources */,
 				F7A3147627F4CFE100F9F550 /* BackgroundView.swift in Sources */,
 				F7A3147D27F4CFE100F9F550 /* ShimmerText.swift in Sources */,
+				F795945B2A24791600636776 /* NeoModifier.swift in Sources */,
 				F73C196127F8ADAE0017C97B /* LauchView.swift in Sources */,
 				F7A3142A27F4CFE100F9F550 /* CustomFieldModifier.swift in Sources */,
 				F7A3146727F4CFE100F9F550 /* TrackCircle.swift in Sources */,
 				F7A313A227F4CDEA00F9F550 /* MessagesModel.swift in Sources */,
 				F7A3138427F4CDD100F9F550 /* SectionView.swift in Sources */,
 				F7A3135827F4CDB400F9F550 /* ViewController.swift in Sources */,
+				F7A4AC282A212FE5007E4690 /* Sender.swift in Sources */,
 				F7A3147B27F4CFE100F9F550 /* Notification.swift in Sources */,
 				F7A3143127F4CFE100F9F550 /* ColorExtension.swift in Sources */,
 				F7A3138227F4CDD100F9F550 /* SettingsView.swift in Sources */,
 				F7A3143527F4CFE100F9F550 /* LottieView.swift in Sources */,
 				F7A3146527F4CFE100F9F550 /* FontModifier.swift in Sources */,
+				F79594612A25E91700636776 /* CompatibleCard.swift in Sources */,
 				F7A3142D27F4CFE100F9F550 /* PlayButton.swift in Sources */,
 				F7A3139D27F4CDEA00F9F550 /* PreferenceKey.swift in Sources */,
 				F7A3137627F4CDD100F9F550 /* HomeView.swift in Sources */,
@@ -862,10 +918,12 @@
 				F7A3139C27F4CDEA00F9F550 /* Update.swift in Sources */,
 				F7A3142F27F4CFE100F9F550 /* AngularButton.swift in Sources */,
 				F7A3142127F4CFE100F9F550 /* Wave.swift in Sources */,
+				F79594632A268D8700636776 /* ActiveCard.swift in Sources */,
 				F7A3148027F4CFE100F9F550 /* imageview.swift in Sources */,
 				F7A3142527F4CFE100F9F550 /* CircularView.swift in Sources */,
 				F7A313A127F4CDEA00F9F550 /* Handbook.swift in Sources */,
 				F7A3143227F4CFE100F9F550 /* ExtensionPlaceholder.swift in Sources */,
+				F795945D2A252EF200636776 /* TextWriterAppear.swift in Sources */,
 				F7A3146927F4CFE100F9F550 /* CourseRow.swift in Sources */,
 				F7A3142827F4CFE100F9F550 /* OffWhiteButtonModifier.swift in Sources */,
 				F7A3137F27F4CDD100F9F550 /* MainTab.swift in Sources */,
@@ -891,11 +949,13 @@
 				F706363B2A1E6F6E007A9FEF /* DistanceView.swift in Sources */,
 				F7A3139B27F4CDEA00F9F550 /* TopicModel.swift in Sources */,
 				F7A3141F27F4CFE100F9F550 /* SuccessView.swift in Sources */,
+				F7D847EF2A244D4300E1E273 /* AppUserData.swift in Sources */,
 				F7A3146627F4CFE100F9F550 /* SectionRow.swift in Sources */,
 				F7A3138827F4CDD100F9F550 /* MessagesView.swift in Sources */,
 				F7A3139E27F4CDEA00F9F550 /* CourseSection.swift in Sources */,
 				F70636362A1D8960007A9FEF /* GetImage.swift in Sources */,
 				F7A3137E27F4CDD100F9F550 /* OnboardingView.swift in Sources */,
+				F7D847E92A24153B00E1E273 /* SendMatch.swift in Sources */,
 				F7A4AC262A20ABC6007E4690 /* ChatsView.swift in Sources */,
 				F7A313A527F4CDEA00F9F550 /* UserModel.swift in Sources */,
 				F7569D652A11FDE600FE3E84 /* MatchData.swift in Sources */,

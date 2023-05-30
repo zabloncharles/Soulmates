@@ -23,30 +23,33 @@ struct MainTab: View {
     var body: some View {
         
         ZStack {
+            BackgroundView()
             NavigationView {
                 VStack{
                     
                     if self.selected == 0{
                        // HomeView( matchcard: $matchcard)
-                            ShuffleMatchesView()
+                        FullProfileView( namespace: namespace)
                     }
                    if self.selected == 1{
                       LikesView()
                           
+                          
                     }
                     if self.selected == 2{
-                       
+                     
                        // StandoutsView(matchcard: $matchcard)
-                        HomeView( currentUser: $currentUser, matchcard: $matchcard)
+                        HomeView(currentUser: $currentUser)
                     }
                     if self.selected == 3{
                         NotificationsDetail(namespace: namespace, notification: $selectedSection)
                         
                     }
-//                    if self.selected == 4{
-//                        SettingsView()
-//                        
-//                    }
+                    if self.selected == 4{
+                      // SettingsView()
+                       // SenderView()
+                        
+                    }
                 }
             }
             
@@ -57,7 +60,7 @@ struct MainTab: View {
             
             FloatingTabbar(selected: self.$selected)
                 
-                .offset(y:  hidemainTab && (selected != 0)  ? UIScreen.main.bounds.height * 0.19 : 0)
+                .offset(y:  hidemainTab  ? UIScreen.main.bounds.height * 0.13 : 0)
                 .animation(.spring(), value: hidemainTab)
             
             
@@ -66,7 +69,7 @@ struct MainTab: View {
             
                 
         }.onAppear{
-            fetchCurrentUser()
+           // fetchCurrentUser()
         }
         
     }
@@ -116,37 +119,7 @@ struct MainTab: View {
                 print("User document not found")
             }
         }
-        //        let db = Firestore.firestore()
-        //        let usersRef = db.collection("users")
-        //
-        //        usersRef.getDocuments { (querySnapshot, error) in
-        //            if let error = error {
-        //                print("Error fetching users: \(error.localizedDescription)")
-        //                return
-        //            }
-        //
-        //            guard let documents = querySnapshot?.documents else {
-        //                print("No documents found.")
-        //                return
-        //            }
-        //
-        //            self.users = documents.compactMap { queryDocumentSnapshot in
-        //                let data = queryDocumentSnapshot.data()
-        //
-        //                // Map Firestore data to your User struct or class
-        //                if let fname = data["fname"] as? String,
-        //                   let lname = data["lname"] as? String,
-        //                   let email = data["email"] as? String,
-        //                   let notifications = data["notifications"] as? String,
-        //                   let avatar = data["avatar"] as? String,
-        //                   let cyclechange = data["cyclechange"] as? String,
-        //                   let birthday = data["birthday"] as? String {
-        //                    return User(fname: fname, lname: lname, notifications: notifications, avatar: avatar, cyclechange: cyclechange, birthday: birthday, email: email)
-        //                } else {
-        //                    return nil
-        //                }
-        //            }
-        //        }
+  
     }
 }
 

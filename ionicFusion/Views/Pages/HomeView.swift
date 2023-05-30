@@ -10,32 +10,18 @@ import Lottie
 import FirebaseFirestore
 import Firebase
 struct HomeView: View {
-    @AppStorage("saveinfo") var saveinfo = ""
-    
-    @ObservedObject var viewModel = UserViewModel()
-    @State private var users: [User] = [] // Array to hold the user data
-    @State var profiles: [UserStruct] = []// Array to hold the user data
-    @Binding var currentUser: UserStruct? // Variable to hold the user data
-    @State var theuser = matchDummy[0]
-    @State var pregnancyChance = "Low"
-    @State var welcomeMessage = ""
-    @State var animateChance = false
-    @State var show = false
-    @State var showProfile = false
-    @Binding var matchcard : MatchCardData
-    @State var showStatusBar = true
-    @State var contentHasScrolled = false
-    @State var appeared = false
+    @State var profiles: [UserStruct] = compatibleFakeUsers// Array to hold the user data
+    @Binding var currentUser: UserStruct?// Variable to hold the user data
+    @State var profile = userStruct[0]
     @Namespace var namespace
     @State var clockisTapped = false
-    @State var welcomingisTapped = false
-    @State var animateGreeting = false
     @State var cycleChangeSoon = false
     @AppStorage("signInAnimation") var signInAnimation = false
     @State private var offset = CGSize.zero
     @State var hideCard = false
+    @State var contentHasScrolled = false
     @State var pageAppeared = false
-    @State var dislike = false
+    @State var showProfile = false
     @State var nomorecards = false
     @State var profiletype = 0
     @State var number = matchCardData.count
@@ -44,122 +30,72 @@ struct HomeView: View {
     @State var menupressed = false
     @State var differentpage = false
     @State var slidecardsfromright = false
+    @State var dislike = false
     
-    @State var errors = "nun"
-    
-    private func getCardOffset(_ geometry: GeometryProxy, id: Int, count: Int) -> CGFloat {
-        return CGFloat(count - 1 - id) - 10  //moves all up or down
-    }
-    private func getCardOffsete(_ geometry: GeometryProxy, id: Int, count: Int) -> CGFloat {
-        return CGFloat(count - 1 - id) - 510 // puts cards together
-    }
-    // Compute what the max ID in the given users array is.
-    /// Return the CardViews width for the given offset in the array
-    /// - Parameters:
-    ///   - geometry: The geometry proxy of the parent
-    ///   - id: The ID of the current user
-    private func getCardWidth(_ geometry: GeometryProxy, id: Int, count: Int) -> CGFloat {
-        let offset = CGFloat(count - 1 - id) * 10
-        return  offset
-    }
-    private func get3d(_ geometry: GeometryProxy, id: Int, count: Int) -> CGFloat {
-        let offset = CGFloat(count - 1 - id) * 10
-        return  offset
-    }
-    // Compute what the max ID in the given users array is.
-    private var maxID: Int {
-        return  matchCardData.map{ $0.usernumber}.max() ?? 0
-        
-    }
     
     var body: some View {
         
             ZStack {
                 
                 BackgroundView()
-                ScrollView {
+              //  ScrollView {
                        
-                    if !showProfile {
+                 
                         VStack {
-                                    welcoming
-                                        .opacity(showProfile ? 0 : 1)
+
+                            welcoming
+                                        .opacity(showProfile || !pageAppeared ? 0 : 1)
                                         .animation(.spring(), value: showProfile)
                                         .padding(.top,70)
-                                    //.offset(y: pageAppeared ? 0 : reader.size.height * -1)
-                                    
-                                    if profiletype == 0 {
                                         
-                                        if profiles.isEmpty {
-                                            nocards
-                                                .padding(.top, 290)
-                                               
-                                        } else {
-                                            ForEach(profiles) { user in
-                                               // Text("\(user.firstname)") // Display the first name of the user
-                                                MatchCard(section: user, namespace: namespace, showProfile: $showProfile)
-                                                    .frame( height: 530)
-                                            }
-                                        }
-                                        
-                                    } else if profiletype == 1 {
-                                        
-                                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 15) {
-                                            ForEach(profiles) { user in
-                                                // Text("\(user.firstname)") // Display the first name of the user
-                                                SmallMatchActive(matchcard: $matchcard, showprof: $showProfile, section: user, namespace: namespace)
-                                                    .frame(width: 230, height: 260)
-                                            }
-                                        }.padding(.horizontal, 10)
-                                        
-                                    }
-                                    else if profiletype == 2 {
-                                        
-                                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
-                                            ForEach(Array(matchCardData.enumerated()), id: \.offset) { index, section in
-                                                if index != 0 {  }
-                                                Rectangle()
-                                              //  SmallMatchActive(matchcard: $matchcard, showprof: $showProfile, section: section, namespace: namespace)
-                                                    .frame(width: 230, height: 260)
-                                            }
-                                        }.padding(.horizontal, 10)
-                                        
-                                    }
-                                    else if profiletype == 3 {
-                                        
-                                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
-                                            ForEach(Array(matchCardData.enumerated()), id: \.offset) { index, section in
-                                                if index != 0 {  }
-                                               // SmallMatchActive(matchcard: $matchcard, showprof: $showProfile, section: section, namespace: namespace)
-                                                    Rectangle()
-                                                    .frame(width: 230, height: 250)
-                                            }
-                                        }.padding(.horizontal, 10)
-                                        
-                                    }
-                        }.padding(.bottom,90)
-                    }
+                            if profiletype == 0 {
+                              compatible
+                            }
+                            else if profiletype == 1 {
+                                 
+                               active
+                            }
+                            else if profiletype == 2 {
                                 
+                                near
+                            }
+                            else if profiletype == 3 {
+                                
+                                newhere
+                            }
+                            Spacer()
+                               
+                        }.edgesIgnoringSafeArea(.bottom)
                             
+                    
+                                
+                 
                 
                 
                 if showProfile {
-                    FullProfileView(namespace: namespace, user: $currentUser, matchcard: $matchcard, showProfile: $showProfile)
+                    ViewProfileView(namespace: namespace, profile: profile, dislike: $showProfile)
                       //  .matchedGeometryEffect(id: "page", in: namespace, isSource: showProfile)
 
                 }
                 
                 
-            }
+          //  }
                 
                 navigation
                     .offset(y:!pageAppeared ? -200 : 0)
                     .animation(.spring(), value: showProfile)
                     .opacity(showProfile ? 0 : 1)
                 
+                
+                
+                
+                
+                
             }.onAppear{
+                getfakeCurrentUser()
                 withAnimation(.spring().speed(0.4)){
                     pageAppeared = true
-                    fetchUsers()
+                 
                 }
             }
             .onDisappear{
@@ -170,7 +106,103 @@ struct HomeView: View {
         
     }
     
-    
+    var compatible: some View {
+        VStack {
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 25.0) {
+                    ForEach(Array(profiles.enumerated()), id: \.element.id) { index, user in
+                        CompatibleCard(completion: {
+                            showProfile = true
+                            profile = user
+                        }, user: user)
+                    }
+
+                    
+                }
+                
+                .padding(.horizontal)
+                
+            }
+        }.padding(.bottom,100)
+    }
+    var active: some View {
+        ZStack {
+            ScrollView {
+                
+                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing:20) {
+                    ForEach(Array(profiles.enumerated()), id: \.element.id) { index, user in
+                        ActiveCard(completion: {
+                            showProfile = true
+                            profile = user
+                        }, user: user)
+                    }
+                }.padding(.bottom,90)
+                    .padding(.top,24)
+                    .padding(.horizontal,5)
+            }
+            
+            VStack {
+                Spacer()
+                Rectangle()
+                    .fill(LinearGradient(colors: [Color("offwhiteneo"), Color.clear], startPoint: .bottom, endPoint: .top))
+                    .frame(height: 120)
+                    .padding(.top,0)
+            }.edgesIgnoringSafeArea(.bottom)
+        }
+    }
+  
+    var near : some View {
+        ZStack {
+            ScrollView {
+                
+                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing:20) {
+                    ForEach(Array(profiles.enumerated()), id: \.element.id) { index, user in
+                        ActiveCard(completion: {
+                            showProfile = true
+                            profile = user
+                        }, user: user)
+                    }
+                }.padding(.bottom,90)
+                    .padding(.top,24)
+                    .padding(.horizontal,5)
+            }
+            
+            VStack {
+                Spacer()
+                Rectangle()
+                    .fill(LinearGradient(colors: [Color("offwhiteneo"), Color.clear], startPoint: .bottom, endPoint: .top))
+                    .frame(height: 120)
+                    .padding(.top,0)
+            }.edgesIgnoringSafeArea(.bottom)
+        }.onAppear{
+            
+        }
+    }
+    var newhere : some View {
+        ZStack {
+            ScrollView {
+                
+                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing:20) {
+                    ForEach(Array(profiles.enumerated()), id: \.element.id) { index, user in
+                        ActiveCard(completion: {
+                            showProfile = true
+                            profile = user
+                        }, user: user)
+                    }
+                }.padding(.bottom,90)
+                    .padding(.top,24)
+                    .padding(.horizontal,5)
+            }
+            
+            VStack {
+                Spacer()
+                Rectangle()
+                    .fill(LinearGradient(colors: [Color("offwhiteneo"), Color.clear], startPoint: .bottom, endPoint: .top))
+                    .frame(height: 120)
+                    .padding(.top,0)
+            }.edgesIgnoringSafeArea(.bottom)
+        }
+    }
     var nocards: some View {
         VStack {
             VStack {
@@ -222,61 +254,32 @@ struct HomeView: View {
                 VStack(alignment: .leading, spacing: 5) {
                     
                    
-                        ShimmerVar(text: "W\("elcome back \(currentUser?.firstname ?? "Umm")".lowercased())" , useCustomFont: true)
-                    
-                    ///  ShimmerVar(text: "W\("elcome back vera".lowercased())" , useCustomFont: true)
+                    TextWriterAppear(typeText: "Welcome back \(currentUser?.firstname ?? "umm...")", speed: 0.03)
+                        .font(.title3)
                     
                     VStack {
-                        if show {
+                       
                             
                             
                             VStack {
-                                Text(welcomeMessage)
-                                
-                                    .opacity(show ? 1:0)
-                                
-                                    .onDisappear{
-                                        show = false
-                                    }
-                                
+                                TextWriterAppear(typeText: "You have 4 matches today :)", speed: 0.03)
                             }
-                            
-                            
-                            
-                            
-                        } else {
-                            Text("Find your soulmate")
-                                .onAppear{
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                                        show = true
-                                    }
-                                }
-                            
-                        }
-                        
                     }.font(.subheadline)
-                        .onAppear{
-                            getuserData()
-                        }
-//
-                    
-                    
-                    
                 }
                 
                 
                 
                 Spacer()
-//                Image(currentUser?.avatar ?? "Avatar 1")
-//                    .resizable()
-//                    .aspectRatio(contentMode: .fill)
-                ImageViewer(url: currentUser?.avatar ?? "")
+                Image("Avatar 1")
+                   .resizable()
+                   .aspectRatio(contentMode: .fill)
+              //  ImageViewer(url: currentUser?.avatar ?? "")
                     .clipShape(Circle())
                     .frame(width: 70, height: 70)
                     .overlay(
                         VStack {
                             //days left
-                            Text("\(currentUser?.matches ?? 0)")
+                            Text("5")
                                 .font(.subheadline)
                             //Text(Int(data()[3]) ?? 0 < 1 ? "Day" :"Days")
                             Text("Matches")
@@ -307,23 +310,15 @@ struct HomeView: View {
             }
             .padding(.vertical, 10)
             .padding(.horizontal, 20)
-            .scaleEffect(welcomingisTapped ? 0.98 : 1)
-            .offwhitebutton(isTapped: welcomingisTapped, isToggle: false, cornerRadius: 15, action: .constant(false))
+            .background(Color("offwhiteneo"))
+            .cornerRadius(15)
+            .neoButton(isToggle: false, perform: {
+                //do something
+            })
             .padding(.horizontal,20)
             .padding(.bottom, 5)
-            .onAppear {
-                
-                animateChance = true
-                withAnimation(.spring(response: 1.9, dampingFraction: 1.5, blendDuration: 8)) {
-                    
-                }
-            }
-            .onDisappear {
-                withAnimation(.spring()) {
-                   
-                    
-                }
-            }
+          
+           
             
             typeofprofiles
                 
@@ -337,93 +332,91 @@ struct HomeView: View {
         HStack{
             HStack {
                 
-                TypeofMenuRow(pressed: $menupressed, tap: $profiletype, selected: 0, placeholder: "Compatible")
+                TypeofMenuRow( tap: $profiletype, selected: 0, placeholder: "Compatible"){
+                    
+                }
+                    
+                
                
                 Spacer()
-                TypeofMenuRow( pressed: $menupressed, tap: $profiletype, selected: 1, placeholder: "Active")
+                TypeofMenuRow(tap: $profiletype, selected: 1, placeholder: "Active"){
+                    
+                }
                 Spacer()
-                TypeofMenuRow( pressed: $menupressed, tap: $profiletype, selected: 2, placeholder: "Near")
+                TypeofMenuRow(tap: $profiletype, selected: 2, placeholder: "Near"){
+                    
+                }
                 Spacer()
-                TypeofMenuRow(pressed: $menupressed, tap: $profiletype, selected: 3, placeholder: "New Here")
+                TypeofMenuRow(tap: $profiletype, selected: 3, placeholder: "New Here"){
+                    
+                }
                 
                 
             }
             
             Spacer()
             
-            Image(systemName: "person.fill.badge.plus")
+            Image(systemName: profiletype == 0 ? "figure.2.arms.open" : profiletype == 1 ? "figure.cooldown" : profiletype == 2 ? "figure.stand.line.dotted.figure.stand" : profiletype == 3 ? "person.fill.badge.plus" : "person.fill.badge.plus")
                 .font(.system(size: 26, weight: .thin))
-                .foregroundColor(.black)
+                .foregroundColor(Color("offwhiteneo"))
+                .animation(.easeInOut, value: profiletype)
             
             
         }.padding(.horizontal)
             .padding(.top,10)
-            .padding(.bottom,13)
-            .onAppear{
-               
-            }
+         
     }
     
-    
+    func getfakeCurrentUser(){
+        currentUser = fakeUser
+    }
   
-    private func fetchUsers() {
-        let db = Firestore.firestore()
-        let user = Auth.auth().currentUser
-        let usersRef = db.collection("users").whereField("email", isNotEqualTo: user?.email ?? "")
-        
-        usersRef.getDocuments { (querySnapshot, error) in
-            if let error = error {
-                print("Error fetching users: \(error.localizedDescription)")
-                return
-            }
-            
-            guard let documents = querySnapshot?.documents else {
-                print("No documents found.")
-                return
-            }
-            
-            let users = documents.compactMap { document in
-                let documentData = document.data()
-                
-                return UserStruct(
-                    firstname: documentData["firstname"] as? String ?? "",
-                    lastname: documentData["lastname"] as? String ?? "",
-                    notifications: documentData["notifications"] as? String ?? "",
-                    avatar: documentData["avatar"] as? String ?? "",
-                    cyclechange: documentData["cyclechange"] as? String ?? "",
-                    birthday: documentData["birthday"] as? String ?? "",
-                    email: documentData["email"] as? String ?? "",
-                    aboutme: documentData["aboutme"] as? String ?? "",
-                    education: documentData["education"] as? String ?? "",
-                    work: documentData["work"] as? String ?? "",
-                    images: documentData["images"] as? [String] ?? [],
-                    likes: documentData["likes"] as? [String] ?? [],
-                    location: documentData["location"] as? [String] ?? [],
-                    lookingfor: documentData["lookingfor"] as? String ?? "",
-                    online: documentData["online"] as? Bool ?? false,
-                    password: documentData["password"] as? String ?? "",
-                    matches: documentData["matches"] as? Int ?? 0,
-                    age: documentData["age"] as? String ?? "", lifestyle: documentData["lifestyle"] as? [String] ?? [],
-                    lifestyledesc: documentData["lifestyledesc"] as? String ?? ""
-                )
-            }
-            
-            self.profiles = users
-        }
-    }
-    func getuserData(){
-        let cycle =  0
-        
-        if cycle >= 1 && cycle <= 2{
-            welcomeMessage = "Start matching to find your soulmate"
-        }
-        else
-        {
-            welcomeMessage = "You're on a roll, you have matches :)"
-            
-        }
-      
-    }
+//    private func fetchUsers() {
+//        let db = Firestore.firestore()
+//        let user = Auth.auth().currentUser
+//        let usersRef = db.collection("users").whereField("email", isNotEqualTo: user?.email ?? "")
+//
+//        usersRef.getDocuments { (querySnapshot, error) in
+//            if let error = error {
+//                print("Error fetching users: \(error.localizedDescription)")
+//                return
+//            }
+//
+//            guard let documents = querySnapshot?.documents else {
+//                print("No documents found.")
+//                return
+//            }
+//
+//            let users = documents.compactMap { document in
+//                let documentData = document.data()
+//
+//                return UserStruct(
+//                    firstname: documentData["firstname"] as? String ?? "",
+//                    lastname: documentData["lastname"] as? String ?? "",
+//                    notifications: documentData["notifications"] as? String ?? "",
+//                    avatar: documentData["avatar"] as? String ?? "",
+//                    cyclechange: documentData["cyclechange"] as? String ?? "",
+//                    birthday: documentData["birthday"] as? String ?? "",
+//                    email: documentData["email"] as? String ?? "",
+//                    aboutme: documentData["aboutme"] as? String ?? "",
+//                    education: documentData["education"] as? String ?? "",
+//                    work: documentData["work"] as? String ?? "",
+//                    images: documentData["images"] as? [String] ?? [],
+//                    likes: documentData["likes"] as? [String] ?? [],
+//                    location: documentData["location"] as? [String] ?? [],
+//                    lookingfor: documentData["lookingfor"] as? String ?? "",
+//                    online: documentData["online"] as? Bool ?? false,
+//                    password: documentData["password"] as? String ?? "",
+//                    matches: documentData["matches"] as? Int ?? 0,
+//                    age: documentData["age"] as? String ?? "", lifestyle: documentData["lifestyle"] as? [String] ?? [],
+//                    lifestyledesc: documentData["lifestyledesc"] as? String ?? ""
+//                )
+//            }
+//
+//            self.profiles = users
+//        }
+//    }
+ 
     
 }
 
@@ -440,47 +433,45 @@ struct HomeView_Previews: PreviewProvider {
 
 
 struct TypeofMenuRow:  View {
-    @Binding var pressed : Bool
     @Binding var tap : Int
     var selected = 0
     var placeholder = "name?"
+    let completion: () -> Void
     
     
     var body: some View {
         VStack {
             ZStack {
                 if tap == selected  {
-                    Text(placeholder)
-                        .padding(.vertical,5)
-                        .padding(.horizontal,8)
-                        //.background(tap == selected ? Color.green : Color.blue)
+                    VStack {
+                        Text(placeholder)
+                            .padding(.vertical,5)
+                            .padding(.horizontal,10)
+                            .background(Color("offwhite"))
+                            .cornerRadius(15)
                        
-                        
-                        .offwhitebutton2(isTapped: true, cornerRadius: 15)
-                        
-                    .scaleEffect(pressed ? 0.97 : 1)
+                    
+                    }
                 }
                 
                else {
                 Text(placeholder)
                     .padding(.vertical,5)
                     .padding(.horizontal,8)
-                    .scaleEffect(pressed ? 0.97 : 1)
+                   
                   
                 }
             }
-            .onTapGesture {
-                
-                
-                withAnimation(.spring()) {
-                    pressed = true
+            .neoButton(isToggle: false, perform: {
+                //
+                completion()
+               
+                withAnimation(.spring()){
                     tap = selected
                 }
                 
-                
-                
-                
-            }
+            })
+         
            
         }
         

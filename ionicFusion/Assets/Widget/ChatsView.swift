@@ -60,14 +60,7 @@ import Foundation
 //    }
 //}
 
-struct Message: Identifiable {
-    let id = UUID()
-    let documentID: String
-    let name: String
-    let text: String
-    let sender: Bool
-    let timestamp: String
-}
+
 
 
 //struct ChatsView_Previews: PreviewProvider {

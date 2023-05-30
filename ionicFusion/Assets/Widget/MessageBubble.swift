@@ -89,6 +89,7 @@ struct MessageBubble_Previews: PreviewProvider {
     static var previews: some View {
       //  MessageBubble()
         ViewController()
+           
     }
 }
 

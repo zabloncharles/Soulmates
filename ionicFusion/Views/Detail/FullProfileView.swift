@@ -6,86 +6,192 @@
 //
 
 import SwiftUI
+import Firebase
+import FirebaseFirestore
+import FirebaseAuth
 
 struct FullProfileView: View {
+    @AppStorage("hidemainTab") var hidemainTab = false
     var namespace: Namespace.ID
-    @Binding var user: UserStruct? // Variable to hold the user dat
-    @Binding var matchcard : MatchCardData
+   // @Binding var user: UserStruct? // Variable to hold the user dat
+    @State var profile = userStruct[0]
     @ObservedObject var viewModel = UserViewModel()
     var isAnimated = true
-    @Binding var showProfile : Bool
     @State var viewState: CGSize = .zero
     @State var selectedSection = courseSections[0]
     @State var selectedItem = matchDummy[0]
-    @State var showText = false
+    @State var showProfile = true
+    @State var text = ""
+    @State var erro = ""
+    @State var typeText = ""
     @State var dislike = false
+    @State var animateapper = false
+    @State var profileLoaded = false
+    @State var animategirl = false
     @State var liked = false
+    @State var cancelLike = false
     @State var showMore = false
+    @State var scrolledItem = 0
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
+        
+        
         ZStack {
-           BackgroundView()
-            ScrollView {
-                cover
-                  //  .matchedGeometryEffect(id: "som\(matchcard.usernumber)", in: namespace)
-                    
-                content
-                    .offset(y: showText ? 0 : 650)
-                    
-                   
-            }
-            .coordinateSpace(name: "scroll")
-            .mask(RoundedRectangle(cornerRadius: viewState.width / 3))
-            .scaleEffect(-viewState.width/500 + 1)
-            .gesture(drag)
-            .onAppear{
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                withAnimation(.spring()) {
-                  
-                        showText = true
-                    }
-                }
-            }
-            .ignoresSafeArea()
-            
            
-      
+            BackgroundView()
+               // .offset(y: CGFloat(scrolledItem) / 3)
             
             
             VStack {
-                HStack {
-                    Text(user?.firstname ?? "")
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .padding(10)
-                        .background(.ultraThinMaterial)
-                        .cornerRadius(15)
-                    Spacer()
-                    Button {
-                        
-                        withAnimation(.spring()) {
-                            showProfile = false
-                            showText = false
+                if dislike {
+                    VStack {
+                        LottieView(filename: "girlonphone")
+                            .neoButton(isToggle: false, perform: {
+                                //
+                            })
+                            .onAppear{
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                   
+                                        dislike = false
+                                    animategirl = false
+                                
+                                    
+                                }
                         }
-                        
-                    } label: {
-                        Image(systemName: "heart.slash")
-                            .font(.title)
-                            .fontWeight(.bold)
-                            .foregroundColor(.red)
+                            .offset(y:-30)
                     }
-                }.padding(.horizontal,25)
-                Spacer()
+                        .frame(width: 350, height: 350)
+                        .animation(.spring(), value: animategirl)
+                        .scaleEffect(animategirl ? 1 : 0.81)
+                       // .background(.ultraThinMaterial)
+
+                        //.offwhitebutton(isTapped: false, isToggle: false, cornerRadius: 20, action: .constant(false))
+                        .overlay(
+                            VStack{
+                                Spacer()
+                                VStack(alignment: .leading) {
+                                    TextWriterAppear(typeText: "Looking for your soulmate..", speed: 0.02)
+                                }
+                            }.padding()
+                                .offset(y:-20)
+                        )
+                        .onAppear{
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                withAnimation(.spring()) {
+                                    animategirl = true
+                                }
+                            }
+                        }
+                }
+            }
+            
+            if showProfile {
+                ZStack {
+                              
+                               
+                                ScrollView {
+                                   
+                                    cover
+                                        .background(scrollDetection)
+                                      //  .offset(y:dislike ? -570 : 0)
+                                      //  .matchedGeometryEffect(id: "som\(matchcard.usernumber)", in: namespace)
+                                      
+                                    content
+                                       // .offset(y: dislike ? 650 : 0)
+                                        
+                                       
+                                }
+                                .coordinateSpace(name: "scroll")
+                                .mask(RoundedRectangle(cornerRadius: viewState.width / 3))
+                                .scaleEffect(-viewState.width/500 + 1)
+                                .gesture(drag)
+                                .onAppear{
+                                   // DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                   // withAnimation(.spring()) {
+                                       profile = userStruct.randomElement() ?? userStruct[0]
+                                       // showProfile = true
+                                       // }
+                                   // }
+                                }
+                               
+                                
+                                .ignoresSafeArea()
+                                
+                               
+                          
+                                
+                                
+                              
+                                
+                                if liked  {
+                                            likedcontent
+                                }
+                                
+                               
+                }.animation(.spring(), value: dislike)
+                    .opacity(dislike ? 0 :1 )
+                    .offset(y: dislike ? UIScreen.main.bounds.height * 1.02 : 0)
+                    .onAppear{
+                        withAnimation(.spring()) {
+                            animateapper = true
+                        }
+                    }
+                   
+                    
+            }
+            if showProfile {
+                nameandheart
             }
         }
-        .matchedGeometryEffect(id: "wholecard\(matchcard.usernumber)", in: namespace)
-        .zIndex(1)
+                    
+            
+        
+            
+            
+           
+        
         
         
     }
-    
+    var nameandheart: some View{
+        VStack {
+            HStack {
+                HStack {
+                    TextWriterAppear(typeText: profile.firstname, speed: 0.03)
+                        .font(.title)
+                        .fontWeight(.bold)
+                       
+                       
+                } .padding(10)
+                    .background(.ultraThinMaterial)
+                    .cornerRadius(15)
+             
+                Spacer()
+                Button {
+                    showProfile = false
+                    withAnimation(.spring()) {
+                       
+                       
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5)  {
+                            showProfile = true
+                        }
+                        dislike = true
+                    }
+                    
+                } label: {
+                    Image(systemName: "heart.slash")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .foregroundColor(.red)
+                       
+                }
+            }.padding(.horizontal,25)
+            Spacer()
+        }//.blur(radius: liked ? 50 : 0)
+    }
     var cover: some View {
         GeometryReader { proxy in
             let scrollY = proxy.frame(in: .named("scroll")).minY
@@ -97,16 +203,17 @@ struct FullProfileView: View {
             .frame(maxWidth: .infinity)
             .frame(height: scrollY > 0 ? 500 + scrollY : 500)
            
-            .background(
+            .overlay(
               //  Image(matchcard.background)
               //      .resizable()
                   //  .aspectRatio(contentMode: .fill)
-                    GetImage()
+                GetImageAlert(url:profile.avatar,loaded: $profileLoaded)
                        
                     .offset(y: scrollY > 0 ? -scrollY : 0)
                     .scaleEffect(scrollY > 0 ? scrollY / 1000 + 1 : 1)
                     .blur(radius: scrollY > 0 ? scrollY / 10 : 0)
                     .accessibility(hidden: true)
+                    .matchedGeometryEffect(id: "profileimage", in: namespace)
                     
             )
             
@@ -134,14 +241,15 @@ struct FullProfileView: View {
                                     Text("About Me")
                                         .font(.title).bold()
                                     
-                                    Text(user?.age ?? "")
+                                   
+                                Text(profile.age )
                                         .font(.title3).bold()
                                         .padding(5)
                                         .background(Color.orange)
                                         .cornerRadius(60)
                                 }
                                 
-                                Text(user?.aboutme ?? "Nothing yet!")
+                                TextWriterAppear(typeText: profile.aboutme, speed: 0.02)
                                     .font(.footnote)
                                     .multilineTextAlignment(.leading)
                                     .lineLimit(2)
@@ -155,7 +263,7 @@ struct FullProfileView: View {
                                         .font(.system(size: 18, weight: .medium))
                                        
                                     
-                                    Text(user?.education ?? "")
+                                    TextWriterAppear(typeText: profile.education, speed: 0.02)
                                         .font(.footnote)
                                         .fontWeight(.semibold)
                                         .lineLimit(2)
@@ -166,8 +274,8 @@ struct FullProfileView: View {
                                     Image(systemName: "building")
                                         .font(.system(size: 18, weight: .medium))
                                      
-                                    
-                                    Text("Works in \(user?.work ?? "")")
+                                    TextWriterAppear(typeText: "Works in \(profile.work)", speed: 0.02)
+                                   // Text("Works in \(profile.work)")
                                         .font(.footnote)
                                         .fontWeight(.semibold)
                                         .lineLimit(2)
@@ -179,7 +287,8 @@ struct FullProfileView: View {
                                        
                                     
                                     HStack {
-                                        DistanceView()
+                                      //  DistanceView()
+                                        TextWriterAppear(typeText: profile.location[0], speed: 0.02)
                                             .font(.footnote)
                                             .fontWeight(.semibold)
                                         .lineLimit(2)
@@ -192,12 +301,12 @@ struct FullProfileView: View {
                             .background(Color("offwhite"))
                             .cornerRadius(19)
                           
-                            
+                            Rectangle()
+                                .fill(Color.gray)
+                                .frame(height: 0.1)
                             
                             VStack(alignment: .leading, spacing: 15.0){
-                                Rectangle()
-                                    .fill(Color.gray)
-                                    .frame(height: 0.1)
+                                
                                 HStack {
                                     
                                     
@@ -208,7 +317,7 @@ struct FullProfileView: View {
                                     Text("First Date Idea?")
                                         .font(.title2).bold()
                                 }
-                                Text("What would you like to do with \(matchcard.name) on a first date? :)")
+                                Text("What would you like to do with siri on a first date? :)")
                                     .font(.footnote)
                                     .multilineTextAlignment(.leading)
                                     .lineLimit(3)
@@ -259,6 +368,8 @@ struct FullProfileView: View {
                                         .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 14, action: $liked)
                                 }
                             }.padding()
+                                .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 18, action: .constant(false))
+                                
                             
                             
                             
@@ -266,25 +377,28 @@ struct FullProfileView: View {
                             
                             ZStack {
                                 VStack {
-                                    ImageViewer(url: user?.images[0] ?? "")
+                                    ImageViewer(url: profile.images[0] )
                                        
-                                        .frame(maxWidth: .infinity , minHeight:  400)
+                                        .frame(minHeight:  400)
                                     
                                 }
-                                VStack {
-                                    Spacer()
-                                    HStack {
-                                        Spacer()
-                                        Image(systemName: "heart.circle.fill")
-                                            
-                                            .font(.largeTitle)
-                                            .foregroundColor(.white)
-                                    }.padding()
-                                        .padding(.horizontal, 20)
-                                }
+                              
                             }.padding(-20)
                                 .padding(.bottom,20)
                                 .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 14, action: $liked)
+                                .overlay(
+                                    VStack {
+                                        Spacer()
+                                        HStack {
+                                            Spacer()
+                                            Image(systemName: "heart.circle.fill")
+                                            
+                                                .font(.largeTitle)
+                                                .foregroundColor(.white)
+                                        }.padding(10)
+                                           
+                                    }
+                                )
                             
                             
                            
@@ -311,7 +425,7 @@ struct FullProfileView: View {
                                     
                                     
                                     HStack {
-                                        ForEach(user?.likes ?? [""], id: \.self) { like in
+                                        ForEach(profile.likes, id: \.self) { like in
                                             LikesPill(placeholder: like)
                                         }
                                         
@@ -326,26 +440,29 @@ struct FullProfileView: View {
                                     
                             ZStack {
                                 VStack {
-                                    ImageViewer(url: user?.images[0] ?? "")
+                                    ImageViewer(url: profile.images[1] )
                                     
-                                        .frame(maxWidth: .infinity , minHeight:  400)
+                                        .frame(maxWidth: 500 , minHeight:  400)
                                     
                                     
                                 }
-                                VStack {
-                                    Spacer()
-                                    HStack {
-                                        Spacer()
-                                        Image(systemName: "heart.circle.fill")
-                                        
-                                            .font(.largeTitle)
-                                            .foregroundColor(.white)
-                                    }.padding()
-                                        .padding(.horizontal, 20)
-                                }
+                              
                             }.padding(-20)
                                 .padding(.bottom,20)
                                 .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 14, action: $liked)
+                                .overlay(
+                                    VStack {
+                                        Spacer()
+                                        HStack {
+                                            Spacer()
+                                            Image(systemName: "heart.circle.fill")
+                                            
+                                                .font(.largeTitle)
+                                                .foregroundColor(.white)
+                                        }.padding(10)
+                                            
+                                    }
+                                )
                                 
                                 
                             
@@ -359,9 +476,11 @@ struct FullProfileView: View {
                                     
                                     Text("Lifestyle")
                                         .font(.title).bold()
+                                    
+                                    Spacer()
                                 }
                                 
-                                Text(user?.lifestyledesc ?? "")
+                                Text(profile.lifestyledesc )
                                     .font(.callout)
                                     .multilineTextAlignment(.leading)
                                     .lineLimit(showMore ? 10 : 3)
@@ -370,7 +489,7 @@ struct FullProfileView: View {
                                 
                                 
                                 HStack {
-                                    ForEach(user?.lifestyle ?? [""], id: \.self) { like in
+                                    ForEach(profile.lifestyle, id: \.self) { like in
                                         LikesPill(placeholder: like)
                                     }
                                     
@@ -394,7 +513,7 @@ struct FullProfileView: View {
                     
                 
                
-        }.padding(.bottom,20)
+        }.padding(.bottom,-70)
             
             
             
@@ -404,8 +523,165 @@ struct FullProfileView: View {
         
     }
     
+   
+    var likedcontent: some View {
+        
+        VStack(spacing: 20.0) {
+            
+           
+              
+            VStack(alignment: .leading) {
+                        HStack {
+                            HStack {
+                                Image(systemName: "person.2.fill")
+                                Text(erro.isEmpty ? "You Liked :)" : erro)
+                                
+                            }.font(.title3)
+                                .fontWeight(.bold)
+                            Spacer()
+                            HStack {
+                                Image(systemName: "fleuron")
+                                Text("Boost")
+                            }.padding(.horizontal,12)
+                                .padding(.vertical,5)
+                                .background(Color.blue.opacity(0.3))
+                                .cornerRadius(20)
+                            
+                        }
+                        HStack { Image(systemName: "quote.opening")
+                            Text("As seen on my mom's fridge")
+                            Image(systemName: "quote.closing")
+                        }
+                    }.padding(15).offwhitebutton(isTapped: false, isToggle: false, cornerRadius: 15, action:  .constant(false))
+                    .padding(.top, 70)
+                    .offset(y: liked ? 0 : -20)
+                    .onAppear{
+                        hidemainTab = false
+                    }
+                
+                VStack {
+                    ImageViewer(url: profile.avatar)
+                    
+                        .frame(width: 400 , height: 430)
+                }.offwhitebutton(isTapped: false, isToggle: false, cornerRadius: 20, action:  .constant(false))
+                    .matchedGeometryEffect(id: "profileimage", in: namespace)
+                
+                
+                
+                
+                
+            
+            HStack {
+                TextField("Send a message", text: $text)
+                    .padding(.vertical,16)
+                    .padding(.leading, 55)
+                    .foregroundColor(Color("black"))
+                    .background(Color("offwhite"))
+                    .cornerRadius(25)
+                    .overlay(  Image(systemName: "pencil.circle.fill")
+                        .font(.largeTitle)
+                        .foregroundColor(.white)
+                        .offset(x: -139)
+                    )
+                    .offwhitebutton(isTapped: false, isToggle: false, cornerRadius: 25, action:  .constant(false))
+                    .padding(.horizontal,0)
+                
+                
+                HStack {
+                    Image(systemName: "paperplane")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .onTapGesture {
+                           // sendMatchMessage(text: text)
+                        }
+                }.padding()
+                    .background(Color.pink)
+                
+                    .offwhitebutton(isTapped: false, isToggle: false, cornerRadius: 30, action:  .constant(false))
+                
+                
+                
+            }
+            
+            
+            Text("Cancel")
+                .padding(.vertical,10)
+                .padding(.horizontal,60)
+                .background(Color("offwhite"))
+                .cornerRadius(20)
+                .neoButton(isToggle: false) {
+                    //
+                    liked = false
+                }
+                .padding(.top,10)
+            Spacer()
+        }.padding(.horizontal, 20)
+            .background(BackgroundView())
+            
+        
+    }
+    var scrollDetection: some View {
+                GeometryReader { proxy in
+                    let offset = proxy.frame(in: .named("scroll")).minY
+                    Color.clear.preference(key: ScrollPreferenceKey.self, value: offset)
+                }
+                .onPreferenceChange(ScrollPreferenceKey.self) { offset in
+                    withAnimation(.easeInOut) {
+                        scrolledItem = Int(offset)
+                       
+                   
+        
+        
+        
+                        if offset < -15 {
+        
+                            withAnimation(.spring()) {
+                               hidemainTab = true
+        
+                            }
+        
+                        }
+        
+                        else {
+                            withAnimation(.spring()) {
+                                hidemainTab = false
+                            }
+        
+        
+                        }
+        
+                    }
+                }
+            }
     
-    
+//    func sendMatchMessage(text: String) {
+//
+//
+//        let user = Auth.auth().currentUser
+//        let db = Firestore.firestore()
+//
+//        // Data for the new document
+//
+//
+//        // Add a placeholder for the document ID
+//        let docRef = db.collection("messages").document()
+//
+//
+//        // Add the document with the modified data
+//        docRef.setData(["docid": docRef.documentID,
+//                        "matched": true,
+//                        "time":  Date(),
+//                        "email": [user?.email ?? "" , "zab.charles@gmail.com"]
+//                        // Add other fields as needed
+//                       ], merge: false) { error in
+//            if let error = error {
+//                // Handle error
+//            } else {
+//                // Data added successfully
+//            }
+//        }
+//
+//    }
     var drag: some Gesture {
         DragGesture(minimumDistance: 30, coordinateSpace: .local)
             .onChanged { value in
@@ -418,12 +694,12 @@ struct FullProfileView: View {
                 }
                 
                 if viewState.width > 100 {
-                    showProfile = false
+                    
                 }
             }
             .onEnded { value in
                 if viewState.width > 50 {
-                    showProfile = false
+                   
                 } else {
                     withAnimation(.openCard) {
                         viewState = .zero
@@ -431,9 +707,66 @@ struct FullProfileView: View {
                 }
             }
     }
+    func typeWriter(_ text: String, completion: @escaping () -> Void) {
+        let original = typeText
+        //typeText = ""
+        var currentIndex = 0
+       
+        Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true) { timer in
+            if currentIndex < text.count {
+                let index = text.index(text.startIndex, offsetBy: currentIndex)
+                let character = text[index]
+                
+                DispatchQueue.main.async {
+                    withAnimation(.easeIn) {
+                        typeText += String(character)
+                    } // Update the typedText property on the main queue
+                }
+                
+                currentIndex += 1
+            } else {
+                
+                timer.invalidate()
+                completion()
+               // Timer.scheduledTimer(withTimeInterval: 0.6, repeats: false) { timer in
+                 //   withAnimation(.easeInOut) {
+                      //  typeText = original
+                  //
+                 //   }
+               // }
+                
+            }
+        }
+    }
     
-    
-    
+    func sendMatch(text: String) {
+        let user = Auth.auth().currentUser
+        let db = Firestore.firestore()
+        
+        // Add a placeholder for the document ID
+        
+        
+        let docRef = db.collection("messages").document()
+        
+        // Add the document with the modified data
+        docRef.setData(["matched": true,
+                        "time":  Date(),
+                        "email": [user?.email ?? "" , "zab.charles@gmail.com"]
+                        // Add other fields as needed
+                       ], merge: true) { error in
+            if let error = error {
+                // Handle the error
+                print("Error updating message data: \(error.localizedDescription)")
+                return
+            }
+            
+            // Data updated successfully
+            print("Message data updated")
+            
+            // Perform additional operations
+            // ...
+        }
+    }
     func getLocation(){
         
     }

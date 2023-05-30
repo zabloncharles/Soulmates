@@ -10,7 +10,7 @@ import SwiftUI
 
 
 struct NotificationRow: View {
-    var section: NotificationModel
+    var section: SomeUsers
     
     @State var isTapped = false
     
@@ -19,9 +19,10 @@ struct NotificationRow: View {
             
             
             HStack(alignment: .center, spacing: 8) {
-                Image(section.avatar)
+                Image("image_05")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
+               
                     .frame(width: 49, height: 49)
                     .mask(Circle())
                     .padding(5)
@@ -30,11 +31,11 @@ struct NotificationRow: View {
                     
                     
                     // GradientText(text: section.name, gradient: [.black, .blue])
-                    Text(section.name)
+                    Text(section.name.capitalized)
                         .customfontFunc(customFont: "sanfrancisco", style: .headline)
                         .foregroundColor(Color("black"))
                     
-                    Text(section.message)
+                    Text("hey hogn")
                         .customfontFunc(customFont: "sanfrancisco", style: .caption1)
                         .foregroundColor(.gray)
                         .lineLimit(1)
@@ -42,7 +43,7 @@ struct NotificationRow: View {
                 }
                 Spacer()
                 HStack {
-                    Text("4 Days")
+                    Text("03:23 PM")
                         .font(.caption)
                         .foregroundColor(.gray )
                     
@@ -62,6 +63,18 @@ struct NotificationRow: View {
      
         
     }
+    func formatDate(time:String) -> String{
+        
+        let dateFormatter = DateFormatter()
+       // dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let timedate = dateFormatter.date(from: time) ?? Date()
+        dateFormatter.dateFormat = "h:mm a"
+        return dateFormatter.string(from: timedate)
+        
+    }
+    
+    
+    
 }
 struct NotificationRow_Previews: PreviewProvider {
     

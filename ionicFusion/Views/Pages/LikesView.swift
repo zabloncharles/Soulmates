@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LikesView: View {
+    @AppStorage("hidemainTab") var hidemainTab = false
     @State var pageAppeared = false
     var body: some View {
         ZStack {
@@ -74,11 +75,13 @@ struct LikesView: View {
             }.padding(20)
         }
             .onAppear{
+                hidemainTab = false
                 withAnimation(.spring().speed(0.4)){
                     pageAppeared = true
                 }
             }
             .onDisappear{
+               
                 withAnimation(.spring()){
                     pageAppeared = false
                 }

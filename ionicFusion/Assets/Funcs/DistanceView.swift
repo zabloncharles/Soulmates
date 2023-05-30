@@ -15,7 +15,7 @@ struct DistanceView: View {
     var body: some View {
         VStack {
             if let distance = distance {
-                Text("\(convertMetersToMiles(distance)) miles awy")
+                Text("\(convertMetersToMiles(distance)) miles away")
             } else {
                 Text("Calculating distance...")
             }
