@@ -183,11 +183,11 @@ struct HomeView: View {
             ScrollView {
                 
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing:20) {
-                    ForEach(Array(profiles.enumerated()), id: \.element.id) { index, user in
+                    ForEach(Array(profiles.enumerated()), id: \.element.id) { index, data in
                         ActiveCard(completion: {
                             showProfile = true
-                            profile = user
-                        }, user: user)
+                            profile = data
+                        }, user: data)
                     }
                 }.padding(.bottom,90)
                     .padding(.top,24)

@@ -26,20 +26,16 @@ struct SectionView: View {
             .background(Color("Background"))
             .ignoresSafeArea()
             
-//            Button {
-//                presentationMode.wrappedValue.dismiss()
-//            } label: {
-//                CloseButton()
-//            }
-//            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-//            .padding(20)
-//            .ignoresSafeArea()
+            Button {
+                presentationMode.wrappedValue.dismiss()
+            } label: {
+               // CloseButton()
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+            .padding(20)
+            .ignoresSafeArea()
             
-//            LogoView(image: section.logo)
-//                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-//                .padding(20)
-//                .ignoresSafeArea()
-//                .accessibility(hidden: true)
+      
         }
         .zIndex(1)
     }

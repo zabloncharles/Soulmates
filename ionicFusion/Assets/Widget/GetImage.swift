@@ -23,27 +23,33 @@ struct GetImageAlert: View {
     
     var body: some View {
         VStack {
-            if let image = image {
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .animation(.easeIn, value: loaded)
-                    .onAppear{
-                       
-                            loaded = true
-                      
-                    }
-                
-                
-            } else {
-                
+            if url == "loading" {
                 LottieView(filename: "paperplaneloading" ,loop: true)
                     .frame(width: 400)
-                
-                
-                
-                
+            } else {
+                if let image = image {
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .animation(.easeIn, value: loaded)
+                        .onAppear{
+                            
+                            loaded = true
+                            
+                        }
+                    
+                    
+                } else {
+                    
+                    LottieView(filename: "paperplaneloading" ,loop: true)
+                        .frame(width: 400)
+                    
+                    
+                    
+                    
+                }
             }
+          
         }
         .onAppear {
             loadImageFromAPI()
@@ -51,8 +57,8 @@ struct GetImageAlert: View {
     }
     
     func loadImageFromAPI() {
-        //url.isEmpty ? "https://source.unsplash.com/random/?female,beautiful" : 
-        guard let url = URL(string: url) else {
+       
+        guard let url = URL(string:  url.isEmpty ? "https://source.unsplash.com/random/?female,beautiful" :  url) else {
             return
         }
         

@@ -42,7 +42,7 @@ struct TextWriterAppear: View {
                     )
                 
             )
-            .background(Color.white
+            .background(Color("black")
                 .mask(
                     Text(typeText)
                     //  .customfontFunc(customFont: font, style: size)

@@ -7,7 +7,7 @@ import Firebase
 
 struct MainTab: View {
     @State private var users: [User] = [] // Array to hold the user data
-    @State var currentUser: UserStruct? // Variable to hold the user data
+    @State var currentUser: UserStruct = fakeUser // Variable to hold the user data
     @State var user: UserStruct? // Variable to hold the user dat
     @AppStorage("currentPage") var selected = 0
     @AppStorage("showAccount") var showAccount = false
@@ -39,14 +39,14 @@ struct MainTab: View {
                     if self.selected == 2{
                      
                        // StandoutsView(matchcard: $matchcard)
-                        HomeView(currentUser: $currentUser)
+                        HomeView(currentUser: $user)
                     }
                     if self.selected == 3{
                         NotificationsDetail(namespace: namespace, notification: $selectedSection)
                         
                     }
                     if self.selected == 4{
-                      // SettingsView()
+                        ProfileEditView()
                        // SenderView()
                         
                     }
