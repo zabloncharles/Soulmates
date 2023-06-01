@@ -35,7 +35,6 @@ struct SettingsView: View {
     @AppStorage("wallpaper") var wallpaper = ""
     @State var notificationMessage = "test message"
     @State var textEdit = ""
-    @State var showBirthdayPicker = false
     @State var showBlur = false
     @State var birthdaycompleteTapped = false
     let transition: AnyTransition = .asymmetric(
@@ -49,23 +48,12 @@ struct SettingsView: View {
         ZStack {
             
             //Background
-           BackgroundView()
+           
             
             //First Section
             wallpaperandsettingsinfo
                 .padding(.top, 30)
-                .blueNavigation
-             
-            
-            
-            
-          
-                //notification popup
-                
-                
-                    
-                    
-               
+              
                     //image picker
                         .fullScreenCover(isPresented: $showImagePicker, onDismiss: nil) {
                             ImagePicker(image: $image)
@@ -95,241 +83,133 @@ struct SettingsView: View {
         
         .onAppear {
             withAnimation(.spring()) {
+                hidemainTab = true
+                animate = true
+            }
+        }
+        .onDisappear {
+            withAnimation(.spring()) {
                 hidemainTab = false
+                animate = false
             }
         }
        
-//        .onChange(of: notificationMessage) { newValue in
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-//                showNotification = true
-//            }
-//        }
     }
-    var birthdaypickerandblur: some View {
-        ZStack {
-            
-            VStack{
-                if showBlur {
-                    Rectangle()
-                        .fill(.ultraThinMaterial)
-                        .frame(width: .infinity, height: .infinity)
-                        .edgesIgnoringSafeArea(.all)
-                    
-                        .onTapGesture {
-                            showBlur = false
-                        }
-                }
-            }.opacity(showBlur ? 1 : 0)
-                .animation(.easeInOut, value: showBlur)
-            
-            VStack{
-                if showBlur {
-                    VStack{
-                        Spacer()
-                        VStack(spacing: -19.0) {
-                            Text(convertAge())
-                        .padding(.horizontal, 13)
-                            .padding(.vertical, 9)
-                            
-                            
-                        birthdaypicker
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            
-                        
-                        Text("Complete")
-                            .font(.body)
-                            .fontWeight(.regular)
-                            .padding(.horizontal, 13)
-                            .padding(.vertical, 9)
-                            
-                            .onTapGesture {
-                                withAnimation(.spring()) {
-                                    birthdaycompleteTapped = true
-                                }
-                                checkdateandupload()
-                            }
-                        }.padding(.bottom, 10)
-                        
-                    }.offset(y: showBirthdayPicker ? 0:450)
-                    .onDisappear {
-                        withAnimation(.spring()) {
-                            showBirthdayPicker = false
-                            birthdaycompleteTapped = false
-                            
-                        }
-                    }
-                }
-            }.transition(.scale.combined(with: .opacity ))
-                .animation(.easeInOut, value: showBirthdayPicker)
-        }
-    }
+   
     var wallpaperandsettingsinfo: some View {
         VStack(alignment: .leading) {
+            //User privacy
            
-            
-            VStack(alignment: .leading) {
-                HStack{
-                    HStack {
-                        Text("Settings")
-                            .font(.title)
-                            .fontWeight(.bold)
-                        Spacer()
-                    }
-                    Text(showWallpaperPicker ? "Change your wallpaper" : textFielde == 1 ? "Change your name" : textFielde == 2 ? "Change your email" : textFielde == 3 ? "Change your zodiac" : textFielde == 4 ? "Activate your account" : textFielde == 0 ? "Change your profile information." : "Manage your account")
-                        .font(.headline)
-                        .fontWeight(.regular)
-                        .foregroundColor(Color("black"))
-                        .multilineTextAlignment(.trailing)
-                }
-               
-            }.padding(10)
-                .offwhitebutton(isTapped: false, isToggle: false, cornerRadius: 12, action: .constant(false))
-                .padding(.horizontal, 20)
-                .padding(.bottom, 10)
-            
-            
-            
             HStack{
-                VStack (spacing:70){
-                    Text("Change your wallpaper")
-                        .opacity(0)
-                    Text("Change your wallpaper")
-                        .opacity(0)
-                    Text("Change your wallpaper")
-                        .opacity(0)
-                }
-                
-                VStack{
+               
+                Text("Wallpaper")
+                    .font(.title3).bold()
+                   
+                    .padding(70)
                     
+                    .cornerRadius(19)
+                    .opacity(0)
+                    
+                VStack{
+                   
                     HStack {
                         Spacer()
                         
-                        Text("wall")
-                            .foregroundColor(.black)
-                            .opacity(0)
-                            .padding(.vertical, 5)
-                            .padding(.leading, 25)
-                            .padding(.trailing, 49)
-                            .background(.black)
-                            .cornerRadius(20)
-                            .offset(x:39)
-                           
-                    }.overlay(
-                        VStack {
-                            if let image = self.image{
-                                
-                                Image(uiImage: image)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .rotationEffect(.degrees(tappedImage ? 180 : 0))
-                                
-                            } else {
-                                
-//                                Image(systemName: tappedImage ? "rays" : "person")
-//
-//                                    .aspectRatio(contentMode: .fit)
-//                                    .font(.title2)
-                                Avatar()
-                                    .rotationEffect(.degrees(tappedImage ? 360 : 0))
-                                
-                            }
-                            
-                            
-                        }.frame(width:  60, height:  60)
-                            .background(.ultraThinMaterial)
                         
-                            .cornerRadius(80)
-                            .background(
-                                Circle()
-                                    .fill(.black)
-                                    .padding(-4)
-                            )
-                            .offset(x:60)
-                            .onTapGesture{
-                                withAnimation(.spring()){
-                                    textFielde = 0
-                                    tappedImage = true
-                                }
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
-                                        withAnimation(.spring()){
-                                            showImagePicker.toggle()
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                                            tappedImage = false
-                                            }
-                                        }
-                                    }
-                                
-                                
-                            }
-                    )
+                           
+                    }
                     
-                        .overlay(VStack{
-                            if showWallpaperPicker {
-                                Text("Current Wallpaper")
-                                    .font(.footnote)
-                                    .foregroundColor(.primary)
-                                    .padding(.vertical, 5)
-                                    .padding(.trailing, 11)
-                                    .padding(.leading, 29)
-                                    .background(.ultraThinMaterial)
-                                    .cornerRadius(25)
-                                    .offset(x:-229 , y:60)
-                            }
-                        }
-                        )
                 }.scaleEffect(tappedImage ? 0.97 : 1)
                     
             }    .background(
                 ZStack {
                    
-                    Image(wallpaper)
-                        .renderingMode(.original)
-                        .resizable(resizingMode: .stretch)
-                        .aspectRatio(contentMode: .fill)
-                      
-                    LottieView(filename: "birds" ,loop: true)
-                        .frame(width: 380)
-                        .offset(x: 0, y: 0)
-                        .onTapGesture{
-                            withAnimation(.spring()){
-                                changeWallpaperTapped = true
-                                showWallpaperPicker.toggle()
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-                                    withAnimation(.spring()){
-                                        changeWallpaperTapped = false
+                    VStack {
+                        Text("Wallpaper")
+                            .font(.title).bold()
+                        
+                        Image(wallpaper)
+                            .renderingMode(.original)
+                            .resizable(resizingMode: .stretch)
+                            .aspectRatio(contentMode: .fill)
+                            .onTapGesture{
+                                withAnimation(.spring()){
+                                    changeWallpaperTapped = true
+                                    showWallpaperPicker.toggle()
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                                        withAnimation(.spring()){
+                                            changeWallpaperTapped = false
+                                        }
                                     }
                                 }
-                            }
-                            
+                                
                         }
+                    }
+
                     
                 }
                 
             )
-                .cornerRadius(25)
+                .cornerRadius(20)
                 .padding(0.4)
-                .background(.white.opacity(0.30))
                 .cornerRadius(25)
                 .padding(-1)
                 .scaleEffect(showWallpaperPicker ? 0.97 : 1)
                 .padding()
                 .rotation3DEffect(Angle(degrees:showWallpaperPicker ? 20 : 0), axis: (x: showWallpaperPicker ? 600.0 : 0, y: 0.0, z: 0.0))
 
-                .offset(x: textFielde == 10 ? -540 : 0)
                 .animation(.spring(), value: textFielde)
-              
+                .background(.ultraThinMaterial)
+                .background(VStack{
+                    Spacer()
+                    LinearGradient(colors: [Color("offwhite"),Color("offwhite"), Color.clear], startPoint: .bottom, endPoint: .top)
+                })
+                .cornerRadius(25)
             
             // Divider().padding(.horizontal, 50)
             VStack {
                 ZStack{
                     
-                    wallpaperselection
-                        .offset(x: showWallpaperPicker ? 0 : UIScreen.main.bounds.width * 1)
+                    if showWallpaperPicker {
+                        wallpaperselection
+                            .offset(x: showWallpaperPicker ? 0 : UIScreen.main.bounds.width * 1)
+                           
+                    }
                     
                     
-                    settingselection
-                        .offset(x: !showWallpaperPicker ? 0 : UIScreen.main.bounds.width * -1)
+                    VStack {
+                        settingselection
+                            .offset(x: !showWallpaperPicker ? 0 : UIScreen.main.bounds.width * -1)
+                        
+                        Divider()
+                        //User privacy
+                        VStack(alignment: .leading){
+                        
+                         
+                            //User privacy
+                            Text("Sign Out")
+                                .font(.title3).bold()
+                            
+                            HStack {
+                                Text("Sign Out")
+                                Spacer()
+                                Image(systemName: "power")
+                                    .foregroundColor(Color("black"))
+                                
+                                
+                            }.padding()
+                                .neoButtonOff(isToggle: false, cornerRadius: 13) {
+                                    //
+                                }
+                                .padding(.vertical, 2)
+                            
+                        
+                    }.padding().neoButtonOff(isToggle: false, cornerRadius: 13) {
+                        //
+                    }
+                    .padding()
+                        
+                    }
                     
                 }
                 
@@ -340,6 +220,8 @@ struct SettingsView: View {
             
             
         }
+            .padding()
+           
         
     }
     var birthdaypicker: some View {
@@ -358,335 +240,117 @@ struct SettingsView: View {
     
     var settingselection : some View {
         
-        ForEach(viewModel.userinfo) { user in
-            VStack{
-                VStack(spacing: 12) {
-                    HStack {
-                        if textFielde == 1 {
-                            if doneTapped && !textEdit.isEmpty  {
-                                SettingSelections(title: "Are you sure you want to change your name to \(textEdit)")
-                                    .onAppear{
-                                        lastChance = true
-                                    }
-                                    .onDisappear {
-                                        lastChance = false
-                                    }
-                                    .transition(.scale.combined(with: .opacity))
-                                    .animation(.easeInOut, value: lastChance)
-                                
-                                
-                            } else {
-                                VStack {
-                                    TextField(isUserNameFocused ? "Your first and last name.." : "\(user.fname) \(user.lname)", text: $textEdit)
-                                        .keyboardType(.default)
-                                        .autocapitalization(.none)
-                                        .settingcustomField(icon: "pencil")
-                                        .focused($isUserNameFocused)
-                                        .padding(8)
-                                }
-                                .transition(.scale.combined(with: .opacity))
-                                .animation(.easeInOut, value: doneTapped)
-                            }
-                            
-                        } else {
-                            SettingSelections(title: "Name")
-                        }
-                        Spacer()
-                        
-                       HStack {
-                           if textFielde == 1 {
-                               if doneTapped && !textEdit.isEmpty && lastChance  {
-                                   HStack {
-                                       Text(doneTapped && !textEdit.isEmpty ? "Yes" :  "Done")
-                                           .foregroundColor(.white)
-                                           .padding(9)
-                                           .background(.blue)
-                                           .cornerRadius(9)
-                                           .scaleEffect(doneTapped ? 0.97 : 1)
-                                           .onTapGesture {
-                                               doneTapped = true
-                                               isUserNameFocused = false
-                                               
-                                               if textEdit.isEmpty {
-                                                   showNotification = true
-                                                   notificationMessage = "Error: Please type in something before you hit done!"
-                                               }
-                                               
-                                               if doneTapped && !textEdit.isEmpty && lastChance {
-                                                   showNotification = true
-                                                   notificationMessage = "Your name was changed to \(textEdit)"
-                                                   textFielde = 0
-                                                   changeUsernameFunc()
-                                               }
-                                              
-                                       }
-                                       Text("No")
-                                           .foregroundColor(.white)
-                                           .padding(9)
-                                           .background(.red)
-                                           .cornerRadius(9)
-                                           .scaleEffect(doneTapped ? 0.97 : 1)
-                                           .onTapGesture {
-                                                   doneTapped = false
-                                                   textFielde = 0
-                                             
-                                               
-                                           }
-                                   }
-                                   .transition(.scale.combined(with: .opacity))
-                                   .animation(.easeInOut, value: doneTapped)
-                               }
-                               else {
-                                   Text(doneTapped && !textEdit.isEmpty ? "Yes" : textEdit.isEmpty ? "Cancel" : "Done")
-                                       .foregroundColor(.white)
-                                       .padding(9)
-                                       .background(.blue)
-                                       .cornerRadius(9)
-                                       .scaleEffect(doneTapped ? 0.97 : 1)
-                                       .onTapGesture {
-                                           doneTapped = true
-                                           isUserNameFocused = false
-                                           
-                                           if textEdit.isEmpty {
-                                              textFielde = 0
-                                           }
-                                           
-                                           if doneTapped && !textEdit.isEmpty && lastChance {
-                                              
-                                               textFielde = 0
-                                               changeUsernameFunc()
-                                           }
-                                           
-                                   }
-                                       .transition(.scale.combined(with: .opacity))
-                                       .animation(.easeInOut, value: doneTapped)
-                               }
-                         
-                        } else {
-                            VStack {
-                                
-                                
-                                settingsMenuItems(text: "\(user.fname) \(user.lname)", icon: "person", itemTapped: false)
-                                    .overlay(Rectangle()
-                                        .opacity(0.02)
-                                        .cornerRadius(25)
-                                        .onTapGesture {
-                                            textFielde = 1
-                                        })
-                                
-                            }
-                        }
-                           
-                       }.padding(.trailing, 10)
-                    }.padding(.vertical, 2)
+       
+          
+        VStack(alignment: .leading, spacing: 12) {
+            VStack(alignment: .leading){
+            Text("Profile Infomation")
+                .font(.title3).bold()
+            HStack {
+                Text("Email")
+                Spacer()
+                Text("test@gmail.com")
+                    .foregroundColor(Color("black"))
+                
+                
+            }.padding()
+                .neoButtonOff(isToggle: false, cornerRadius: 13) {
+                    //
+                }
+                .padding(.vertical, 2)
+        }.padding().neoButtonOff(isToggle: false, cornerRadius: 13) {
+            //
+        }
+            
+            Divider()
+            //New Section
+            VStack(alignment: .leading) {
+                Text("Account Options")
+                    .font(.title3).bold()
+                HStack {
+                    Text("Deactivate Account")
+                    Spacer()
+                    Image(systemName: "circle.grid.2x1.left.filled")
+                        .foregroundColor(.green)
                     
-                    HStack {
-                        SettingSelections(title: "Email")
-                            .onTapGesture {
-                                textFielde = 2
-                            }
-                        Spacer()
-                        
-                       HStack {
-                           if textFielde == 2 {
-                            VStack {
-                                TextField("email", text: $textEdit)
-                                    .keyboardType(.default)
-                                    .autocapitalization(.none)
-                                    .settingcustomField(icon: "envelope")
-                                
-                            }
-                        } else {
-                            settingsMenuItems(text: user.email, icon: "envelope", itemTapped: false)
-                                .overlay(Rectangle()
-                                            .opacity(0.02)
-                                            .cornerRadius(25)
-                                            .onTapGesture {
-                                    textFielde = 2
-                                })
-                            
-                        }
-                           
-                       }.padding(.trailing, 10)
-                        
-                        
+                    
+                }.padding()
+                    .neoButtonOff(isToggle: false, cornerRadius: 13) {
+                        //
                     }
                     .padding(.vertical, 2)
-                    
-                    
-                    HStack {
-                        
-                        SettingSelections(title: textFielde == 3 ? "Change birthday?" : "Birthday")
-                        Spacer()
-                        HStack{
-                            
-                            if textFielde == 3{
-                                HStack {
-                                    HStack (spacing: 2){
-                                        Image(systemName: "checkmark.circle")
-                                        Text("Yes")
-                                        
-                                    }   .padding(.vertical,8)
-                                        .padding(.horizontal,8)
-                                        .background(.blue)
-                                        .cornerRadius(9)
-                                        .onTapGesture {
-                                            showBlur = true
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                            showBirthdayPicker = true
-                                            }
-                                        }
-                                    HStack {
-                                        HStack (spacing: 2){
-                                            Image(systemName: "x.circle")
-                                            Text("Cancel")
-                                            
-                                        }   .padding(.vertical,8)
-                                            .padding(.horizontal,8)
-                                            .background(.gray)
-                                            .cornerRadius(9)
-                                            .onTapGesture {
-                                                textFielde = 0
-                                            }
-                                    }
-                                }
-                            } else {
-                                settingsMenuItems(text: user.birthday, icon: "calendar", itemTapped: false)
-                                    .overlay(Rectangle()
-                                        .opacity(0.02)
-                                        .cornerRadius(25)
-                                        .onTapGesture {
-                                            textFielde = 3
-                                        })
-                            }
-                            
-                            
-                        }.padding(.trailing, 10)
-                    }.padding(.vertical, 2)
-                    
-                    
-                    HStack {
-                        
-                        SettingSelections(title: textFielde == 5 ? "Change cycle?" : "Cycle")
-                        Spacer()
-                        HStack{
-                         
-                            if textFielde == 5{
-                                HStack {
-                                    HStack (spacing: 2){
-                                        Image(systemName: "checkmark.circle")
-                                        Text("Yes")
-                                         
-                                    }   .padding(.vertical,8)
-                                        .padding(.horizontal,8)
-                                        .background(.blue)
-                                        .cornerRadius(9)
-                                        .onTapGesture {
-                                            showEditCalendar = true
-                                        }
-                                    HStack {
-                                        HStack (spacing: 2){
-                                            Image(systemName: "x.circle")
-                                            Text("Cancel")
-                                            
-                                        }   .padding(.vertical,8)
-                                            .padding(.horizontal,8)
-                                            .background(.gray)
-                                            .cornerRadius(9)
-                                            .onTapGesture {
-                                                textFielde = 0
-                                            }
-                                    }
-                                }
-                            } else {
-                                settingsMenuItems(text: user.cyclechange, icon: "calendar", itemTapped: false)
-                                    .overlay(Rectangle()
-                                        .opacity(0.02)
-                                        .cornerRadius(25)
-                                        .onTapGesture {
-                                            textFielde = 5
-                                        })
-                            }
-                          
-                            
-                        }.padding(.trailing, 10)
-                    }.padding(.vertical, 2)
-                    
-                    
-                  
-                    
-                }.padding(10)
-                    .padding(.vertical, 2)
-                    .padding()
-                    .offset(x: textFielde == 10 ? 540 : 0)
-                    .animation(.spring(), value: textFielde)
-                    
-                VStack(alignment: .center) {
                 
-                        HStack {
-
-                            VStack{
-                            if textFielde > 8 {
-                                HStack{
-                                    Image(systemName: "circle.dotted")
-                                        .font(.title3)
-                                        .rotationEffect(Angle(degrees: animate ? 0 : 180))
-                                    Text("Signing Out...")
-                                        .font(.headline)
-                                }
-                              
-                                .transition(.scale.combined(with: .opacity))
-                                    .onAppear {
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0) {
-                                            withAnimation(.easeIn(duration: 2)) {
-                                                animate = true
-                                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                                                    withAnimation(.easeIn(duration: 2)) {
-                                                signIn = false
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                    .onDisappear {
-                                        animate = false
-                                    }
-                            } else {
-                                Text("Sign Out")
-                                    .font(.body)
-                                    .fontWeight(.regular)
-                                    .transition(.scale.combined(with: .opacity))
-                            }
-                            }
-                                            .onTapGesture {
-                                    signout()
-                                    withAnimation(.spring()){
-                                       
-                                                 textFielde = 9
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                                                     textFielde = 10
-                                                 }
-                                                
-                                    }
-                                }
-                            
-                            
-                                
-                        }.padding(.horizontal, textFielde > 8 ? 17 : 50)
-                        .padding(.vertical, textFielde > 8 ? 17 : 14)
-                        .offwhitebutton(isTapped: textFielde == 10, isToggle: false, cornerRadius: 15, action: .constant(false))
-                            .padding(.top,10)
-                           .offset(y: textFielde == 10 ? 140 : 0)
-                            .animation(.spring(), value: textFielde)
-                            .scaleEffect(textFielde == 5 ? 0.97 : 1)
-                            .opacity(textFielde == 5 ? 0 : 1)
+                //Delete account option
+                HStack {
+                    Text("Delete Account")
                     Spacer()
-                }
-                   
-                
+                    Image(systemName: "trash.slash")
+                        .foregroundColor(Color("black"))
+                    
+                    
+                }.padding()
+                    .neoButtonOff(isToggle: false, cornerRadius: 13) {
+                        //
+                    }
+                    .padding(.vertical, 2)
+            }.padding().neoButtonOff(isToggle: false, cornerRadius: 13) {
+                //
             }
             
-        }
+            
+            
+            
+            
+            Divider()
+            //User privacy
+            VStack(alignment: .leading){
+            Text("Privacy Policy")
+                .font(.title3).bold()
+            HStack {
+                Text("Data Protection")
+                Spacer()
+                Image(systemName: "list.bullet.rectangle.portrait")
+                    .foregroundColor(Color("black"))
+                
+                
+            }.padding()
+                .neoButtonOff(isToggle: false, cornerRadius: 13) {
+                    //
+                }
+                .padding(.vertical, 2)
+            
+            HStack {
+                Text("Report a problem")
+                Spacer()
+                Image(systemName: "exclamationmark.triangle")
+                    .foregroundColor(Color("black"))
+                
+                
+            }.padding()
+                .neoButtonOff(isToggle: false, cornerRadius: 13) {
+                    //
+                }
+                .padding(.vertical, 2)
+            }.padding().neoButtonOff(isToggle: false, cornerRadius: 13) {
+                //
+            }
+                   
+                       
+                        
+                        
+                    
+                    
+                }.padding(10)
+                    .padding(.vertical, 10)
+                    
+                   
+                    
+              
+                   
+                
+            
+            
+        
         
         
     }
@@ -796,7 +460,7 @@ struct SettingsView: View {
                                     notificationMessage = "Your birthdate has been changed successfully."
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
                                         showBlur = false
-                                        showBirthdayPicker = false
+                                        
                                     }
                                 } else {
                                     

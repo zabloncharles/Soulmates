@@ -14,8 +14,12 @@ struct ProfileEditView: View {
         @State var text = ""
         @State var erro = ""
         @State var typeText = ""
+    @State var notifactionMessage = ["Click on what you want to edit", "Notification"]
         @State var animateapper = false
+    @State var showNotification = false
+    @State var aboutMeAppeared = false
         @State var showMore = false
+    @State var showSettings = false
         @State var isEditing = false
         @State var age = ""
         @State var isPickerVisible = false
@@ -43,11 +47,33 @@ struct ProfileEditView: View {
                             .background(scrollDetection)
                         
                         
-                        content
-                            .background(
-                                LinearGradient(colors: [Color("offwhite"),Color.clear], startPoint: .bottom, endPoint: .top)
-                               // Color("offwhite")
-                                    .offset(y:254))
+                        if showSettings {
+                            SettingsView()
+                                .offset(y:-60)
+                                .transition(.asymmetric(
+                                    insertion: .move(edge: .trailing),
+                                    removal: .move(edge: .trailing)).animation(.spring()))
+                        } else {
+                            content
+                                .background(
+                                    LinearGradient(colors: [Color("offwhite"),Color.clear], startPoint: .bottom, endPoint: .top)
+                                    // Color("offwhite")
+                                        .offset(y:254))
+                            //.offset(x:aboutMeAppeared ? 0 : -150)
+                                .transition(.asymmetric(
+                                    insertion: .move(edge: .leading),
+                                    removal: .move(edge: .leading)).animation(.spring()))
+                                .onAppear{
+                                    withAnimation(.spring()) {
+                                        aboutMeAppeared = true
+                                    }
+                                }
+                                .onDisappear{
+                                    withAnimation(.spring()) {
+                                        aboutMeAppeared = false
+                                    }
+                                }
+                        }
                         
                         
                         
@@ -62,9 +88,9 @@ struct ProfileEditView: View {
                     
                     
                     
-                
-                   
                     
+                    
+                    if isEditing {
                     //MARK: Get work sector
                     if editItem == 1 {
                         NameChangePicker(done: $editItem)
@@ -78,8 +104,8 @@ struct ProfileEditView: View {
                                     blurBackground = true
                                 }
                             }
-                      
-                           
+                        
+                        
                     }
                     if editItem == 2 {
                         
@@ -91,8 +117,8 @@ struct ProfileEditView: View {
                             }
                         
                     }
-                     if editItem == 3 {
-                       
+                    if editItem == 3 {
+                        
                         UniversityView(done: $editItem)
                             .onDisappear{
                                 withAnimation(.spring()) {
@@ -102,7 +128,7 @@ struct ProfileEditView: View {
                         
                     }
                     if editItem == 4 {
-                      
+                        
                         
                         WorkPicker(done: $editItem)
                             .onDisappear{
@@ -116,7 +142,7 @@ struct ProfileEditView: View {
                                 }
                             }
                     }
-                    
+                }
                  
 
                 }
@@ -133,12 +159,28 @@ struct ProfileEditView: View {
                             animateapper = false
                         }
                     }
+                    .onChange(of: notifactionMessage) { notification in
+                        withAnimation(.spring()) {
+                            showNotification = true
+                        }
+                    }
                 
                 
                 
                 
          //MARK: name and heart icon
                     nameandheart
+                    .animation(.easeInOut.delay(0.5), value: showNotification)
+                    .opacity(showNotification ? 0 : 1)
+             
+                
+                
+                //MARK:Notifications
+                if showNotification {
+                    Notification(title: notifactionMessage[0], notification: notifactionMessage[1], showNotification: $showNotification)
+                       
+                }
+                
                 
             }
             
@@ -182,11 +224,18 @@ struct ProfileEditView: View {
                             .font(.title)
                             .fontWeight(.bold)
                             .foregroundColor(.red)
-                            .rotationEffect(.degrees(0))
-                            .animation(.linear.speed(0.03), value: isEditing)
+                            .rotationEffect(.degrees(showSettings ? 0 : 180))
+                            .animation(.linear.speed(0.03).repeatCount(1), value: showSettings)
                             .padding(2)
                             .neoButtonOff(isToggle: false, cornerRadius: 5) {
                                 //
+                                withAnimation(.spring()) {
+                                    editItem = 0
+                                    isEditing = false
+                                    blurBackground = false
+                                    showSettings.toggle()
+                                    notifactionMessage[0] = "Settings"
+                                }
                             }
                        Rectangle()
                             .frame(width:16.4, height: 1.3)
@@ -195,14 +244,16 @@ struct ProfileEditView: View {
                             .fontWeight(.bold)
                             .foregroundColor(.black)
                             .rotationEffect(.degrees(isEditing ? 180 : 0))
-                            .animation(.linear.speed(0.03), value: isEditing)
+                            .animation(.linear.speed(0.03).repeatCount(1), value: isEditing)
                             .padding(2)
                             .neoButtonOff(isToggle: true, cornerRadius: 5) {
                                 //
                                 withAnimation(.spring()) {
                                     isEditing.toggle()
+                                    showSettings = false
                                     blurBackground = false
                                     editItem = 0
+                                    notifactionMessage[0] = "Edit Profile"
                                 }
                             }
                     }.padding(.vertical,15)
@@ -264,6 +315,13 @@ struct ProfileEditView: View {
                 
             }
             .frame(height: 400)
+            .onTapGesture {
+                withAnimation(.spring()) {
+                    if blurBackground {
+                        editItem = 0
+                    }
+                }
+            }
         }
         
         var content: some View {

@@ -17,6 +17,7 @@ struct Notification: View {
     @State var showlottieAnimation = true
     @State var looplottieAnimation = true
     @Binding var showNotification : Bool
+    @State var animate = false
     @State var showbackgroundBlur = true
     @State var opacityColor = 450
     @State private var notificationPosition = CGSize.zero
@@ -33,6 +34,18 @@ struct Notification: View {
                     .onAppear{
                         vibrate()
                     }
+            }
+        }.offset(y: animate ? 0 : -90 )
+            .opacity(animate ? 1 : 0.86)
+           // .transition(.scale.combined(with: .opacity))
+        .onAppear{
+            withAnimation(.spring()) {
+                animate = true
+            }
+        }
+        .onDisappear{
+            withAnimation(.spring()) {
+                animate = false
             }
         }
         
@@ -73,7 +86,7 @@ struct Notification: View {
                     }
                     
                     
-                }.foregroundColor(Color("white"))
+                }.foregroundColor(Color("black"))
                     .padding()
                 
                 Spacer()
@@ -86,7 +99,7 @@ struct Notification: View {
                         .foregroundColor(Color("black"))
                         .padding(.horizontal, 10)
                         .padding(.vertical,8)
-                        .background(.white )
+                        .background(Color("white"))
                         .cornerRadius(10)
                         .padding(.horizontal, 10)
                     
@@ -104,12 +117,9 @@ struct Notification: View {
             
             .background(
                 Rectangle()
-                    .fill(.pink)
+                    .fill(Color("offwhite"))
                     .opacity(Double(opacityColor) / 90))
-            .background(
-                Rectangle()
-                    .fill(.white)
-                    .opacity(Double(opacityColor) / 10))
+          
             .cornerRadius(30)
             .scaleEffect(notificationTapped ? 0.97 : 1)
             .padding()
@@ -160,7 +170,7 @@ struct Notification: View {
             }
             
             .edgesIgnoringSafeArea(.all)
-            .background(.ultraThinMaterial)
+            //.background(.ultraThinMaterial)
             .opacity(showNotification && showbackgroundBlur ? 1 : showNotification && !showbackgroundBlur ? 0.1 : 0)
             .onTapGesture{
                 withAnimation(.spring()){
@@ -176,7 +186,12 @@ struct Notification: View {
     func notificationAppeared(){
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.4) {
             withAnimation(.spring()) {
+                
+                    animate = false
+                
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 showNotification = false
+            }
             }
         }
     }
@@ -186,10 +201,15 @@ struct Notification: View {
     }
     func userIsDoneDraggingNotification(){
       
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.4) {
             withAnimation(.spring()) {
-                showNotification = false
-                vibrate()
+                
+                animate = false
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    showNotification = false
+                    vibrate()
+                }
             }
         }
     }
