@@ -11,6 +11,7 @@ import SwiftUI
 
 struct TapCompletionModifier: ViewModifier {
     @State var isTapped = false
+    @State var appeared = false
     var isToggle = false
     let completion: () -> Void
     
@@ -60,17 +61,18 @@ extension View {
 
 struct TapCompletionModifier2: ViewModifier {
     @State var isTapped = false
+    @State var appeared = false
     var isToggle = false
     var cornerRadius = 15
     let completion: () -> Void
     
     func body(content: Content) -> some View {
         content
-            .background(Color("offwhite"))
+            .background(Color("offwhite").opacity( appeared ? 1:0))
             .cornerRadius(CGFloat(cornerRadius))
-            .shadow(color:  .black.opacity(0.3), radius: 10, x:isTapped ? -5 : 10, y:isTapped ? -5 : 10 )
-            .shadow(color: Color("white").opacity(0.9),radius: 10, x:isTapped  ? 10 : -5, y:isTapped  ? 10 : -5)
-            .scaleEffect(isTapped ? 0.97 : 1)
+            .shadow(color:  .black.opacity( appeared ? 0.3 : 0 ), radius: 10, x:isTapped ? appeared ? -5 : 0 : 10, y:isTapped ? appeared ? -5 : 0 : appeared ? 10 : 0 )
+            .shadow(color: Color("white").opacity( appeared ?  0.9 : 0),radius: 10, x:isTapped  ? appeared ? 10 : 0 : appeared ? -5 : 0, y:isTapped  ? appeared ? 10:0 : appeared ? -5 : 0)
+            .scaleEffect(isTapped ? 0.97 : appeared ? 1 : 0.97)
             .onTapGesture {
                 // Execute the completion closure when the view is tapped
                 
@@ -99,6 +101,14 @@ struct TapCompletionModifier2: ViewModifier {
                 
                 
             }
+            .onAppear{
+                
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.9)  {
+                        withAnimation(.easeIn.speed(0.4)) {
+                        appeared = true
+                    }
+                }
+            }
     }
 }
 
@@ -112,6 +122,7 @@ extension View {
 struct TapCompletionModifier3: ViewModifier {
     var isTapped = false
     var cornerRadius = 0
+  
     
     func body(content: Content) -> some View {
         content

@@ -23,6 +23,7 @@ struct FullProfileView: View {
     @State var showProfile = true
     @State var text = ""
     @State var erro = ""
+    @State var sendMessage = ""
     @State var typeText = ""
     @State var dislike = false
     @State var animateapper = false
@@ -162,7 +163,7 @@ struct FullProfileView: View {
                     TextWriterAppear(typeText: profile.firstname, speed: 0.03)
                         .font(.title)
                         .fontWeight(.bold)
-                       
+                    Text("check \(erro) \(profile.email)")
                        
                 } .padding(10)
                     .background(.ultraThinMaterial)
@@ -179,6 +180,8 @@ struct FullProfileView: View {
                             showProfile = true
                         }
                         dislike = true
+                        liked = false
+                        unMatch()
                     }
                     
                 } label: {
@@ -186,6 +189,7 @@ struct FullProfileView: View {
                         .font(.title)
                         .fontWeight(.bold)
                         .foregroundColor(.red)
+                    
                        
                 }
             }.padding(.horizontal,25)
@@ -555,14 +559,12 @@ struct FullProfileView: View {
                     }.padding(15).offwhitebutton(isTapped: false, isToggle: false, cornerRadius: 15, action:  .constant(false))
                     .padding(.top, 70)
                     .offset(y: liked ? 0 : -20)
-                    .onAppear{
-                        hidemainTab = false
-                    }
+                    
                 
                 VStack {
                     ImageViewer(url: profile.avatar)
                     
-                        .frame(width: 400 , height: 430)
+                        .frame(width: 400 , height: 400)
                 }.offwhitebutton(isTapped: false, isToggle: false, cornerRadius: 20, action:  .constant(false))
                     .matchedGeometryEffect(id: "profileimage", in: namespace)
                 
@@ -572,7 +574,7 @@ struct FullProfileView: View {
                 
             
             HStack {
-                TextField("Send a message", text: $text)
+                TextField("Send a message", text: $sendMessage)
                     .padding(.vertical,16)
                     .padding(.leading, 55)
                     .foregroundColor(Color("black"))
@@ -584,39 +586,58 @@ struct FullProfileView: View {
                         .offset(x: -139)
                     )
                     .offwhitebutton(isTapped: false, isToggle: false, cornerRadius: 25, action:  .constant(false))
-                    .padding(.horizontal,0)
+                    .padding(.horizontal,30)
                 
                 
-                HStack {
-                    Image(systemName: "paperplane")
-                        .font(.headline)
-                        .foregroundColor(.white)
-                        .onTapGesture {
-                           // sendMatchMessage(text: text)
-                        }
-                }.padding()
-                    .background(Color.pink)
-                
-                    .offwhitebutton(isTapped: false, isToggle: false, cornerRadius: 30, action:  .constant(false))
-                
+               
                 
                 
             }
             
             
-            Text("Cancel")
-                .padding(.vertical,10)
-                .padding(.horizontal,60)
-                .background(Color("offwhite"))
-                .cornerRadius(20)
-                .neoButton(isToggle: false) {
-                    //
-                    liked = false
-                }
+            HStack {
+                HStack {
+                    Image(systemName: "fleuron")
+                    Text("Match")
+                    
+                }    .padding(.vertical,10)
+                    .padding(.horizontal,50)
+                    .foregroundColor(.white)
+                    .background(Color.pink)
+                    .cornerRadius(20)
+                    .neoButton(isToggle: false) {
+                        //
+                        liked = false
+                        sendMatch()
+                    }
+                    .padding(.top,10)
+                
+                Text("Cancel")
+                    .padding(.vertical,10)
+                    .padding(.horizontal,30)
+                    .background(Color("offwhite"))
+                    .cornerRadius(20)
+                    .neoButton(isToggle: false) {
+                        //
+                        liked = false
+                    }
                 .padding(.top,10)
+            }
             Spacer()
         }.padding(.horizontal, 20)
             .background(BackgroundView())
+            .onAppear{
+                
+                withAnimation(.spring()) {
+                    hidemainTab = true
+                }
+            }
+            .onDisappear{
+                
+                withAnimation(.spring()) {
+                    hidemainTab = false
+                }
+            }
             
         
     }
@@ -739,32 +760,103 @@ struct FullProfileView: View {
         }
     }
     
-    func sendMatch(text: String) {
+    
+    func unMatch(){
+      
+        let db = Firestore.firestore()
+        let user = Auth.auth().currentUser
+        //save the dounload url to database key
+
+        //We look for the user id of the current user
+        db.collection("users").whereField("email", isEqualTo: profile.email)
+            .getDocuments() { (querySnapshot, error) in
+                if error != nil {
+                    //there is an error
+                } else {
+                    for document in querySnapshot!.documents {
+
+                        //We add that user id to our unmatch collection
+                        //erro = "\(user?.uid ?? "")"
+                        db.collection("users").whereField("email", isEqualTo: user?.email)
+                            .getDocuments() { (querySnapshot, error) in
+                                if error != nil {
+                                    //there is an error
+                                } else {
+                                    for myinfo in querySnapshot!.documents {
+
+                                        //We add that user id to our unmatch collection
+                                        //erro = "\(user?.uid ?? "")"
+                                        db.collection("users").document(myinfo.documentID)
+                                            .collection("notamatch").document(document.documentID).setData(["date": Date()], merge: true) { error in
+
+                                                if error == nil {
+
+
+                                                }
+                                            }
+                                    }
+                                }
+                            }
+
+                    }
+                }
+            }
+
+    }
+    func sendMatch() {
         let user = Auth.auth().currentUser
         let db = Firestore.firestore()
         
-        // Add a placeholder for the document ID
-        
+      
         
         let docRef = db.collection("messages").document()
+        let docid = docRef.documentID
         
         // Add the document with the modified data
-        docRef.setData(["matched": true,
-                        "time":  Date(),
-                        "email": [user?.email ?? "" , "zab.charles@gmail.com"]
-                        // Add other fields as needed
-                       ], merge: true) { error in
-            if let error = error {
-                // Handle the error
-                print("Error updating message data: \(error.localizedDescription)")
-                return
+ 
+        if sendMessage.isEmpty {
+            docRef.setData(["matched": true,
+                            "time":  Date(),
+                            "email": [user?.email ?? "" , profile.email],
+                            "matchid": docRef.documentID
+                            // Add other fields as needed
+                           ], merge: true) { error in
+                if let error = error {
+                    // Handle the error
+                    print("Error updating message data: \(error.localizedDescription)")
+                    return
+                }
+            }
+        } else {
+            docRef.setData(["matched": true,
+                            "time":  Date(),
+                            "email": [user?.email ?? "" , profile.email],
+                            "matchid": docRef.documentID
+                            
+                            // Add other fields as needed
+                           ], merge: true) { error in
+                if let error = error {
+                    // Handle the error
+                    print("Error updating message data: \(error.localizedDescription)")
+                    return
+                }
             }
             
-            // Data updated successfully
-            print("Message data updated")
+            docRef.collection("log").document().setData([
+                "text": sendMessage,
+                            "time":  Date(),
+                            "email": user?.email
+                            
+                            // Add other fields as needed
+                           ], merge: true) { error in
+                if let error = error {
+                    // Handle the error
+                    print("Error updating message data: \(error.localizedDescription)")
+                    return
+                }
+            }
             
-            // Perform additional operations
-            // ...
+            
         }
     }
     func getLocation(){

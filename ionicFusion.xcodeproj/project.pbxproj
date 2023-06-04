@@ -151,6 +151,15 @@
 		F7A4AC262A20ABC6007E4690 /* ChatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A4AC252A20ABC6007E4690 /* ChatsView.swift */; };
 		F7A4AC282A212FE5007E4690 /* Sender.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A4AC272A212FE5007E4690 /* Sender.swift */; };
 		F7BDF1072A287575008FDB4C /* AboutMePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BDF1062A287575008FDB4C /* AboutMePicker.swift */; };
+		F7BDF10A2A29AECC008FDB4C /* AboutMeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BDF1092A29AECC008FDB4C /* AboutMeView.swift */; };
+		F7BDF10C2A29B12E008FDB4C /* WorkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BDF10B2A29B12E008FDB4C /* WorkView.swift */; };
+		F7BDF10E2A29BC36008FDB4C /* UniversityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BDF10D2A29BC36008FDB4C /* UniversityView.swift */; };
+		F7BDF1102A29C036008FDB4C /* study.json in Resources */ = {isa = PBXBuildFile; fileRef = F7BDF10F2A29C036008FDB4C /* study.json */; };
+		F7BDF1122A29C175008FDB4C /* LikesPillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BDF1112A29C175008FDB4C /* LikesPillView.swift */; };
+		F7BDF1142A2AA286008FDB4C /* likethumb.json in Resources */ = {isa = PBXBuildFile; fileRef = F7BDF1132A2AA286008FDB4C /* likethumb.json */; };
+		F7BDF1162A2AA3EA008FDB4C /* LookingForView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BDF1152A2AA3EA008FDB4C /* LookingForView.swift */; };
+		F7BDF1182A2AA5FF008FDB4C /* telescope.json in Resources */ = {isa = PBXBuildFile; fileRef = F7BDF1172A2AA5FF008FDB4C /* telescope.json */; };
+		F7BDF11A2A2AA797008FDB4C /* eyesrainbow.json in Resources */ = {isa = PBXBuildFile; fileRef = F7BDF1192A2AA797008FDB4C /* eyesrainbow.json */; };
 		F7D847E62A22BE6400E1E273 /* messageprev.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D847E52A22BE6400E1E273 /* messageprev.swift */; };
 		F7D847E92A24153B00E1E273 /* SendMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D847E82A24153B00E1E273 /* SendMatch.swift */; };
 		F7D847ED2A2449B400E1E273 /* paperplaneloading.json in Resources */ = {isa = PBXBuildFile; fileRef = F7D847EC2A2449B400E1E273 /* paperplaneloading.json */; };
@@ -307,6 +316,15 @@
 		F7A4AC252A20ABC6007E4690 /* ChatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsView.swift; sourceTree = "<group>"; };
 		F7A4AC272A212FE5007E4690 /* Sender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sender.swift; sourceTree = "<group>"; };
 		F7BDF1062A287575008FDB4C /* AboutMePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutMePicker.swift; sourceTree = "<group>"; };
+		F7BDF1092A29AECC008FDB4C /* AboutMeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutMeView.swift; sourceTree = "<group>"; };
+		F7BDF10B2A29B12E008FDB4C /* WorkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkView.swift; sourceTree = "<group>"; };
+		F7BDF10D2A29BC36008FDB4C /* UniversityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversityView.swift; sourceTree = "<group>"; };
+		F7BDF10F2A29C036008FDB4C /* study.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = study.json; sourceTree = "<group>"; };
+		F7BDF1112A29C175008FDB4C /* LikesPillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesPillView.swift; sourceTree = "<group>"; };
+		F7BDF1132A2AA286008FDB4C /* likethumb.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = likethumb.json; sourceTree = "<group>"; };
+		F7BDF1152A2AA3EA008FDB4C /* LookingForView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookingForView.swift; sourceTree = "<group>"; };
+		F7BDF1172A2AA5FF008FDB4C /* telescope.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = telescope.json; sourceTree = "<group>"; };
+		F7BDF1192A2AA797008FDB4C /* eyesrainbow.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = eyesrainbow.json; sourceTree = "<group>"; };
 		F7D847E52A22BE6400E1E273 /* messageprev.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = messageprev.swift; sourceTree = "<group>"; };
 		F7D847E82A24153B00E1E273 /* SendMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMatch.swift; sourceTree = "<group>"; };
 		F7D847EC2A2449B400E1E273 /* paperplaneloading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = paperplaneloading.json; sourceTree = "<group>"; };
@@ -495,6 +513,7 @@
 		F7A313AF27F4CFE100F9F550 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				F7BDF1082A29AEA2008FDB4C /* UserInfomation */,
 				F70636392A1E6F48007A9FEF /* Funcs */,
 				F73F32412A1605170038A6D3 /* Widget */,
 				F73F32402A1604E50038A6D3 /* Cards */,
@@ -586,6 +605,10 @@
 		F7A313CE27F4CFE100F9F550 /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
+				F7BDF10F2A29C036008FDB4C /* study.json */,
+				F7BDF1192A2AA797008FDB4C /* eyesrainbow.json */,
+				F7BDF1172A2AA5FF008FDB4C /* telescope.json */,
+				F7BDF1132A2AA286008FDB4C /* likethumb.json */,
 				F79594582A246B5B00636776 /* sadheart.json */,
 				F7D847F02A245C9600E1E273 /* dislikebrokeheart.json */,
 				F7D847F22A245E0000E1E273 /* flyingpaperbirdchasinglove.json */,
@@ -718,6 +741,18 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		F7BDF1082A29AEA2008FDB4C /* UserInfomation */ = {
+			isa = PBXGroup;
+			children = (
+				F7BDF1092A29AECC008FDB4C /* AboutMeView.swift */,
+				F7BDF10B2A29B12E008FDB4C /* WorkView.swift */,
+				F7BDF10D2A29BC36008FDB4C /* UniversityView.swift */,
+				F7BDF1112A29C175008FDB4C /* LikesPillView.swift */,
+				F7BDF1152A2AA3EA008FDB4C /* LookingForView.swift */,
+			);
+			path = UserInfomation;
+			sourceTree = "<group>";
+		};
 		F7D847E72A24152400E1E273 /* PopUp */ = {
 			isa = PBXGroup;
 			children = (
@@ -809,10 +844,13 @@
 				F7A3145127F4CFE100F9F550 /* notification.json in Resources */,
 				F7A3144327F4CFE100F9F550 /* woman2.json in Resources */,
 				F7A3146127F4CFE100F9F550 /* Davinci.ttf in Resources */,
+				F7BDF1102A29C036008FDB4C /* study.json in Resources */,
 				F7A3145227F4CFE100F9F550 /* woman1.json in Resources */,
 				F7A3144A27F4CFE100F9F550 /* girlsitting.json in Resources */,
 				F73F32382A156D340038A6D3 /* redpoof.json in Resources */,
 				F79594592A246B5B00636776 /* sadheart.json in Resources */,
+				F7BDF1182A2AA5FF008FDB4C /* telescope.json in Resources */,
+				F7BDF1142A2AA286008FDB4C /* likethumb.json in Resources */,
 				F73F32362A1522880038A6D3 /* nomorecards.json in Resources */,
 				F7A3146427F4CFE100F9F550 /* Minimalistic Light.otf in Resources */,
 				F7A3145427F4CFE100F9F550 /* error2.json in Resources */,
@@ -830,6 +868,7 @@
 				F7A3143E27F4CFE100F9F550 /* confetti.json in Resources */,
 				F7A3144627F4CFE100F9F550 /* earth.json in Resources */,
 				F7A3145B27F4CFE100F9F550 /* stars.json in Resources */,
+				F7BDF11A2A2AA797008FDB4C /* eyesrainbow.json in Resources */,
 				F7A3143D27F4CFE100F9F550 /* lock.json in Resources */,
 				F7A3144F27F4CFE100F9F550 /* writing.json in Resources */,
 				F7A3144527F4CFE100F9F550 /* logged.json in Resources */,
@@ -901,6 +940,7 @@
 				F7A3143427F4CFE100F9F550 /* Animations.swift in Sources */,
 				F7A3138127F4CDD100F9F550 /* NotificationsDetail.swift in Sources */,
 				F70636342A1D6A92007A9FEF /* SmallMatchActive.swift in Sources */,
+				F7BDF1122A29C175008FDB4C /* LikesPillView.swift in Sources */,
 				F7A3142727F4CFE100F9F550 /* Modifiers.swift in Sources */,
 				F73F32342A138C800038A6D3 /* DragsCard.swift in Sources */,
 				F7D847E62A22BE6400E1E273 /* messageprev.swift in Sources */,
@@ -912,10 +952,12 @@
 				F7A3137527F4CDD100F9F550 /* NavigationBar.swift in Sources */,
 				F79594652A269E3400636776 /* ViewProfileView.swift in Sources */,
 				F79594712A27EE7900636776 /* NameChangePicker.swift in Sources */,
+				F7BDF10C2A29B12E008FDB4C /* WorkView.swift in Sources */,
 				F7A3147627F4CFE100F9F550 /* BackgroundView.swift in Sources */,
 				F7A3147D27F4CFE100F9F550 /* ShimmerText.swift in Sources */,
 				F795945B2A24791600636776 /* NeoModifier.swift in Sources */,
 				F73C196127F8ADAE0017C97B /* LauchView.swift in Sources */,
+				F7BDF10A2A29AECC008FDB4C /* AboutMeView.swift in Sources */,
 				F7A3142A27F4CFE100F9F550 /* CustomFieldModifier.swift in Sources */,
 				F7A3146727F4CFE100F9F550 /* TrackCircle.swift in Sources */,
 				F7A313A227F4CDEA00F9F550 /* MessagesModel.swift in Sources */,
@@ -959,6 +1001,7 @@
 				F7A3142227F4CFE100F9F550 /* HexagonView.swift in Sources */,
 				F7A3147127F4CFE100F9F550 /* MessageBubble.swift in Sources */,
 				F7569D5F2A11EAB200FE3E84 /* StandoutsView.swift in Sources */,
+				F7BDF1162A2AA3EA008FDB4C /* LookingForView.swift in Sources */,
 				F79594672A27907800636776 /* ProfileEditView.swift in Sources */,
 				F7A313AD27F4CDF700F9F550 /* UserViewModel.swift in Sources */,
 				F7A3142E27F4CFE100F9F550 /* BackButton.swift in Sources */,
@@ -975,6 +1018,7 @@
 				F7A3146D27F4CFE100F9F550 /* CircleLabel.swift in Sources */,
 				F70636322A1D6398007A9FEF /* MatchCard.swift in Sources */,
 				F706363B2A1E6F6E007A9FEF /* DistanceView.swift in Sources */,
+				F7BDF10E2A29BC36008FDB4C /* UniversityView.swift in Sources */,
 				F7A3139B27F4CDEA00F9F550 /* TopicModel.swift in Sources */,
 				F7A3141F27F4CFE100F9F550 /* SuccessView.swift in Sources */,
 				F7D847EF2A244D4300E1E273 /* AppUserData.swift in Sources */,

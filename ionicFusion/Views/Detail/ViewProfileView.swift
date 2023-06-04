@@ -40,6 +40,7 @@ struct ViewProfileView: View {
     @State var erro = ""
     @State var typeText = ""
     @Binding var dislike : Bool
+    @FocusState var isfocused
     @State var animateapper = false
     @State var profileLoaded = false
     @State var animategirl = false
@@ -95,7 +96,7 @@ struct ViewProfileView: View {
                         }
                     }
                     .onDisappear{
-                        hidemainTab = false
+                       // hidemainTab = false
                         withAnimation(.spring()) {
                             animateapper = false
                         }
@@ -106,6 +107,10 @@ struct ViewProfileView: View {
             
             if showProfile {
                 nameandheart
+            }
+        }.onChange(of: liked) { newValue in
+            if liked {
+                hidemainTab = true
             }
         }
         
@@ -517,7 +522,7 @@ struct ViewProfileView: View {
             VStack {
                 ImageViewer(url: profile.avatar)
                 
-                    .frame(width: 400 , height: 430)
+                    .frame(width: 400 , height: 400)
             }.offwhitebutton(isTapped: false, isToggle: false, cornerRadius: 20, action:  .constant(false))
                 .matchedGeometryEffect(id: "profileimage", in: namespace)
             
@@ -528,6 +533,7 @@ struct ViewProfileView: View {
             
             HStack {
                 TextField("Send a message", text: $text)
+                    .focused($isfocused)
                     .padding(.vertical,16)
                     .padding(.leading, 55)
                     .foregroundColor(Color("black"))
@@ -540,6 +546,11 @@ struct ViewProfileView: View {
                     )
                     .offwhitebutton(isTapped: false, isToggle: false, cornerRadius: 25, action:  .constant(false))
                     .padding(.horizontal,0)
+                    .onChange(of: isfocused) { newValue in
+                        if isfocused {
+                            hidemainTab = true
+                        }
+                    }
                 
                 
                 HStack {
@@ -572,6 +583,14 @@ struct ViewProfileView: View {
             Spacer()
         }.padding(.horizontal, 20)
             .background(BackgroundView())
+            .onAppear{
+               
+                withAnimation(.spring()) {
+                    hidemainTab = true
+                }
+            }
+           
+          
         
         
     }

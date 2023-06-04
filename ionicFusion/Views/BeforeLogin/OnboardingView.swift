@@ -55,20 +55,28 @@ struct OnboardingView: View {
                     switch onScreen {
                         case 0:
                             TabView(selection: $switching){
-                            ZStack {
+                            //ZStack {
                                 
-                                WelcomeMessage(title: "Fusion", message: "Fusion is a women's health app, that supports women at each stage of their reproductive cycle. It tracks menstruation, cycle prediction, preparation for conception, pregnancy, early motherhood and menopause.", gradientTitle: [Color("black"), Color("black"), .red], gradientMessage: [Color("black") , Color("black"), Color("black"), .red, Color("black")], switching: $switching)
-                                    .transition(pressedBack ? transitionBack : transition)
-                                     signinbutton
+                            //    WelcomeMessage(title: "Fusion", message: "Fusion is a women's health app, that supports women at each stage of their reproductive cycle. It tracks menstruation, cycle prediction, preparation for conception, pregnancy, early motherhood and menopause.", gradientTitle: [Color("black"), Color("black"), .red], gradientMessage: [Color("black") , Color("black"), Color("black"), .red, Color("black")], switching: $switching)
+                                  //  .transition(pressedBack ? transitionBack : transition)
+                                  //   signinbutton
+                                    
                                 
-                            }.tag(0)
+                          //  }.tag(0)
                             
                         
-                            WelcomeMessage(title: "Sign Up!", message: "We are going to ask you a few questions on the next page so we can build a profile for you. You can click on the top left to go back if you make a mistake. Now let's get started!", gradientTitle: [Color("black"), Color("black"), .red], gradientMessage: [Color("black") , Color("black"), Color("black"), .red, Color("black")], switching: $switching)
-                                .tag(1)
+                          //  WelcomeMessage(title: "Sign Up!", message: "We are going to ask you a few questions on the next page so we can build a profile for you. You can click on the top left to go back if you make a mistake. Now let's get started!", gradientTitle: [Color("black"), Color("black"), .red], gradientMessage: [Color("black") , Color("black"), Color("black"), .red, Color("black")], switching: $switching)
+                            //    .tag(1)
                            
-                                OnboardThirdPage(firstname: $firstname, lastname: $lastname, errormessage: errorMessage,onScreen: $onScreen, switching: $switching)
-                                .tag(2)
+                              //  OnboardThirdPage(firstname: $firstname, lastname: $lastname, errormessage: errorMessage,onScreen: $onScreen, switching: $switching)
+                              //  .tag(2)
+//                                AboutMePageOnboarding(firstname: $firstname, lastname: $lastname, errormessage: errorMessage,onScreen: $onScreen, switching: $switching)
+//                                    .tag(3)
+                                
+                                AboutMeView()
+                                    .tag(0)
+                                WorkView()
+                                    .tag(1)
                                 
                           
                                 
@@ -76,24 +84,19 @@ struct OnboardingView: View {
                             
                         case 1:
                             OnboardSecondPage(newAge: $newAge, onScreen: $onScreen, switching: $switching)
-                                .tag(3)
+                                .tag(4)
                             
                             
                         default:
                             FinalPage(image: $image, email: $email, password: $password, onScreen: $onScreen, success: $success)
-                                .tag(4)
+                                .tag(5)
                                 
                     }
              
                     
                         
                     
-                }.background(
-                    Image("Blob 1")
-                        .offset(x: -154, y: -340)
-                        .edgesIgnoringSafeArea(.all)
-                    .blur(radius: 58)
-                )
+                }
                     
                  .padding(.bottom, 50)
                  
@@ -120,6 +123,7 @@ struct OnboardingView: View {
             HStack{
                 
                 AngularButton(title: error ? errorMessage :  onScreen > 1 ?  "Finish" : "Next", tap: success)
+                    .neoButtonOffShadow(cornerRadius: 24, isTapped: false)
                     .padding(.horizontal, error ? 70 : 139)
                     .padding(.bottom, 20)
                     .scaleEffect(nextButtonPressed ? 0.97 : 1)
@@ -129,6 +133,7 @@ struct OnboardingView: View {
                             success.toggle()
                         }
                     }
+                    
             }
         }.animation(.spring(), value: error)
     }
@@ -142,7 +147,8 @@ struct OnboardingView: View {
             }.font(.headline)
                 .foregroundColor(.white.opacity(0.00))
                 .background(
-                    LinearGradient(gradient: Gradient(colors: [.white, Color.red]), startPoint: .leading, endPoint: .trailing)
+                    LinearGradient(gradient: Gradient(colors: [Color("offwhite"),Color("offwhite"), Color("offwhite")]), startPoint: .leading, endPoint: .trailing)
+                   
                         .mask(
                             HStack{
                                 Image(systemName:  switching == 0 ? "smallcircle.filled.circle.fill" : "smallcircle.filled.circle")
@@ -171,22 +177,24 @@ struct OnboardingView: View {
                     
                     .padding(.vertical, 9)
                     .padding(.horizontal, 8)
-                    .scaleEffect(signinPressed ? 0.97 : 1)
-                    .onTapGesture {
+                    .neoButtonOff(isToggle: false, cornerRadius: 10, perform: {
+                        //
                         withAnimation(.spring()) {
                             signinPressed = true
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                                 withAnimation(.spring()) {
                                     signinPressed = false
-                                        doneIntro = true
-                                       
-                                        
-                                        
+                                    doneIntro = true
+                                    
+                                    
+                                    
                                     
                                 }
                             }
                         }
-                    }
+                    })
+                    .scaleEffect(signinPressed ? 0.97 : 1)
+                    
             }.padding()
                 .padding(.top,5)
             
@@ -278,7 +286,7 @@ struct WelcomeMessage: View {
                   
             }
             .scaleEffect(appears ? 1 : 0.96)
-           
+          
             .onTapGesture {
                 withAnimation(.spring()){
                     appears.toggle()
@@ -329,7 +337,9 @@ struct WelcomeMessage: View {
                     )
                    // .rotation3DEffect(Angle(degrees: messageeTapped ? 180 : 0), axis: (x: 0, y: 180, z: 0))
                     .animation(.spring(), value: messageeTapped)
-      
+                    .neoButtonOff(isToggle: false, cornerRadius: 15, perform: {
+                        //
+                    })
                 
             }.padding(.horizontal, 18)
                 .edgesIgnoringSafeArea(.all)
@@ -364,7 +374,7 @@ struct OnboardThirdPage: View {
                 .offset(x: 0, y: -280)
             
             if appears {
-                LottieView(filename: "confetti" ,loop: true)
+                LottieView(filename: "confetti" ,loop: false)
                     .frame(width: 380)
                     .scaleEffect(appears ? 1.2 : 1 )
                     .offset(x: 0, y: -60)
@@ -376,6 +386,7 @@ struct OnboardThirdPage: View {
                     .offset(x: 0, y: -50)
                     .shadow(color: .black, radius: appears ? 0 : 0.4, x: 4, y: 5)
                     .transition(.scale.combined(with: .opacity))
+                   // .opacity(isFirstnameFocused ? 0 : 1)
                     .onTapGesture {
                         withAnimation(.easeInOut) {
                             appears = true
@@ -427,8 +438,8 @@ struct OnboardThirdPage: View {
                 Spacer()
                 
                 
-                VStack {
-                    Group {
+                VStack(spacing: 15.0) {
+                    
                         TextField("", text: $firstname)
                             .textContentType(.givenName)
                             .keyboardType(.alphabet)
@@ -441,11 +452,16 @@ struct OnboardThirdPage: View {
                             }
                             .customField(icon: "pencil")
                             .focused($isFirstnameFocused)
-                           
-                            .onTapGesture {
-                                erroralert = false
+                            .neoButtonOffShadow(cornerRadius: 18, isTapped: false)
+                            
+                            .onTapGesture{
+                            erroralert = false
+                                withAnimation(.easeInOut) {
+                                    appears = true
+                                }
                                
-                            }
+                        }
+                            
                         
                         TextField("", text: $lastname)
                             
@@ -461,20 +477,24 @@ struct OnboardThirdPage: View {
                             }
                             .customField(icon: "pencil.slash")
                             .focused($isLastnameFocused)
-                            
-                            .onTapGesture {
+                            .neoButtonOffShadow(cornerRadius: 18, isTapped: false)
+                            .onTapGesture{
                                 erroralert = false
                             }
+                           
                       
-                    }
+                    
                 }.padding()
+                    .neoButtonOff(isToggle: false, cornerRadius: 25, perform: {
+                        //
+                    })
             }
             }
-           
+            
             .padding(20)
             .padding(.bottom, 30)
             .frame(maxWidth: .infinity)
-           
+            
            
         }
         
@@ -482,6 +502,145 @@ struct OnboardThirdPage: View {
     
    
   
+    
+}
+
+
+// MARK: Name
+struct AboutMePageOnboarding: View {
+    @State var erroralert = false
+    @Binding var firstname : String
+    @Binding var lastname : String
+    @State var errormessage = "Something isn't quite right"
+    @FocusState var isFirstnameFocused: Bool
+    @FocusState var isLastnameFocused: Bool
+    @Binding var onScreen : Int
+    @State var appears = false
+    @Binding var switching : Int
+    
+    var body: some View{
+        ZStack{
+            
+            LottieView(filename: "birds" ,loop: true)
+                .frame(width: 380)
+                .offset(x: 0, y: -280)
+            
+            if appears {
+                LottieView(filename: "confetti" ,loop: false)
+                    .frame(width: 380)
+                    .scaleEffect(appears ? 1.2 : 1 )
+                    .offset(x: 0, y: -60)
+                    .opacity(appears ? 1 : 0)
+                    .transition(.scale.combined(with: .opacity ))
+            } else {
+                LottieView(filename: "writing" ,loop: true)
+                    .frame(width: 380)
+                    .offset(x: 0, y: -50)
+                    .shadow(color: .black, radius: appears ? 0 : 0.4, x: 4, y: 5)
+                    .transition(.scale.combined(with: .opacity))
+                // .opacity(isFirstnameFocused ? 0 : 1)
+                    .onTapGesture {
+                        withAnimation(.easeInOut) {
+                            appears = true
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.7) {
+                            withAnimation(.easeInOut) {
+                                appears = false
+                            }
+                        }
+                    }
+            }
+            
+            
+            VStack(alignment: .leading, spacing: 5) {
+                
+                HStack(spacing: 1.0){
+                    Image(systemName: "chevron.left")
+                    Text("Back")
+                    
+                    
+                }
+                .font(.headline)
+                .onTapGesture{
+                    // onScreen -= 0
+                    withAnimation(.easeInOut) {
+                        switching = 1
+                    }
+                }
+                
+                
+                
+                
+                VStack(alignment: .leading, spacing: 10) {
+                    
+                    VStack(alignment: .leading, spacing: 0) {
+                        
+                        GradientText(text: "Tell Us" , gradient: [Color("black"), .blue,Color("black"),.gray])
+                            .font(.largeTitle.bold())
+                        GradientText(text: "About Yourself ?" , gradient: [Color("black"), .blue,Color("black"),.gray])
+                            .font(.largeTitle.bold())
+                        GradientText(text: " Please enter your full name below." , gradient: [Color("black")])
+                            .font(.headline)
+                        
+                    }.padding(.leading, 15)
+                        .padding(.vertical, 0)
+                    
+                    
+                    
+                    Spacer()
+                    
+                    
+                    VStack(spacing: 15.0) {
+                        
+                        TextEditor(text: $firstname)
+                            .frame(height: 200)
+                            .scrollContentBackground(.hidden)
+                            .keyboardType(.alphabet)
+                            .disableAutocorrection(true)
+                            .placeholder(when: firstname.isEmpty) {
+                                VStack {
+                                    Text("Here's a short insight into my life :)...")
+                                        .foregroundColor(.gray)
+                                    .blendMode(.lighten)
+                                    .padding(5)
+                                    .padding(.top,5)
+                                    Spacer()
+                                }.frame(height: 200)
+                            }
+                            .padding(.leading,10)
+                            .focused($isFirstnameFocused)
+                           // .background(Color.blue)
+                            .neoButtonOffShadow(cornerRadius: 18, isTapped: isFirstnameFocused)
+                        
+                            .onTapGesture{
+                                erroralert = false
+                                withAnimation(.easeInOut) {
+                                    appears = true
+                                }
+                                
+                            }
+                        
+                   
+                        
+                        
+                    }.padding()
+                        .neoButtonOff(isToggle: false, cornerRadius: 25, perform: {
+                            //
+                        })
+                }
+            }
+            
+            .padding(20)
+            .padding(.bottom, 30)
+            .frame(maxWidth: .infinity)
+            
+            
+        }
+        
+    }
+    
+    
+    
     
 }
 // MARK: Birthday

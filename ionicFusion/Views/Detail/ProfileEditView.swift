@@ -182,6 +182,12 @@ struct ProfileEditView: View {
                 }
                 
                 
+            }.onChange(of: blurBackground) { hidetabbar in
+                if blurBackground {
+                    withAnimation(.spring()) {
+                        hidemainTab = false
+                    }
+                }
             }
             
             
@@ -220,46 +226,61 @@ struct ProfileEditView: View {
                 HStack {
                     Spacer()
                     VStack(spacing: 18.0) {
-                        Image(systemName: "gear")
-                            .font(.title)
-                            .fontWeight(.bold)
-                            .foregroundColor(.red)
-                            .rotationEffect(.degrees(showSettings ? 0 : 180))
-                            .animation(.linear.speed(0.03).repeatCount(1), value: showSettings)
-                            .padding(2)
-                            .neoButtonOff(isToggle: false, cornerRadius: 5) {
-                                //
-                                withAnimation(.spring()) {
-                                    editItem = 0
-                                    isEditing = false
-                                    blurBackground = false
-                                    showSettings.toggle()
-                                    notifactionMessage[0] = "Settings"
+                        if !isEditing {
+                            Image(systemName: showSettings ? "xmark" : "gear")
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .foregroundColor(showSettings ? .red : Color("black"))
+                                .rotationEffect(.degrees(showSettings ? 0 : 180))
+                                .animation(.linear, value: showSettings)
+                                .padding(2)
+                                .background(.ultraThinMaterial)
+                                .cornerRadius(5)
+                                .neoButton(isToggle: false) {
+                                    //
+                                    withAnimation(.spring()) {
+                                        editItem = 0
+                                        isEditing = false
+                                        blurBackground = false
+                                        showSettings.toggle()
+                                        notifactionMessage[0] = "Settings"
+                                    }
                                 }
-                            }
-                       Rectangle()
-                            .frame(width:16.4, height: 1.3)
-                        Image(systemName: "pencil.slash")
-                            .font(.title)
-                            .fontWeight(.bold)
-                            .foregroundColor(.black)
-                            .rotationEffect(.degrees(isEditing ? 180 : 0))
-                            .animation(.linear.speed(0.03).repeatCount(1), value: isEditing)
-                            .padding(2)
-                            .neoButtonOff(isToggle: true, cornerRadius: 5) {
-                                //
-                                withAnimation(.spring()) {
-                                    isEditing.toggle()
-                                    showSettings = false
-                                    blurBackground = false
-                                    editItem = 0
-                                    notifactionMessage[0] = "Edit Profile"
+                            Rectangle()
+                                .frame(width:16.4, height: 1.3)
+                                .opacity(1)
+                        }
+                        if !showSettings {
+                            Image(systemName: isEditing ? "xmark" : "pencil.slash")
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .foregroundColor(isEditing ? .red : Color("black"))
+                                .rotationEffect(.degrees(isEditing ? 180 : 0))
+                                .animation(.linear, value: isEditing)
+                                .padding(2)
+                                .background(.ultraThinMaterial)
+                                .cornerRadius(5)
+                                .neoButton(isToggle: false) {
+                                    //
+                                    withAnimation(.spring()) {
+                                        isEditing.toggle()
+                                        showSettings = false
+                                        blurBackground = false
+                                        editItem = 0
+                                        notifactionMessage[0] = "Edit Profile"
+                                    }
                                 }
+                            if isEditing {
+                                Rectangle()
+                                    .frame(width:16.4, height: 1.3)
+                                .opacity(1)
                             }
-                    }.padding(.vertical,15)
-                        .padding(.horizontal,8)
+                        }
+                    }.padding(.vertical,17)
+                        .padding(.horizontal,10)
+                        .padding(2)
                         .background(.ultraThinMaterial)
-                        .cornerRadius(10)
+                        .cornerRadius(15)
                 }.padding(.horizontal,15)
                 Spacer()
             })
@@ -734,7 +755,7 @@ struct ProfileEditView: View {
                     if offset < -15 {
                         
                         withAnimation(.spring()) {
-                            // hidemainTab = true
+                             hidemainTab = true
                             
                         }
                         

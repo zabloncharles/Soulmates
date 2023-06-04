@@ -99,7 +99,7 @@ struct Notification: View {
                         .foregroundColor(Color("black"))
                         .padding(.horizontal, 10)
                         .padding(.vertical,8)
-                        .background(Color("white"))
+                        .background(Color("offwhite"))
                         .cornerRadius(10)
                         .padding(.horizontal, 10)
                     
@@ -112,7 +112,7 @@ struct Notification: View {
             .padding(.horizontal, 10)
             .padding(.vertical, 1)
             .background(
-                .ultraThinMaterial
+                Color("offwhiteneo")
             )
             
             .background(

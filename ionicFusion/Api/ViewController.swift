@@ -15,34 +15,12 @@ struct ViewController: View {
     var body: some View {
         if signIn {
             MainTab()
-        } else {
+        } else if doneIntro {
             SigninView(signIn: $signIn, doneIntro: $doneIntro)
+        } else {
+            OnboardingView(doneIntro: $doneIntro, signIn: $signIn)
         }
-//        ZStack {
-//            //Stay signed in
-//          // if signIn && doneIntro {
-//               if !signIn && !doneIntro {
-//                MainTab()
-//
-//
-//               if firstday {
-//              //page for first time on app
-//                   OnboardingView(doneIntro: $doneIntro, signIn: $signIn)
-//
-//               }
-//
-//            } else {
-//
-//                if doneIntro {
-//                   SigninView(signIn: $signIn, doneIntro: $doneIntro)
-//               } else {
-//
-//                OnboardingView(doneIntro: $doneIntro, signIn: $signIn)
-//
-//               }
-//
-//                 }
-//                }
+
             }
         }
         
