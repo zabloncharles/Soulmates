@@ -13,9 +13,9 @@ struct BackgroundView: View {
     var body: some View {
        // LinearGradient(gradient: Gradient(colors: [Color("linearoff"), Color("background"), Color("background"),Color("background"), Color("linearoff")]), startPoint: .top, endPoint: .bottom)
         ZStack {
-            LinearGradient(gradient: Gradient(colors: [Color("linearoff"), Color("offwhite"), Color("offwhite"),Color("offwhite"), Color("offwhiteneo")]), startPoint: .top, endPoint: .bottom)
+            LinearGradient(gradient: Gradient(colors: [Color("coloroffneo"),Color("offwhite"), Color("offwhiteneo")]), startPoint: .top, endPoint: .bottom)
             VStack {
-                Image("cover5")
+                Image("cover9")
                     .resizable()
                     .offset(x: -14, y: -340)
                     .blur(radius: 68)

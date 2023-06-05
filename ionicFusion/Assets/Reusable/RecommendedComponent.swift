@@ -7,7 +7,6 @@
 
 import SwiftUI
 struct RecommendedComponent: View {
-    var recommended: ExploreDetailModel
     @State var customfont = "sanfrancisco"
     @State var tapped = false
     @State private var notificationPosition = CGSize.zero
@@ -17,17 +16,17 @@ struct RecommendedComponent: View {
           ZStack {
             VStack {
                     ZStack {
-                        Image(recommended.background)
+                        Image("image_03")
                             .resizable(resizingMode: .stretch)
                                 .aspectRatio(contentMode: .fill)
                             
                         
                         VStack {
-                            Text(recommended.subtitle)
+                            Text("recommended.subtitle")
                                 .customfontFunc(customFont: "Davinci", style: .body)
                                 .foregroundColor(.offWhite)
                           
-                            GradientText(text: recommended.title, gradient: colorvar)
+                            GradientText(text: "recommended.title", gradient: colorvar)
                                 .customfontFunc(customFont: customfont, style: .body)
                                 
                         }.frame(width: 140)
@@ -45,7 +44,7 @@ struct RecommendedComponent: View {
                             Spacer()
                             HStack(spacing: 1.0) {
                                 Image(systemName: "eye")
-                                Text("\(recommended.index)")
+                                Text("hello")
                             }.font(.caption)
                                 .foregroundColor(.gray)
                         }.padding(10)
@@ -59,7 +58,7 @@ struct RecommendedComponent: View {
 
 struct RecommendedComponent_Previews: PreviewProvider {
     static var previews: some View {
-        //  ReaderComponent(course: courses[0])
-        ViewController()
+        RecommendedComponent()
+       // ViewController()
     }
 }

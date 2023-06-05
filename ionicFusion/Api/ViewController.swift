@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct ViewController: View {
-    @AppStorage("signIn") var signIn = false
+    @AppStorage("signedIn") var signedIn = false
     @AppStorage("doneIntro") var doneIntro = false
    
     
     var body: some View {
-        if signIn {
+        if doneIntro && signedIn {
             MainTab()
         } else if doneIntro {
-            SigninView(signIn: $signIn, doneIntro: $doneIntro)
+            SigninView(signIn: $signedIn)
         } else {
-            OnboardingView(doneIntro: $doneIntro, signIn: $signIn)
+            OnboardingView(doneIntro: $doneIntro)
         }
 
             }

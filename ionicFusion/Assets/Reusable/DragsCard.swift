@@ -22,7 +22,7 @@ struct DragsCard: View {
                     
                     Color.blue
                     
-                }.frame(width: reader.size.width - 120, height: 295)
+                }.frame(width: reader.size.width - 120, height: 495)
                     .cornerRadius(20)
                     .shadow(radius: 20)
                     .offset(y: -30)
@@ -31,7 +31,7 @@ struct DragsCard: View {
                     
                     Color.orange
                     
-                }.frame(width: reader.size.width - self.backViewSize, height: 300)
+                }.frame(width: reader.size.width - self.backViewSize, height: 500)
                     .cornerRadius(20)
                     .shadow(radius: 20)
                     .offset(y: -15)
@@ -41,7 +41,7 @@ struct DragsCard: View {
                     
                     Color.red
                     
-                }.frame(width: reader.size.width - 50, height: 300)
+                }.frame(width: reader.size.width - 50, height: 500)
                     .cornerRadius(20)
                     .shadow(radius: 20)
                     .gesture(DragGesture().onChanged({ (value) in

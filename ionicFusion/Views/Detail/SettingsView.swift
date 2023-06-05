@@ -13,7 +13,7 @@ import FirebaseFirestore
 
 struct SettingsView: View {
     @ObservedObject var viewModel = UserViewModel()
-    @AppStorage("signIn") var signIn = false
+    @AppStorage("signedIn") var signIn = false
     @AppStorage("hidemainTab") var hidemainTab = false
     @AppStorage("signInAnimation") var signInAnimation = false
     @AppStorage("editcalendar") var showEditCalendar = false

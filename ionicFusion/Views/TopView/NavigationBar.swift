@@ -17,7 +17,7 @@ struct NavigationBar: View {
     @State var showSearch = false
     @Binding var contentHasScrolled: Bool
     @AppStorage("showAccount") var showAccount = false
-    @AppStorage("signIn") var signIn = false
+    @AppStorage("signedIn") var signIn = false
     @AppStorage("notifications") var showNotifications = false
     @AppStorage("editcalendar") var showEditCalendar = false
     @State var tappedAvatar = false

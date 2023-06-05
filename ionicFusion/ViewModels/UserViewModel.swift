@@ -69,7 +69,7 @@ class UserViewModel: ObservableObject {
                                 self.saveinfo = "\(firstname),\(lastname),\(notifications),\(period),\(pregnancy),\(cyclechange),\(birthday),\(email)"
                                 
                             } else {
-                                // signIn = false
+                                // signedIn = false
                                 self.userinfo = falseData
                             }
                         }

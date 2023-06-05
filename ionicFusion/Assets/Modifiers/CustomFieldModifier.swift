@@ -9,7 +9,7 @@ import SwiftUI
 struct Onboarding2View_Previews: PreviewProvider {
     static var previews: some View {
         // OnboardingView()
-        //  OnboardingView(doneIntro: .constant(false), signIn: .constant(false))
+        //  OnboardingView(doneIntro: .constant(false), signedIn: .constant(false))
         //  .preferredColorScheme(.dark)
         ViewController()
             .preferredColorScheme(.dark)

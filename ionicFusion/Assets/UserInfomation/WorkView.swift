@@ -47,9 +47,9 @@ struct WorkView: View {
                     .opacity(appears ? 1 : 0)
                     .transition(.scale.combined(with: .opacity ))
             } else {
-                LottieView(filename: "writing" ,loop: true)
-                    .frame(width: 380)
-                    .offset(x: 0, y: -50)
+                LottieView(filename: "workbuildings" ,loop: appears)
+                    .frame(width: 300)
+                    .offset(x: 0, y: -90)
                     .shadow(color: .black, radius: appears ? 0 : 0.4, x: 4, y: 5)
                     .transition(.scale.combined(with: .opacity))
                 // .opacity(isFirstnameFocused ? 0 : 1)

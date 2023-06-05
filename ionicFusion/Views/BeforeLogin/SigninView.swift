@@ -23,7 +23,7 @@ struct SigninView: View {
     @FocusState var isPasswordFocused: Bool
     @State var appear = [false, false, false, false]
     @Binding var signIn : Bool
-    @Binding var doneIntro : Bool
+    @AppStorage("doneIntro") var doneIntro = false
     @State var userMessage = "Sign in"
     @State var messageTitle = "Sign In"
     @State var messageDescription = "Log in to your account to access your profile. Furthermore you can sign up for an account if you have not done so yet."
@@ -127,18 +127,26 @@ struct SigninView: View {
                         }
                 }
                 Spacer()
-                NavigationLink(destination:  helpSuggestions) {
+              //  NavigationLink(destination:  helpSuggestions) {
                   
-                        Image(systemName: "info.circle")
-                            .aspectRatio(contentMode: .fit)
-                            .foregroundColor(infoTapped ? .gray : Color("black"))
-                            .font(.title3)
-                            .background(.ultraThinMaterial)
-                            .cornerRadius(25)
-                            .padding(infoTapped ? 8 : 7)
+                HStack {
+                    Text("Sign Up")
+                        .padding(.horizontal,10)
+                        .padding(.vertical,7)
+                        .neoButtonOff(isToggle: false, cornerRadius: 8) {
+                            //
+                        }
+                    Spacer()
+                    Image(systemName: "info.circle")
+                        .padding(.horizontal,5)
+                        .padding(.vertical,5)
+                   
                         
                   
                 }
+                        
+                  
+               // }
               
                 
                 
@@ -316,7 +324,7 @@ struct SigninView: View {
                         Button {
                            
                             doneIntro = false
-                            signIn = false
+                           
                         }
                     label: {
                         Label("Make a new account",
@@ -357,6 +365,7 @@ struct SigninView: View {
                         .autocapitalization(.none)
                         .disableAutocorrection(true)
                         .customField(icon: "envelope.open.fill")
+                        .neoButtonOffShadow(cornerRadius: 15, isTapped: false)
                         .overlay(
                             GeometryReader { proxy in
                                 let offset = proxy.frame(in: .named("stack")).minY + 32
@@ -384,6 +393,7 @@ struct SigninView: View {
                     SecureField("Password", text: $password)
                         .textContentType(.password)
                         .customField(icon: "key.fill")
+                        .neoButtonOffShadow(cornerRadius: 15, isTapped: false)
                         .focused($isPasswordFocused)
                         .onChange(of: isPasswordFocused, perform: { isPasswordFocused in
                             if isPasswordFocused {
@@ -399,7 +409,9 @@ struct SigninView: View {
                 }//.offset(y: !infoTapped ? 0 : UIScreen.main.bounds.height * 0.3)
                
                 .padding()
-                
+                .neoButtonOff(isToggle: false, cornerRadius: 15, perform: {
+                    //
+                })
                 Button {
                     //model.dismissModal.toggle()
                     login()
@@ -408,10 +420,12 @@ struct SigninView: View {
                 } label: {
                     
                     AngularButton(title: userMessage)
-                        .padding(.horizontal,90)
+                    
+                        .neoButtonOffShadow(cornerRadius: 15, isTapped: false)
+                        .padding(.horizontal,120)
                         .padding(.top, isEmailFocused || isPasswordFocused ? 0 : 10)
                         .padding(.bottom, isEmailFocused || isPasswordFocused ? 10 : 0)
-                    
+                        
                 }.padding(.top,10)
             }
         }
@@ -488,7 +502,7 @@ struct SigninView: View {
                 if error != nil {
                     
                     //if the auth is unsuccessful
-                    UserDefaults.standard.set(false, forKey: "signIn")
+                    UserDefaults.standard.set(false, forKey: "signedIn")
                     self.alertMessage = error?.localizedDescription ?? ""
                     userMessage = "There was an error!"
                     //                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
@@ -534,7 +548,7 @@ struct SigninView: View {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                         selected = 0
                         self.signIn = true
-                        UserDefaults.standard.set(true, forKey: "signIn")
+                        UserDefaults.standard.set(true, forKey: "signedIn")
                         self.text = "\(signIn)"
                         self.password = ""
                         userMessage = "Sign in"
@@ -564,7 +578,7 @@ struct SigninView_Previews: PreviewProvider {
 // MARK: the help struct
 struct helpwithSignin: View {
     @Environment(\.presentationMode) var presentationMode
-    @AppStorage("signIn") var signIn = false
+    @AppStorage("signedIn") var signIn = false
     @Binding var doneIntro : Bool
     @State var question = 1
     @State var backgroundColor = "Background"
