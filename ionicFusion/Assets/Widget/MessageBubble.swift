@@ -10,7 +10,7 @@ import SwiftUI
 struct MessageBubble: View {
     
 
-    var section: MessagesModel
+    var section: MessageModel
     @State var messageTapped = false
     var message = "You still tryna go"
     var messageTime = "2:30 PM"

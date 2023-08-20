@@ -49,8 +49,11 @@ struct OnboardingView: View {
                 VStack{
                     //First displayed screen
                             TabView(selection: $switching){
-                            SignUpMessageView(title: "Sign Up!", message: "We are going to ask you a few questions on the next page so we can build a profile for you. You can click on the top left to go back if you make a mistake. Now let's get started!", gradientTitle: [Color("black"), Color("black"), .red], gradientMessage: [Color("black") , Color("black"), Color("black"), .red, Color("black")])
-                                .tag(1)
+                                ZStack {
+                                    SignUpMessageView(title: "Sign Up!", message: "We are going to ask you a few questions on the next page so we can build a profile for you. You can click on the top left to go back if you make a mistake. Now let's get started!", gradientTitle: [Color("black"), Color("black"), .red], gradientMessage: [Color("black") , Color("black"), Color("black"), .red, Color("black")])
+                                        
+                                    signinbutton
+                                }.tag(1)
                                 EnterNameView(firstname: $firstname, lastname: $lastname, errormessage: errorMessage,onScreen: $onScreen, switching: $switching)
                                 .tag(2)
                                 EnterAgeView(newAge: $newAge, onScreen: $onScreen, switching: $switching)
@@ -73,7 +76,7 @@ struct OnboardingView: View {
                  .padding(.bottom, 50)
                  
                 
-                signinbutton
+                
                 
                     angularbutton
                     .offset(x: switching > 1 ? 0 : 490)
@@ -156,19 +159,11 @@ struct OnboardingView: View {
                     .padding(.horizontal, 8)
                     .neoButtonOff(isToggle: false, cornerRadius: 8, perform: {
                         //
-                        withAnimation(.spring()) {
-                            signinPressed = true
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-                                withAnimation(.spring()) {
-                                    signinPressed = false
+                       
+                            
                                     doneIntro = true
-                                    
-                                    
-                                    
-                                    
-                                }
-                            }
-                        }
+                             
+                        
                     })
                     
                     

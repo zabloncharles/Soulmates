@@ -12,6 +12,7 @@ import FirebaseAuth
 
 struct FullProfileView: View {
     @AppStorage("hidemainTab") var hidemainTab = false
+    @AppStorage("currentPage") var selected = 0
     var namespace: Namespace.ID
    // @Binding var user: UserStruct? // Variable to hold the user dat
     @State var profile = userStruct[0]
@@ -20,19 +21,23 @@ struct FullProfileView: View {
     @State var viewState: CGSize = .zero
     @State var selectedSection = courseSections[0]
     @State var selectedItem = matchDummy[0]
+    @State var pageAppeared = false
     @State var showProfile = true
     @State var text = ""
     @State var erro = ""
     @State var sendMessage = ""
     @State var typeText = ""
     @State var dislike = false
+    @State var animateMatchImage = false
     @State var animateapper = false
     @State var profileLoaded = false
+    @State var outOfMatches = true
     @State var animategirl = false
     @State var liked = false
     @State var cancelLike = false
     @State var showMore = false
     @State var scrolledItem = 0
+    @State var profileNumber = 0
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.presentationMode) var presentationMode
     
@@ -46,7 +51,7 @@ struct FullProfileView: View {
             
             
             VStack {
-                if dislike {
+                if !outOfMatches && dislike {
                     VStack {
                         LottieView(filename: "girlonphone")
                             .neoButton(isToggle: false, perform: {
@@ -88,7 +93,7 @@ struct FullProfileView: View {
                 }
             }
             
-            if showProfile {
+            if !outOfMatches && showProfile{
                 ZStack {
                               
                                
@@ -111,7 +116,9 @@ struct FullProfileView: View {
                                 .onAppear{
                                    // DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                                    // withAnimation(.spring()) {
-                                       profile = userStruct.randomElement() ?? userStruct[0]
+                                     //  profile = userStruct.randomElement() ?? userStruct[0]
+                                   // profile = userStruct[profileNumber]
+                                    profileNumber = profileNumber + 1
                                        // showProfile = true
                                        // }
                                    // }
@@ -125,12 +132,19 @@ struct FullProfileView: View {
                                 
                                 
                               
-                                
+                                //the send text view that comes after liking a potential match
                                 if liked  {
-                                            likedcontent
+                                    ZStack {
+                                      
+                                        likedcontent
+                                            
+                                           
+                                    }.background(.ultraThinMaterial)
+                                        .edgesIgnoringSafeArea(.all)
                                 }
                                 
-                               
+                    Text("\(profileNumber)  name: \(profile.firstname) \(userStruct.count)")
+                    
                 }.animation(.spring(), value: dislike)
                     .opacity(dislike ? 0 :1 )
                     .offset(y: dislike ? UIScreen.main.bounds.height * 1.02 : 0)
@@ -142,8 +156,12 @@ struct FullProfileView: View {
                    
                     
             }
-            if showProfile {
+            if !outOfMatches && showProfile {
                 nameandheart
+            }
+            
+            if outOfMatches {
+                outofmatchesView
             }
         }
                     
@@ -160,18 +178,34 @@ struct FullProfileView: View {
         VStack {
             HStack {
                 HStack {
-                    TextWriterAppear(typeText: profile.firstname, speed: 0.03)
-                        .font(.title)
+             
+                       // TextWriterAppear(typeText:profile.firstname)
+                        Text(dislike ? "Disliked" : profile.firstname)
+                            .font(.title)
                         .fontWeight(.bold)
-                    Text("check \(erro) \(profile.email)")
+                   
+                       // .opacity(dislike ? 0 : 1)
+                  //  Text("check \(erro) \(profile.email)")
                        
                 } .padding(10)
                     .background(.ultraThinMaterial)
                     .cornerRadius(15)
+                    .opacity(dislike ? 0 : 1)
              
                 Spacer()
                 Button {
+                    dislike = true
                     showProfile = false
+                    
+                    // Looks like the count starts at 1 so i minus here to start it from 0
+                    if profileNumber > userStruct.count - 1{
+                      //  profile = userStruct[0]
+                        //Blank screen because user is out of matches
+                        outOfMatches = true
+                    } else {
+                        profile = userStruct[profileNumber]
+                        
+                    }
                     withAnimation(.spring()) {
                        
                        
@@ -179,16 +213,25 @@ struct FullProfileView: View {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5)  {
                             showProfile = true
                         }
-                        dislike = true
+                       
                         liked = false
-                        unMatch()
+                      //  unMatch()
                     }
                     
                 } label: {
-                    Image(systemName: "heart.slash")
-                        .font(.title)
-                        .fontWeight(.bold)
+                    if !dislike {
+                        Image(systemName: "heart.slash")
+                            .font(.title)
+                            .fontWeight(.bold)
                         .foregroundColor(.red)
+                    } else {
+                        
+                                LottieView(filename: "heartbeat")
+                                    .frame(width: 99, height: 50)
+                                    .offset(x:30)
+                                    .opacity(0.57)
+                            
+                    }
                     
                        
                 }
@@ -197,32 +240,35 @@ struct FullProfileView: View {
         }//.blur(radius: liked ? 50 : 0)
     }
     var cover: some View {
-        GeometryReader { proxy in
+      GeometryReader { proxy in
             let scrollY = proxy.frame(in: .named("scroll")).minY
-           
+            
             VStack {
                 
                 Spacer()
             }
             .frame(maxWidth: .infinity)
             .frame(height: scrollY > 0 ? 500 + scrollY : 500)
-           
-            .overlay(
-              //  Image(matchcard.background)
-              //      .resizable()
-                  //  .aspectRatio(contentMode: .fill)
-                GetImageAlert(url:profile.avatar,loaded: $profileLoaded)
-                       
-                    .offset(y: scrollY > 0 ? -scrollY : 0)
-                    .scaleEffect(scrollY > 0 ? scrollY / 1000 + 1 : 1)
-                    .blur(radius: scrollY > 0 ? scrollY / 10 : 0)
-                    .accessibility(hidden: true)
-                    .matchedGeometryEffect(id: "profileimage", in: namespace)
-                    
-            )
             
-            .cornerRadius(8)
-
+            .overlay(
+                // Image("image_09")
+                //    .resizable()
+                //  .aspectRatio(contentMode: .fill)
+                VStack{
+                GetImageAlert(url:profile.avatar,loaded: $profileLoaded)
+                      //  GetImageAlert(url: "",loaded: .constant(false))
+                            .offset(y: scrollY > 0 ? -scrollY : 0)
+                            .scaleEffect(liked ? 1.4 : scrollY > 0 ? scrollY / 1000 + 1 : 1)
+                            .blur(radius: liked ? 14 : scrollY > 0 ? scrollY / 10 : 0)
+                            .accessibility(hidden: true)
+                            .animation(.spring(), value: liked)
+                    
+                    
+                    
+                    
+                })
+            //  .cornerRadius(8)
+            
         }
         .frame(height: 400)
     }
@@ -518,6 +564,8 @@ struct FullProfileView: View {
                 
                
         }.padding(.bottom,-70)
+            .offset(y: liked ? 200 : 0)
+            .animation(.spring(), value: liked)
             
             
             
@@ -527,7 +575,87 @@ struct FullProfileView: View {
         
     }
     
-   
+    var outofmatchesView: some View {
+        ZStack {
+          
+            VStack {
+                LottieView(filename: "loveflying" ,loop: true)
+                    .frame(width: 100)
+                    .opacity(pageAppeared ? 1 : 0)
+                
+            }.offset( x:-40, y:280)
+                .opacity(0.7)
+            
+            VStack {
+                LottieView(filename: "sadheart" ,loop: true)
+                    .frame(width: 280)
+                    .opacity(pageAppeared ? 1 : 0)
+                
+            }.offset(y:-160)
+            
+            
+            VStack {
+                HStack {
+                    HStack {
+                        Image(systemName: "figure.wave")
+                        Text("No More Profiles!")
+                        
+                    }.font(.title3)
+                        .fontWeight(.bold)
+                    Spacer()
+                    HStack {
+                        Image(systemName: "fleuron")
+                        Text("Boost")
+                    }.padding(.horizontal,12)
+                        .padding(.vertical,5)
+                        .background(Color.blue.opacity(0.3))
+                        .cornerRadius(20)
+                    
+                }.padding(15).offwhitebutton(isTapped: false, isToggle: false, cornerRadius: 15, action:  .constant(false))
+                    .offset(y: pageAppeared ? 0 : -300)
+                
+                Spacer()
+                
+                VStack(alignment: .center, spacing: 20.0) {
+                    
+                    Text("Come back later or adjust your preferences")
+                        .font(.headline)
+                    Text("Matches are carefully curated on Soulmate so don't worry, They'll come in very soon.")
+                        .foregroundColor(.gray)
+                        .multilineTextAlignment(.center)
+                    HStack {
+                        Text("Adjust My Preferences")
+                            .font(.body)
+                            .fontWeight(.semibold)
+                    }.padding(.horizontal,15)
+                        .padding(.vertical,10)
+                        .background(Color(red: 1.0, green: 0.0, blue: 0.0, opacity: 1.0))
+                        .cornerRadius(30)
+                        .neoButton(isToggle: false) {
+                            //code
+                            selected = 4
+                        }
+                }.padding(10)
+                    .opacity(pageAppeared ? 1 : 0)
+                
+                
+                
+                Spacer()
+            }.padding(20)
+        }
+        .onAppear{
+            hidemainTab = false
+            withAnimation(.spring().speed(0.4)){
+                pageAppeared = true
+            }
+        }
+        .onDisappear{
+            
+            withAnimation(.spring()){
+                pageAppeared = false
+            }
+        }
+    }
     var likedcontent: some View {
         
         VStack(spacing: 20.0) {
@@ -557,16 +685,26 @@ struct FullProfileView: View {
                             Image(systemName: "quote.closing")
                         }
                     }.padding(15).offwhitebutton(isTapped: false, isToggle: false, cornerRadius: 15, action:  .constant(false))
-                    .padding(.top, 70)
+                    .padding(.top, 30)
                     .offset(y: liked ? 0 : -20)
                     
                 
                 VStack {
-                    ImageViewer(url: profile.avatar)
+                    ZStack{
+                        VStack{
+                            Color.black
+                        }
+                        ImageViewer(url: profile.avatar)
+                            
+                            
+                            
+                    }
                     
                         .frame(width: 400 , height: 400)
-                }.offwhitebutton(isTapped: false, isToggle: false, cornerRadius: 20, action:  .constant(false))
-                    .matchedGeometryEffect(id: "profileimage", in: namespace)
+                }
+                .animation(.spring(), value: hidemainTab)
+                .offwhitebutton(isTapped: false, isToggle: false, cornerRadius: 10, action:  .constant(false))
+                    //.matchedGeometryEffect(id: "profileimage", in: namespace)
                 
                 
                 
@@ -583,10 +721,10 @@ struct FullProfileView: View {
                     .overlay(  Image(systemName: "pencil.circle.fill")
                         .font(.largeTitle)
                         .foregroundColor(.white)
-                        .offset(x: -139)
+                        .offset(x: -149)
                     )
                     .offwhitebutton(isTapped: false, isToggle: false, cornerRadius: 25, action:  .constant(false))
-                    .padding(.horizontal,30)
+                    .padding(.horizontal,20)
                 
                 
                
@@ -595,15 +733,15 @@ struct FullProfileView: View {
             }
             
             
-            HStack {
+            VStack {
                 HStack {
                     Image(systemName: "fleuron")
                     Text("Match")
                     
                 }    .padding(.vertical,10)
-                    .padding(.horizontal,50)
+                    .padding(.horizontal,30)
                     .foregroundColor(.white)
-                    .background(Color.pink)
+                    .background(Color.red)
                     .cornerRadius(20)
                     .neoButton(isToggle: false) {
                         //
@@ -612,24 +750,30 @@ struct FullProfileView: View {
                     }
                     .padding(.top,10)
                 
-                Text("Cancel")
-                    .padding(.vertical,10)
-                    .padding(.horizontal,30)
+                Image(systemName: "xmark")
+                    .padding(.vertical,20)
+                    .padding(.horizontal,20)
                     .background(Color("offwhite"))
-                    .cornerRadius(20)
+                    .cornerRadius(60)
                     .neoButton(isToggle: false) {
                         //
-                        liked = false
+                        withAnimation(.spring()) {
+                            liked = false
+                        }
                     }
                 .padding(.top,10)
             }
             Spacer()
         }.padding(.horizontal, 20)
-            .background(BackgroundView())
+            .offset(y:liked ? 110 : 200)
+            .background(Color.black.opacity(0.65))
+            .background(LinearGradient(colors: [Color("offwhiteneo").opacity(0.64), Color.clear,Color.clear], startPoint: .bottom, endPoint: .top))
+            //.opacity(liked ? 1 : 0)
             .onAppear{
                 
                 withAnimation(.spring()) {
                     hidemainTab = true
+                    
                 }
             }
             .onDisappear{
@@ -763,44 +907,44 @@ struct FullProfileView: View {
     
     func unMatch(){
       
-        let db = Firestore.firestore()
-        let user = Auth.auth().currentUser
+     //xzv  x      zn                     let db = Firestore.firestore()
+    //    let user = Auth.auth().currentUser
         //save the dounload url to database key
 
         //We look for the user id of the current user
-        db.collection("users").whereField("email", isEqualTo: profile.email)
-            .getDocuments() { (querySnapshot, error) in
-                if error != nil {
-                    //there is an error
-                } else {
-                    for document in querySnapshot!.documents {
-
-                        //We add that user id to our unmatch collection
-                        //erro = "\(user?.uid ?? "")"
-                        db.collection("users").whereField("email", isEqualTo: user?.email)
-                            .getDocuments() { (querySnapshot, error) in
-                                if error != nil {
-                                    //there is an error
-                                } else {
-                                    for myinfo in querySnapshot!.documents {
-
-                                        //We add that user id to our unmatch collection
-                                        //erro = "\(user?.uid ?? "")"
-                                        db.collection("users").document(myinfo.documentID)
-                                            .collection("notamatch").document(document.documentID).setData(["date": Date()], merge: true) { error in
-
-                                                if error == nil {
-
-
-                                                }
-                                            }
-                                    }
-                                }
-                            }
-
-                    }
-                }
-            }
+    //    db.collection("users").whereField("email", isEqualTo: profile.email)
+//            .getDocuments() { (querySnapshot, error) in
+//                if error != nil {
+//                    //there is an error
+//                } else {
+//                    for document in querySnapshot!.documents {
+//
+//                        //We add that user id to our unmatch collection
+//                        //erro = "\(user?.uid ?? "")"
+//                        db.collection("users").whereField("email", isEqualTo: user?.email)
+//                            .getDocuments() { (querySnapshot, error) in
+//                                if error != nil {
+//                                    //there is an error
+//                                } else {
+//                                    for myinfo in querySnapshot!.documents {
+//
+//                                        //We add that user id to our unmatch collection
+//                                        //erro = "\(user?.uid ?? "")"
+//                                        db.collection("users").document(myinfo.documentID)
+//                                            .collection("notamatch").document(document.documentID).setData(["date": Date()], merge: true) { error in
+//
+//                                                if error == nil {
+//
+//
+//                                                }
+//                                            }
+//                                    }
+//                                }
+//                            }
+//
+//                    }
+//                }
+//            }
 
     }
     func sendMatch() {

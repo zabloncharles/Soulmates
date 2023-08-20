@@ -98,16 +98,7 @@ struct StandoutsView: View {
                 }
                 
                 
-                
-//                if showProfile {
-//                    
-//                    
-//                    FullProfileView(namespace: namespace, matchcard: $matchcard, showProfile: $showProfile)
-//                        .matchedGeometryEffect(id: "page", in: namespace, isSource: showProfile)
-//                    
-//                    
-//                    
-//                }
+
                 
                 
             }
@@ -226,7 +217,7 @@ struct StandoutsView: View {
             
             Image(systemName: "person.fill.badge.plus")
                 .font(.system(size: 26, weight: .thin))
-                .foregroundColor(.black)
+                .foregroundColor(.blue)
             
             
         }
@@ -410,15 +401,7 @@ struct StandoutsView: View {
     }
     
     
-    //return an array of string
-//    func data()->[String]{
-//        
-//        //   var data = saveinfo
-//        let data = "Bridget,Miller,5,4,Possible,4,04/25/2000,z.test@gmail.com"
-//        
-//        // 0:name , 1:lname , 2:notifications, 3:period, 4:medium, 5:cycledate, 6:age, 7:email
-//        return data.components(separatedBy: ",")
-//    }
+  
  
     
 }

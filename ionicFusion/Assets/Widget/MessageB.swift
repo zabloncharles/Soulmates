@@ -6,7 +6,7 @@ import FirebaseFirestore
 struct MessageBubble1: View {
     
     
-    var section: Message
+    var section: MessageModel
     @State var messageTapped = false
     var message = "You still tryna go"
     var messageTime = "2:30 PM"

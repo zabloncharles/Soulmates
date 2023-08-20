@@ -11,6 +11,7 @@ import FirebaseFirestore
 import FirebaseAuth
 
 struct NotificationsDetail: View {
+    @AppStorage("hidemainTab") var hidemainTab = false
     @AppStorage("wallpaper") var wallpaper = "ob1"
     var namespace: Namespace.ID
     @Binding var notification: NotificationModel
@@ -22,9 +23,11 @@ struct NotificationsDetail: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @State var pageAppeared = false
     @State private var incomingMessages: [IncomingMessage] = []
-    @State private var chatMessages: [Message] = []
+    @State private var chatMessages: [MessageModel] = []
     @State private var log: [Log] = []
     @State private var someUsers: [SomeUsers] = []
+    
+    @State var userMessages: [MessageUser] = []
     @State var currentViewed = ""
     @State var texter = ""
     @State var messagesWithNames: [MessageWithName] = []
@@ -54,8 +57,10 @@ struct NotificationsDetail: View {
         }
        
         }.onAppear{
+            hidemainTab = false
             withAnimation(.spring()){
                 pageAppeared = true
+                
             }
         }
         .onDisappear{
@@ -76,7 +81,7 @@ struct NotificationsDetail: View {
                     Spacer()
                 }
                 .frame(maxWidth: .infinity)
-                .frame(height: scrollY > 0 ? 220 + scrollY : 220)
+                .frame(height:220)
               
 //                .background(
 //                   // Image(course.background)
@@ -87,7 +92,7 @@ struct NotificationsDetail: View {
 //                      //  .resizable()
 //                      //  .aspectRatio(contentMode: .fill)
 //
-//                        .offset(y: scrollY > 0 ? -scrollY : 0)
+                      //  .offset(y: scrollY > 0 ? -scrollY : 0)
 //                        .scaleEffect(scrollY > 0 ? scrollY / 1000 + 1 : 1)
 //                        .blur(radius: scrollY > 0 ? scrollY / 10 : 0)
 //                        .accessibility(hidden: true)
@@ -96,7 +101,7 @@ struct NotificationsDetail: View {
                 .mask(
                     RoundedRectangle(cornerRadius: 0)
                         
-                        .offset(y: scrollY > 0 ? -scrollY : 0)
+                       // .offset(y: scrollY > 0 ? -scrollY : 0)
                 )
                
                 .overlay(
@@ -145,7 +150,7 @@ struct NotificationsDetail: View {
                             .opacity(appear[0] ? 1 : 0)
                     )
                    
-                    .offset(y:scrollY > 0 ? -scrollY  : scrollY)
+                   // .offset(y:scrollY > 0 ? -scrollY  : scrollY)
                     .frame(maxHeight: .infinity, alignment: .bottom)
                     .offset(y: 15)
                     .padding(20)
@@ -160,7 +165,8 @@ struct NotificationsDetail: View {
                 .padding(.bottom, 30)
                 
         }.onAppear{
-            fetchIncomingMessages()
+           // fetchIncomingMessages()
+            fetchFakeMessages()
         }
     }
   
@@ -169,11 +175,12 @@ struct NotificationsDetail: View {
         
         VStack(spacing: 10) {
            
-            ForEach(someUsers) {  section in
+            ForEach(userMessages) {  section in
               
                 NavigationLink(destination:
                                 ZStack {
-                    MessagesView(log: section)
+                    MessageDetailView(log: section)
+                   // Text("hey you got here wow")
                                  
                         .onAppear{
                         //    fetchLog(log: section.docid)
@@ -183,7 +190,8 @@ struct NotificationsDetail: View {
                 )
                 {
                     ZStack {
-                        NotificationRow(section: section)
+                        MessageCard(section: section)
+                       // Text(section.name)
                   
                     }
                         
@@ -229,7 +237,9 @@ struct NotificationsDetail: View {
             }
     }
     
- 
+    func fetchFakeMessages() {
+        userMessages = messageContent
+    }
     
     func fetchIncomingMessages() {
         let user = Auth.auth().currentUser

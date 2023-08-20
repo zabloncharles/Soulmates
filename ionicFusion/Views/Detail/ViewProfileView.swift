@@ -27,7 +27,7 @@ import FirebaseAuth
 struct ViewProfileView: View {
     @AppStorage("hidemainTab") var hidemainTab = false
     var namespace: Namespace.ID
-    // @Binding var user: UserStruct? // Variable to hold the user dat
+    // @Binding var user: UserStruct? // Variable to hold the user data
     var profile = userStruct[0]
     @ObservedObject var viewModel = UserViewModel()
     var isAnimated = true
@@ -40,6 +40,7 @@ struct ViewProfileView: View {
     @State var erro = ""
     @State var typeText = ""
     @Binding var dislike : Bool
+    @Binding var scrolling : Bool
     @FocusState var isfocused
     @State var animateapper = false
     @State var profileLoaded = false
@@ -84,6 +85,9 @@ struct ViewProfileView: View {
                         likedcontent
                     }
                     
+                  
+                    //    Text("scrolled by \(scrolledItem)")
+                  
                     
                 }.animation(.spring(), value: dislike)
             
@@ -96,7 +100,7 @@ struct ViewProfileView: View {
                         }
                     }
                     .onDisappear{
-                       // hidemainTab = false
+                        hidemainTab = false
                         withAnimation(.spring()) {
                             animateapper = false
                         }
@@ -108,6 +112,8 @@ struct ViewProfileView: View {
             if showProfile {
                 nameandheart
             }
+            
+           
         }.onChange(of: liked) { newValue in
             if liked {
                 hidemainTab = true
@@ -127,16 +133,19 @@ struct ViewProfileView: View {
         VStack {
             HStack {
                 HStack {
-                    TextWriterAppear(typeText: profile.firstname, speed: 0.03)
+                  //  TextWriterAppear(typeText: profile.firstname, speed: 0.03)
+                    Text(profile.firstname)
                         .font(.title)
                         .fontWeight(.bold)
                     
                     
                 } .padding(10)
                     .background(.ultraThinMaterial)
-                    .cornerRadius(15)
+                    .cornerRadius(10)
                 
                 Spacer()
+                
+                //The user doesn't like current shuffle card.
                 Button {
                     
                     withAnimation(.spring()) {
@@ -462,17 +471,31 @@ struct ViewProfileView: View {
                 
                     .offwhitebutton(isTapped: liked, isToggle: true, cornerRadius: 20, action: $showMore)
                 
-                    .padding(.bottom,95)
+                    .padding(.bottom,35)
                 
                 
+                
+          
             }
             
             .padding(.top,-10)
             .padding(10)
             
+            VStack(alignment: .center) {
+                HStack{
+                    Image(systemName: "xmark")
+                        .foregroundColor(.white)
+                        .padding(15)
+                        .background(Color("offwhiteneo"))
+                        .cornerRadius(65)
+                        .onTapGesture {
+                            scrolling = false
+                            hidemainTab = false
+                        }
+                }
+            }.padding(.bottom,95)
             
-            
-            
+         
             
             
         }.padding(.bottom,-70)
@@ -496,7 +519,7 @@ struct ViewProfileView: View {
                 HStack {
                     HStack {
                         Image(systemName: "person.2.fill")
-                        Text(erro.isEmpty ? "You Liked :)" : erro)
+                        Text(erro.isEmpty ? "You Likedr :)" : erro)
                         
                     }.font(.title3)
                         .fontWeight(.bold)
@@ -607,10 +630,11 @@ struct ViewProfileView: View {
                 
                 
                 
-                if offset < -15 {
+                if offset > 65 {
                     
                     withAnimation(.spring()) {
                        // hidemainTab = true
+                        scrolling = false
                         
                     }
                     

@@ -18,6 +18,7 @@ struct SendMatch: View {
     
     var body: some View {
         ZStack{
+            Color.black
             navbar
          
             likedcontent
@@ -107,7 +108,7 @@ struct SendMatch: View {
             }.padding(.top,20)
             
             
-            Text("Cancel")
+            Text("Cancelt")
                 .padding(.vertical,10)
                 .padding(.horizontal,20)
                 .background(Color.pink)

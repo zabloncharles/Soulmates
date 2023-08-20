@@ -135,6 +135,7 @@ struct SigninView: View {
                         .padding(.vertical,7)
                         .neoButtonOff(isToggle: false, cornerRadius: 8) {
                             //
+                            doneIntro = false
                         }
                     Spacer()
                     Image(systemName: "info.circle")

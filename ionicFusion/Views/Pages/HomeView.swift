@@ -17,6 +17,7 @@ struct HomeView: View {
     @State var clockisTapped = false
     @State var cycleChangeSoon = false
     @AppStorage("signInAnimation") var signInAnimation = false
+    @AppStorage("hidemainTab") var hidemainTab = false
     @State private var offset = CGSize.zero
     @State var hideCard = false
     @State var contentHasScrolled = false
@@ -26,6 +27,7 @@ struct HomeView: View {
     @State var profiletype = 0
     @State var number = matchCardData.count
     @State var backViewSize: CGFloat = 80
+    @State var profileScrolledAmount = 0
     @State var dragsize = CGSize.zero
     @State var menupressed = false
     @State var differentpage = false
@@ -66,6 +68,8 @@ struct HomeView: View {
                             Spacer()
                                
                         }.edgesIgnoringSafeArea(.bottom)
+                          
+                     
                             
                     
                                 
@@ -73,10 +77,15 @@ struct HomeView: View {
                 
                 
                 if showProfile {
-                    ViewProfileView(namespace: namespace, profile: profile, dislike: $showProfile)
+                    ViewProfileView(namespace: namespace, profile: profile, dislike: $showProfile, scrolling: $showProfile)
                       //  .matchedGeometryEffect(id: "page", in: namespace, isSource: showProfile)
-
+                   
+                 
                 }
+                
+
+                
+               
                 
                 
           //  }
@@ -270,7 +279,7 @@ struct HomeView: View {
                 
                 
                 Spacer()
-                Image("Avatar 1")
+                Image("Avatar 3")
                    .resizable()
                    .aspectRatio(contentMode: .fill)
               //  ImageViewer(url: currentUser?.avatar ?? "")
@@ -358,7 +367,7 @@ struct HomeView: View {
             
             Image(systemName: profiletype == 0 ? "figure.2.arms.open" : profiletype == 1 ? "figure.cooldown" : profiletype == 2 ? "figure.stand.line.dotted.figure.stand" : profiletype == 3 ? "person.fill.badge.plus" : "person.fill.badge.plus")
                 .font(.system(size: 26, weight: .thin))
-                .foregroundColor(Color("offwhiteneo"))
+                .foregroundColor(Color("black"))
                 .animation(.easeInOut, value: profiletype)
             
             
