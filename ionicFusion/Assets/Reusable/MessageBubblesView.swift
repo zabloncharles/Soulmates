@@ -20,7 +20,7 @@ struct MessageBubblesView: View {
     @Binding var blurPage : Bool
     @Binding var messageDeleted : Bool
     @State var showDate = false
-    var bTapped = 0
+    @Binding var bTapped : String
     var body: some View {
         
         if section.userID == "user1" {
@@ -34,36 +34,48 @@ struct MessageBubblesView: View {
                     ZStack {
                         
                         VStack {
-//                            if blurPage{
-//                                HStack {
-//                                    HStack {
-//                                        Image(systemName: "hand.thumbsup")
-//                                        Text("Like")
-//                                            .foregroundColor(.green)
-//                                    }.padding(5).offwhitebutton(isTapped: !blurPage, isToggle: true, cornerRadius: 5, action: $blurPage)
-//                                    Rectangle()
-//                                        .fill(Color.black)
-//                                        .frame(width: 0.4, height: .infinity)
-//                                    HStack {
-//                                        Image(systemName: "trash")
-//                                        Text("Delete")
-//                                            .foregroundColor(.red)
-//                                    }.padding(5).offwhitebutton(isTapped: !blurPage, isToggle: true, cornerRadius: 5, action: $messageDeleted)
-//                                }.font(.footnote)
-//                                    .padding(10)
-//                                    .background(.ultraThinMaterial)
-//                                    .cornerRadius(10)
-//                                    .offset(y: -60)
-//                            }
+                            if showDate && bTapped == section.timestamp {
+                                HStack {
+                                    HStack {
+                                        Image(systemName: "hand.thumbsup")
+                                        Text("Like")
+                                            .foregroundColor(.green)
+                                    }.padding(5).offwhitebutton(isTapped: !blurPage, isToggle: true, cornerRadius: 5, action: $blurPage)
+                                    Rectangle()
+                                        .fill(Color.black)
+                                        .frame(width: 0.4, height: .infinity)
+                                    HStack {
+                                        Image(systemName: "trash")
+                                        Text("Delete")
+                                            .foregroundColor(.red)
+                                    }.padding(5).offwhitebutton(isTapped: !blurPage, isToggle: true, cornerRadius: 5, action: $messageDeleted)
+                                }.font(.footnote)
+                                    .padding(10)
+                                    .offset(y: -60)
+                                    .onAppear{
+                                        withAnimation(.easeIn) {
+                                            blurPage = true
+                                        }
+                                    }
+                                    .onDisappear{
+                                        withAnimation(.easeIn(duration: 0.30)) {
+                                            blurPage = false
+                                            showDate = false
+                                        }
+                                    }
+                                   
+                            }
                         }
                         Text(section.text)
                             .font(.subheadline)
                             .padding(.horizontal, 11.0)
                             .padding(.vertical, 9.0)
-                            .background(Color.gray.opacity(0.2))
+                            .background(Color.gray.opacity(0.0))
                             .neoButtonOff(isToggle: false, cornerRadius: 19, perform: {
                                 //code
-                                withAnimation(.spring()) {
+                                
+                                withAnimation(.easeIn) {
+                                    bTapped = section.timestamp
                                     showDate.toggle()
                                 }
                             })
@@ -81,6 +93,7 @@ struct MessageBubblesView: View {
                 .padding(.horizontal)
                 .multilineTextAlignment(.leading)
                 .animation(.spring(), value: blurPage)
+               
             }
         } else {
             
@@ -90,28 +103,37 @@ struct MessageBubblesView: View {
                     ZStack {
                         
                         
-//                        if blurPage && bTapped {
-//                            HStack {
-//                                HStack {
-//                                    Image(systemName: "hand.thumbsup")
-//                                    Text("Like")
-//                                        .foregroundColor(.green)
-//                                }.padding(5).offwhitebutton(isTapped: !blurPage, isToggle: true, cornerRadius: 5, action: $blurPage)
-//                                Rectangle()
-//                                    .fill(Color.black)
-//                                    .frame(width: 0.4, height: .infinity)
-//                                HStack {
-//                                    Image(systemName: "trash")
-//                                    Text("Delete")
-//                                        .foregroundColor(.red)
-//                                }.padding(5).offwhitebutton(isTapped: !blurPage, isToggle: true, cornerRadius: 5, action: $messageDeleted)
-//                            }.font(.footnote)
-//                                .padding(10)
-//                            // .background(Color("black"))
-//                                .background(.ultraThinMaterial)
-//                                .cornerRadius(10)
-//                                .offset(y: -60)
-//                        }
+                        if showDate && bTapped == section.timestamp {
+                            HStack {
+                                HStack {
+                                    Image(systemName: "hand.thumbsup")
+                                    Text("Like")
+                                        .foregroundColor(.green)
+                                }.padding(5).offwhitebutton(isTapped: !blurPage, isToggle: true, cornerRadius: 5, action: $blurPage)
+                                Rectangle()
+                                    .fill(Color.black)
+                                    .frame(width: 0.4, height: .infinity)
+                                HStack {
+                                    Image(systemName: "trash")
+                                    Text("Delete")
+                                        .foregroundColor(.red)
+                                }.padding(5).offwhitebutton(isTapped: !blurPage, isToggle: true, cornerRadius: 5, action: $messageDeleted)
+                            }.font(.footnote)
+                                .padding(10)
+                                .offset(y: -60)
+                                .onAppear{
+                                    withAnimation(.easeIn(duration: 0.30)) {
+                                        blurPage = true
+                                    }
+                                }
+                                .onDisappear{
+                                    withAnimation(.easeIn(duration: 0.30)) {
+                                        blurPage = false
+                                        showDate = false
+                                    }
+                                }
+                                
+                        }
                         
                         VStack {
                             Text(section.text)
@@ -122,8 +144,9 @@ struct MessageBubblesView: View {
                                 .background(Color.blue)
                                 .neoButtonOff(isToggle: false, cornerRadius: 19, perform: {
                                     //code
-                                    withAnimation(.spring()) {
-                                        showDate.toggle()
+                                    withAnimation(.easeIn) {
+                                            bTapped = section.timestamp
+                                            showDate.toggle()
                                     }
                                 })
                                 .padding(.bottom,9)
@@ -140,6 +163,7 @@ struct MessageBubblesView: View {
                 }
                 .padding(.horizontal)
                 .multilineTextAlignment(.leading)
+                .animation(.spring(), value: blurPage)
                 
                 
                 Spacer()

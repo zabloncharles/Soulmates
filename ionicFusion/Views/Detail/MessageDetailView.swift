@@ -14,6 +14,7 @@ import FirebaseAuth
 
 struct MessageDetailView: View {
     @AppStorage("hidemainTab") var hidemainTab = false
+   
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.presentationMode) var presentationMode
     @State var text = "yo"
@@ -32,7 +33,7 @@ struct MessageDetailView: View {
     @State private var typing = false
     @State private var typedText = ""
     @State var scrollingUp = false
-    @State var btapped = 0
+    @State var btapped = ""
     @State var blurPage = false
     @State var bubblesAppeared = false
     @State var messageDeleted = false
@@ -128,7 +129,7 @@ struct MessageDetailView: View {
     
     var content: some View {
         ScrollViewReader { scrollViewProxy in
-            ScrollView {
+            ScrollView(showsIndicators: false) {
                 scrollDetection
                 VStack{
                     
@@ -144,38 +145,42 @@ struct MessageDetailView: View {
                               //  ForEach(chatMessages) {section in
                                     
                                    // Text(section.text)
-                                    MessageBubblesView(section: section, blurPage: $blurPage, messageDeleted: $messageDeleted)
-                                      
-                                        .opacity(bubblesAppeared ? 1 : 0.30)
-                                        .onLongPressGesture {
-                                            blurPage.toggle()
-                                           // btapped =  Int(section.documentID) ?? 0
-                                            
-                                            
-                                            
-                                            
-                                        }
-                                       // .opacity( messageDeleted && btapped == Int(section.documentID) ?? 0 ? 0 : 1)
-                                       // .blur(radius: btapped == Int(section.documentID) ?? 0 ? 0 :  blurPage ? 13 : 0)
-                                        .id(section.id)
-                                        .onAppear {
-                                            
-                                                scrollViewProxy.scrollTo(((chatMessages[chatMessages.count - 3]).id), anchor: .bottom)
+                                    VStack {
+                                        //Text("\(btapped) and \(section.timestamp)")
+                                        MessageBubblesView(section: section, blurPage: $blurPage, messageDeleted: $messageDeleted, bTapped: $btapped)
+                                          
+                                            .opacity(bubblesAppeared ? 1 : 0.30)
+                                            .onLongPressGesture {
+                                                blurPage.toggle()
+                                               // btapped =  Int(section.documentID) ?? 0
                                                 
                                                 
-                                            
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                                withAnimation(.easeInOut) {
-                                                    bubblesAppeared = true
-                                                }
-                                                withAnimation(.spring()) {
-                                                    
-                                                        scrollViewProxy.scrollTo((chatMessages.last?.id), anchor: .bottom)
-                                                        scrollToBottom = true
-                                                    
-                                                }
+                                                
+                                                
                                             }
+                                            
+                                            .opacity( btapped == (section.timestamp ) ? 1 : blurPage ? 0 : 1)
+                                            .blur(radius: btapped == (section.timestamp ) ? 0 :  blurPage ? 13 : 0)
+                                            .id(section.id)
+                                            .onAppear {
+                                                
+                                                    scrollViewProxy.scrollTo(((chatMessages[chatMessages.count - 3]).id), anchor: .bottom)
+                                                    
+                                                    
+                                                
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                                    withAnimation(.easeInOut) {
+                                                        bubblesAppeared = true
+                                                    }
+                                                    withAnimation(.spring()) {
+                                                        
+                                                            scrollViewProxy.scrollTo((chatMessages.last?.id), anchor: .bottom)
+                                                            scrollToBottom = true
+                                                        
+                                                    }
+                                                }
                                         }
+                                    }
                                     
                                     
                                 }
@@ -183,6 +188,11 @@ struct MessageDetailView: View {
                             }
                         }
                         .coordinateSpace(name: "scrollView")
+                    }
+                    .onChange(of: blurPage) { newValue in
+                        if !blurPage {
+                            btapped = ""
+                        }
                     }
                     .onChange(of: messageDeleted) { newValue in
                         if messageDeleted {
@@ -265,6 +275,8 @@ struct MessageDetailView: View {
                         
                         if messageText.count > 0 && !guardSending{
                           //  sendMessage(message: messageText)
+                            //send the fake text to array
+                            sendFakeText()
                             messageText = ""
                         } else {
                             if !guardSending {
@@ -340,6 +352,17 @@ struct MessageDetailView: View {
             
             
             
+        }
+    }
+    
+    func sendFakeText(){
+        
+        
+        // Generate and add a fake message to the chat
+        let fakeMessage = MessageModel(userID: "user1", text: messageText, sender: "user1", timestamp: "\(Date())", stamp: "Sent")
+        
+        withAnimation {
+            chatMessages.append(fakeMessage)
         }
     }
     func typeWriteText(_ text: String, completion: @escaping () -> Void) {

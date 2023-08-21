@@ -19,6 +19,8 @@
 		F71652F02A918D3E0063E029 /* MessageCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F71652EF2A918D3E0063E029 /* MessageCard.swift */; };
 		F71652F22A918E040063E029 /* MessageDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F71652F12A918E040063E029 /* MessageDetailView.swift */; };
 		F71652F62A919BA50063E029 /* MessageBubblesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F71652F52A919BA50063E029 /* MessageBubblesView.swift */; };
+		F71652FA2A92988B0063E029 /* Chats.swift in Sources */ = {isa = PBXBuildFile; fileRef = F71652F92A92988B0063E029 /* Chats.swift */; };
+		F71652FC2A92DC320063E029 /* ChatTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = F71652FB2A92DC320063E029 /* ChatTester.swift */; };
 		F73F32342A138C800038A6D3 /* DragsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73F32332A138C800038A6D3 /* DragsCard.swift */; };
 		F73F32362A1522880038A6D3 /* nomorecards.json in Resources */ = {isa = PBXBuildFile; fileRef = F73F32352A1522880038A6D3 /* nomorecards.json */; };
 		F73F32382A156D340038A6D3 /* redpoof.json in Resources */ = {isa = PBXBuildFile; fileRef = F73F32372A156D340038A6D3 /* redpoof.json */; };
@@ -56,7 +58,6 @@
 		F7A3137E27F4CDD100F9F550 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A3136527F4CDD100F9F550 /* OnboardingView.swift */; };
 		F7A3137F27F4CDD100F9F550 /* MainTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A3136627F4CDD100F9F550 /* MainTab.swift */; };
 		F7A3138027F4CDD100F9F550 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A3136827F4CDD100F9F550 /* ViewModel.swift */; };
-		F7A3138127F4CDD100F9F550 /* NotificationsDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A3136A27F4CDD100F9F550 /* NotificationsDetail.swift */; };
 		F7A3138227F4CDD100F9F550 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A3136B27F4CDD100F9F550 /* SettingsView.swift */; };
 		F7A3138427F4CDD100F9F550 /* SectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A3136D27F4CDD100F9F550 /* SectionView.swift */; };
 		F7A3139B27F4CDEA00F9F550 /* TopicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A3138C27F4CDEA00F9F550 /* TopicModel.swift */; };
@@ -140,7 +141,6 @@
 		F7A3146527F4CFE100F9F550 /* FontModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A313FF27F4CFE100F9F550 /* FontModifier.swift */; };
 		F7A3146627F4CFE100F9F550 /* SectionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A3140127F4CFE100F9F550 /* SectionRow.swift */; };
 		F7A3146727F4CFE100F9F550 /* TrackCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A3140227F4CFE100F9F550 /* TrackCircle.swift */; };
-		F7A3146B27F4CFE100F9F550 /* NotificationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A3140627F4CFE100F9F550 /* NotificationRow.swift */; };
 		F7A3146D27F4CFE100F9F550 /* CircleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A3140827F4CFE100F9F550 /* CircleLabel.swift */; };
 		F7A3147527F4CFE100F9F550 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A3141027F4CFE100F9F550 /* ImagePicker.swift */; };
 		F7A3147627F4CFE100F9F550 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A3141127F4CFE100F9F550 /* BackgroundView.swift */; };
@@ -187,6 +187,8 @@
 		F71652EF2A918D3E0063E029 /* MessageCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCard.swift; sourceTree = "<group>"; };
 		F71652F12A918E040063E029 /* MessageDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDetailView.swift; sourceTree = "<group>"; };
 		F71652F52A919BA50063E029 /* MessageBubblesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageBubblesView.swift; sourceTree = "<group>"; };
+		F71652F92A92988B0063E029 /* Chats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chats.swift; sourceTree = "<group>"; };
+		F71652FB2A92DC320063E029 /* ChatTester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTester.swift; sourceTree = "<group>"; };
 		F73F32332A138C800038A6D3 /* DragsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragsCard.swift; sourceTree = "<group>"; };
 		F73F32352A1522880038A6D3 /* nomorecards.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = nomorecards.json; sourceTree = "<group>"; };
 		F73F32372A156D340038A6D3 /* redpoof.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = redpoof.json; sourceTree = "<group>"; };
@@ -224,7 +226,6 @@
 		F7A3136527F4CDD100F9F550 /* OnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		F7A3136627F4CDD100F9F550 /* MainTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTab.swift; sourceTree = "<group>"; };
 		F7A3136827F4CDD100F9F550 /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
-		F7A3136A27F4CDD100F9F550 /* NotificationsDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsDetail.swift; sourceTree = "<group>"; };
 		F7A3136B27F4CDD100F9F550 /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		F7A3136D27F4CDD100F9F550 /* SectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionView.swift; sourceTree = "<group>"; };
 		F7A3138C27F4CDEA00F9F550 /* TopicModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicModel.swift; sourceTree = "<group>"; };
@@ -308,7 +309,6 @@
 		F7A313FF27F4CFE100F9F550 /* FontModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontModifier.swift; sourceTree = "<group>"; };
 		F7A3140127F4CFE100F9F550 /* SectionRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionRow.swift; sourceTree = "<group>"; };
 		F7A3140227F4CFE100F9F550 /* TrackCircle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackCircle.swift; sourceTree = "<group>"; };
-		F7A3140627F4CFE100F9F550 /* NotificationRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationRow.swift; sourceTree = "<group>"; };
 		F7A3140827F4CFE100F9F550 /* CircleLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleLabel.swift; sourceTree = "<group>"; };
 		F7A3141027F4CFE100F9F550 /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		F7A3141127F4CFE100F9F550 /* BackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
@@ -398,7 +398,6 @@
 				F7A3140127F4CFE100F9F550 /* SectionRow.swift */,
 				F7A3141E27F4CFE100F9F550 /* SmallClocks.swift */,
 				F7A3140227F4CFE100F9F550 /* TrackCircle.swift */,
-				F7A3140627F4CFE100F9F550 /* NotificationRow.swift */,
 				F71652EF2A918D3E0063E029 /* MessageCard.swift */,
 				F7A3141427F4CFE100F9F550 /* Avatar.swift */,
 				F7A3141627F4CFE100F9F550 /* Notification.swift */,
@@ -443,7 +442,7 @@
 				F7569D562A11DE9900FE3E84 /* LikesView.swift */,
 				F7A3135D27F4CDD100F9F550 /* HomeView.swift */,
 				F7569D5E2A11EAB200FE3E84 /* StandoutsView.swift */,
-				F7A3136A27F4CDD100F9F550 /* NotificationsDetail.swift */,
+				F71652F92A92988B0063E029 /* Chats.swift */,
 			);
 			path = Pages;
 			sourceTree = "<group>";
@@ -464,6 +463,7 @@
 			isa = PBXGroup;
 			children = (
 				F7569D542A10641A00FE3E84 /* FullProfileView.swift */,
+				F71652FB2A92DC320063E029 /* ChatTester.swift */,
 				F71652F12A918E040063E029 /* MessageDetailView.swift */,
 				F79594662A27907800636776 /* ProfileEditView.swift */,
 				F7A3136D27F4CDD100F9F550 /* SectionView.swift */,
@@ -937,7 +937,7 @@
 			files = (
 				F7A3143327F4CFE100F9F550 /* NavigationExten.swift in Sources */,
 				F7A3143427F4CFE100F9F550 /* Animations.swift in Sources */,
-				F7A3138127F4CDD100F9F550 /* NotificationsDetail.swift in Sources */,
+				F71652FC2A92DC320063E029 /* ChatTester.swift in Sources */,
 				F70636342A1D6A92007A9FEF /* SmallMatchActive.swift in Sources */,
 				F7BDF1122A29C175008FDB4C /* LikesPillView.swift in Sources */,
 				F7A3142727F4CFE100F9F550 /* Modifiers.swift in Sources */,
@@ -945,7 +945,6 @@
 				F7D847E62A22BE6400E1E273 /* messageprev.swift in Sources */,
 				F7BDF1072A287575008FDB4C /* AboutMePicker.swift in Sources */,
 				F70636302A1D5742007A9FEF /* ShuffleMatchesView.swift in Sources */,
-				F7A3146B27F4CFE100F9F550 /* NotificationRow.swift in Sources */,
 				F7A3142927F4CFE100F9F550 /* TextModifiers.swift in Sources */,
 				F7A3147527F4CFE100F9F550 /* ImagePicker.swift in Sources */,
 				F7A3137527F4CDD100F9F550 /* NavigationBar.swift in Sources */,
@@ -986,6 +985,7 @@
 				F7A3142127F4CFE100F9F550 /* Wave.swift in Sources */,
 				F79594632A268D8700636776 /* ActiveCard.swift in Sources */,
 				F7A3148027F4CFE100F9F550 /* imageview.swift in Sources */,
+				F71652FA2A92988B0063E029 /* Chats.swift in Sources */,
 				F7A3142527F4CFE100F9F550 /* CircularView.swift in Sources */,
 				F7A313A127F4CDEA00F9F550 /* Handbook.swift in Sources */,
 				F755D7C92A2DACBC00319D57 /* Email&PasswordView.swift in Sources */,

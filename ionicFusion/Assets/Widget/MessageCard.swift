@@ -21,7 +21,7 @@ struct MessageCard: View {
             
             
             HStack(alignment: .center, spacing: 8) {
-                Image("image_05")
+                Image(section.avatar)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                 
@@ -37,7 +37,7 @@ struct MessageCard: View {
                         .customfontFunc(customFont: "sanfrancisco", style: .headline)
                         .foregroundColor(Color("black"))
                     
-                    Text("hey hogn")
+                    Text(section.message)
                         .customfontFunc(customFont: "sanfrancisco", style: .caption1)
                         .foregroundColor(.gray)
                         .lineLimit(1)
