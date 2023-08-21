@@ -13,20 +13,22 @@ struct ViewController: View {
    
     
     var body: some View {
-        if doneIntro && signedIn {
+       // if doneIntro && signedIn {
             MainTab()
-        } else if doneIntro {
-            SigninView(signIn: $signedIn)
-        } else {
-            OnboardingView(doneIntro: $doneIntro)
-        }
+       // } else if doneIntro {
+          //  SigninView(signIn: $signedIn)
+      //  } else {
+          //  OnboardingView(doneIntro: $doneIntro)
+       // }
 
             }
-        }
+
+}
         
         struct ViewController_Previews: PreviewProvider {
             static var previews: some View {
                 ViewController()
+                    .preferredColorScheme(.dark)
                     
             }
         }

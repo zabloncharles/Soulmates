@@ -66,18 +66,5 @@ import SwiftUI
 //
 //}
 
-//let MessagesData = [
-//    MessagesModel(
-//        message: "error",
-//        time: "2:34 PM",
-//        response: false
-//        
-//    ),
-//    MessagesModel(
-//        message: "acknowledged",
-//        time: "2:34 PM",
-//        response: true
-//        
-//    )
-//]
+
 //  User(fname: (document.get("firstName") ?? "error") as! String,

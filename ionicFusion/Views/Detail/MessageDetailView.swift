@@ -88,8 +88,8 @@ struct MessageDetailView: View {
                             .padding(-2)
                         
                     )
-                    .frame(width: 20, height: 40)
-                    .padding(10)
+                    .frame(width: 40, height: 40)
+                   // .padding(10)
                 VStack{
                     Text(log.name.capitalized)
                     //  Text(log.docid)

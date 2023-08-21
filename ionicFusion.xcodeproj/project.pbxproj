@@ -21,6 +21,9 @@
 		F71652F62A919BA50063E029 /* MessageBubblesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F71652F52A919BA50063E029 /* MessageBubblesView.swift */; };
 		F71652FA2A92988B0063E029 /* Chats.swift in Sources */ = {isa = PBXBuildFile; fileRef = F71652F92A92988B0063E029 /* Chats.swift */; };
 		F71652FC2A92DC320063E029 /* ChatTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = F71652FB2A92DC320063E029 /* ChatTester.swift */; };
+		F71653002A93E58F0063E029 /* BodoniLean.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F71652FE2A93E58F0063E029 /* BodoniLean.ttf */; };
+		F71653042A93EDBD0063E029 /* BodoniFLF-Roman.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F71653032A93EDBD0063E029 /* BodoniFLF-Roman.ttf */; };
+		F71653062A93F3030063E029 /* BodoniFLF-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F71653052A93F3030063E029 /* BodoniFLF-Italic.ttf */; };
 		F73F32342A138C800038A6D3 /* DragsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73F32332A138C800038A6D3 /* DragsCard.swift */; };
 		F73F32362A1522880038A6D3 /* nomorecards.json in Resources */ = {isa = PBXBuildFile; fileRef = F73F32352A1522880038A6D3 /* nomorecards.json */; };
 		F73F32382A156D340038A6D3 /* redpoof.json in Resources */ = {isa = PBXBuildFile; fileRef = F73F32372A156D340038A6D3 /* redpoof.json */; };
@@ -189,6 +192,9 @@
 		F71652F52A919BA50063E029 /* MessageBubblesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageBubblesView.swift; sourceTree = "<group>"; };
 		F71652F92A92988B0063E029 /* Chats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chats.swift; sourceTree = "<group>"; };
 		F71652FB2A92DC320063E029 /* ChatTester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTester.swift; sourceTree = "<group>"; };
+		F71652FE2A93E58F0063E029 /* BodoniLean.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BodoniLean.ttf; sourceTree = "<group>"; };
+		F71653032A93EDBD0063E029 /* BodoniFLF-Roman.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BodoniFLF-Roman.ttf"; sourceTree = "<group>"; };
+		F71653052A93F3030063E029 /* BodoniFLF-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BodoniFLF-Italic.ttf"; sourceTree = "<group>"; };
 		F73F32332A138C800038A6D3 /* DragsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragsCard.swift; sourceTree = "<group>"; };
 		F73F32352A1522880038A6D3 /* nomorecards.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = nomorecards.json; sourceTree = "<group>"; };
 		F73F32372A156D340038A6D3 /* redpoof.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = redpoof.json; sourceTree = "<group>"; };
@@ -659,10 +665,13 @@
 				F7A313F727F4CFE100F9F550 /* sanfrancisco.ttf */,
 				F7A313F827F4CFE100F9F550 /* minimal.ttf */,
 				F7A313F927F4CFE100F9F550 /* Aloka.otf */,
+				F71652FE2A93E58F0063E029 /* BodoniLean.ttf */,
 				F7A313FA27F4CFE100F9F550 /* Carlotte.ttf */,
 				F7A313FB27F4CFE100F9F550 /* Davinci.ttf */,
 				F7A313FC27F4CFE100F9F550 /* Houdient.ttf */,
 				F7A313FD27F4CFE100F9F550 /* Mignitte.ttf */,
+				F71653052A93F3030063E029 /* BodoniFLF-Italic.ttf */,
+				F71653032A93EDBD0063E029 /* BodoniFLF-Roman.ttf */,
 				F7A313FE27F4CFE100F9F550 /* Minimalistic Light.otf */,
 				F7A313FF27F4CFE100F9F550 /* FontModifier.swift */,
 			);
@@ -818,6 +827,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F7D847F32A245E0000E1E273 /* flyingpaperbirdchasinglove.json in Resources */,
+				F71653062A93F3030063E029 /* BodoniFLF-Italic.ttf in Resources */,
 				F7A391CC27F4C24900E5237F /* Preview Assets.xcassets in Resources */,
 				F7A3145627F4CFE100F9F550 /* error3.json in Resources */,
 				F7A3143727F4CFE100F9F550 /* girlwaving.json in Resources */,
@@ -869,7 +879,9 @@
 				F7A3143D27F4CFE100F9F550 /* lock.json in Resources */,
 				F7A3144F27F4CFE100F9F550 /* writing.json in Resources */,
 				F7A3144527F4CFE100F9F550 /* logged.json in Resources */,
+				F71653042A93EDBD0063E029 /* BodoniFLF-Roman.ttf in Resources */,
 				F7A3145E27F4CFE100F9F550 /* minimal.ttf in Resources */,
+				F71653002A93E58F0063E029 /* BodoniLean.ttf in Resources */,
 				F7A3145927F4CFE100F9F550 /* workout.json in Resources */,
 				F7569D5D2A11E6A200FE3E84 /* loveflying.json in Resources */,
 				F7A3144727F4CFE100F9F550 /* girlcheckinginfo.json in Resources */,

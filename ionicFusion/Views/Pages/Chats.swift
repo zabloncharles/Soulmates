@@ -30,8 +30,6 @@ struct NotificationsDetail: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @State var pageAppeared = false
     @State private var chatMessages: [MessageModel] = []
-    @State private var log: [Log] = []
-    
     @State var userMessages: [MessageUser] = []
     @State var currentViewed = ""
     @State var texter = ""
@@ -184,7 +182,6 @@ struct NotificationsDetail: View {
                 NavigationLink(destination:
                                 ZStack {
                     MessageDetailView(log: section)
-                    // Text("hey you got here wow")
                     
                         .onAppear{
                         }
@@ -194,7 +191,6 @@ struct NotificationsDetail: View {
                 {
                     ZStack {
                         MessageCard(section: section)
-                        // Text(section.name)
                         
                     }
                     
@@ -244,51 +240,51 @@ struct NotificationsDetail: View {
         userMessages = messageContent
     }
     
-//    func fetchIncomingMessages() {
-//        let user = Auth.auth().currentUser
-//        let db = Firestore.firestore()
-//
-//        db.collection("messages").getDocuments { snapshot, error in
-//            if let error = error {
-//                // Handle the error
-//                print("Error fetching messages: \(error.localizedDescription)")
-//                return
-//            }
-//
-//            guard let documents = snapshot?.documents else {
-//                // Handle no documents found
-//                return
-//            }
-//
-//            var emailu = documents.compactMap { $0.data()["email"] as? [String] }
-//                .filter { $0.contains(user?.email ?? "") }
-//                .flatMap { $0 }
-//
-//            let newEmail = emailu
-//                .filter { $0 != user?.email }
-//
-//            db.collection("users").whereField("email", in: newEmail).getDocuments { snapshot, error in
-//                if let error = error {
-//                    // Handle the error
-//                    print("Error fetching users: \(error.localizedDescription)")
-//                    return
-//                }
-//
-//                guard let documents = snapshot?.documents else {
-//                    // Handle no documents found
-//                    return
-//                }
-//
-//
-//                self.someUsers = documents.compactMap { document in
-//                    let data = document.data()
-//                    let docid = document.documentID
-//                    let firstname = data["firstname"] as? String ?? ""
-//                    return SomeUsers(name: firstname, docid: docid)
-//                }
-//            }
-//        }
-//    }
+    //    func fetchIncomingMessages() {
+    //        let user = Auth.auth().currentUser
+    //        let db = Firestore.firestore()
+    //
+    //        db.collection("messages").getDocuments { snapshot, error in
+    //            if let error = error {
+    //                // Handle the error
+    //                print("Error fetching messages: \(error.localizedDescription)")
+    //                return
+    //            }
+    //
+    //            guard let documents = snapshot?.documents else {
+    //                // Handle no documents found
+    //                return
+    //            }
+    //
+    //            var emailu = documents.compactMap { $0.data()["email"] as? [String] }
+    //                .filter { $0.contains(user?.email ?? "") }
+    //                .flatMap { $0 }
+    //
+    //            let newEmail = emailu
+    //                .filter { $0 != user?.email }
+    //
+    //            db.collection("users").whereField("email", in: newEmail).getDocuments { snapshot, error in
+    //                if let error = error {
+    //                    // Handle the error
+    //                    print("Error fetching users: \(error.localizedDescription)")
+    //                    return
+    //                }
+    //
+    //                guard let documents = snapshot?.documents else {
+    //                    // Handle no documents found
+    //                    return
+    //                }
+    //
+    //
+    //                self.someUsers = documents.compactMap { document in
+    //                    let data = document.data()
+    //                    let docid = document.documentID
+    //                    let firstname = data["firstname"] as? String ?? ""
+    //                    return SomeUsers(name: firstname, docid: docid)
+    //                }
+    //            }
+    //        }
+    //    }
     
     
 }
@@ -297,16 +293,8 @@ struct NotificationsDetail_Previews: PreviewProvider {
     @Namespace static var namespace
     
     static var previews: some View {
-        //  NotificationsDetail(namespace: namespace, notification: .constant(messageSections[0]))
         ViewController()
     }
-}
-
-
-
-struct Log: Identifiable {
-    let id = UUID()
-    let email: [String]
 }
 
 

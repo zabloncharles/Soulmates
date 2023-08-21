@@ -58,3 +58,6 @@ var messages = [
     // Add more fake messages to make the conversation even longer
     // Add more fake messages as needed
 ]
+
+
+var chatLogs = (["email":"zab.charles@gmail.com"],["logs": messages])

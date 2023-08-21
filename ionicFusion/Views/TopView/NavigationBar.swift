@@ -57,12 +57,13 @@ struct NavigationBar: View {
                         HStack() {
                            
                           
-                            bell
+                          //  bell
+                             //   .padding(.trailing,10)
                           
                             
 
                             
-                            avatar
+                           // avatar
                             
                             
                         }

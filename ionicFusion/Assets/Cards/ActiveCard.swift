@@ -10,20 +10,26 @@ import SwiftUI
 struct ActiveCard: View {
     let completion: () -> Void
     var user: UserStruct
+    @State var userImageLoaded = false
+    @State var userBackgroundLoaded = false
+    
     @State var appeared = false
     var body: some View {
         ZStack {
             VStack{
                 Spacer()
-            }.frame(width: 190, height: 260)
+            }.frame(width: 185, height: 230)
+                .background(LinearGradient(colors: [Color("offwhiteneo"),  Color.clear], startPoint: .bottom, endPoint: .top))
                 .background(
-                    Image("image_05")
-                        .resizable()
+                   // Image("image_09")
+                    GetImageAlert(url:"https://source.unsplash.com/random/?landscape,dark", loaded: .constant(true))
+                        .opacity(appeared ? 1 : 0)
+                     //   .resizable()
                     //  .blur(radius: 1)
                     //  .aspectRatio(contentMode: .fill)
                     
                 )
-                .cornerRadius(15)
+                .cornerRadius(10)
             
             VStack{
                 Spacer()
@@ -34,24 +40,34 @@ struct ActiveCard: View {
                         .font(.caption)
                         .foregroundColor(.green)
                     Spacer()
-                }.padding()
-                    .background(Color.black)
-                    .cornerRadius(25)
+                }.padding(.vertical)
+                    .padding(.leading,5)
+                    .offset(y:15)
+                    //.background(Color.black)
+                    //.cornerRadius(15)
             }.padding()
             
             VStack{
                 Spacer()
             }.frame(width: 180, height: 180)
-                .background( Image("image_09")
-                    .resizable())
-                .cornerRadius(15)
-                .offset(y:-30)
+                .background(
+                    GetImageAlert(url:user.avatar, loaded: .constant(true))
+                        .opacity(appeared ? 1 : 0)
+                   // .resizable()
+                )
+                .cornerRadius(5)
+                .offset(y:-22)
             
             
         }.scaleEffect(appeared ? 1 : 0.95)
             .onAppear{
                 withAnimation(.spring()) {
                     appeared = true
+                }
+            }
+            .onDisappear{
+                withAnimation(.spring()) {
+                    appeared = false
                 }
             }
             .neoButton(isToggle: false) {

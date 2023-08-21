@@ -43,33 +43,42 @@ struct HomeView: View {
               //  ScrollView {
                        
                  
-                        VStack {
-
-                            welcoming
-                                        .opacity(showProfile || !pageAppeared ? 0 : 1)
-                                        .animation(.spring(), value: showProfile)
-                                        .padding(.top,70)
-                                        
-                            if profiletype == 0 {
-                              compatible
-                            }
-                            else if profiletype == 1 {
-                                 
-                               active
-                            }
-                            else if profiletype == 2 {
-                                
-                                near
-                            }
-                            else if profiletype == 3 {
-                                
-                                newhere
-                            }
-                            Spacer()
-                               
-                        }.edgesIgnoringSafeArea(.bottom)
-                          
-                     
+                VStack {
+                    
+                    welcoming
+                        .opacity(showProfile || !pageAppeared ? 0 : 1)
+                        .animation(.spring(), value: showProfile)
+                        .padding(.top,70)
+                    
+                    
+                    TabView(selection: $profiletype){
+                        
+                        
+                        
+                       
+                            compatible
+                                .tag(0)
+                        
+                      
+                            
+                            active
+                                .tag(1)
+                        
+                        
+                            
+                            near
+                                .tag(2)
+                        
+                       
+                            
+                            newhere
+                                .tag(3)
+                       
+                        Spacer()
+                        
+                    }.edgesIgnoringSafeArea(.bottom)
+                    
+                }.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                             
                     
                                 
@@ -97,7 +106,42 @@ struct HomeView: View {
                 
                 
                 
-                
+                if !showProfile {
+                    VStack{
+                        HStack{
+                            Spacer()
+                            VStack {
+                                Image(systemName: profiletype == 0 ? "figure.2.arms.open" : profiletype == 1 ? "figure.cooldown" : profiletype == 2 ? "figure.stand.line.dotted.figure.stand" : profiletype == 3 ? "person.fill.badge.plus" : "person.fill.badge.plus")
+                                    .font(.system(size:  17, weight: .bold))
+                                    .frame(width: 36, height: 36)
+                                    .foregroundColor( .secondary)
+                                    .background( Color("offwhite"))
+                                    .cornerRadius(30)
+                                    .scaleEffect( 1)
+                                    .overlay(
+                                        VStack{
+                                          
+                                                Text("4")
+                                                    .foregroundColor(.white)
+                                                    .font(.caption)
+                                                    .padding(2)
+                                                    .background(
+                                                        Circle()
+                                                        
+                                                            .fill(.red)
+                                                            .padding(-3)
+                                                    )
+                                                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+                                            
+                                        }
+                                    )
+                                  
+                            }
+                        }.padding(.top,15)
+                            .padding(.horizontal,25)
+                        Spacer()
+                    }
+                }
                 
                 
             }.onAppear{
@@ -319,8 +363,8 @@ struct HomeView: View {
             }
             .padding(.vertical, 10)
             .padding(.horizontal, 20)
-            .background(Color("offwhiteneo"))
-            .cornerRadius(15)
+            .background(Color("offwhite"))
+            .cornerRadius(11)
             .neoButton(isToggle: false, perform: {
                 //do something
             })
@@ -339,39 +383,43 @@ struct HomeView: View {
     
     var typeofprofiles : some View {
         HStack{
-            HStack {
-                
-                TypeofMenuRow( tap: $profiletype, selected: 0, placeholder: "Compatible"){
-                    
-                }
-                    
-                
-               
-                Spacer()
-                TypeofMenuRow(tap: $profiletype, selected: 1, placeholder: "Active"){
-                    
-                }
-                Spacer()
-                TypeofMenuRow(tap: $profiletype, selected: 2, placeholder: "Near"){
-                    
-                }
-                Spacer()
-                TypeofMenuRow(tap: $profiletype, selected: 3, placeholder: "New Here"){
-                    
-                }
-                
-                
-            }
             
-            Spacer()
+                
+                TypeofMenuRow( tap: $profiletype, selected: 0, placeholder: "COMPATIBLE"){
+                    
+                }
+                Spacer()
+                Rectangle()
+                .frame(width: 1,height: 12)
+                TypeofMenuRow(tap: $profiletype, selected: 1, placeholder: "ACTIVE"){
+                    
+                }
+                Spacer()
+            Rectangle()
+                .frame(width: 1,height: 12)
+                TypeofMenuRow(tap: $profiletype, selected: 2, placeholder: "NEAR"){
+                    
+                }
+                Spacer()
+            Rectangle()
+                .frame(width: 1,height: 12)
+                TypeofMenuRow(tap: $profiletype, selected: 3, placeholder: "NEW HERE"){
+                    
+                }
+                
+                
             
-            Image(systemName: profiletype == 0 ? "figure.2.arms.open" : profiletype == 1 ? "figure.cooldown" : profiletype == 2 ? "figure.stand.line.dotted.figure.stand" : profiletype == 3 ? "person.fill.badge.plus" : "person.fill.badge.plus")
-                .font(.system(size: 26, weight: .thin))
-                .foregroundColor(Color("black"))
-                .animation(.easeInOut, value: profiletype)
+            
+           
+            
+           
             
             
         }.padding(.horizontal)
+            .padding(.vertical,5)
+            .background(Color("offwhite"))
+            .cornerRadius(12)
+            .padding(.horizontal)
             .padding(.top,10)
          
     }
@@ -454,32 +502,35 @@ struct TypeofMenuRow:  View {
                 if tap == selected  {
                     VStack {
                         Text(placeholder)
+                            .font(.footnote)
                             .padding(.vertical,5)
-                            .padding(.horizontal,10)
+                            .padding(.horizontal,8)
+                            .foregroundColor(.red)
                             .background(Color("offwhite"))
-                            .cornerRadius(15)
+                            .cornerRadius(10)
                        
                     
                     }
                 }
                 
                else {
-                Text(placeholder)
+                   Text(placeholder)
+                       .font(.footnote)
                     .padding(.vertical,5)
                     .padding(.horizontal,8)
                    
                   
                 }
             }
-            .neoButton(isToggle: false, perform: {
-                //
+            .onTapGesture {
                 completion()
-               
+                
                 withAnimation(.spring()){
                     tap = selected
                 }
-                
-            })
+            }
+            
+         
          
            
         }
