@@ -31,7 +31,7 @@ struct FullProfileView: View {
     @State var animateMatchImage = false
     @State var animateapper = false
     @State var profileLoaded = false
-    @State var outOfMatches = true
+    @State var outOfMatches = false
     @State var animategirl = false
     @State var liked = false
     @State var cancelLike = false

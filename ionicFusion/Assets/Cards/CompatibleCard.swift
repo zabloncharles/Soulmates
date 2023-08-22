@@ -69,7 +69,7 @@ struct CompatibleCard: View {
                    // .background(Color.black)
                    // .cornerRadius(10)
             }.padding()
-                .padding(.bottom,20)
+                .padding(.bottom,60)
             
             VStack{
                 Spacer()
@@ -107,10 +107,8 @@ struct CompatibleCard: View {
     }
 }
 
-//struct CompatibleCard_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CompatibleCard(){
-//            //
-//        }
-//    }
-//}
+struct CompatibleCard_Previews: PreviewProvider {
+    static var previews: some View {
+        ViewController()
+    }
+}

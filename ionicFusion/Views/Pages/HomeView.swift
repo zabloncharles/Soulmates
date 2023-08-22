@@ -176,7 +176,7 @@ struct HomeView: View {
                 .padding(.horizontal)
                 
             }
-        }.padding(.bottom,100)
+        }.offset(y:-50)
     }
     var active: some View {
         ZStack {

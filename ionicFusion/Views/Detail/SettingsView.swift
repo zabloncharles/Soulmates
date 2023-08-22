@@ -13,6 +13,7 @@ import FirebaseFirestore
 
 struct SettingsView: View {
     @ObservedObject var viewModel = UserViewModel()
+    var userInfo: UserStruct 
     @AppStorage("signedIn") var signIn = false
     @AppStorage("hidemainTab") var hidemainTab = false
     @AppStorage("signInAnimation") var signInAnimation = false
@@ -37,6 +38,7 @@ struct SettingsView: View {
     @State var textEdit = ""
     @State var showBlur = false
     @State var birthdaycompleteTapped = false
+    @State var showMoreProfileInfo = false
     let transition: AnyTransition = .asymmetric(
         insertion: .move(edge: .leading),
         removal: .move(edge: .leading))
@@ -47,40 +49,32 @@ struct SettingsView: View {
         
         ZStack {
             
-            //Background
-           
-            
+            LinearGradient(colors: [Color.clear,Color("white"),Color("white"),Color("white"),Color("offwhite"),Color.clear], startPoint: .top, endPoint: .bottom)
+                .edgesIgnoringSafeArea(.all)
             //First Section
             wallpaperandsettingsinfo
                 .padding(.top, 30)
-              
-                    //image picker
-                        .fullScreenCover(isPresented: $showImagePicker, onDismiss: nil) {
-                            ImagePicker(image: $image)
-                                .ignoresSafeArea()
-                                .onDisappear {
-                                    changePic()
-                                    
-                                    withAnimation(.spring()) {
-                                        tappedImage = false
-                                    }
-                                    
-                                    
-                                }
-                    }
             
-            
-            
-           
-            
+            //image picker
+                .fullScreenCover(isPresented: $showImagePicker, onDismiss: nil) {
+                    ImagePicker(image: $image)
+                        .ignoresSafeArea()
+                        .onDisappear {
+                            changePic()
+                            
+                            withAnimation(.spring()) {
+                                tappedImage = false
+                            }
+                            
+                            
+                        }
+                }
             Notification(title: notificationMessage, notification: "Notification", showNotification: $showNotification)
                 .padding(.top, -6)
                 .opacity(showNotification ? 1 : 0)
                 .animation(.spring(), value: showNotification)
             
         }
-      
-        
         .onAppear {
             withAnimation(.spring()) {
                 hidemainTab = true
@@ -93,127 +87,45 @@ struct SettingsView: View {
                 animate = false
             }
         }
-       
+        
     }
-   
+    
     var wallpaperandsettingsinfo: some View {
         VStack(alignment: .leading) {
-            //User privacy
-           
-            HStack{
-               
-                Text("Wallpaper")
-                    .font(.title3).bold()
-                   
-                    .padding(70)
-                    
-                    .cornerRadius(19)
-                    .opacity(0)
-                    
-                VStack{
-                   
-                    HStack {
-                        Spacer()
-                        
-                        
-                           
-                    }
-                    
-                }.scaleEffect(tappedImage ? 0.97 : 1)
-                    
-            }    .background(
-                ZStack {
-                   
-                    VStack {
-                        Text("Wallpaper")
-                            .font(.title).bold()
-                        
-                        Image(wallpaper)
-                            .renderingMode(.original)
-                            .resizable(resizingMode: .stretch)
-                            .aspectRatio(contentMode: .fill)
-                            .onTapGesture{
-                                withAnimation(.spring()){
-                                    changeWallpaperTapped = true
-                                    showWallpaperPicker.toggle()
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-                                        withAnimation(.spring()){
-                                            changeWallpaperTapped = false
-                                        }
-                                    }
-                                }
-                                
-                        }
-                    }
-
-                    
-                }
-                
-            )
-                .cornerRadius(20)
-                .padding(0.4)
-                .cornerRadius(25)
-                .padding(-1)
-                .scaleEffect(showWallpaperPicker ? 0.97 : 1)
-                .padding()
-                .rotation3DEffect(Angle(degrees:showWallpaperPicker ? 20 : 0), axis: (x: showWallpaperPicker ? 600.0 : 0, y: 0.0, z: 0.0))
-
-                .animation(.spring(), value: textFielde)
-                .background(.ultraThinMaterial)
-                .background(VStack{
-                    Spacer()
-                    LinearGradient(colors: [Color("offwhite"),Color("offwhite"), Color.clear], startPoint: .bottom, endPoint: .top)
-                })
-                .cornerRadius(25)
             
-            // Divider().padding(.horizontal, 50)
             VStack {
-                ZStack{
+                settingselection
+                    .offset(x: !showWallpaperPicker ? 0 : UIScreen.main.bounds.width * -1)
+                
+                Divider()
+                //User privacy
+                VStack(alignment: .leading){
                     
-                    if showWallpaperPicker {
-                        wallpaperselection
-                            .offset(x: showWallpaperPicker ? 0 : UIScreen.main.bounds.width * 1)
-                           
-                    }
+                    
+                    //User privacy
+                    Text("Sign Out")
+                        .font(.title3).bold()
+                    
+                    HStack {
+                        Text("Sign Out")
+                        Spacer()
+                        Image(systemName: "power")
+                            .foregroundColor(Color("black"))
+                        
+                        
+                    }.padding()
+                        .neoButtonOff(isToggle: false, cornerRadius: 13) {
+                            //
+                            signout()
+                        }
+                        .padding(.vertical, 2)
                     
                     
-                    VStack {
-                        settingselection
-                            .offset(x: !showWallpaperPicker ? 0 : UIScreen.main.bounds.width * -1)
-                        
-                        Divider()
-                        //User privacy
-                        VStack(alignment: .leading){
-                        
-                         
-                            //User privacy
-                            Text("Sign Out")
-                                .font(.title3).bold()
-                            
-                            HStack {
-                                Text("Sign Out")
-                                Spacer()
-                                Image(systemName: "power")
-                                    .foregroundColor(Color("black"))
-                                
-                                
-                            }.padding()
-                                .neoButtonOff(isToggle: false, cornerRadius: 13) {
-                                    //
-                                    signout()
-                                }
-                                .padding(.vertical, 2)
-                            
-                        
-                    }.padding().neoButtonOff(isToggle: false, cornerRadius: 13) {
-                        //
-                      
-                    }
-                    .padding()
-                        
-                    }
+                }.padding().neoButtonOff(isToggle: false, cornerRadius: 13) {
+                    //
                     
                 }
+                .padding()
                 
             }
             
@@ -221,19 +133,23 @@ struct SettingsView: View {
             
             
             
+            
+            
+            
+            
         }
-            .padding()
-           
+        .padding()
+        
         
     }
     var birthdaypicker: some View {
         DatePicker(selection: $birthDate, in: ...Date(), displayedComponents: .date) {
             Text("")
-              
+            
             
         }
         .datePickerStyle(WheelDatePickerStyle())
-
+        
         .frame(maxWidth: .infinity)
         
         
@@ -242,27 +158,148 @@ struct SettingsView: View {
     
     var settingselection : some View {
         
-       
-          
+        
+        
         VStack(alignment: .leading, spacing: 12) {
             VStack(alignment: .leading){
-            Text("Profile Infomation")
-                .font(.title3).bold()
-            HStack {
-                Text("Email")
-                Spacer()
-                Text("test@gmail.com")
-                    .foregroundColor(Color("black"))
-                
-                
+                HStack {
+                    Text("Profile Infomation")
+                        .font(.title3).bold()
+                    Spacer()
+                    Image(systemName: "arrow.up")
+                        .padding(8)
+                        .background(Color("offwhite"))
+                        .cornerRadius(30)
+                        .opacity(showMoreProfileInfo ? 1 : 0)
+                        .neoButton(isToggle: true) {
+                            //showMoreProfileInfo
+                            withAnimation(.spring()) {
+                                showMoreProfileInfo.toggle()
+                            }
+                        }
+                }
+                HStack {
+                    Text("Email")
+                    Spacer()
+                    Text(userInfo.email)
+                        .foregroundColor(Color("black"))
+                    
+                    
+                }.padding()
+                    .neoButtonOff(isToggle: false, cornerRadius: 13) {
+                        //
+                    }
+                //Settings personal info button
+                HStack {
+                    Text("Name")
+                    Spacer()
+                    Text(userInfo.firstname)
+                        .foregroundColor(Color("black"))
+                    
+                    
+                }.padding()
+                    .neoButtonOff(isToggle: false, cornerRadius: 13) {
+                        //
+                    }
+                    .padding(.vertical, 2)
+                //Settings personal info button
+                HStack {
+                    Text("About Me")
+                    Spacer()
+                    Text(" \("\(userInfo.aboutme)")")
+                        .foregroundColor(Color("black"))
+                        .lineLimit(1)
+                    
+                    
+                }.padding()
+                    .neoButtonOff(isToggle: false, cornerRadius: 13) {
+                        //
+                    }
+                    .padding(.vertical, 2)
+                    
+               
+                if showMoreProfileInfo {
+                //Settings personal info button
+                HStack {
+                    Text("Date of Birth")
+                    Spacer()
+                    Text(userInfo.birthday)
+                        .foregroundColor(Color("black"))
+                    
+                    
+                }.padding()
+                    .neoButtonOff(isToggle: false, cornerRadius: 13) {
+                        //
+                    }
+                    .padding(.vertical, 2)
+                //Settings personal info button
+                HStack {
+                    Text("Location")
+                    Spacer()
+                    Text(userInfo.location[0])
+                        .foregroundColor(Color("black"))
+                    
+                    
+                }.padding()
+                    .neoButtonOff(isToggle: false, cornerRadius: 13) {
+                        //
+                    }
+                    .padding(.vertical, 2)
+                //Settings personal info button
+                HStack {
+                    Text("Education")
+                    Spacer()
+                    Text(userInfo.education)
+                        .foregroundColor(Color("black"))
+                    
+                    
+                }.padding()
+                    .neoButtonOff(isToggle: false, cornerRadius: 13) {
+                        //
+                    }
+                    .padding(.vertical, 2)
+                //Settings personal info button
+                HStack {
+                    Text("Employment")
+                    Spacer()
+                    Text(userInfo.work)
+                        .foregroundColor(Color("black"))
+                    
+                    
+                }.padding()
+                    .neoButtonOff(isToggle: false, cornerRadius: 13) {
+                        //
+                    }
+                    .padding(.vertical, 2)
+            }
             }.padding()
+                .overlay(
+                    VStack {
+                        Spacer()
+                        HStack{
+                            Spacer()
+                            //Down arrow button
+                            Image(systemName: "arrow.down")
+                                .padding(8)
+                                .background(LinearGradient(colors: [Color("offwhite"),Color("offwhite"),Color("white"),Color.clear], startPoint: .top, endPoint: .bottom))
+                                .cornerRadius(30)
+                                .neoButton(isToggle: true) {
+                                    //showMoreProfileInfo
+                                    withAnimation(.spring()) {
+                                        showMoreProfileInfo.toggle()
+                                    }
+                                }.offset(y:25)
+                            Spacer()
+                        }.background(
+                            LinearGradient(colors: [Color.clear,Color("white"),Color("white")], startPoint: .top, endPoint: .bottom)
+                                .offset(y:20)
+                    )
+                    }.opacity(showMoreProfileInfo ? 0 : 1)
+                )
+                .padding(.bottom,18)
                 .neoButtonOff(isToggle: false, cornerRadius: 13) {
                     //
                 }
-                .padding(.vertical, 2)
-        }.padding().neoButtonOff(isToggle: false, cornerRadius: 13) {
-            //
-        }
             
             Divider()
             //New Section
@@ -306,52 +343,53 @@ struct SettingsView: View {
             Divider()
             //User privacy
             VStack(alignment: .leading){
-            Text("Privacy Policy")
-                .font(.title3).bold()
-            HStack {
-                Text("Data Protection")
-                Spacer()
-                Image(systemName: "list.bullet.rectangle.portrait")
-                    .foregroundColor(Color("black"))
+                Text("Privacy Policy")
+                    .font(.title3).bold()
+                HStack {
+                    Text("Data Protection")
+                    Spacer()
+                    Image(systemName: "list.bullet.rectangle.portrait")
+                        .foregroundColor(Color("black"))
+                    
+                    
+                }.padding()
+                    .neoButtonOff(isToggle: false, cornerRadius: 13) {
+                        //
+                    }
+                    .padding(.vertical, 2)
                 
-                
-            }.padding()
-                .neoButtonOff(isToggle: false, cornerRadius: 13) {
-                    //
-                }
-                .padding(.vertical, 2)
-            
-            HStack {
-                Text("Report a problem")
-                Spacer()
-                Image(systemName: "exclamationmark.triangle")
-                    .foregroundColor(Color("black"))
-                
-                
-            }.padding()
-                .neoButtonOff(isToggle: false, cornerRadius: 13) {
-                    //
-                }
-                .padding(.vertical, 2)
+                HStack {
+                    Text("Report a problem")
+                    Spacer()
+                    Image(systemName: "exclamationmark.triangle")
+                        .foregroundColor(Color("black"))
+                    
+                    
+                }.padding()
+                    .neoButtonOff(isToggle: false, cornerRadius: 13) {
+                        //
+                    }
+                    .padding(.vertical, 2)
             }.padding().neoButtonOff(isToggle: false, cornerRadius: 13) {
                 //
             }
-                   
-                       
-                        
-                        
-                    
-                    
-                }.padding(10)
-                    .padding(.vertical, 10)
-                    
-                   
-                    
-              
-                   
-                
             
             
+            
+            
+            
+            
+        }.padding(10)
+        .padding(.vertical, 10)
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -377,29 +415,29 @@ struct SettingsView: View {
         if components.count > 0 {
             let firstName = components.removeFirst()
             let lastName = components.joined(separator: " ")
-        
-        
-        db.collection("users").whereField("email", isEqualTo: user?.email ?? "")
-            .getDocuments() { (querySnapshot, error) in
-                if error != nil {
-                    showNotification = true
-                    notificationMessage = "there was an error getting the right dociment with emal"
-                } else {
-                    for document in querySnapshot!.documents {
-                        db.collection("users").document("\(document.documentID)").setData(["firstName": "\(firstName)","lastName": "\(lastName)"], merge: true) { error in
-                            
-                            if error == nil {
+            
+            
+            db.collection("users").whereField("email", isEqualTo: user?.email ?? "")
+                .getDocuments() { (querySnapshot, error) in
+                    if error != nil {
+                        showNotification = true
+                        notificationMessage = "there was an error getting the right dociment with emal"
+                    } else {
+                        for document in querySnapshot!.documents {
+                            db.collection("users").document("\(document.documentID)").setData(["firstName": "\(firstName)","lastName": "\(lastName)"], merge: true) { error in
                                 
-                                showNotification = true
-                                notificationMessage = "Your name was changed to \(textEdit) successfully."
-                            } else {
-                                showNotification = true
-                                notificationMessage = "there was an error at last line"
+                                if error == nil {
+                                    
+                                    showNotification = true
+                                    notificationMessage = "Your name was changed to \(textEdit) successfully."
+                                } else {
+                                    showNotification = true
+                                    notificationMessage = "there was an error at last line"
+                                }
                             }
                         }
                     }
                 }
-            }
         }
     }
     func convertAge() -> String{
@@ -408,10 +446,10 @@ struct SettingsView: View {
         formatter.dateFormat = "MM-dd-yyyy"
         
         let date = formatter.string(from: birthDate)
-   
         
         
-      
+        
+        
         
         return String(date)
         
@@ -448,29 +486,29 @@ struct SettingsView: View {
         let user = Auth.auth().currentUser
         // Set the data to update
         
-            db.collection("users").whereField("email", isEqualTo: user?.email ?? "")
-                .getDocuments() { (querySnapshot, error) in
-                    if error != nil {
-                        
-                    } else {
-                        for document in querySnapshot!.documents {
-                            db.collection("users").document("\(document.documentID)").setData(["age": "\(getage())"], merge: true) { error in
+        db.collection("users").whereField("email", isEqualTo: user?.email ?? "")
+            .getDocuments() { (querySnapshot, error) in
+                if error != nil {
+                    
+                } else {
+                    for document in querySnapshot!.documents {
+                        db.collection("users").document("\(document.documentID)").setData(["age": "\(getage())"], merge: true) { error in
+                            
+                            if error == nil {
                                 
-                                if error == nil {
-                                    
-                                    showNotification = true
-                                    notificationMessage = "Your birthdate has been changed successfully."
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
-                                        showBlur = false
-                                        
-                                    }
-                                } else {
+                                showNotification = true
+                                notificationMessage = "Your birthdate has been changed successfully."
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
+                                    showBlur = false
                                     
                                 }
+                            } else {
+                                
                             }
                         }
                     }
                 }
+            }
         
     }
     
@@ -489,7 +527,7 @@ struct SettingsView: View {
                             
                             if error == nil {
                                 
-                               
+                                
                             }
                         }
                     }
@@ -498,7 +536,7 @@ struct SettingsView: View {
         try! Auth.auth().signOut()
         signIn = false
         signInAnimation = true
-       
+        
     }
     func changePic(){
         
@@ -522,7 +560,7 @@ struct SettingsView: View {
             ref.downloadURL { url, err in
                 if let err = err {
                     //som err
-                   
+                    
                     return
                 } else {
                     notificationMessage = "Your url downloaded successfully"
@@ -578,9 +616,9 @@ struct SettingsView: View {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-   //    SettingsView()
-//            .preferredColorScheme(.dark)
-       // MainTab()
+        //    SettingsView()
+        //            .preferredColorScheme(.dark)
+        // MainTab()
         ViewController()
             .preferredColorScheme(.dark)
     }
@@ -594,9 +632,9 @@ struct SettingSelections: View {
         HStack{
             Text(title)
             Spacer()
-          
-        }.padding()
             
+        }.padding()
+        
             .scaleEffect( selectionTapped ? 0.96 : 1)
     }
 }

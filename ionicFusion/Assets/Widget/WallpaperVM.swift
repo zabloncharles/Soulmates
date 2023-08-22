@@ -84,13 +84,13 @@ struct WallpaperVM: View {
     }
 }
 
-
-
-struct WallpaperVM_Previews: PreviewProvider {
-    static var previews: some View {
-//        HandbookItem(handbook: handbooks[0], showWallpaperPicker: .constant(false))
-        SettingsView()
-    }
-}
+//
+//
+//struct WallpaperVM_Previews: PreviewProvider {
+//    static var previews: some View {
+////        HandbookItem(handbook: handbooks[0], showWallpaperPicker: .constant(false))
+//      //  SettingsView()
+//    }
+//}
 
 

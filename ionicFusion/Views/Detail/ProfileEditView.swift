@@ -48,7 +48,7 @@ struct ProfileEditView: View {
                         
                         
                         if showSettings {
-                            SettingsView()
+                            SettingsView( userInfo: profile)
                                 .offset(y:-60)
                                 .transition(.asymmetric(
                                     insertion: .move(edge: .trailing),
@@ -234,7 +234,7 @@ struct ProfileEditView: View {
                                 .rotationEffect(.degrees(showSettings ? 0 : 180))
                                 .animation(.linear, value: showSettings)
                                 .padding(2)
-                                .background(.ultraThinMaterial)
+                                //.background(.ultraThinMaterial)
                                 .cornerRadius(5)
                                 .neoButton(isToggle: false) {
                                     //
@@ -258,7 +258,7 @@ struct ProfileEditView: View {
                                 .rotationEffect(.degrees(isEditing ? 180 : 0))
                                 .animation(.linear, value: isEditing)
                                 .padding(2)
-                                .background(.ultraThinMaterial)
+                               // .background(.ultraThinMaterial)
                                 .cornerRadius(5)
                                 .neoButton(isToggle: false) {
                                     //
@@ -276,11 +276,11 @@ struct ProfileEditView: View {
                                 .opacity(1)
                             }
                         }
-                    }.padding(.vertical,17)
-                        .padding(.horizontal,10)
+                    }.padding(.vertical,4)
+                        .padding(.horizontal,3)
                         .padding(2)
-                        .background(.ultraThinMaterial)
-                        .cornerRadius(15)
+                        .background(.ultraThinMaterial.opacity(0.90))
+                        .cornerRadius(13)
                 }.padding(.horizontal,15)
                 Spacer()
             })
@@ -763,7 +763,7 @@ struct ProfileEditView: View {
                     
                     else {
                         withAnimation(.spring()) {
-                            //  hidemainTab = false
+                              hidemainTab = false
                         }
                         
                         

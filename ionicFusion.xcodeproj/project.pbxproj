@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		217A2403164EC0396CC256FB /* Pods_ionicFusion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E80590F914965A253665F93F /* Pods_ionicFusion.framework */; };
-		F70636302A1D5742007A9FEF /* ShuffleMatchesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F706362F2A1D5742007A9FEF /* ShuffleMatchesView.swift */; };
 		F70636322A1D6398007A9FEF /* MatchCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F70636312A1D6398007A9FEF /* MatchCard.swift */; };
 		F70636342A1D6A92007A9FEF /* SmallMatchActive.swift in Sources */ = {isa = PBXBuildFile; fileRef = F70636332A1D6A92007A9FEF /* SmallMatchActive.swift */; };
 		F70636362A1D8960007A9FEF /* GetImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F70636352A1D8960007A9FEF /* GetImage.swift */; };
@@ -179,7 +178,6 @@
 		3810BA9C8BFADD1E82FD59A0 /* Pods-ionicFusion.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ionicFusion.debug.xcconfig"; path = "Target Support Files/Pods-ionicFusion/Pods-ionicFusion.debug.xcconfig"; sourceTree = "<group>"; };
 		AE85A53419AEF9DF87AD4BA4 /* Pods-ionicFusion.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ionicFusion.release.xcconfig"; path = "Target Support Files/Pods-ionicFusion/Pods-ionicFusion.release.xcconfig"; sourceTree = "<group>"; };
 		E80590F914965A253665F93F /* Pods_ionicFusion.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ionicFusion.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F706362F2A1D5742007A9FEF /* ShuffleMatchesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuffleMatchesView.swift; sourceTree = "<group>"; };
 		F70636312A1D6398007A9FEF /* MatchCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchCard.swift; sourceTree = "<group>"; };
 		F70636332A1D6A92007A9FEF /* SmallMatchActive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallMatchActive.swift; sourceTree = "<group>"; };
 		F70636352A1D8960007A9FEF /* GetImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetImage.swift; sourceTree = "<group>"; };
@@ -444,7 +442,7 @@
 		F73F32452A160A1C0038A6D3 /* Pages */ = {
 			isa = PBXGroup;
 			children = (
-				F706362F2A1D5742007A9FEF /* ShuffleMatchesView.swift */,
+				F7569D542A10641A00FE3E84 /* FullProfileView.swift */,
 				F7569D562A11DE9900FE3E84 /* LikesView.swift */,
 				F7A3135D27F4CDD100F9F550 /* HomeView.swift */,
 				F7569D5E2A11EAB200FE3E84 /* StandoutsView.swift */,
@@ -468,7 +466,6 @@
 		F7A3136927F4CDD100F9F550 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
-				F7569D542A10641A00FE3E84 /* FullProfileView.swift */,
 				F71652FB2A92DC320063E029 /* ChatTester.swift */,
 				F71652F12A918E040063E029 /* MessageDetailView.swift */,
 				F79594662A27907800636776 /* ProfileEditView.swift */,
@@ -956,7 +953,6 @@
 				F73F32342A138C800038A6D3 /* DragsCard.swift in Sources */,
 				F7D847E62A22BE6400E1E273 /* messageprev.swift in Sources */,
 				F7BDF1072A287575008FDB4C /* AboutMePicker.swift in Sources */,
-				F70636302A1D5742007A9FEF /* ShuffleMatchesView.swift in Sources */,
 				F7A3142927F4CFE100F9F550 /* TextModifiers.swift in Sources */,
 				F7A3147527F4CFE100F9F550 /* ImagePicker.swift in Sources */,
 				F7A3137527F4CDD100F9F550 /* NavigationBar.swift in Sources */,
