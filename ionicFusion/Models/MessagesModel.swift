@@ -7,27 +7,6 @@
 
 import SwiftUI
 
-struct MessageUser: Identifiable {
-    let id = UUID()
-    var name: String
-    var message: String
-    var numberofmessages: Int
-    var avatar: String
-    var background: String
-    var online: Bool
-    
-}
-
-var messageContent = [
-    MessageUser(name: "john Bates", message: "Hey bro", numberofmessages: 4, avatar: "ob1", background: "ob1", online: true),
-    MessageUser(name: "Ben Stiller", message: "Reset your CSS, set up your fonts and create your first React component", numberofmessages: 3, avatar: "cover3", background: "cover2", online: false),
-    MessageUser(name: "Ced Rits", message: "Did you find it?", numberofmessages: 3, avatar: "cover1", background: "cover2", online: false),
-    MessageUser(name: "Jim Stiller", message: "I know that just find out", numberofmessages: 3, avatar: "cover2", background: "cover2", online: false),
-    MessageUser(name: "Terr Gill", message: "Why?", numberofmessages: 3, avatar: "cover4", background: "cover4", online: false),
-    MessageUser(name: "Ben Stiller", message: "It get's even better because last time it didn't even reach the goal i wanted but today it's definetely going to. So don't miss it and i mean it zoo", numberofmessages: 3, avatar: "cover5", background: "cover2", online: false),
-    MessageUser(name: "Nija Wersa", message: "You want to go hiking today?", numberofmessages: 3, avatar: "cover6", background: "cover5", online: false)
-    
-]
 
 struct MessageModel: Identifiable {
     let id = UUID()

@@ -92,69 +92,6 @@ extension View {
     }
 }
 
-//:MARK this card has offwhite and can click to linked action using binding---------------------------------------------------------------------------
-
-struct CardTapped: ViewModifier {
-    @State var isToggle: Bool
-    @State var cornerRadius: CGFloat = 15
-    @Binding var action: Bool
-    @State var animate = false
-@State var shadow = true
-    @Binding var matchcard : MatchCardData
-    var section : MatchCardData
-  
-    
-    func body(content: Content) -> some View {
-        content
-            .background(Color("offwhite"))
-            .cornerRadius(cornerRadius)
-            .shadow(color:  .black.opacity(shadow ? 0.3 : 0), radius: 10, x:animate ? -5 : 10, y:animate ? -5 : 10 )
-            .shadow(color: Color("white").opacity(shadow ? 0.9 : 0),radius: 10, x:animate  ? 10 : -5, y:animate  ? 10 : -5)
-            .scaleEffect(animate && !isToggle ? 0.97 : 1)
-        
-            .onTapGesture {
-                
-                matchcard = section
-                
-                if isToggle {
-                    
-                    withAnimation(.spring())  {
-                        animate.toggle()
-                        action.toggle()
-                    }
-                } else {
-                    //Quick animation of a click
-                    withAnimation(.spring()) {
-                        animate = true
-                        
-                    }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                        withAnimation(.spring()) {
-                            action.toggle()
-                        }
-                    }
-                   DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                        withAnimation(.spring()) {
-                            
-                            animate = false
-                            
-                        }
-                        
-                    }
-                }
-            }
-        
-    }
-}
-
-extension View {
-    func offwhiteCard(isToggle: Bool, cornerRadius: CGFloat ,action : Binding<Bool>, shadow : Bool, matchcard : Binding<MatchCardData>, section : MatchCardData) -> some View {
-        self.modifier(CardTapped(isToggle: isToggle, cornerRadius: cornerRadius, action: action, shadow: shadow, matchcard: matchcard, section: section))
-    }
-}
-
-
-
 
 //------------------------------------------------------
 //MARK: Neurmorphic Cutom Modifiers that can tap above

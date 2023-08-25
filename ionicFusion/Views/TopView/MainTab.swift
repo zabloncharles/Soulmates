@@ -6,18 +6,10 @@ import FirebaseFirestore
 import Firebase
 
 struct MainTab: View {
-    @State private var users: [User] = [] // Array to hold the user data
-    @State var currentUser: UserStruct = fakeUser // Variable to hold the user data
-    @State var user: UserStruct? // Variable to hold the user dat
+    @State var currentUser: UserStruct? = fakeUser // Variable to hold the user data
     @AppStorage("currentPage") var selected = 0
-    @AppStorage("showAccount") var showAccount = false
     @AppStorage("hidemainTab") var hidemainTab = false
-    @AppStorage("notifications") var showNotifications = false
-    @AppStorage("editcalendar") var showEditCalendar = false
     @Namespace var namespace
-   // @State var matchcard = MatchCardData(name: "", location: "", quote: "", profilepic: "", background: "", work: "", matchscore: "")
-    @State var matchcard = matchCardData[0]
-    @State var selectedSection = messageSections[0]
  
 
     var body: some View {
@@ -28,38 +20,30 @@ struct MainTab: View {
                 VStack{
                     
                     if self.selected == 0{
-                       // HomeView( matchcard: $matchcard)
-                        FullProfileView( namespace: namespace)
+                        FullProfileView( currentUser: $currentUser)
                     }
                    if self.selected == 1{
-                      LikesView()
+                       LikesView(currentUser: $currentUser)
                           
                           
                     }
                     if self.selected == 2{
                      
-                       // StandoutsView(matchcard: $matchcard)
-                        HomeView(currentUser: $user)
+                        HomeView(currentUser: $currentUser)
                     }
                     if self.selected == 3{
-                        NotificationsDetail(namespace: namespace, notification: $selectedSection)
+                        NotificationsDetail(namespace: namespace)
                         
                     }
                     if self.selected == 4{
                         ProfileEditView()
-                       // SenderView()
                         
                     }
                 }
             }
             
             
-//            if showProfile {
-//                FullProfileView(namespace: namespace,user: $user, matchcard: $matchcard, showProfile: $showProfile)
-//            }
-            
             FloatingTabbar(selected: self.$selected)
-                
                 .offset(y:  hidemainTab  ? UIScreen.main.bounds.height * 0.13 : 0)
                 .animation(.spring(), value: hidemainTab)
             
@@ -70,10 +54,14 @@ struct MainTab: View {
                 
         }.onAppear{
            // fetchCurrentUser()
+            fetchFakeUser()
         }
         
     }
     
+    func fetchFakeUser(){
+        
+    }
     private func fetchCurrentUser() {
         
         let db = Firestore.firestore()
@@ -109,7 +97,7 @@ struct MainTab: View {
                     lookingfor: documentData["lookingfor"] as? String ?? "",
                     online: documentData["online"] as? Bool ?? false,
                     password: documentData["password"] as? String ?? "",
-                    matches: documentData["matches"] as? Int ?? 0,
+                    matches: documentData["matches"] as? [String] ?? [],
                     age: documentData["age"] as? String ?? "", lifestyle: documentData["lifestyle"] as? [String] ?? [],
                     lifestyledesc: documentData["lifestyledesc"] as? String ?? ""
                 )
@@ -151,7 +139,7 @@ struct FloatingTabbar : View {
             HStack( alignment: .center, spacing: 17.0){
                 
                   
-                TabIcon(selected: $selected, selectedicon: 0, icon: "house", name:"Home" ,tappedicon: $tappedicon )
+                TabIcon(selected: $selected, selectedicon: 0, icon: "rectangle.portrait.on.rectangle.portrait.angled", name:"Match" ,tappedicon: $tappedicon )
                 TabIcon(selected: $selected, selectedicon: 1, icon: "fleuron",name:"Likes" , tappedicon: $tappedicon )
                 TabIcon(selected: $selected, selectedicon: 2, icon: "person.2" , name:"Explore" ,tappedicon: $tappedicon )
                 TabIcon(selected: $selected, selectedicon: 3, icon: "bubble.left.and.bubble.right",name:"Chats" , tappedicon: $tappedicon )

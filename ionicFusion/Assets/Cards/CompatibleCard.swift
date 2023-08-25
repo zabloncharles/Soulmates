@@ -10,6 +10,7 @@ import SwiftUI
 struct CompatibleCard: View {
     let completion: () -> Void
     var user: UserStruct
+    var namespace: Namespace.ID
     @State var userImageLoaded = false
     @State var userBackgroundLoaded = false
     @State var appeared = false
@@ -19,11 +20,11 @@ struct CompatibleCard: View {
         ZStack {
             VStack{
                 Spacer()
-            }.frame(width: 350, height: 500)
+            }.frame(width: 390, height: 500)
                 .background(LinearGradient(colors: [Color("offwhiteneo"), Color.clear, Color.clear], startPoint: .bottom, endPoint: .top))
                 .background(
-                   // Image("image_04")
-                      //  .resizable()
+                    // Image("image_04")
+                    //  .resizable()
                     GetImageAlert(url:"https://source.unsplash.com/random/?landscape,dark", loaded: $userBackgroundLoaded)
                         .blur(radius: userBackgroundLoaded ? 0 : 5)
                         .opacity(appeared ? 1 : 0)
@@ -34,73 +35,80 @@ struct CompatibleCard: View {
             
             VStack{
                 Spacer()
-             
-                    VStack {
-                        Text(user.firstname)
-                            .font(.custom("BodoniFLF-Roman", size: 28))
-                            .foregroundColor(.clear)
-                            .background(LinearGradient(colors: [randomGradients.randomElement() ?? .clear,Color.white,randomGradients.randomElement() ?? .clear], startPoint: .leading, endPoint: .trailing))
-                            
+                
+                VStack {
+                    Text(user.firstname)
+                        .font(.custom("BodoniFLF-Roman", size: 28))
+                        .foregroundColor(.clear)
+                        .background(LinearGradient(colors: [randomGradients.randomElement() ?? .clear,Color.white,randomGradients.randomElement() ?? .clear], startPoint: .leading, endPoint: .trailing))
+                    
                         .multilineTextAlignment(.center)
-                        
+                    
                         .mask (
                             Text(user.firstname)
                                 .font(.custom("BodoniFLF-Roman", size: 28))
                                 .multilineTextAlignment(.center)
                         )
-                       // Text("There is only one way to find love and thats to go out there and expose yourself to the wonders of nature")
-                        Rectangle()
-                            .opacity(0.45)
-                            .frame(width: 250, height:0.2)
-                            .padding(-10)
-                        
-                        Text(user.aboutme)
-                            .font(.custom("BodoniFLF-Italic", size: 15))
-                            .multilineTextAlignment(.center)
-                            .frame(maxWidth: 270)
-                            .lineLimit(3)
-                            .padding(.top,-8)
-                    }
-                   // Text(user.online ? "Active Today" : "Inactive")
-                       // .font(.footnote)
-                       // .foregroundColor(user.online ? .green : .red)
-                   // Spacer()
-              
-                   // .background(Color.black)
-                   // .cornerRadius(10)
+                    // Text("There is only one way to find love and thats to go out there and expose yourself to the wonders of nature")
+                    Rectangle()
+                        .opacity(0.45)
+                        .frame(width: 250, height:0.2)
+                        .padding(-10)
+                    
+                    Text(user.aboutme)
+                        .font(.custom("BodoniFLF-Italic", size: 15))
+                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: 270)
+                        .lineLimit(3)
+                        .padding(.top,-8)
+                }
+                // Text(user.online ? "Active Today" : "Inactive")
+                // .font(.footnote)
+                // .foregroundColor(user.online ? .green : .red)
+                // Spacer()
+                
+                // .background(Color.black)
+                // .cornerRadius(10)
             }.padding()
-                .padding(.bottom,60)
+                .padding(.bottom,10)
             
             VStack{
                 Spacer()
-            }.frame(width: 340, height: 400)
-                
+            }.frame(width: 380, height: 400)
+            
                 .background( //Image("image_02")
                     VStack {
                         
-                            GetImageAlert(url:user.avatar, loaded: $userImageLoaded)
-                            .opacity(appeared ? 1 : 0)
-                       
+                        
+                        
+                        GetImageAlert(url:user.avatar, loaded: $userImageLoaded)
+                        // .matchedGeometryEffect(id: "\(user.avatar)", in: namespace)
+                        
+                        
+                        
                     }
-                   // .resizable()
                 )
-                
+            
                 .cornerRadius(10)
                 .offset(y:-44)
             
             
-        } .scaleEffect(appeared ? 1 : 0.97)
-            .onAppear{
-                withAnimation(.spring()) {
-                    appeared = true
-                }
+            
+            
+        }
+        
+        //.scaleEffect(appeared ? 1 : 0.97)
+        .onAppear{
+            withAnimation(.spring()) {
+                appeared = true
             }
-            .onDisappear{
-                withAnimation(.spring()) {
-                    appeared = false
-                }
+        }
+        .onDisappear{
+            withAnimation(.spring()) {
+                appeared = false
             }
-            .neoButton(isToggle: false) {
+        }
+        .neoButton(isToggle: false) {
             //Do this
             completion()
         }

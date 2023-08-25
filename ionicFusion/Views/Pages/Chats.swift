@@ -18,19 +18,20 @@ import FirebaseFirestore
 import FirebaseAuth
 
 struct NotificationsDetail: View {
+    @State var profiles: [UserStruct] = compatibleFakeUsers// Array to hold the user data
+    @State var profile = userStruct[0]
+    @State var current: UserStruct = fakeUser
     @AppStorage("hidemainTab") var hidemainTab = false
     @AppStorage("wallpaper") var wallpaper = "ob1"
     var namespace: Namespace.ID
-    @Binding var notification: NotificationModel
     var isAnimated = true
     @State var viewState: CGSize = .zero
     @State var showSection = false
+    @State var showProfile = false
     @State var appear = [false, false, false]
-    @State var selectedSection = messageSections[0]
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @State var pageAppeared = false
     @State private var chatMessages: [MessageModel] = []
-    @State var userMessages: [MessageUser] = []
     @State var currentViewed = ""
     @State var texter = ""
     
@@ -54,6 +55,12 @@ struct NotificationsDetail: View {
                     .scaleEffect(-viewState.width/500 + 1)
                     .gesture(isAnimated ? drag : nil)
                     .ignoresSafeArea()}
+                
+                
+            }
+            if showProfile {
+                ViewProfileView(namespace: namespace, profile: profile, dislike: $showProfile, scrolling: $showProfile)
+                // .matchedGeometryEffect(id: profile.avatar, in: namespace)
                 
                 
             }
@@ -111,14 +118,16 @@ struct NotificationsDetail: View {
                         HStack {
                             HStack {
                                 Image(systemName: "fleuron")
+                                   
                                 Text(texter.isEmpty ? "Messages" : texter)
                                 
                             }.font(.title3)
                                 .fontWeight(.bold)
                             Spacer()
                             HStack {
-                                Image(systemName: notification.numberofmessages > 0 ? "bell.badge.fill" : "bell")
-                                Text("5")
+                                Image(systemName: profiles.count > 0 ? "bell.badge.fill" : "bell")
+                                
+                                Text("\(profiles.count)")
                             }.padding(.horizontal,12)
                                 .padding(.vertical,5)
                                 .background(Color.blue.opacity(0.3))
@@ -176,27 +185,36 @@ struct NotificationsDetail: View {
     var sectionsSection: some View {
         
         VStack(spacing: 10) {
-            
-            ForEach(userMessages) {  section in
+            ForEach(Array(profiles.enumerated().filter { _, user in
+                current.matches.contains(user.email)
+            }), id: \.element.id) { index, user in
                 
                 NavigationLink(destination:
-                                ZStack {
-                    MessageDetailView(log: section)
-                    
-                        .onAppear{
-                        }
-                    
-                }
-                )
-                {
-                    ZStack {
-                        MessageCard(section: section)
-                        
-                    }
-                    
-                    
+                                MessageDetailView(log: user)
+                ) {
+                    MessageCard(section: user, profile: $profile, showProfile: $showProfile)
                 }
             }
+//            ForEach(userMessages) {  section in
+//
+//                NavigationLink(destination:
+//                                ZStack {
+//                    MessageDetailView(log: section)
+//
+//                        .onAppear{
+//                        }
+//
+//                }
+//                )
+//                {
+//                    ZStack {
+//                        MessageCard(section: section, showProfile: $showProfile)
+//
+//                    }
+//
+//
+//                }
+//            }
         }
         .padding(20)
         .padding(.vertical, 60)
@@ -237,7 +255,7 @@ struct NotificationsDetail: View {
     }
     
     func fetchFakeMessages() {
-        userMessages = messageContent
+       // userMessages = messageContent
     }
     
     //    func fetchIncomingMessages() {

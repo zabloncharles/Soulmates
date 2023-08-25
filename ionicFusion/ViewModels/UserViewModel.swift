@@ -20,67 +20,67 @@ class UserViewModel: ObservableObject {
         
     }
     
-    func addInfo(){
-      
-        // Get a reference to the database
-        let db = Firestore.firestore()
-        let user = Auth.auth().currentUser
-        
-        db.collection("users").whereField("email", isEqualTo: user?.email ?? "")
-            .getDocuments() { (querySnapshot, error) in
-                if error != nil {
-                    //   print("Error getting documents: \(err)")
-                    
-                    self.userinfo = falseData
-                } else {
-                    for document in querySnapshot!.documents {
-                        //  print("\(document.documentID) => \(document.data())")
-                        //  userName = document.documentID
-                        
-                        let docRef = db.collection("users").document("\(document.documentID)")
-                        
-                        docRef.getDocument { (document, error) in
-                            if let document = document, document.exists {
-                             
-                               
-                             
-                                let firstname = (document.get("firstName") ?? "error") as! String
-                                let lastname = (document.get("lastName") ?? "error") as! String
-                                let notifications = "9"
-                                let period = "9"
-                                let pregnancy = "High"
-                                let avatar = (document.get("avatar") ?? "error") as! String
-                                let cyclechange = (document.get("cycle") ?? "01/04/2022") as! String
-                                let birthday = (document.get("age") ?? "error") as! String
-                                let email = (document.get("email") ?? "error") as! String
-                                
-                                
-                                self.userinfo = [
-                                    User(fname: firstname,
-                                         lname: lastname,
-                                         notifications: notifications,
-                                         avatar: avatar,
-                                         cyclechange: cyclechange,
-                                         birthday: birthday,
-                                         email: email
-                                        )
-                                ]
-                                
-                                self.saveinfo = "\(firstname),\(lastname),\(notifications),\(period),\(pregnancy),\(cyclechange),\(birthday),\(email)"
-                                
-                            } else {
-                                // signedIn = false
-                                self.userinfo = falseData
-                            }
-                        }
-                        
-                        
-                    }
-                }
-            }
-        
-        
-    }
+//    func addInfo(){
+//      
+//        // Get a reference to the database
+//        let db = Firestore.firestore()
+//        let user = Auth.auth().currentUser
+//        
+//        db.collection("users").whereField("email", isEqualTo: user?.email ?? "")
+//            .getDocuments() { (querySnapshot, error) in
+//                if error != nil {
+//                    //   print("Error getting documents: \(err)")
+//                    
+//                   // self.userinfo = falseData
+//                } else {
+//                    for document in querySnapshot!.documents {
+//                        //  print("\(document.documentID) => \(document.data())")
+//                        //  userName = document.documentID
+//                        
+//                        let docRef = db.collection("users").document("\(document.documentID)")
+//                        
+//                        docRef.getDocument { (document, error) in
+//                            if let document = document, document.exists {
+//                             
+//                               
+//                             
+//                                let firstname = (document.get("firstName") ?? "error") as! String
+//                                let lastname = (document.get("lastName") ?? "error") as! String
+//                                let notifications = "9"
+//                                let period = "9"
+//                                let pregnancy = "High"
+//                                let avatar = (document.get("avatar") ?? "error") as! String
+//                                let cyclechange = (document.get("cycle") ?? "01/04/2022") as! String
+//                                let birthday = (document.get("age") ?? "error") as! String
+//                                let email = (document.get("email") ?? "error") as! String
+//                                
+//                                
+//                                self.userinfo = [
+//                                    User(fname: firstname,
+//                                         lname: lastname,
+//                                         notifications: notifications,
+//                                         avatar: avatar,
+//                                         cyclechange: cyclechange,
+//                                         birthday: birthday,
+//                                         email: email
+//                                        )
+//                                ]
+//                                
+//                                self.saveinfo = "\(firstname),\(lastname),\(notifications),\(period),\(pregnancy),\(cyclechange),\(birthday),\(email)"
+//                                
+//                            } else {
+//                                // signedIn = false
+//                              //  self.userinfo = falseData
+//                            }
+//                        }
+//                        
+//                        
+//                    }
+//                }
+//            }
+//        
+//        
+//    }
    
     func convertAge(lastperiod: Date) -> String{
         
@@ -134,9 +134,7 @@ class UserViewModel: ObservableObject {
     
 }
 
-let falseData = [
-    User(fname: "Bill", lname: "Nox",notifications: "0", avatar: "ob1", cyclechange: "0", birthday: "04/25/1997", email: "z@gmail.com")
-]
+
 
 struct DataView_Previews: PreviewProvider {
     static var previews: some View {

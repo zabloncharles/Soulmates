@@ -122,43 +122,10 @@ struct NavigationBar: View {
         }
     }
     
-    @ViewBuilder
-    var avatar: some View {
-       
-            Avatar()
-            .frame(width: 30, height: 30)
-            
-            .cornerRadius(30)
-            .background(
-                Circle()
-                    .fill(Color("offWhite"))
-                    .shadow( color: Color.black.opacity(0.2), radius: 10, x: tappedAvatar ? -5 : 10, y:tappedAvatar ?  -5 : 10)
-                    .shadow(color: Color.white.opacity(0.7), radius: 10, x:tappedAvatar ?  10 : -5, y: tappedAvatar ? 10 : -5)
-                
-                    .transition(.scale.combined(with: .opacity))
-                    .padding(-2)
-            ).scaleEffect(tappedAvatar ? 0.97 : 1)
-                .transition(.scale.combined(with: .slide))
-                .onTapGesture {
-                    showAccount = true
-                    withAnimation(.spring()){
-                        tappedAvatar = true
-                    }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                        withAnimation(.spring()){
-                            tappedAvatar = false
-                        }
-                    }
-                }
-       
-    }
 }
 
 struct NavigationBar_Previews: PreviewProvider {
     static var previews: some View {
-        //        NavigationBar(contentHasScrolled: .constant(false))
-        //            .preferredColorScheme(.dark)
-        //            .environmentObject(Model())
         ViewController()
             .preferredColorScheme(.dark)
     }

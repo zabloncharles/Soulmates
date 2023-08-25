@@ -408,11 +408,11 @@ struct StandoutsView: View {
 
 
 
-struct StandoutsView_Previews: PreviewProvider {
-    static var previews: some View {
-        
-        ViewController()
-        
-        
-    }
-}
+//struct StandoutsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        
+//      //  StandoutsView( matchcard: Binding<matchCardData>)
+//        
+//        
+//    }
+//}

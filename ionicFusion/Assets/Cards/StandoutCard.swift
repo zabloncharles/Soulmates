@@ -9,8 +9,6 @@ import SwiftUI
 
 struct Standoutcard: View {
     @Binding var showProfile : Bool
-    @Binding var matchcard : MatchCardData
-    var section : MatchCardData
     @State var welcomingisTapped = false
     var namespace: Namespace.ID
     @Binding var hideCard : Bool

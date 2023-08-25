@@ -39,30 +39,40 @@ struct ProfileEditView: View {
                 BackgroundView()
                 
                 ZStack {
-                    
+                   
                     
                     ScrollView {
                         
                         cover
                             .background(scrollDetection)
+                            .overlay(
+                                
+                                    LinearGradient(colors: [Color.clear,Color("white"),Color.clear], startPoint: .top, endPoint: .bottom)
+                                        .offset(y:370)
+                                   
+                                    
+                            )
                         
                         
                         if showSettings {
                             SettingsView( userInfo: profile)
                                 .offset(y:-60)
                                 .transition(.asymmetric(
-                                    insertion: .move(edge: .trailing),
-                                    removal: .move(edge: .trailing)).animation(.spring()))
-                        } else {
+                                    insertion: .opacity,
+                                    removal: .opacity))
+                            
+                                .opacity(!showSettings ? 0 : 1)
+                                .offset(y: !animateapper ? UIScreen.main.bounds.height * 1.02 : 0)
+                        }
                             content
                                 .background(
                                     LinearGradient(colors: [Color("offwhite"),Color.clear], startPoint: .bottom, endPoint: .top)
                                     // Color("offwhite")
                                         .offset(y:254))
-                            //.offset(x:aboutMeAppeared ? 0 : -150)
                                 .transition(.asymmetric(
-                                    insertion: .move(edge: .leading),
-                                    removal: .move(edge: .leading)).animation(.spring()))
+                                    insertion: .opacity,
+                                    removal: .opacity))
+                                .opacity(showSettings ? 0 : 1)
                                 .onAppear{
                                     withAnimation(.spring()) {
                                         aboutMeAppeared = true
@@ -73,7 +83,7 @@ struct ProfileEditView: View {
                                         aboutMeAppeared = false
                                     }
                                 }
-                        }
+                        
                         
                         
                         
@@ -322,7 +332,7 @@ struct ProfileEditView: View {
                                     }
                                 )
                         } else {
-                            GetImageAlert(url: "",loaded: .constant(false))
+                            GetImageAlert(url: profile.avatar, loaded: .constant(false))
                                 .offset(y: scrollY > 0 ? -scrollY : 0)
                                 .scaleEffect(scrollY > 0 ? scrollY / 1000 + 1 : 1)
                                 .blur(radius: scrollY > 0 ? scrollY / 10 : 0)
@@ -499,7 +509,7 @@ struct ProfileEditView: View {
                             Text("First Date Idea?")
                                 .font(.title2).bold()
                         }
-                        Text("What would you like to do with siri on a first date? :)")
+                        Text("What would you like to do with \(profile.firstname.lowercased()) on a first date? :)")
                             .font(.footnote)
                             .multilineTextAlignment(.leading)
                             .lineLimit(3)

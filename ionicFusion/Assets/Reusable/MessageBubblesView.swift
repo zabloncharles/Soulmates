@@ -67,6 +67,8 @@ struct MessageBubblesView: View {
                             }
                         }
                         Text(section.text)
+                            .fontWeight(.medium)
+                            .foregroundColor(.white)
                             .font(.subheadline)
                             .padding(.horizontal, 11.0)
                             .padding(.vertical, 9.0)
@@ -137,6 +139,7 @@ struct MessageBubblesView: View {
                         
                         VStack {
                             Text(section.text)
+                                .fontWeight(.medium)
                                 .foregroundColor(.white)
                                 .font(.subheadline)
                                 .padding(.horizontal, 11.0)

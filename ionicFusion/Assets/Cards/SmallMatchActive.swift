@@ -17,7 +17,6 @@ struct SmallMatchActive_Previews: PreviewProvider {
 
 
 struct SmallMatchActive: View {
-    @Binding var matchcard : MatchCardData
     @Binding var showprof : Bool
     var section : UserStruct
     var namespace: Namespace.ID

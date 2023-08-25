@@ -16,7 +16,6 @@ import SwiftUI
 
 
 struct WallpaperVM: View {
-    var handbook: Handbook
     @State var tappedImage = false
     @AppStorage("wallpaper") var wallpaper = ""
     @Binding var showWallpaperPicker : Bool
@@ -32,7 +31,7 @@ struct WallpaperVM: View {
                     HStack {
                         Spacer()
                         
-                        Text(handbook.wallpapername)
+                        Text("handbook.wallpapername")
                             .foregroundColor(.white)
                             .padding(.vertical, 5)
                             .padding(.leading, 15)
@@ -44,7 +43,7 @@ struct WallpaperVM: View {
                 }
             }
             .frame(height: 170)
-            .background(Image(handbook.wallpaperfilename)
+            .background(Image("handbook.wallpaperfilename")
                     .resizable(resizingMode: .stretch)
                     .aspectRatio(contentMode: .fill))
                 .cornerRadius(15)
@@ -69,7 +68,7 @@ struct WallpaperVM: View {
     func wallpaperselected(){
         
         
-        wallpaper = handbook.wallpaperfilename
+       
        
         
         let impactMed = UIImpactFeedbackGenerator(style: .light)

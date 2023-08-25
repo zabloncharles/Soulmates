@@ -12,33 +12,45 @@ import SwiftUI
 
 
 struct MessageCard: View {
-    var section: MessageUser
-    
+    var section: UserStruct
+    @Binding var profile : UserStruct
+    @Binding var showProfile : Bool
+    @State var userAvatarLoaded = false
     @State var isTapped = false
+    @State var whoSent = ["Sent","Received","Seen"]
     
     var body: some View {
         VStack {
             
             
             HStack(alignment: .center, spacing: 8) {
-                Image(section.avatar)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                
-                    .frame(width: 49, height: 49)
+              //  Image(section.avatar)
+                  //  .resizable()
+                  //  .aspectRatio(contentMode: .fill)
+                GetImageAlert(url:section.avatar, loaded: $userAvatarLoaded)
+                    .frame(width: 59, height: 59)
                     .mask(Circle())
                     .padding(5)
                     .mask(Circle())
+                    .neoButton(isToggle: false, perform: {
+                        //user tapped the avatar
+                        showProfile = true
+                        profile = section
+                    })
+//                    .onTapGesture {
+//                        showProfile = true
+//                        profile = section
+//                    }
                 VStack(alignment: .leading, spacing: 4) {
                     
                     
                     // GradientText(text: section.name, gradient: [.black, .blue])
-                    Text(section.name.capitalized)
-                        .customfontFunc(customFont: "sanfrancisco", style: .headline)
+                    Text(section.firstname)
+                        .customfontFunc(customFont: "sanfrancisco", style: .title3)
                         .foregroundColor(Color("black"))
                     
-                    Text(section.message)
-                        .customfontFunc(customFont: "sanfrancisco", style: .caption1)
+                    Text(whoSent.randomElement() ?? "Error")
+                        .customfontFunc(customFont: "sanfrancisco", style: .footnote)
                         .foregroundColor(.gray)
                         .lineLimit(1)
                     

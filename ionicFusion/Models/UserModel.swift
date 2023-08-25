@@ -27,6 +27,4 @@ struct Userr: Identifiable {
 }
 
 
-var matchDummy = [
-    UserStruct(firstname: "hey", lastname: "they", notifications: "4", avatar: "a", cyclechange: "66", birthday: "df", email: "email", aboutme: "som", education: "edu", work: "somewere", images: ["String"], likes: ["String"], location: ["String"], lookingfor: "String", online: false, password: "String", matches: 3, age: "", lifestyle: ["String"], lifestyledesc: "String")
-]
+

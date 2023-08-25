@@ -1,56 +1,44 @@
 //
-//  ViewProfileView.swift
+//  BoneProfile.swift
 //  ionicFusion
 //
-//  Created by Zablon Charles on 5/30/23.
+//  Created by Zablon Charles on 8/24/23.
 //
 
 import SwiftUI
 
-
-
-struct ViewProfileView_Previews: PreviewProvider {
-      @Namespace var namespace
-    static var previews: some View {
-     //   ViewProfileView(namespace: namespace, dislike: .constant(false), scrolling: .constant(T##value: Bool##Bool))
-      ViewController()
-    }
-}
-
-
-
-import SwiftUI
 import Firebase
 import FirebaseFirestore
 import FirebaseAuth
 
-struct ViewProfileView: View {
+struct BoneProfile: View {
     @AppStorage("hidemainTab") var hidemainTab = false
-    var namespace: Namespace.ID
+    @AppStorage("currentPage") var selected = 0
+    @State var profiles: [UserStruct] = compatibleFakeUsers
+    @Binding var currentUser: UserStruct?
     var profile = userStruct[0]
     var isAnimated = true
     @State var viewState: CGSize = .zero
-    @State var likedImage = ""
-    @State var sendMessage = ""
+    @State var pageAppeared = false
+    @Binding var showProfile : Bool
     @FocusState var sendMessageFocused: Bool
-    @State var showProfile = true
     @State var text = ""
     @State var erro = ""
+    @State var sendMessage = ""
     @State var typeText = ""
-    @State var profileImages = ["","",""]
-    @State var likedAppeared = false
-    @State var animatehearts = false
-    @Binding var dislike : Bool
-    @Binding var scrolling : Bool
-    @FocusState var isfocused
+    @State var dislike = false
+    @State var animateMatchImage = false
     @State var animateapper = false
-    @State var roundEntrance = false
     @State var profileLoaded = false
+    @State var outOfMatches = false
     @State var animategirl = false
     @State var liked = false
     @State var cancelLike = false
+    @State var profileImages = ["","",""]
+    @State var likedImage = ""
     @State var showMore = false
     @State var scrolledItem = 0
+    @State var profileNumber = 0
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.presentationMode) var presentationMode
     
@@ -60,94 +48,146 @@ struct ViewProfileView: View {
         ZStack {
             
             BackgroundView()
-            
-            ZStack {
-                
-                
-                ScrollView {
-                    
-                    cover
-                        .background(scrollDetection)
-                    //  .offset(y:dislike ? -570 : 0)
-                    //  .matchedGeometryEffect(id: "som\(matchcard.usernumber)", in: namespace)
-                    
-                    content
-                    // .offset(y: dislike ? 650 : 0)
-                    
-                    
-                }
-                .coordinateSpace(name: "scroll")
-                .mask(RoundedRectangle(cornerRadius: viewState.width / 3))
-                .scaleEffect(-viewState.width/500 + 1)
-                .gesture(drag)
-                
-                .ignoresSafeArea()
-                
-                if liked  {
-                    ZStack {
-                        LinearGradient(colors: [Color("white").opacity(0.94), Color.clear,Color.clear], startPoint: .bottom, endPoint: .top)
-                            .animation(.easeInOut.speed(0.65), value: hidemainTab)
-                            .opacity(hidemainTab ? 1 : 0)
+            VStack {
+                if !outOfMatches && dislike {
+                    VStack {
+                        LottieView(filename: "girlonphone")
+                            .neoButton(isToggle: false, perform: {
+                                //
+                            })
                             .onAppear{
-                                hidemainTab = true
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                    
+                                    dislike = false
+                                    animategirl = false
+                                    
+                                    
+                                }
                             }
-                            .onTapGesture {
-                                //hideKeyboard
-                                sendMessageFocused = false
+                            .offset(y:-30)
+                    }
+                    .frame(width: 350, height: 350)
+                    .animation(.spring(), value: animategirl)
+                    .scaleEffect(animategirl ? 1 : 0.81)
+                    .overlay(
+                        VStack{
+                            Spacer()
+                            VStack(alignment: .leading) {
+                                TextWriterAppear(typeText: "Looking for your soulmate..", speed: 0.02)
                             }
-                        likedcontent
-                            .animation(.easeInOut.delay(0.05), value: hidemainTab)
-                            .offset(y: !hidemainTab ? UIScreen.main.bounds.height * 1.02 : 0)
-                        
-                        
-                    }.background(.ultraThinMaterial)
-                        .edgesIgnoringSafeArea(.all)
+                        }.padding()
+                            .offset(y:-20)
+                    )
+                    .onAppear{
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            withAnimation(.spring()) {
+                                animategirl = true
+                            }
+                        }
+                    }
                 }
-                
-                
-                //    Text("scrolled by \(scrolledItem)")
-                
-                
-            }.animation(.spring(), value: dislike)
+            }
             
-            //  .opacity(dislike ? 0 :1 )
-            
-                .offset(y: !animateapper ? UIScreen.main.bounds.height * 1.02 : 0)
-                .onAppear{
-                    withAnimation(.spring()) {
-                        animateapper = true
+            if !outOfMatches && showProfile{
+                ZStack {
+                    
+                    
+                    ScrollView {
                         
-//                        roundEntrance =  true
-//                        DispatchQueue.main.asyncAfter(deadline: .now() + 1)  {
-//
-//                            withAnimation(.spring()) {
-//                                roundEntrance =  false
-//                            }
-//                        }
+                        cover
+                            .background(scrollDetection)
+                        
+                        content
+                        
+                        
+                    }
+                    .coordinateSpace(name: "scroll")
+                    .mask(RoundedRectangle(cornerRadius: viewState.width / 3))
+                    .scaleEffect(-viewState.width/500 + 1)
+                    .gesture(drag)
+                    .onAppear{
+                        // DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        // withAnimation(.spring()) {
+                        //  profile = userStruct.randomElement() ?? userStruct[0]
+                        // profile = userStruct[profileNumber]
+                        profileNumber = profileNumber + 1
+                        // showProfile = true
+                        // }
+                        // }
                     }
                     
                     
-                }
-                .onDisappear{
-                    withAnimation(.spring()) {
-                        animateapper = false
+                    .ignoresSafeArea()
+                    
+                    
+                    
+                    
+                    
+                    
+                    //the send text view that comes after liking a potential match
+                    if liked  {
+                        ZStack {
+                            LinearGradient(colors: [Color("white").opacity(0.94), Color.clear,Color.clear], startPoint: .bottom, endPoint: .top)
+                                .animation(.easeInOut.speed(0.65), value: hidemainTab)
+                                .opacity(hidemainTab ? 1 : 0)
+                            likedcontent
+                                .animation(.easeInOut.delay(0.05), value: hidemainTab)
+                                .offset(y: !hidemainTab ? UIScreen.main.bounds.height * 1.02 : 0)
+                            
+                            
+                        }.background(.ultraThinMaterial)
+                            .edgesIgnoringSafeArea(.all)
                     }
-                }
-            
-            
-            
-            
-            if showProfile {
+                    
+                    
+                }.animation(.spring(), value: dislike)
+                //.opacity(dislike ? 0 :1 )
+                    .offset(y: dislike ? UIScreen.main.bounds.height * 1.02 : 0)
+                    .onAppear{
+                        withAnimation(.spring()) {
+                            animateapper = true
+                        }
+                    }
+                
+                
+            }
+            if !outOfMatches && showProfile {
                 nameandheart
             }
             
-            
-        }.onAppear{
-            withAnimation(.spring()) {
-                hidemainTab = true
+            if outOfMatches {
+                outofmatchesView
             }
         }
-      
+        .offset(y: animateapper ? UIScreen.main.bounds.height *  0 : 1.02)
+        .onAppear{
+            withAnimation(.spring()) {
+                animateapper = true
+                
+                //                        DispatchQueue.main.asyncAfter(deadline: .now() + 1)  {
+                //
+                //                            withAnimation(.spring()) {
+                //                                roundEntrance =  false
+                //                            }
+                //                        }
+            }
+            
+            
+        }
+        .onDisappear{
+            withAnimation(.spring()) {
+                animateapper = false
+                
+                //                        DispatchQueue.main.asyncAfter(deadline: .now() + 1)  {
+                //
+                //                            withAnimation(.spring()) {
+                //                                roundEntrance =  false
+                //                            }
+                //                        }
+            }
+            
+            
+        }
         
         
         
@@ -162,30 +202,52 @@ struct ViewProfileView: View {
         VStack {
             HStack {
                 HStack {
-                    //  TextWriterAppear(typeText: profile.firstname, speed: 0.03)
-                    Text(profile.firstname)
+                    
+                    // TextWriterAppear(typeText:profile.firstname)
+                    Text(dislike ? "Disliked" : profile.firstname)
                         .font(.title)
                         .fontWeight(.bold)
                     
+                    // .opacity(dislike ? 0 : 1)
+                    //  Text("check \(erro) \(profile.email)")
                     
                 } .padding(10)
                     .background(.ultraThinMaterial)
                     .cornerRadius(15)
+                    .opacity(dislike ? 0 : 1)
                 
                 Spacer()
-                
-                //The user doesn't like current shuffle card.
                 Button {
-                    
+                    dislike = true
+                    showProfile = false
+                 
                     withAnimation(.spring()) {
-                        dislike = false
+                        
+                        
+                        
+                      //  DispatchQueue.main.asyncAfter(deadline: .now() + 0.5)  {
+                      //      showProfile = true
+                      //  }
+                        
+                        liked = false
+                        //unMatch()
                     }
                     
                 } label: {
-                    Image(systemName: "heart.slash")
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .foregroundColor(.red)
+                    if !dislike {
+                        Image(systemName: "heart.slash")
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .foregroundColor(.red)
+                    } else {
+                        
+                        LottieView(filename: "heartbeat")
+                            .frame(width: 99, height: 50)
+                            .offset(x:30)
+                            .opacity(0.57)
+                        
+                    }
+                    
                     
                 }
             }.padding(.horizontal,25)
@@ -205,24 +267,19 @@ struct ViewProfileView: View {
             
             .overlay(
                 VStack{
-                    
                     GetImageAlert(url:profile.avatar,loaded: $profileLoaded)
                         .offset(y: scrollY > 0 ? -scrollY : 0)
                         .scaleEffect(liked ? 1.4 : scrollY > 0 ? scrollY / 1000 + 1 : 1)
                         .blur(radius: liked ? 14 : scrollY > 0 ? scrollY / 10 : 0)
+                        .accessibility(hidden: true)
                         .animation(.spring(), value: liked)
+                    
+                    
+                    
+                    
                 })
-            
         }
         .frame(height: 400)
-        .overlay(
-            
-            LinearGradient(colors: [Color.clear,Color("white"),Color.clear], startPoint: .top, endPoint: .bottom)
-                .offset(y:350)
-            
-            
-        )
-        
     }
     
     var content: some View {
@@ -377,16 +434,20 @@ struct ViewProfileView: View {
                 
                 
                 
-              
-                    VStack {
-                        // ImageViewer(url: profile.images[0] )
-                        GetImageAndUrl(url:profile.images[0], imageUrl: $profileImages[0])
-                           // .frame(width: UIScreen.main.bounds.width - 52, height: 400)
-                        
-                    }.frame(width: UIScreen.main.bounds.width - 22, height: 400)
+                VStack {
                     
+                    GetImageAndUrl(url:profile.images[0], imageUrl: $profileImages[0])
+                    
+                    
+                    
+                }.frame(width: UIScreen.main.bounds.width - 22, height: 400)
+                
+                
+                
+                //.padding(20)
+                
                     .cornerRadius(13)
-                    .neoButton(isToggle: false, perform: {
+                    .neoDoubleTapButton(isToggle: false, perform: {
                         //when first image is clicked
                         liked = true
                         likedImage = profileImages[0]
@@ -443,41 +504,39 @@ struct ViewProfileView: View {
                     .padding(.bottom,5)
                 
                 
-                    VStack {
-                        
-                        GetImageAndUrl(url:profile.images[1], imageUrl: $profileImages[1])
-                        
-                        
-                        
-                    }.frame(width: UIScreen.main.bounds.width - 22, height: 400)
                 
-                        
-                        
-                        //.padding(20)
-                        
-                        .cornerRadius(13)
-                        .neoDoubleTapButton(isToggle: false, perform: {
-                            //when first image is clicked
-                            liked = true
-                            likedImage = profileImages[1]
-                            
-                        })
-                        .overlay(
-                            VStack {
-                                Spacer()
-                                HStack {
-                                    Spacer()
-                                    Image(systemName: "heart.circle.fill")
-                                    
-                                        .font(.largeTitle)
-                                        .foregroundColor(.white)
-                                }.padding(10)
-                                
-                            }
-                        )
-                       
+                VStack {
                     
+                    GetImageAndUrl(url:profile.images[1], imageUrl: $profileImages[1])
+                    
+                    
+                    
+                }.frame(width: UIScreen.main.bounds.width - 22, height: 400)
                 
+                
+                
+                //.padding(20)
+                
+                    .cornerRadius(13)
+                    .neoDoubleTapButton(isToggle: false, perform: {
+                        //when first image is clicked
+                        liked = true
+                        likedImage = profileImages[1]
+                        
+                    })
+                    .overlay(
+                        VStack {
+                            Spacer()
+                            HStack {
+                                Spacer()
+                                Image(systemName: "heart.circle.fill")
+                                
+                                    .font(.largeTitle)
+                                    .foregroundColor(.white)
+                            }.padding(10)
+                            
+                        }
+                    )
                 
                 
                 
@@ -515,9 +574,7 @@ struct ViewProfileView: View {
                 
                     .offwhitebutton(isTapped: liked, isToggle: true, cornerRadius: 20, action: $showMore)
                 
-                    .padding(.bottom,35)
-                
-                
+                    .padding(.bottom,95)
                 
                 
             }
@@ -525,20 +582,7 @@ struct ViewProfileView: View {
             .padding(.top,-10)
             .padding(10)
             
-            VStack(alignment: .center) {
-                HStack{
-                    Image(systemName: "xmark")
-                        .foregroundColor(.white)
-                        .padding(15)
-                        .background(Color("offwhite"))
-                        .cornerRadius(65)
-                        .onTapGesture {
-                            scrolling = false
-                            hidemainTab = false
-                        }
-                }
-            }.padding(.bottom,95)
-                .padding(.top,-20)
+            
             
             
             
@@ -553,7 +597,87 @@ struct ViewProfileView: View {
         
     }
     
-    
+    var outofmatchesView: some View {
+        ZStack {
+            
+            VStack {
+                LottieView(filename: "loveflying" ,loop: true)
+                    .frame(width: 100)
+                    .opacity(pageAppeared ? 1 : 0)
+                
+            }.offset( x:-40, y:280)
+                .opacity(0.7)
+            
+            VStack {
+                LottieView(filename: "sadheart" ,loop: true)
+                    .frame(width: 280)
+                    .opacity(pageAppeared ? 1 : 0)
+                
+            }.offset(y:-160)
+            
+            
+            VStack {
+                HStack {
+                    HStack {
+                        Image(systemName: "figure.wave")
+                        Text("No More Profiles!")
+                        
+                    }.font(.title3)
+                        .fontWeight(.bold)
+                    Spacer()
+                    HStack {
+                        Image(systemName: "fleuron")
+                        Text("Boost")
+                    }.padding(.horizontal,12)
+                        .padding(.vertical,5)
+                        .background(Color.blue.opacity(0.3))
+                        .cornerRadius(20)
+                    
+                }.padding(15).offwhitebutton(isTapped: false, isToggle: false, cornerRadius: 15, action:  .constant(false))
+                    .offset(y: pageAppeared ? 0 : -300)
+                
+                Spacer()
+                
+                VStack(alignment: .center, spacing: 20.0) {
+                    
+                    Text("Come back later or adjust your preferences")
+                        .font(.headline)
+                    Text("Matches are carefully curated on Soulmate so don't worry, They'll come in very soon.")
+                        .foregroundColor(.gray)
+                        .multilineTextAlignment(.center)
+                    HStack {
+                        Text("Adjust My Preferences")
+                            .font(.body)
+                            .fontWeight(.semibold)
+                    }.padding(.horizontal,15)
+                        .padding(.vertical,10)
+                        .background(Color(red: 1.0, green: 0.0, blue: 0.0, opacity: 1.0))
+                        .cornerRadius(30)
+                        .neoButton(isToggle: false) {
+                            //code
+                            selected = 4
+                        }
+                }.padding(10)
+                    .opacity(pageAppeared ? 1 : 0)
+                
+                
+                
+                Spacer()
+            }.padding(20)
+        }
+        .onAppear{
+            hidemainTab = false
+            withAnimation(.spring().speed(0.4)){
+                pageAppeared = true
+            }
+        }
+        .onDisappear{
+            
+            withAnimation(.spring()){
+                pageAppeared = false
+            }
+        }
+    }
     var likedcontent: some View {
         
         VStack(spacing: 20.0) {
@@ -608,23 +732,9 @@ struct ViewProfileView: View {
             }
             .animation(.spring(), value: hidemainTab)
             .neoButtonOff(isToggle: false, cornerRadius: 15, perform: {
-                //clicked you liked
+                //clikced you liked
                 sendMessageFocused = false
             })
-            .overlay(
-                VStack {
-                    if animatehearts {
-                        LottieView(filename: "likedapost" ,loop: false)
-                        .frame(width: 380)
-                        .scaleEffect(animatehearts ? 1.2 : 1 )
-                        .offset(x: 0, y: -60)
-                   // .animation(.easeIn.delay(0.97), value: likedAppeared)
-                    }
-                }
-                 
-                   // .transition(.scale.combined(with: .opacity ))
-                    
-            )
             //.matchedGeometryEffect(id: "profileimage", in: namespace)
             
             
@@ -655,7 +765,7 @@ struct ViewProfileView: View {
                             .onTapGesture {
                                 //
                                 liked = false
-                                //sendMatch()
+                                sendMatch()
                             }
                             .offset(x: 150)
                     )
@@ -681,7 +791,7 @@ struct ViewProfileView: View {
                         .cornerRadius(60)
                         .neoButton(isToggle: false) {
                             //
-                           
+                            hidemainTab = false
                             withAnimation(.spring()) {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                                     liked = false
@@ -693,22 +803,12 @@ struct ViewProfileView: View {
             }
             Spacer()
         }.padding(.horizontal, 20)
-            .offset(y:likedAppeared ? 110 : 220)
+            .offset(y:hidemainTab ? 110 : 220)
         // .background(Color.black.opacity(0.65))
         
             .onAppear{
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    withAnimation(.easeIn) {
-                        animatehearts = true
-                    }
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    withAnimation(.easeOut) {
-                        animatehearts = false
-                    }
-                }
+                
                 withAnimation(.spring()) {
-                    likedAppeared = true
                     hidemainTab = true
                     
                 }
@@ -716,32 +816,31 @@ struct ViewProfileView: View {
             .onDisappear{
                 
                 withAnimation(.spring()) {
-                    likedAppeared = false
-                    
+                    hidemainTab = false
                 }
             }
-           
         
         
     }
+   
     var scrollDetection: some View {
         GeometryReader { proxy in
             let offset = proxy.frame(in: .named("scroll")).minY
             Color.clear.preference(key: ScrollPreferenceKey.self, value: offset)
         }
         .onPreferenceChange(ScrollPreferenceKey.self) { offset in
-            withAnimation(.easeInOut) {
-                // scrolledItem = Int(offset)
+            
+            if offset > 60 {
+                //hide profile after pulling down cover
+                withAnimation(.spring()) {
+                    showProfile = false
+                }
+            }
                 
-                
-                
-                
-                
-                if offset > 65 {
+                if offset < -15 {
                     
                     withAnimation(.spring()) {
-                        // hidemainTab = true
-                        scrolling = false
+                        hidemainTab = true
                         
                     }
                     
@@ -749,13 +848,13 @@ struct ViewProfileView: View {
                 
                 else {
                     withAnimation(.spring()) {
-                        //  hidemainTab = false
+                        hidemainTab = false
                     }
                     
                     
                 }
                 
-            }
+            
         }
     }
     
@@ -813,7 +912,7 @@ struct ViewProfileView: View {
             }
     }
     func typeWriter(_ text: String, completion: @escaping () -> Void) {
-        //  let original = typeText
+        let original = typeText
         //typeText = ""
         var currentIndex = 0
         
@@ -844,32 +943,103 @@ struct ViewProfileView: View {
         }
     }
     
-    func sendMatch(text: String) {
+    
+    func unMatch(){
+        
+        //xzv  x      zn                     let db = Firestore.firestore()
+        //    let user = Auth.auth().currentUser
+        //save the dounload url to database key
+        
+        //We look for the user id of the current user
+        //    db.collection("users").whereField("email", isEqualTo: profile.email)
+        //            .getDocuments() { (querySnapshot, error) in
+        //                if error != nil {
+        //                    //there is an error
+        //                } else {
+        //                    for document in querySnapshot!.documents {
+        //
+        //                        //We add that user id to our unmatch collection
+        //                        //erro = "\(user?.uid ?? "")"
+        //                        db.collection("users").whereField("email", isEqualTo: user?.email)
+        //                            .getDocuments() { (querySnapshot, error) in
+        //                                if error != nil {
+        //                                    //there is an error
+        //                                } else {
+        //                                    for myinfo in querySnapshot!.documents {
+        //
+        //                                        //We add that user id to our unmatch collection
+        //                                        //erro = "\(user?.uid ?? "")"
+        //                                        db.collection("users").document(myinfo.documentID)
+        //                                            .collection("notamatch").document(document.documentID).setData(["date": Date()], merge: true) { error in
+        //
+        //                                                if error == nil {
+        //
+        //
+        //                                                }
+        //                                            }
+        //                                    }
+        //                                }
+        //                            }
+        //
+        //                    }
+        //                }
+        //            }
+        
+    }
+    func sendMatch() {
         let user = Auth.auth().currentUser
         let db = Firestore.firestore()
         
-        // Add a placeholder for the document ID
         
         
         let docRef = db.collection("messages").document()
+        let docid = docRef.documentID
         
         // Add the document with the modified data
-        docRef.setData(["matched": true,
-                        "time":  Date(),
-                        "email": [user?.email ?? "" , "zab.charles@gmail.com"]
-                        // Add other fields as needed
-                       ], merge: true) { error in
-            if let error = error {
-                // Handle the error
-                print("Error updating message data: \(error.localizedDescription)")
-                return
+        
+        if sendMessage.isEmpty {
+            docRef.setData(["matched": true,
+                            "time":  Date(),
+                            "email": [user?.email ?? "" , profile.email],
+                            "matchid": docRef.documentID
+                            // Add other fields as needed
+                           ], merge: true) { error in
+                if let error = error {
+                    // Handle the error
+                    print("Error updating message data: \(error.localizedDescription)")
+                    return
+                }
+            }
+        } else {
+            docRef.setData(["matched": true,
+                            "time":  Date(),
+                            "email": [user?.email ?? "" , profile.email],
+                            "matchid": docRef.documentID
+                            
+                            // Add other fields as needed
+                           ], merge: true) { error in
+                if let error = error {
+                    // Handle the error
+                    print("Error updating message data: \(error.localizedDescription)")
+                    return
+                }
             }
             
-            // Data updated successfully
-            print("Message data updated")
+            docRef.collection("log").document().setData([
+                "text": sendMessage,
+                "time":  Date(),
+                "email": user?.email
+                
+                // Add other fields as needed
+            ], merge: true) { error in
+                if let error = error {
+                    // Handle the error
+                    print("Error updating message data: \(error.localizedDescription)")
+                    return
+                }
+            }
             
-            // Perform additional operations
-            // ...
+            
         }
     }
     func getLocation(){
@@ -879,3 +1049,11 @@ struct ViewProfileView: View {
 
 
 
+
+
+struct BoneProfile_Previews: PreviewProvider {
+
+    static var previews: some View {
+        BoneProfile( currentUser: .constant(fakeUser), showProfile: .constant(false))
+    }
+}

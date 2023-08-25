@@ -12,7 +12,6 @@ import FirebaseFirestore
 
 
 struct SettingsView: View {
-    @ObservedObject var viewModel = UserViewModel()
     var userInfo: UserStruct 
     @AppStorage("signedIn") var signIn = false
     @AppStorage("hidemainTab") var hidemainTab = false
@@ -29,7 +28,6 @@ struct SettingsView: View {
     @State var textFielde = 0
     @State var doneTapped = false
     @State var lastChance = false
-    @State var animate = false
     //@Binding var wallpaper : String
     @State var showWallpaperPicker = false
     @Environment(\.presentationMode) var presentationMode
@@ -69,6 +67,16 @@ struct SettingsView: View {
                             
                         }
                 }
+            
+            VStack{
+                HStack {
+                    Image(systemName: "photo")
+                        .font(.headline)
+                        
+                }.offset(y:-140)
+                Spacer()
+            }
+            
             Notification(title: notificationMessage, notification: "Notification", showNotification: $showNotification)
                 .padding(.top, -6)
                 .opacity(showNotification ? 1 : 0)
@@ -78,13 +86,13 @@ struct SettingsView: View {
         .onAppear {
             withAnimation(.spring()) {
                 hidemainTab = true
-                animate = true
+               
             }
         }
         .onDisappear {
             withAnimation(.spring()) {
                 hidemainTab = false
-                animate = false
+               
             }
         }
         
@@ -379,7 +387,7 @@ struct SettingsView: View {
             
             
             
-        }.padding(10)
+        }.padding(5)
         .padding(.vertical, 10)
         
         
@@ -395,17 +403,7 @@ struct SettingsView: View {
         
     }
     
-    var wallpaperselection : some View {
-        
-        VStack {
-            ScrollView (showsIndicators: false){
-                ForEach(handbooks) { handbook in
-                    WallpaperVM(handbook: handbook, showWallpaperPicker: $showWallpaperPicker)
-                }
-            }
-        }.scaleEffect(!showWallpaperPicker ? 0.90 : 1)
-        
-    }
+  
     func changeUsernameFunc() {
         let db = Firestore.firestore()
         let user = Auth.auth().currentUser

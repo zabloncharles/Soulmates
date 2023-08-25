@@ -23,7 +23,9 @@ struct MessageDetailView: View {
     @State var scrolling = CGFloat(0)
     @State var scrolledItem: Int = 0
     @State var chatMessages: [MessageModel] = []
-    var log : MessageUser
+    var log: UserStruct
+    @State var userAvatarLoaded = false
+   // var log : MessageUser
     // var holdData : [IncomingMessage]
     @State private var messageText = ""
     @State private var sender = "John"
@@ -33,6 +35,7 @@ struct MessageDetailView: View {
     @State private var typing = false
     @State private var typedText = ""
     @State var scrollingUp = false
+    @State var backButtonTapped = false
     @State var btapped = ""
     @State var blurPage = false
     @State var bubblesAppeared = false
@@ -67,33 +70,40 @@ struct MessageDetailView: View {
         VStack {
             HStack {
                 Image(systemName: "chevron.left")
-                    .font(.title)
-                    .neoButton(isToggle: false, perform: {
-                        //go back to messages view
-                        presentationMode.wrappedValue.dismiss()
-                    })
-//                    .onTapGesture {
+                    .font(.headline)
+                    .foregroundColor(backButtonTapped ? .clear : Color("black"))
+//                    .neoButton(isToggle: false, perform: {
 //                        //go back to messages view
+//                        backButtonTapped = true
 //                        presentationMode.wrappedValue.dismiss()
-//                    }
-                Image(log.avatar)
-                    .resizable(resizingMode: .stretch)
-                    .aspectRatio(contentMode: .fill)
+//                    })
+                    .onTapGesture {
+                        //go back to messages view
+                        backButtonTapped = true
+                        presentationMode.wrappedValue.dismiss()
+                    }
+               // Image(log.avatar)
+                //    .resizable(resizingMode: .stretch)
+                  //  .aspectRatio(contentMode: .fill)
                 //  ImageViewer(url: "")
+                GetImageAlert(url:log.avatar, loaded: $userAvatarLoaded)
                     .cornerRadius(80)
+                    .neoButton(isToggle: false, perform: {
+                        //go to user profile
+                    })
                     .mask(Circle())
                     .background(
                         Circle()
-                            .fill(Color.blue)
+                            .fill(Color.clear)
                             .padding(-2)
                         
                     )
                     .frame(width: 40, height: 40)
                    // .padding(10)
                 VStack{
-                    Text(log.name.capitalized)
+                    Text(log.firstname)
                     //  Text(log.docid)
-                        .font(.title2).bold()
+                        .font(.headline).bold()
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .foregroundColor(.primary)
                     
@@ -101,7 +111,7 @@ struct MessageDetailView: View {
                         Image(systemName: "circlebadge.fill")
                             .foregroundColor( .green)
                             .font(.caption2)
-                        Text("Was online 5 minutes ago")
+                        Text("Was online \(log.cyclechange) minutes ago")
                             .font(.footnote)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .foregroundColor(.primary.opacity(0.7))
@@ -112,13 +122,13 @@ struct MessageDetailView: View {
                 
                 Image(systemName: "exclamationmark.circle")
                     .foregroundColor(.gray )
-                    .font(.title2)
+                    .font(.headline)
                     .padding(.trailing,10)
             }
             
             .padding(.horizontal,10)
-            .padding(.top,45)
-            .padding(.bottom,5)
+            .padding(.top,50)
+            .padding(.bottom,10)
             .background(
                 LinearGradient(colors: [Color("white"),Color("white"),Color("white")], startPoint: .top, endPoint: .bottom))
             Spacer()

@@ -10,173 +10,175 @@ import Lottie
 import FirebaseFirestore
 import Firebase
 struct HomeView: View {
-    @State var profiles: [UserStruct] = compatibleFakeUsers// Array to hold the user data
-    @Binding var currentUser: UserStruct?// Variable to hold the user data
+    @State var profiles: [UserStruct] = compatibleFakeUsers
+    @Binding var currentUser: UserStruct?
     @State var profile = userStruct[0]
+    @State var profiletype = 0
+    @State var userScrolledAmount = 0
+    @State var contentHasScrolled = false
     @Namespace var namespace
-    @State var clockisTapped = false
-    @State var cycleChangeSoon = false
+    @State private var pageAppeared = false
+    @State private var showProfile = false
     @AppStorage("signInAnimation") var signInAnimation = false
     @AppStorage("hidemainTab") var hidemainTab = false
-    @State private var offset = CGSize.zero
-    @State var hideCard = false
-    @State var contentHasScrolled = false
-    @State var pageAppeared = false
-    @State var showProfile = false
-    @State var nomorecards = false
-    @State var profiletype = 0
-    @State var number = matchCardData.count
-    @State var backViewSize: CGFloat = 80
-    @State var profileScrolledAmount = 0
-    @State var dragsize = CGSize.zero
-    @State var menupressed = false
-    @State var differentpage = false
-    @State var slidecardsfromright = false
-    @State var dislike = false
     
     
     var body: some View {
         
-            ZStack {
+        ZStack {
+            
+            BackgroundView()
+            //  ScrollView {
+            
+            
+            VStack {
                 
-                BackgroundView()
-              //  ScrollView {
-                       
-                 
-                VStack {
-                    
-                    welcoming
-                        .opacity(showProfile || !pageAppeared ? 0 : 1)
-                        .animation(.spring(), value: showProfile)
-                        .padding(.top,70)
-                    
-                    
-                    TabView(selection: $profiletype){
-                        
-                        
-                        
-                       
-                            compatible
-                                .tag(0)
-                        
-                      
-                            
-                            active
-                                .tag(1)
-                        
-                        
-                            
-                            near
-                                .tag(2)
-                        
-                       
-                            
-                            newhere
-                                .tag(3)
-                       
-                        Spacer()
-                        
-                    }.edgesIgnoringSafeArea(.bottom)
-                    
-                }.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-                            
-                    
-                                
-                 
-                
-                
-                if showProfile {
-                    ViewProfileView(namespace: namespace, profile: profile, dislike: $showProfile, scrolling: $showProfile)
-                      //  .matchedGeometryEffect(id: "page", in: namespace, isSource: showProfile)
-                   
-                 
-                }
-                
-
-                
-               
-                
-                
-          //  }
-                
-                navigation
-                    .offset(y:!pageAppeared ? -200 : 0)
+                welcoming
+                    .opacity(showProfile || !pageAppeared ? 0 : 1)
                     .animation(.spring(), value: showProfile)
-                    .opacity(showProfile ? 0 : 1)
+                    .padding(.top,70)
                 
                 
+                TabView(selection: $profiletype){
+                    
+                    
+                    
+                    
+                    compatible
+                        .tag(0)
+                    
+                    
+                    
+                    active
+                        .tag(1)
+                    
+                    
+                    
+                    near
+                        .tag(2)
+                    
+                    
+                    
+                    newhere
+                        .tag(3)
+                    
+                    Spacer()
+                    
+                }.edgesIgnoringSafeArea(.bottom)
                 
-                if !showProfile {
-                    VStack{
-                        HStack{
-                            Spacer()
-                            VStack {
-                                Image(systemName: profiletype == 0 ? "figure.2.arms.open" : profiletype == 1 ? "figure.cooldown" : profiletype == 2 ? "figure.stand.line.dotted.figure.stand" : profiletype == 3 ? "person.fill.badge.plus" : "person.fill.badge.plus")
-                                    .font(.system(size:  17, weight: .bold))
-                                    .frame(width: 36, height: 36)
-                                    .foregroundColor( .secondary)
-                                    .background( Color("offwhite"))
-                                    .cornerRadius(30)
-                                    .scaleEffect( 1)
-                                    .overlay(
-                                        VStack{
-                                          
-                                                Text("4")
-                                                    .foregroundColor(.white)
-                                                    .font(.caption)
-                                                    .padding(2)
-                                                    .background(
-                                                        Circle()
-                                                        
-                                                            .fill(.red)
-                                                            .padding(-3)
-                                                    )
-                                                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-                                            
-                                        }
-                                    )
-                                  
-                            }
-                        }.padding(.top,15)
-                            .padding(.horizontal,25)
+            }.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+                .blur(radius: showProfile ? 19 : 0)
+            
+            
+            
+            
+            
+            
+            if showProfile {
+               // ViewProfileView(namespace: namespace, profile: profile, dislike: $showProfile, scrolling: $showProfile)
+              //  FullProfileView(currentUser: $currentUser)
+                BoneProfile(currentUser: $currentUser, profile: profile, showProfile: $showProfile)
+                
+            }
+            
+            
+            
+            
+            
+            
+            //  }
+            
+            navigation
+                .offset(y:!pageAppeared ? -200 : 0)
+                .animation(.spring(), value: showProfile)
+                .opacity(showProfile ? 0 : 1)
+            
+            
+            
+            if !showProfile {
+                VStack{
+                    HStack{
                         Spacer()
-                    }
-                }
-                
-                
-            }.onAppear{
-                getfakeCurrentUser()
-                withAnimation(.spring().speed(0.4)){
-                    pageAppeared = true
-                 
+                        VStack {
+                            Image(systemName: profiletype == 0 ? "figure.2.arms.open" : profiletype == 1 ? "figure.cooldown" : profiletype == 2 ? "figure.stand.line.dotted.figure.stand" : profiletype == 3 ? "person.fill.badge.plus" : "person.fill.badge.plus")
+                                .font(.system(size:  17, weight: .bold))
+                                .frame(width: 36, height: 36)
+                                .foregroundColor( .secondary)
+                                .background( Color("offwhite"))
+                                .cornerRadius(30)
+                                .scaleEffect( 1)
+                                .overlay(
+                                    VStack{
+                                        
+                                        Text(currentUser?.notifications ?? "0")
+                                            .foregroundColor(.white)
+                                            .font(.caption)
+                                            .padding(2)
+                                            .background(
+                                                Circle()
+                                                
+                                                    .fill(.red)
+                                                    .padding(-3)
+                                            )
+                                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+                                            .offset(x:6, y: -5)
+                                        
+                                    }.opacity(profiletype == 0 ? 1:0)
+                                )
+                            
+                        }
+                    }.padding(.top,15)
+                        .padding(.horizontal,25)
+                    Spacer()
                 }
             }
-            .onDisappear{
-                withAnimation(.spring()){
-                    pageAppeared = false
-                }
+            
+            
+        }.onAppear{
+            getfakeCurrentUser()
+            withAnimation(.spring().speed(0.4)){
+                pageAppeared = true
+                
             }
+        }
+        .onDisappear{
+            withAnimation(.spring()){
+                pageAppeared = false
+            }
+        }
         
     }
     
     var compatible: some View {
         VStack {
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 25.0) {
-                    ForEach(Array(profiles.enumerated()), id: \.element.id) { index, user in
+            ScrollView(.vertical, showsIndicators: false) {
+                scrollDetection
+                VStack(spacing: 25.0) {
+                    ForEach(filteredProfiles, id: \.id) { user in
                         CompatibleCard(completion: {
                             showProfile = true
                             profile = user
-                        }, user: user)
+                        }, user: user, namespace: namespace)
                     }
-
+                    
                     
                 }
                 
-                .padding(.horizontal)
+                .padding(.horizontal,0)
                 
             }
-        }.offset(y:-50)
+        }.offset(y:10)
+            .padding(.bottom,0)
+        
+        
+    }
+    var filteredProfiles: [UserStruct] {
+        guard let currentUser = currentUser
+        else {
+            return profiles
+        }
+        let matchingEmails = Set(currentUser.matches)
+        return profiles.filter { !matchingEmails.contains($0.email) }
     }
     var active: some View {
         ZStack {
@@ -203,7 +205,7 @@ struct HomeView: View {
             }.edgesIgnoringSafeArea(.bottom)
         }
     }
-  
+    
     var near : some View {
         ZStack {
             ScrollView {
@@ -298,49 +300,51 @@ struct HomeView: View {
                        contentHasScrolled: $contentHasScrolled)
     }
     
- 
+    
     var welcoming : some View {
         
         VStack {
-           
+            
             HStack(spacing: 16){
                 VStack(alignment: .leading, spacing: 5) {
                     
-                   
-                    TextWriterAppear(typeText: "Welcome back \(currentUser?.firstname ?? "umm...")", speed: 0.03)
-                        .font(.title3)
+                    
+                    HStack(spacing:0) {
+                        TextWriterAppear(typeText: "Welcome back ", speed: 0.03)
+                            .font(.custom("BodoniFLF-Roman", size: 24))
+                        Text(currentUser?.firstname.lowercased() ?? "umm" )
+                            .font(.custom("BodoniFLF-Roman", size: 24))
+                            .foregroundColor(.clear)
+                            .background(LinearGradient(colors: [Color("black"),Color("black"),Color.blue], startPoint: .leading, endPoint: .trailing))
+                            .mask (
+                                Text(currentUser?.firstname.lowercased() ?? "umm" )
+                                    .font(.custom("BodoniFLF-Roman", size: 24))
+                            )
+                        
+                        
+                    }
                     
                     VStack {
-                       
-                            
-                            
-                            VStack {
-                                TextWriterAppear(typeText: "You have 4 matches today :)", speed: 0.03)
-                            }
+                        
+                        
+                        
+                        VStack {
+                            TextWriterAppear(typeText: " You have \(currentUser?.notifications ?? "0" ) notifications today :)", speed: 0.03)
+                                .opacity(0.67)
+                        }
                     }.font(.subheadline)
                 }
                 
                 
                 
                 Spacer()
-                Image("Avatar 3")
-                   .resizable()
-                   .aspectRatio(contentMode: .fill)
-              //  ImageViewer(url: currentUser?.avatar ?? "")
+                GetImageAlert(url:currentUser?.avatar ?? "" , loaded: .constant(true))
+                // .resizable()
+                // .aspectRatio(contentMode: .fill)
+                //  ImageViewer(url: currentUser?.avatar ?? "")
                     .clipShape(Circle())
                     .frame(width: 70, height: 70)
-                    .overlay(
-                        VStack {
-                            //days left
-                            Text("5")
-                                .font(.subheadline)
-                            //Text(Int(data()[3]) ?? 0 < 1 ? "Day" :"Days")
-                            Text("Matches")
-                                .font(.caption2)
-                                .fontWeight(.light)
-                                .foregroundColor(.primary)
-                        }
-                    )
+                
                     .background(
                         Circle()
                             .fill(Color("offWhite"))
@@ -370,11 +374,11 @@ struct HomeView: View {
             })
             .padding(.horizontal,20)
             .padding(.bottom, 5)
-          
-           
+            
+            
             
             typeofprofiles
-                
+            
             
             
         }
@@ -384,35 +388,35 @@ struct HomeView: View {
     var typeofprofiles : some View {
         HStack{
             
+            
+            TypeofMenuRow( tap: $profiletype, selected: 0, placeholder: "COMPATIBLE"){
                 
-                TypeofMenuRow( tap: $profiletype, selected: 0, placeholder: "COMPATIBLE"){
-                    
-                }
-                Spacer()
-                Rectangle()
-                .frame(width: 1,height: 12)
-                TypeofMenuRow(tap: $profiletype, selected: 1, placeholder: "ACTIVE"){
-                    
-                }
-                Spacer()
+            }
+            Spacer()
             Rectangle()
                 .frame(width: 1,height: 12)
-                TypeofMenuRow(tap: $profiletype, selected: 2, placeholder: "NEAR"){
-                    
-                }
-                Spacer()
+            TypeofMenuRow(tap: $profiletype, selected: 1, placeholder: "ACTIVE"){
+                
+            }
+            Spacer()
             Rectangle()
                 .frame(width: 1,height: 12)
-                TypeofMenuRow(tap: $profiletype, selected: 3, placeholder: "NEW HERE"){
-                    
-                }
+            TypeofMenuRow(tap: $profiletype, selected: 2, placeholder: "NEAR"){
                 
+            }
+            Spacer()
+            Rectangle()
+                .frame(width: 1,height: 12)
+            TypeofMenuRow(tap: $profiletype, selected: 3, placeholder: "NEW HERE"){
                 
+            }
             
             
-           
             
-           
+            
+            
+            
+            
             
             
         }.padding(.horizontal)
@@ -421,59 +425,87 @@ struct HomeView: View {
             .cornerRadius(12)
             .padding(.horizontal)
             .padding(.top,10)
-         
+        
     }
-    
+    var scrollDetection: some View {
+        GeometryReader { proxy in
+            let offset = proxy.frame(in: .named("scroll")).minY
+            Color.clear.preference(key: ScrollPreferenceKey.self, value: offset)
+            
+        }
+        .onPreferenceChange(ScrollPreferenceKey.self) { offset in
+            
+            withAnimation(.easeInOut) {
+                userScrolledAmount = Int(offset)
+            }
+        }
+        .onChange(of: userScrolledAmount) { newValue in
+            
+            
+            withAnimation(.spring()) {
+                hidemainTab = true
+            }
+            Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { timer in
+                withAnimation(.spring()) {
+                    hidemainTab = false
+                }
+            }
+            
+            
+            
+            
+        }
+    }
     func getfakeCurrentUser(){
         currentUser = fakeUser
     }
-  
-//    private func fetchUsers() {
-//        let db = Firestore.firestore()
-//        let user = Auth.auth().currentUser
-//        let usersRef = db.collection("users").whereField("email", isNotEqualTo: user?.email ?? "")
-//
-//        usersRef.getDocuments { (querySnapshot, error) in
-//            if let error = error {
-//                print("Error fetching users: \(error.localizedDescription)")
-//                return
-//            }
-//
-//            guard let documents = querySnapshot?.documents else {
-//                print("No documents found.")
-//                return
-//            }
-//
-//            let users = documents.compactMap { document in
-//                let documentData = document.data()
-//
-//                return UserStruct(
-//                    firstname: documentData["firstname"] as? String ?? "",
-//                    lastname: documentData["lastname"] as? String ?? "",
-//                    notifications: documentData["notifications"] as? String ?? "",
-//                    avatar: documentData["avatar"] as? String ?? "",
-//                    cyclechange: documentData["cyclechange"] as? String ?? "",
-//                    birthday: documentData["birthday"] as? String ?? "",
-//                    email: documentData["email"] as? String ?? "",
-//                    aboutme: documentData["aboutme"] as? String ?? "",
-//                    education: documentData["education"] as? String ?? "",
-//                    work: documentData["work"] as? String ?? "",
-//                    images: documentData["images"] as? [String] ?? [],
-//                    likes: documentData["likes"] as? [String] ?? [],
-//                    location: documentData["location"] as? [String] ?? [],
-//                    lookingfor: documentData["lookingfor"] as? String ?? "",
-//                    online: documentData["online"] as? Bool ?? false,
-//                    password: documentData["password"] as? String ?? "",
-//                    matches: documentData["matches"] as? Int ?? 0,
-//                    age: documentData["age"] as? String ?? "", lifestyle: documentData["lifestyle"] as? [String] ?? [],
-//                    lifestyledesc: documentData["lifestyledesc"] as? String ?? ""
-//                )
-//            }
-//
-//            self.profiles = users
-//        }
-//    }
- 
+    
+    //    private func fetchUsers() {
+    //        let db = Firestore.firestore()
+    //        let user = Auth.auth().currentUser
+    //        let usersRef = db.collection("users").whereField("email", isNotEqualTo: user?.email ?? "")
+    //
+    //        usersRef.getDocuments { (querySnapshot, error) in
+    //            if let error = error {
+    //                print("Error fetching users: \(error.localizedDescription)")
+    //                return
+    //            }
+    //
+    //            guard let documents = querySnapshot?.documents else {
+    //                print("No documents found.")
+    //                return
+    //            }
+    //
+    //            let users = documents.compactMap { document in
+    //                let documentData = document.data()
+    //
+    //                return UserStruct(
+    //                    firstname: documentData["firstname"] as? String ?? "",
+    //                    lastname: documentData["lastname"] as? String ?? "",
+    //                    notifications: documentData["notifications"] as? String ?? "",
+    //                    avatar: documentData["avatar"] as? String ?? "",
+    //                    cyclechange: documentData["cyclechange"] as? String ?? "",
+    //                    birthday: documentData["birthday"] as? String ?? "",
+    //                    email: documentData["email"] as? String ?? "",
+    //                    aboutme: documentData["aboutme"] as? String ?? "",
+    //                    education: documentData["education"] as? String ?? "",
+    //                    work: documentData["work"] as? String ?? "",
+    //                    images: documentData["images"] as? [String] ?? [],
+    //                    likes: documentData["likes"] as? [String] ?? [],
+    //                    location: documentData["location"] as? [String] ?? [],
+    //                    lookingfor: documentData["lookingfor"] as? String ?? "",
+    //                    online: documentData["online"] as? Bool ?? false,
+    //                    password: documentData["password"] as? String ?? "",
+    //                    matches: documentData["matches"] as? Int ?? 0,
+    //                    age: documentData["age"] as? String ?? "", lifestyle: documentData["lifestyle"] as? [String] ?? [],
+    //                    lifestyledesc: documentData["lifestyledesc"] as? String ?? ""
+    //                )
+    //            }
+    //
+    //            self.profiles = users
+    //        }
+    //    }
+    
     
 }
 
@@ -508,18 +540,18 @@ struct TypeofMenuRow:  View {
                             .foregroundColor(.red)
                             .background(Color("offwhite"))
                             .cornerRadius(10)
-                       
-                    
+                        
+                        
                     }
                 }
                 
-               else {
-                   Text(placeholder)
-                       .font(.footnote)
-                    .padding(.vertical,5)
-                    .padding(.horizontal,8)
-                   
-                  
+                else {
+                    Text(placeholder)
+                        .font(.footnote)
+                        .padding(.vertical,5)
+                        .padding(.horizontal,8)
+                    
+                    
                 }
             }
             .onTapGesture {
@@ -530,12 +562,12 @@ struct TypeofMenuRow:  View {
                 }
             }
             
-         
-         
-           
+            
+            
+            
         }
         
-       
+        
     }
-  
+    
 }
