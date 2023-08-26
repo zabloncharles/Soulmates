@@ -27,6 +27,11 @@
 		F73F32362A1522880038A6D3 /* nomorecards.json in Resources */ = {isa = PBXBuildFile; fileRef = F73F32352A1522880038A6D3 /* nomorecards.json */; };
 		F73F32382A156D340038A6D3 /* redpoof.json in Resources */ = {isa = PBXBuildFile; fileRef = F73F32372A156D340038A6D3 /* redpoof.json */; };
 		F743C2762A98BB980089E2FE /* PostCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F743C2752A98BB980089E2FE /* PostCard.swift */; };
+		F743C27A2A9927180089E2FE /* TextAnimatingGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F743C2792A9927180089E2FE /* TextAnimatingGradient.swift */; };
+		F743C27C2A9966F20089E2FE /* StoriesCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F743C27B2A9966F20089E2FE /* StoriesCard.swift */; };
+		F743C27E2A99CF100089E2FE /* searchingearth.json in Resources */ = {isa = PBXBuildFile; fileRef = F743C27D2A99CF100089E2FE /* searchingearth.json */; };
+		F743C2802A99D6DF0089E2FE /* searchingearth2.json in Resources */ = {isa = PBXBuildFile; fileRef = F743C27F2A99D6DF0089E2FE /* searchingearth2.json */; };
+		F743C2822A9A9C050089E2FE /* stars2.json in Resources */ = {isa = PBXBuildFile; fileRef = F743C2812A9A9C050089E2FE /* stars2.json */; };
 		F755D7C52A2D378800319D57 /* workbuildings.json in Resources */ = {isa = PBXBuildFile; fileRef = F755D7C42A2D378800319D57 /* workbuildings.json */; };
 		F755D7C72A2DAB1100319D57 /* SignUpMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F755D7C62A2DAB1100319D57 /* SignUpMessageView.swift */; };
 		F755D7C92A2DACBC00319D57 /* Email&PasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F755D7C82A2DACBC00319D57 /* Email&PasswordView.swift */; };
@@ -186,6 +191,11 @@
 		F73F32352A1522880038A6D3 /* nomorecards.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = nomorecards.json; sourceTree = "<group>"; };
 		F73F32372A156D340038A6D3 /* redpoof.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = redpoof.json; sourceTree = "<group>"; };
 		F743C2752A98BB980089E2FE /* PostCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCard.swift; sourceTree = "<group>"; };
+		F743C2792A9927180089E2FE /* TextAnimatingGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAnimatingGradient.swift; sourceTree = "<group>"; };
+		F743C27B2A9966F20089E2FE /* StoriesCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesCard.swift; sourceTree = "<group>"; };
+		F743C27D2A99CF100089E2FE /* searchingearth.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = searchingearth.json; sourceTree = "<group>"; };
+		F743C27F2A99D6DF0089E2FE /* searchingearth2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = searchingearth2.json; sourceTree = "<group>"; };
+		F743C2812A9A9C050089E2FE /* stars2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = stars2.json; path = ../../../../../../Downloads/stars2.json; sourceTree = "<group>"; };
 		F755D7C42A2D378800319D57 /* workbuildings.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = workbuildings.json; sourceTree = "<group>"; };
 		F755D7C62A2DAB1100319D57 /* SignUpMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpMessageView.swift; sourceTree = "<group>"; };
 		F755D7C82A2DACBC00319D57 /* Email&PasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Email&PasswordView.swift"; sourceTree = "<group>"; };
@@ -360,18 +370,6 @@
 			path = Funcs;
 			sourceTree = "<group>";
 		};
-		F73F32402A1604E50038A6D3 /* Cards */ = {
-			isa = PBXGroup;
-			children = (
-				F70636312A1D6398007A9FEF /* MatchCard.swift */,
-				F743C2752A98BB980089E2FE /* PostCard.swift */,
-				F70636332A1D6A92007A9FEF /* SmallMatchActive.swift */,
-				F79594602A25E91700636776 /* CompatibleCard.swift */,
-				F79594622A268D8700636776 /* ActiveCard.swift */,
-			);
-			path = Cards;
-			sourceTree = "<group>";
-		};
 		F73F32412A1605170038A6D3 /* Widget */ = {
 			isa = PBXGroup;
 			children = (
@@ -390,6 +388,12 @@
 				F795946E2A27DE9700636776 /* WorkPicker.swift */,
 				F79594702A27EE7900636776 /* NameChangePicker.swift */,
 				F7BDF1062A287575008FDB4C /* AboutMePicker.swift */,
+				F70636312A1D6398007A9FEF /* MatchCard.swift */,
+				F743C2752A98BB980089E2FE /* PostCard.swift */,
+				F743C27B2A9966F20089E2FE /* StoriesCard.swift */,
+				F70636332A1D6A92007A9FEF /* SmallMatchActive.swift */,
+				F79594602A25E91700636776 /* CompatibleCard.swift */,
+				F79594622A268D8700636776 /* ActiveCard.swift */,
 			);
 			path = Widget;
 			sourceTree = "<group>";
@@ -475,38 +479,14 @@
 				F7BDF1082A29AEA2008FDB4C /* UserInfomation */,
 				F70636392A1E6F48007A9FEF /* Funcs */,
 				F73F32412A1605170038A6D3 /* Widget */,
-				F73F32402A1604E50038A6D3 /* Cards */,
 				F7A3140027F4CFE100F9F550 /* Reusable */,
-				F7A313B027F4CFE100F9F550 /* Misc */,
 				F7A313B927F4CFE100F9F550 /* Modifiers */,
-				F7A313C027F4CFE100F9F550 /* Buttons */,
 				F7A313C527F4CFE100F9F550 /* Images */,
 				F7A313C727F4CFE100F9F550 /* Extensions */,
-				F7A313CB27F4CFE100F9F550 /* Styles */,
 				F7A313CE27F4CFE100F9F550 /* Lottie */,
 				F7A313F527F4CFE100F9F550 /* Fonts */,
 			);
 			path = Assets;
-			sourceTree = "<group>";
-		};
-		F7A313B027F4CFE100F9F550 /* Misc */ = {
-			isa = PBXGroup;
-			children = (
-				F7A313B127F4CFE100F9F550 /* PopUpAlerts */,
-				F7A313B427F4CFE100F9F550 /* Wave.swift */,
-				F7A313B527F4CFE100F9F550 /* HexagonView.swift */,
-				F7A313B727F4CFE100F9F550 /* AnimatedBlobView.swift */,
-				F7A313B827F4CFE100F9F550 /* CircularView.swift */,
-			);
-			path = Misc;
-			sourceTree = "<group>";
-		};
-		F7A313B127F4CFE100F9F550 /* PopUpAlerts */ = {
-			isa = PBXGroup;
-			children = (
-				F7A313B227F4CFE100F9F550 /* SuccessView.swift */,
-			);
-			path = PopUpAlerts;
 			sourceTree = "<group>";
 		};
 		F7A313B927F4CFE100F9F550 /* Modifiers */ = {
@@ -522,17 +502,6 @@
 				F795945A2A24791600636776 /* NeoModifier.swift */,
 			);
 			path = Modifiers;
-			sourceTree = "<group>";
-		};
-		F7A313C027F4CFE100F9F550 /* Buttons */ = {
-			isa = PBXGroup;
-			children = (
-				F7A313C127F4CFE100F9F550 /* CloseButton.swift */,
-				F7A313C227F4CFE100F9F550 /* PlayButton.swift */,
-				F7A313C327F4CFE100F9F550 /* BackButton.swift */,
-				F7A313C427F4CFE100F9F550 /* AngularButton.swift */,
-			);
-			path = Buttons;
 			sourceTree = "<group>";
 		};
 		F7A313C527F4CFE100F9F550 /* Images */ = {
@@ -553,21 +522,14 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		F7A313CB27F4CFE100F9F550 /* Styles */ = {
-			isa = PBXGroup;
-			children = (
-				F7A313CC27F4CFE100F9F550 /* Animations.swift */,
-				F7A313CD27F4CFE100F9F550 /* LottieView.swift */,
-			);
-			path = Styles;
-			sourceTree = "<group>";
-		};
 		F7A313CE27F4CFE100F9F550 /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
 				F755D7C42A2D378800319D57 /* workbuildings.json */,
+				F743C27F2A99D6DF0089E2FE /* searchingearth2.json */,
 				F7D223EB2A98377E008D5C5C /* likedapost.json */,
 				F7BDF10F2A29C036008FDB4C /* study.json */,
+				F743C27D2A99CF100089E2FE /* searchingearth.json */,
 				F7BDF1192A2AA797008FDB4C /* eyesrainbow.json */,
 				F7BDF1172A2AA5FF008FDB4C /* telescope.json */,
 				F71652ED2A8FFD730063E029 /* heartbeat.json */,
@@ -600,6 +562,7 @@
 				F7A313E027F4CFE100F9F550 /* girlcheckinginfo.json */,
 				F7A313E127F4CFE100F9F550 /* womandepressed.json */,
 				F7A313E227F4CFE100F9F550 /* doctor.json */,
+				F743C2812A9A9C050089E2FE /* stars2.json */,
 				F7A313E327F4CFE100F9F550 /* girlsitting.json */,
 				F7A313E427F4CFE100F9F550 /* girlpic2dark.json */,
 				F7569D5A2A11E66B00FE3E84 /* girllikingstuff.json */,
@@ -652,9 +615,21 @@
 				F7A3141027F4CFE100F9F550 /* ImagePicker.swift */,
 				F7A3141127F4CFE100F9F550 /* BackgroundView.swift */,
 				F7A3141827F4CFE100F9F550 /* ShimmerText.swift */,
+				F743C2792A9927180089E2FE /* TextAnimatingGradient.swift */,
 				F7A3141A27F4CFE100F9F550 /* SettingsMenuItems.swift */,
 				F7A3141B27F4CFE100F9F550 /* imageview.swift */,
 				F755D7C62A2DAB1100319D57 /* SignUpMessageView.swift */,
+				F7A313B427F4CFE100F9F550 /* Wave.swift */,
+				F7A313B227F4CFE100F9F550 /* SuccessView.swift */,
+				F7A313B527F4CFE100F9F550 /* HexagonView.swift */,
+				F7A313B727F4CFE100F9F550 /* AnimatedBlobView.swift */,
+				F7A313B827F4CFE100F9F550 /* CircularView.swift */,
+				F7A313C127F4CFE100F9F550 /* CloseButton.swift */,
+				F7A313C327F4CFE100F9F550 /* BackButton.swift */,
+				F7A313C227F4CFE100F9F550 /* PlayButton.swift */,
+				F7A313C427F4CFE100F9F550 /* AngularButton.swift */,
+				F7A313CD27F4CFE100F9F550 /* LottieView.swift */,
+				F7A313CC27F4CFE100F9F550 /* Animations.swift */,
 			);
 			path = Reusable;
 			sourceTree = "<group>";
@@ -828,10 +803,12 @@
 				F73F32382A156D340038A6D3 /* redpoof.json in Resources */,
 				F79594592A246B5B00636776 /* sadheart.json in Resources */,
 				F7BDF1182A2AA5FF008FDB4C /* telescope.json in Resources */,
+				F743C2802A99D6DF0089E2FE /* searchingearth2.json in Resources */,
 				F7BDF1142A2AA286008FDB4C /* likethumb.json in Resources */,
 				F73F32362A1522880038A6D3 /* nomorecards.json in Resources */,
 				F7A3146427F4CFE100F9F550 /* Minimalistic Light.otf in Resources */,
 				F7A3145427F4CFE100F9F550 /* error2.json in Resources */,
+				F743C2822A9A9C050089E2FE /* stars2.json in Resources */,
 				F7A3145F27F4CFE100F9F550 /* Aloka.otf in Resources */,
 				F7D223EC2A98377E008D5C5C /* likedapost.json in Resources */,
 				F7A3143A27F4CFE100F9F550 /* error.json in Resources */,
@@ -859,6 +836,7 @@
 				F7569D5D2A11E6A200FE3E84 /* loveflying.json in Resources */,
 				F7A3144727F4CFE100F9F550 /* girlcheckinginfo.json in Resources */,
 				F7A3117E27F4CB0500F9F550 /* GoogleService-Info.plist in Resources */,
+				F743C27E2A99CF100089E2FE /* searchingearth.json in Resources */,
 				F7A3145727F4CFE100F9F550 /* mother.json in Resources */,
 				F7A3143B27F4CFE100F9F550 /* error1.json in Resources */,
 				F7A3143627F4CFE100F9F550 /* woman3.json in Resources */,
@@ -928,6 +906,7 @@
 				F7A3142727F4CFE100F9F550 /* Modifiers.swift in Sources */,
 				F73F32342A138C800038A6D3 /* DragsCard.swift in Sources */,
 				F7D847E62A22BE6400E1E273 /* messageTest.swift in Sources */,
+				F743C27C2A9966F20089E2FE /* StoriesCard.swift in Sources */,
 				F7BDF1072A287575008FDB4C /* AboutMePicker.swift in Sources */,
 				F7D223EA2A982FDE008D5C5C /* TesterFree.swift in Sources */,
 				F7A3142927F4CFE100F9F550 /* TextModifiers.swift in Sources */,
@@ -977,6 +956,7 @@
 				F7A3142827F4CFE100F9F550 /* OffWhiteButtonModifier.swift in Sources */,
 				F7A3137F27F4CDD100F9F550 /* MainTab.swift in Sources */,
 				F7A3142C27F4CFE100F9F550 /* CloseButton.swift in Sources */,
+				F743C27A2A9927180089E2FE /* TextAnimatingGradient.swift in Sources */,
 				F7A3142627F4CFE100F9F550 /* NeumorphicModifier.swift in Sources */,
 				F7A3142227F4CFE100F9F550 /* HexagonView.swift in Sources */,
 				F755D7CB2A2DD54900319D57 /* EnterNameView.swift in Sources */,

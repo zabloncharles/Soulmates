@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LikesView: View {
+    @AppStorage("currentPage") var selected = 0
     @AppStorage("hidemainTab") var hidemainTab = false
     @State var pageAppeared = false
     @State var profiles: [UserStruct] = compatibleFakeUsers
@@ -16,10 +17,11 @@ struct LikesView: View {
     @State var userScrolledAmount = 0
     @Namespace var namespace
     @State  var showProfile = false
+    @State var profileAppeared = false
     
     var body: some View {
         ZStack {
-            BackgroundView()
+            background
             //hearts animation
             maintabanimationhearts
             
@@ -38,12 +40,29 @@ struct LikesView: View {
         }
         
     }
+    var background : some View {
+        BackgroundView()
+    }
     var showprofile: some View {
         ZStack {
             if showProfile {
                 BoneProfile(currentUser: $currentUser, profile: profile, showProfile: $showProfile)
                   //  .background(Color("offwhite"))
                     .background(.ultraThinMaterial)
+                    .transition(.asymmetric(
+                        insertion: .push(from: .bottom),
+                        removal: .push(from: .top)))
+                    .animation(.spring(), value: showProfile)
+                
+                 // .offset(y: showProfile ? 0 : -50)
+                    .onAppear{
+                        profileAppeared = true
+                        hidemainTab = true
+                    }
+                    .onDisappear{
+                        profileAppeared = false
+                        hidemainTab = false
+                    }
             }
         }
     }
@@ -121,148 +140,134 @@ struct LikesView: View {
         
     }
     var likes: some View {
-        VStack {
-            ScrollView(.vertical, showsIndicators: false) {
-                scrollDetection
-                VStack(spacing: 25.0) {
-                    ForEach(filteredProfiles, id: \.id) { user in
-//                        CompatibleCard(completion: {
-//                            showProfile = true
-//                            profile = user
-//                        }, user: user, namespace: namespace)
-                        PostCard(firstname: user.firstname,avatar: user.avatar,poster: user.images[0]){
-                            //tapp does what?
-                            showProfile = true
-                            profile = user
-                        }
+        
+           
+                VStack {
+                    Rectangle()
+                        .frame( height: 0.17)
+                        .opacity(0.87)
+                        .padding(.horizontal,10)
+                        .offset(y:10)
+                    ScrollView(.vertical, showsIndicators: false) {
+                        scrollDetection
+                        VStack(spacing: 25.0) {
+                            ForEach(filteredProfiles, id: \.id) { user in
+        //                        CompatibleCard(completion: {
+        //                            showProfile = true
+        //                            profile = user
+        //                        }, user: user, namespace: namespace)
+                                PostCard(firstname: user.firstname,avatar: user.avatar,poster: user.images[0]){
+                                    //tapp does what?
+                                    withAnimation(.spring()) {
+                                        showProfile = true
+                                    }
+                                    profile = user
+                                }
+                            }
+                            
+                            
+                        } .padding(.bottom,115)
+                        
+                        .padding(.horizontal,0)
+                        
                     }
-                    
-                    
-                }
-                
-                .padding(.horizontal,0)
-                
-            }
-        }.padding(.top,90)
-            .offset(y:30)
-            .padding(.bottom,0)
+                }.padding(.top,90)
+                    .offset(y:30)
+                    .padding(.bottom,0)
+                    .offset(y: showProfile ? -30 : 0)
+                   
+                .animation(.spring(), value: showProfile)
+            
+        
         
         
     }
   
-
-    var postcard: some View {
-        HStack {
-            VStack(spacing: 15.0){
-                VStack {
-                    Image(systemName: "heart.fill")
-                        .font(.title)
-                        .foregroundColor(.red)
-                    Text("734")
-                        .fontWeight(.semibold)
-                }
-                Image(systemName: "paperplane")
-                    .font(.title)
-                Image(systemName: "bookmark")
-                    .font(.title)
-                Spacer()
-            }.padding()
-            
-            
-            //The image is this
-            ZStack {
-                Image("image_01")
-                    .resizable()
-                    .frame(width: 340, height: 500)
-                    .cornerRadius(34)
-                    .padding(.horizontal,0)
-                    .padding(.trailing,5)
-                
-                
-                //Bottom card avatar and quote
-                VStack {
-                    Spacer()
-                    HStack {
-                        Image("image_05")
-                            .resizable()
-                            .frame(width: 60,height: 60)
-                            .cornerRadius(60)
-                        
-                        HStack {
-                            Text("Michelle:")
-                                .font(.headline)
-                            +
-                            Text(" California weather is the best weather period")
-                                .font(.subheadline)
-                            
-                        }.lineLimit(2)
-                    }
-                    .padding(5)
-                    .padding(.trailing,15)
-                    .background(Color("offwhite"))
-                    .cornerRadius(45)
-                    .padding()
-                }
-            }.neoButton(isToggle: false) {
-                //code here
-            }
-        }//the whole two crds right and left individual
-        .frame(height: 500)
-    }
     var stories : some View {
+      
+            
+           
+        
         VStack {
-            
-            //the stories
-            
             ScrollView(.horizontal,showsIndicators: false){
-                HStack(spacing: 15.0){
-                    VStack {
-                        
-                        Circle()
-                        
-                            .fill(.angularGradient(colors: [.purple, .orange, .purple], center: .center, startAngle: .degrees(0), endAngle: .degrees(360)))
-                        
-                            .overlay(
-                                Image(systemName: "plus")
-                                    .font(.headline)
-                                    .foregroundColor(Color("black"))
-                            )
-                            .frame(width: 70,height: 70)
-                            .cornerRadius(60)
-                        
-                        Text("Start Matching")
-                            .font(.footnote)
-                            .lineLimit(1)
-                    }
-                    ForEach(0 ..< 15) { item in
-                        VStack {
-                            
-                            Image("image_02")
-                                .resizable()
-                                .frame(width: 70,height: 70)
-                                .cornerRadius(60)
-                            
-                            Text("grandpa")
-                                .font(.footnote)
-                                .lineLimit(1)
+                        HStack(spacing: 15.0){
+                            VStack {
+                                
+                                Circle()
+                                
+                                    .fill(.angularGradient(colors: [.purple, .orange, .purple], center: .center, startAngle: .degrees(0), endAngle: .degrees(360)))
+                                
+                                    .overlay(
+                                        Image(systemName: "plus")
+                                            .font(.headline)
+                                            .foregroundColor(Color("black"))
+                                    )
+                                    .frame(width: 70,height: 70)
+                                    .cornerRadius(60)
+                                    .neoButton(isToggle: false) {
+                                        //Start matching
+                                        selected = 0
+                                    }
+                                
+                                Text("Start Matching")
+                                    .font(.footnote)
+                                    .lineLimit(1)
+                                    
+                            }
+                            ForEach(filteredProfiles, id: \.id) { user in
+                                VStack {
+                                    
+                                    GetImageViewer(url:user.avatar)
+                                        .frame(width: 70,height: 70)
+                                        .cornerRadius(60)
+                                        .overlay (
+                                            ZStack {
+                                                
+                                                CircularView(value: Double(99.9) / 100.0,lineWidth: 1.0,colors: [Color("black")])
+                                                    .padding(-1)
+                                                
+                                                
+                                                //This one shows the percentage of match
+                                                CircularView(value: Double(56.9) / 100.0,lineWidth: 1.0,colors: [Color.green.opacity(0.67),Color.green])
+                                                    .padding(-1)
+                                                
+                                                
+                                            }
+                                        )
+                                        .neoButton(isToggle: false) {
+                                            //when a story is clicked
+                                            showProfile = true
+                                            profile = user
+                                        }
+                                    
+                                    Text(user.firstname)
+                                        .font(.footnote)
+                                        .lineLimit(1)
+                                }
+                            }
                         }
-                    }
-                }
-                
-                .padding(.top,20)
-                .padding(.bottom,10)
-                .offset(x:10)
-                
+                        
+                        .padding(.top,20)
+                        .padding(.bottom,10)
+                        .offset(x:10)
+                        
+                        
+                        // .background(LinearGradient(colors: [Color("white"),Color("white"),Color.clear], startPoint: .top, endPoint: .bottom))
+                        //  .background(Color("offwhite").opacity(0.50))
+                        //  .background( .ultraThinMaterial.opacity(userScrolledAmount < 35 ? 1 : 0.0))
+                        // .background(Color("white"))
+                        
+                        
+                        
+                       
             }
-           // .background(LinearGradient(colors: [Color("white"),Color("white"),Color.clear], startPoint: .top, endPoint: .bottom))
-          //  .background(Color("offwhite").opacity(0.50))
-          //  .background( .ultraThinMaterial.opacity(userScrolledAmount < 35 ? 1 : 0.0))
-           // .background(Color("white"))
-            
-            
-            
             Spacer()
-        }
+        }.animation(.easeOut, value: showProfile)
+            .opacity(showProfile ? 0 : 1)
+           // .offset(y: showProfile ? -60 : 0)
+                
+            
+        
     }
     var filteredProfiles: [UserStruct] {
         guard let currentUser = currentUser

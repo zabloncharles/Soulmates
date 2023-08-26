@@ -1,26 +1,26 @@
 //
-//  BoneProfile.swift
+//  ShuffleMatchView.swift
 //  ionicFusion
 //
-//  Created by Zablon Charles on 8/24/23.
+//  Created by Zablon Charles on 8/22/23.
 //
 
-import SwiftUI
 
+import SwiftUI
 import Firebase
 import FirebaseFirestore
 import FirebaseAuth
 
-struct BoneProfile: View {
+struct FullProfileView: View {
     @AppStorage("hidemainTab") var hidemainTab = false
     @AppStorage("currentPage") var selected = 0
     @State var profiles: [UserStruct] = compatibleFakeUsers
     @Binding var currentUser: UserStruct?
-    var profile = userStruct[0]
+    @State var profile = userStruct[0]
     var isAnimated = true
     @State var viewState: CGSize = .zero
     @State var pageAppeared = false
-    @Binding var showProfile : Bool
+    @State var showProfile = true
     @FocusState var sendMessageFocused: Bool
     @State var text = ""
     @State var erro = ""
@@ -48,10 +48,19 @@ struct BoneProfile: View {
         ZStack {
             
             BackgroundView()
+            // .offset(y: CGFloat(scrolledItem) / 3)
+          
+            
             VStack {
-                if !outOfMatches && dislike {
+               if !outOfMatches && dislike {
+               
                     VStack {
-                        LottieView(filename: "girlonphone")
+                        LottieView(filename: "earth",loop:true)
+                            .colorMultiply(.pink)
+                            .frame(width: 450, height: 450)
+                        
+                           
+                            
                             .neoButton(isToggle: false, perform: {
                                 //
                             })
@@ -64,16 +73,36 @@ struct BoneProfile: View {
                                     
                                 }
                             }
-                            .offset(y:-30)
+                           // .offset(y:-30)
                     }
-                    .frame(width: 350, height: 350)
+                    .frame(width: 250, height: 250)
+                    .background(Color.black)
+                    
+                    .mask(
+                        ZStack {
+                            Circle()
+                       
+                        }
+                    )
+                    .neoButton(isToggle: false, perform: {
+                        //code
+                    })
+                    .overlay(
+                        CircleText(radius: 100, text: "Looking for your soulmate...",kerning: 8)
+                            .rotationEffect(.degrees(animategirl ? 180 : 0))
+                            .scaleEffect(0.70)
+                    )
                     .animation(.spring(), value: animategirl)
-                    .scaleEffect(animategirl ? 1 : 0.81)
+                   // .scaleEffect(animategirl ? 1 : 0.81)
+                    //.opacity(0.03)
+                    // .background(.ultraThinMaterial)
+                    
+                    //.offwhitebutton(isTapped: false, isToggle: false, cornerRadius: 20, action: .constant(false))
                     .overlay(
                         VStack{
                             Spacer()
                             VStack(alignment: .leading) {
-                                TextWriterAppear(typeText: "Looking for your soulmate..", speed: 0.02)
+                               // TextWriterAppear(typeText: "Looking for your soulmate..", speed: 0.02)
                             }
                         }.padding()
                             .offset(y:-20)
@@ -96,8 +125,11 @@ struct BoneProfile: View {
                         
                         cover
                             .background(scrollDetection)
+                        //  .offset(y:dislike ? -570 : 0)
+                        //  .matchedGeometryEffect(id: "som\(matchcard.usernumber)", in: namespace)
                         
                         content
+                        // .offset(y: dislike ? 650 : 0)
                         
                         
                     }
@@ -139,10 +171,12 @@ struct BoneProfile: View {
                             .edgesIgnoringSafeArea(.all)
                     }
                     
+                   // Text("\(profileNumber)  name: \(profile.firstname) \(userStruct.count)")
                     
                 }.animation(.spring(), value: dislike)
-                //.opacity(dislike ? 0 :1 )
-                   // .offset(y: dislike ? UIScreen.main.bounds.height * 1.02 : 0)
+                    //.opacity(dislike ? 0 :1 )
+                    .offset(y: dislike ? UIScreen.main.bounds.height * 1.02 : 0)
+                    .rotation3DEffect(.degrees(dislike ? 180 : 0), axis: (x: 0, y: 1, z: 0))
                     .onAppear{
                         withAnimation(.spring()) {
                             animateapper = true
@@ -158,35 +192,6 @@ struct BoneProfile: View {
             if outOfMatches {
                 outofmatchesView
             }
-        }
-        .offset(y: animateapper ? UIScreen.main.bounds.height *  0 : 1.02)
-        .onAppear{
-            withAnimation(.spring()) {
-                animateapper = true
-                
-                //                        DispatchQueue.main.asyncAfter(deadline: .now() + 1)  {
-                //
-                //                            withAnimation(.spring()) {
-                //                                roundEntrance =  false
-                //                            }
-                //                        }
-            }
-            
-            
-        }
-        .onDisappear{
-            withAnimation(.spring()) {
-                animateapper = false
-                
-                //                        DispatchQueue.main.asyncAfter(deadline: .now() + 1)  {
-                //
-                //                            withAnimation(.spring()) {
-                //                                roundEntrance =  false
-                //                            }
-                //                        }
-            }
-            
-            
         }
         
         
@@ -220,17 +225,26 @@ struct BoneProfile: View {
                 Button {
                     dislike = true
                     showProfile = false
-                 
+                    
+                    // Looks like the count starts at 1 so i minus here to start it from 0
+                    if profileNumber > randomProfiles.count - 1{
+                        //  profile = userStruct[0]
+                        //Blank screen because user is out of matches
+                        outOfMatches = true
+                    } else {
+                        profile = randomProfiles[profileNumber]
+                        
+                    }
                     withAnimation(.spring()) {
                         
                         
                         
-                      //  DispatchQueue.main.asyncAfter(deadline: .now() + 0.5)  {
-                      //      showProfile = true
-                      //  }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5)  {
+                            showProfile = true
+                        }
                         
                         liked = false
-                        //unMatch()
+                        //  unMatch()
                     }
                     
                 } label: {
@@ -266,8 +280,13 @@ struct BoneProfile: View {
             .frame(height: scrollY > 0 ? 500 + scrollY : 500)
             
             .overlay(
+                // Image("image_09")
+                //    .resizable()
+                //  .aspectRatio(contentMode: .fill)
                 VStack{
                     GetImageAlert(url:profile.avatar,loaded: $profileLoaded)
+                    //  GetImageAlert(url: "",loaded: .constant(false))
+                       // .matchedGeometryEffect(id: profile.avatar, in: namespace)
                         .offset(y: scrollY > 0 ? -scrollY : 0)
                         .scaleEffect(liked ? 1.4 : scrollY > 0 ? scrollY / 1000 + 1 : 1)
                         .blur(radius: liked ? 14 : scrollY > 0 ? scrollY / 10 : 0)
@@ -278,6 +297,8 @@ struct BoneProfile: View {
                     
                     
                 })
+            //  .cornerRadius(8)
+            
         }
         .frame(height: 400)
     }
@@ -434,25 +455,24 @@ struct BoneProfile: View {
                 
                 
                 
-                VStack {
+                ZStack {
+                    VStack {
+                       // ImageViewer(url: profile.images[0] )
+                        GetImageAndUrl(url:profile.images[0], imageUrl: $profileImages[0])
+                            .frame(minHeight:  400)
+                        
+                    }
                     
-                    GetImageAndUrl(url:profile.images[0], imageUrl: $profileImages[0])
-                    
-                    
-                    
-                }.frame(width: UIScreen.main.bounds.width - 22, height: 400)
-                
-                
-                
-                //.padding(20)
-                
+                }.padding(-20)
+                    .padding(.bottom,20)
                     .cornerRadius(13)
-                    .neoDoubleTapButton(isToggle: false, perform: {
+                    .neoButton(isToggle: false, perform: {
                         //when first image is clicked
                         liked = true
                         likedImage = profileImages[0]
                         
                     })
+                   // .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 14, action: $liked)
                     .overlay(
                         VStack {
                             Spacer()
@@ -501,24 +521,22 @@ struct BoneProfile: View {
                 }.foregroundColor(Color("black"))
                     .padding()
                     .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 18, action: $liked)
-                    .padding(.bottom,5)
+                    .padding(.bottom,25)
                 
                 
                 
-                VStack {
+                ZStack {
+                    VStack {
+                        // ImageViewer(url: profile.images[0] )
+                        GetImageAndUrl(url:profile.images[1], imageUrl: $profileImages[1])
+                            .frame(minHeight:  400)
+                        
+                    }
                     
-                    GetImageAndUrl(url:profile.images[1], imageUrl: $profileImages[1])
-                    
-                    
-                    
-                }.frame(width: UIScreen.main.bounds.width - 22, height: 400)
-                
-                
-                
-                //.padding(20)
-                
+                }.padding(-20)
+                    .padding(.bottom,20)
                     .cornerRadius(13)
-                    .neoDoubleTapButton(isToggle: false, perform: {
+                    .neoButton(isToggle: false, perform: {
                         //when first image is clicked
                         liked = true
                         likedImage = profileImages[1]
@@ -709,9 +727,9 @@ struct BoneProfile: View {
                 }
             }.padding(15)
                 .neoButtonOff(isToggle: false, cornerRadius: 15, perform: {
-                    //clikced you liked
-                    sendMessageFocused = false
-                })
+                //clikced you liked
+                sendMessageFocused = false
+            })
                 .padding(.top, 30)
                 .offset(y: liked ? 0 : -20)
             
@@ -722,8 +740,8 @@ struct BoneProfile: View {
                         Color.black.opacity(0.25)
                     }
                     ImageViewer(url: likedImage.isEmpty ? profile.avatar.isEmpty ? "" : profile.avatar : likedImage)
-                    // .matchedGeometryEffect(id: profile.avatar, in: namespace)
-                    
+                       // .matchedGeometryEffect(id: profile.avatar, in: namespace)
+                       
                     
                     
                 }
@@ -744,7 +762,7 @@ struct BoneProfile: View {
             
             HStack {
                 TextField("Message...", text: $sendMessage)
-                
+                   
                     .focused($sendMessageFocused)
                     .padding(.vertical,16)
                     .padding(.leading, 15)
@@ -782,7 +800,7 @@ struct BoneProfile: View {
             
             if !sendMessageFocused {
                 VStack {
-                    
+                  
                     
                     Image(systemName: "xmark")
                         .padding(.vertical,20)
@@ -804,8 +822,8 @@ struct BoneProfile: View {
             Spacer()
         }.padding(.horizontal, 20)
             .offset(y:hidemainTab ? 110 : 220)
-        // .background(Color.black.opacity(0.65))
-        
+           // .background(Color.black.opacity(0.65))
+      
             .onAppear{
                 
                 withAnimation(.spring()) {
@@ -822,20 +840,27 @@ struct BoneProfile: View {
         
         
     }
-   
+    var randomProfiles: [UserStruct] {
+        guard let currentUser = currentUser else {
+            return [] // No current user, return an empty array
+        }
+        let matchingEmails = Set(currentUser.matches)
+        let filteredProfiles = profiles.filter { !matchingEmails.contains($0.email) }
+        
+        return filteredProfiles
+    }
     var scrollDetection: some View {
         GeometryReader { proxy in
             let offset = proxy.frame(in: .named("scroll")).minY
             Color.clear.preference(key: ScrollPreferenceKey.self, value: offset)
         }
         .onPreferenceChange(ScrollPreferenceKey.self) { offset in
-            
-            if offset > 60 {
-                //hide profile after pulling down cover
-                withAnimation(.spring()) {
-                    showProfile = false
-                }
-            }
+            withAnimation(.easeInOut) {
+                scrolledItem = Int(offset)
+                
+                
+                
+                
                 
                 if offset < -15 {
                     
@@ -854,7 +879,7 @@ struct BoneProfile: View {
                     
                 }
                 
-            
+            }
         }
     }
     
@@ -1047,13 +1072,13 @@ struct BoneProfile: View {
     }
 }
 
-
-
-
-
-struct BoneProfile_Previews: PreviewProvider {
-
+struct FullMatchProfileView_Previews: PreviewProvider {
+    @Namespace static var namespace
+    
     static var previews: some View {
-        BoneProfile( currentUser: .constant(fakeUser), showProfile: .constant(false))
+        // FullProfileView(namespace: namespace, matchcard: .constant(matchCardData[0]), showProfile: .constant(false))
+        ViewController()
+        
     }
 }
+

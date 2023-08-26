@@ -12,6 +12,7 @@ struct PostCard: View {
     var avatar = ""
     var quote = "Do not go gently into that goodnight!"
     var poster = ""
+    @State var percent = 56
     let completion: () -> Void
     var body: some View {
         
@@ -21,15 +22,18 @@ struct PostCard: View {
                         Image(systemName: "heart.fill")
                             .font(.title)
                             .foregroundColor(.red)
-                        Text("734")
+                        Text("Like")
                             .fontWeight(.semibold)
+                            .foregroundColor(.red)
                     }
                     Image(systemName: "paperplane")
                         .font(.title)
                     Image(systemName: "bookmark")
                         .font(.title)
                     Spacer()
+                    
                 }.padding()
+                    
                 
                 
                 //The image is this
@@ -64,12 +68,63 @@ struct PostCard: View {
                         .cornerRadius(45)
                         .padding()
                     }
-                }.neoButton(isToggle: false) {
+                }
+                .overlay(
+                    VStack{
+                        HStack{
+                            Spacer()
+                            Circle()
+                                .fill(Color("offwhite"))
+                                .frame(width: 30,height: 30)
+                                .padding(2)
+                                .background(Color("offwhite"))
+                                .cornerRadius(60)
+                                .overlay (
+                                    ZStack {
+                                        
+                                        CircularView(value: Double(percent) / 100.0,lineWidth: 1.0)
+                                        
+                                        Text("\(percent)%")
+                                            .font(.caption)
+                                        .foregroundColor(Color.white)
+                                        
+                                        
+                                    }
+                                )
+                                .offset(x:-10)
+                        }.padding(15)
+                        Spacer()
+                    })
+                
+                .neoButton(isToggle: false) {
                     //code here
                     completion()
                 }
             }//the whole two crds right and left individual
             .frame(height: 500)
+            .overlay(
+                // Rotate the text 90 degrees
+                VStack {
+                    Spacer()
+                    HStack {
+                        TextAnimatingGradient(text: "LIKED YOU : 02/05/2023",font: "Mignitte",useCustomFont: true)
+                       // Text("02/05/2023")
+                           
+                            .padding(.horizontal)
+                            .padding(.vertical,10)
+                            .background(Color("offwhite"))
+                            
+                            .cornerRadius(23)
+                            .neoButton(isToggle: false, perform: {
+                                //code
+                            })
+                            .rotationEffect(.degrees(-90))
+                            .offset(x:-63)
+                        Spacer()
+                    }
+                }.padding(.bottom, 80)
+                  
+            )
         
     }
 }
