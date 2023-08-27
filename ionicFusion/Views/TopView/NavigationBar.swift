@@ -41,8 +41,16 @@ struct NavigationBar: View {
                       
                             Text("\(title)")
                                 .font(.custom("MrDafoe-Regular", size: contentHasScrolled ? 30 : 42))
-                                .foregroundStyle(.primary)
                                 
+                                .foregroundColor(.clear)
+                                .background( LinearGradient(colors: [Color.red,.blue,.purple], startPoint: .leading, endPoint: .trailing))
+                                .mask(
+                                  
+                                        Text("\(title)")
+                                            .font(.custom("MrDafoe-Regular", size: contentHasScrolled ? 30 : 42))
+                                        
+                                    
+                                )
                                 .padding(.horizontal,15)
                                 .offset(y: contentHasScrolled ? 9 : 0)
                                

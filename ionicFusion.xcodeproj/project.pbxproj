@@ -32,6 +32,9 @@
 		F743C27E2A99CF100089E2FE /* searchingearth.json in Resources */ = {isa = PBXBuildFile; fileRef = F743C27D2A99CF100089E2FE /* searchingearth.json */; };
 		F743C2802A99D6DF0089E2FE /* searchingearth2.json in Resources */ = {isa = PBXBuildFile; fileRef = F743C27F2A99D6DF0089E2FE /* searchingearth2.json */; };
 		F743C2822A9A9C050089E2FE /* stars2.json in Resources */ = {isa = PBXBuildFile; fileRef = F743C2812A9A9C050089E2FE /* stars2.json */; };
+		F743C2842A9B52920089E2FE /* SkullProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F743C2832A9B52920089E2FE /* SkullProfile.swift */; };
+		F743C2862A9BF7570089E2FE /* ExploreMenuRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F743C2852A9BF7570089E2FE /* ExploreMenuRow.swift */; };
+		F743C2882A9C025C0089E2FE /* droplet.json in Resources */ = {isa = PBXBuildFile; fileRef = F743C2872A9C025C0089E2FE /* droplet.json */; };
 		F755D7C52A2D378800319D57 /* workbuildings.json in Resources */ = {isa = PBXBuildFile; fileRef = F755D7C42A2D378800319D57 /* workbuildings.json */; };
 		F755D7C72A2DAB1100319D57 /* SignUpMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F755D7C62A2DAB1100319D57 /* SignUpMessageView.swift */; };
 		F755D7C92A2DACBC00319D57 /* Email&PasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F755D7C82A2DACBC00319D57 /* Email&PasswordView.swift */; };
@@ -196,6 +199,9 @@
 		F743C27D2A99CF100089E2FE /* searchingearth.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = searchingearth.json; sourceTree = "<group>"; };
 		F743C27F2A99D6DF0089E2FE /* searchingearth2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = searchingearth2.json; sourceTree = "<group>"; };
 		F743C2812A9A9C050089E2FE /* stars2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = stars2.json; path = ../../../../../../Downloads/stars2.json; sourceTree = "<group>"; };
+		F743C2832A9B52920089E2FE /* SkullProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkullProfile.swift; sourceTree = "<group>"; };
+		F743C2852A9BF7570089E2FE /* ExploreMenuRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreMenuRow.swift; sourceTree = "<group>"; };
+		F743C2872A9C025C0089E2FE /* droplet.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = droplet.json; sourceTree = "<group>"; };
 		F755D7C42A2D378800319D57 /* workbuildings.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = workbuildings.json; sourceTree = "<group>"; };
 		F755D7C62A2DAB1100319D57 /* SignUpMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpMessageView.swift; sourceTree = "<group>"; };
 		F755D7C82A2DACBC00319D57 /* Email&PasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Email&PasswordView.swift"; sourceTree = "<group>"; };
@@ -394,6 +400,7 @@
 				F70636332A1D6A92007A9FEF /* SmallMatchActive.swift */,
 				F79594602A25E91700636776 /* CompatibleCard.swift */,
 				F79594622A268D8700636776 /* ActiveCard.swift */,
+				F73F32332A138C800038A6D3 /* DragsCard.swift */,
 			);
 			path = Widget;
 			sourceTree = "<group>";
@@ -422,6 +429,7 @@
 			children = (
 				F7EF06252A95276400625108 /* ShuffleMatchView.swift */,
 				F7D223F02A9860BE008D5C5C /* BoneProfile.swift */,
+				F743C2832A9B52920089E2FE /* SkullProfile.swift */,
 				F7569D562A11DE9900FE3E84 /* LikesView.swift */,
 				F7A3135D27F4CDD100F9F550 /* HomeView.swift */,
 				F71652F92A92988B0063E029 /* Chats.swift */,
@@ -526,6 +534,7 @@
 			isa = PBXGroup;
 			children = (
 				F755D7C42A2D378800319D57 /* workbuildings.json */,
+				F743C2872A9C025C0089E2FE /* droplet.json */,
 				F743C27F2A99D6DF0089E2FE /* searchingearth2.json */,
 				F7D223EB2A98377E008D5C5C /* likedapost.json */,
 				F7BDF10F2A29C036008FDB4C /* study.json */,
@@ -610,7 +619,7 @@
 			isa = PBXGroup;
 			children = (
 				F71652F52A919BA50063E029 /* MessageBubblesView.swift */,
-				F73F32332A138C800038A6D3 /* DragsCard.swift */,
+				F743C2852A9BF7570089E2FE /* ExploreMenuRow.swift */,
 				F7A3140827F4CFE100F9F550 /* CircleLabel.swift */,
 				F7A3141027F4CFE100F9F550 /* ImagePicker.swift */,
 				F7A3141127F4CFE100F9F550 /* BackgroundView.swift */,
@@ -779,6 +788,7 @@
 				F7A3145627F4CFE100F9F550 /* error3.json in Resources */,
 				F7A3143727F4CFE100F9F550 /* girlwaving.json in Resources */,
 				F7A3145A27F4CFE100F9F550 /* girlonphone.json in Resources */,
+				F743C2882A9C025C0089E2FE /* droplet.json in Resources */,
 				F7D847ED2A2449B400E1E273 /* paperplaneloading.json in Resources */,
 				F7A3143927F4CFE100F9F550 /* birth.json in Resources */,
 				F7A3144027F4CFE100F9F550 /* loading.json in Resources */,
@@ -905,6 +915,7 @@
 				F7BDF1122A29C175008FDB4C /* LikesPillView.swift in Sources */,
 				F7A3142727F4CFE100F9F550 /* Modifiers.swift in Sources */,
 				F73F32342A138C800038A6D3 /* DragsCard.swift in Sources */,
+				F743C2842A9B52920089E2FE /* SkullProfile.swift in Sources */,
 				F7D847E62A22BE6400E1E273 /* messageTest.swift in Sources */,
 				F743C27C2A9966F20089E2FE /* StoriesCard.swift in Sources */,
 				F7BDF1072A287575008FDB4C /* AboutMePicker.swift in Sources */,
@@ -924,6 +935,7 @@
 				F7A3146727F4CFE100F9F550 /* TrackCircle.swift in Sources */,
 				F7A313A227F4CDEA00F9F550 /* MessagesModel.swift in Sources */,
 				F7A3135827F4CDB400F9F550 /* ViewController.swift in Sources */,
+				F743C2862A9BF7570089E2FE /* ExploreMenuRow.swift in Sources */,
 				F7D223F12A9860BE008D5C5C /* BoneProfile.swift in Sources */,
 				F71652F22A918E040063E029 /* MessageDetailView.swift in Sources */,
 				F7A3147B27F4CFE100F9F550 /* Notification.swift in Sources */,

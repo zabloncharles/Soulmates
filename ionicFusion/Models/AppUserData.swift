@@ -49,10 +49,13 @@ var userNoStruct = [
     ]
 
 
-var fakeUser = UserStruct(firstname: "Shania", lastname: "Rossetta", notifications: "2", avatar: "https://images.unsplash.com/photo-1664575602554-2087b04935a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80", cyclechange: "24", birthday: "01/01/1995", email: "johndoe@example.com", aboutme: "I enjoy playing sports and reading books.", education: "University of XYZ", work: "XYZ Corporation", images: ["https://source.unsplash.com/random/?female,friends,beautiful", "https://source.unsplash.com/random/?female,beautiful"], likes: ["Hiking", "Golfing"], location: ["New York"], lookingfor: "Dating", online: true, password: "p@ssw0rd", matches: ["emmasmith@example.com","michaeljohnson@example.com"], age: "28", lifestyle: ["Healthy lifestyle"], lifestyledesc: "I follow a healthy lifestyle and focus on eating nutritious food. I'm also passionate about fitness and enjoy running and practicing yoga.")
+var fakeUser = UserStruct(firstname: "Shania", lastname: "Rossetta", notifications: "2", avatar: "https://images.unsplash.com/photo-1664575602554-2087b04935a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80", cyclechange: "24", birthday: "01/01/1995", email: "johndoe@example.com", aboutme: "I enjoy playing sports and reading books.", education: "University of XYZ", work: "XYZ Corporation", images: ["https://source.unsplash.com/random/?female,friends,beautiful", "https://source.unsplash.com/random/?female,beautiful"], likes: ["Hiking", "Golfing"], location: ["New York"], lookingfor: "Dating", online: true, password: "p@ssw0rd", matches: [""], age: "28", lifestyle: ["Healthy lifestyle"], lifestyledesc: "I follow a healthy lifestyle and focus on eating nutritious food. I'm also passionate about fitness and enjoy running and practicing yoga.")
 
 
 var compatibleFakeUsers = userStruct
+
+
+var appbackground = BackgroundView()
 
 
 

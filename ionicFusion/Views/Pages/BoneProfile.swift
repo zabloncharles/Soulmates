@@ -39,6 +39,7 @@ struct BoneProfile: View {
     @State var showMore = false
     @State var scrolledItem = 0
     @State var profileNumber = 0
+    @State var currentIndex = 0
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.presentationMode) var presentationMode
     
@@ -218,6 +219,14 @@ struct BoneProfile: View {
                 
                 Spacer()
                 Button {
+                    
+                    withAnimation {
+                        if currentIndex != profiles.count - 1 {
+                            currentIndex += 1
+                        }
+                        
+                    }
+                    
                     dislike = true
                     showProfile = false
                  

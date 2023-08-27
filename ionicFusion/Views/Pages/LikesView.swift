@@ -32,10 +32,16 @@ struct LikesView: View {
             
             // nolikes
            // likes2
+            if filteredProfiles.count != 0 {
             likes
             //topbartitle
             // topbar
             stories
+            } else {
+                topbar
+                girlanimation
+                nolikes
+            }
           showprofile
         }
         
@@ -136,7 +142,7 @@ struct LikesView: View {
                 .background(Color(red: 1.0, green: 0.0, blue: 0.0, opacity: 1.0))
                 .cornerRadius(30)
         }.padding(20)
-            .opacity(pageAppeared ? 1 : 0)
+           // .opacity(pageAppeared ? 1 : 0)
         
     }
     var likes: some View {

@@ -186,10 +186,10 @@ struct ProfileEditView: View {
                 
                 
                 //MARK:Notifications
-                if showNotification {
-                    Notification(title: notifactionMessage[0], notification: notifactionMessage[1], showNotification: $showNotification)
-                       
-                }
+//                if showNotification {
+//                    Notification(title: notifactionMessage[0], notification: notifactionMessage[1], showNotification: $showNotification)
+//                       
+//                }
                 
                 
             }.onChange(of: blurBackground) { hidetabbar in
@@ -243,9 +243,9 @@ struct ProfileEditView: View {
                                 .foregroundColor(showSettings ? .red : Color("black"))
                                 .rotationEffect(.degrees(showSettings ? 0 : 180))
                                 .animation(.linear, value: showSettings)
-                                .padding(2)
-                                //.background(.ultraThinMaterial)
-                                .cornerRadius(5)
+                                .padding(3)
+                                .background(.ultraThinMaterial)
+                                .mask(Circle())
                                 .neoButton(isToggle: false) {
                                     //
                                     withAnimation(.spring()) {
@@ -254,43 +254,17 @@ struct ProfileEditView: View {
                                         blurBackground = false
                                         showSettings.toggle()
                                         notifactionMessage[0] = "Settings"
+                                    
+                                        
                                     }
                                 }
-                            Rectangle()
-                                .frame(width:16.4, height: 1.3)
-                                .opacity(1)
                         }
-                        if !showSettings {
-                            Image(systemName: isEditing ? "xmark" : "pencil.slash")
-                                .font(.title)
-                                .fontWeight(.bold)
-                                .foregroundColor(isEditing ? .red : Color("black"))
-                                .rotationEffect(.degrees(isEditing ? 180 : 0))
-                                .animation(.linear, value: isEditing)
-                                .padding(2)
-                               // .background(.ultraThinMaterial)
-                                .cornerRadius(5)
-                                .neoButton(isToggle: false) {
-                                    //
-                                    withAnimation(.spring()) {
-                                        isEditing.toggle()
-                                        showSettings = false
-                                        blurBackground = false
-                                        editItem = 0
-                                        notifactionMessage[0] = "Edit Profile"
-                                    }
-                                }
-                            if isEditing {
-                                Rectangle()
-                                    .frame(width:16.4, height: 1.3)
-                                .opacity(1)
-                            }
-                        }
+                        
                     }.padding(.vertical,4)
                         .padding(.horizontal,3)
                         .padding(2)
-                        .background(.ultraThinMaterial.opacity(0.90))
-                        .cornerRadius(13)
+                        .background(.ultraThinMaterial)
+                        .mask(Circle())
                 }.padding(.horizontal,15)
                 Spacer()
             })

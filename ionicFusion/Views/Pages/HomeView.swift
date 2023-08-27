@@ -18,6 +18,7 @@ struct HomeView: View {
     @State var contentHasScrolled = false
     @Namespace var namespace
     @State private var pageAppeared = false
+    @State var profileAppeared = false
     @State private var showProfile = false
     @AppStorage("signInAnimation") var signInAnimation = false
     @AppStorage("hidemainTab") var hidemainTab = false
@@ -27,15 +28,15 @@ struct HomeView: View {
         
         ZStack {
             
-            BackgroundView()
+            appbackground
             //  ScrollView {
             
             
             VStack {
                 
-                welcoming
-                    .opacity(showProfile || !pageAppeared ? 0 : 1)
-                    .animation(.spring(), value: showProfile)
+                topbar
+                // .opacity(showProfile || !pageAppeared ? 0 : 1)
+                // .animation(.spring(), value: showProfile)
                     .padding(.top,70)
                 
                 
@@ -65,19 +66,47 @@ struct HomeView: View {
                     Spacer()
                     
                 }.edgesIgnoringSafeArea(.bottom)
-                
             }.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-                .blur(radius: showProfile ? 19 : 0)
+            // .blur(radius: showProfile ? 19 : 0)
+                .background(appbackground)
+                .scaleEffect(showProfile ? 0.90: 1)
+               
+                .animation(.spring(), value: showProfile)
             
             
             
             
+            
+            navigation
+            //.offset(y:!pageAppeared ? -200 : 0)
+            
+            //   .opacity(showProfile ? 0 : 1)
+                .scaleEffect(showProfile ? 0.90: 1)
+                .animation(.spring(), value: showProfile)
             
             
             if showProfile {
-               // ViewProfileView(namespace: namespace, profile: profile, dislike: $showProfile, scrolling: $showProfile)
-              //  FullProfileView(currentUser: $currentUser)
-                BoneProfile(currentUser: $currentUser, profile: profile, showProfile: $showProfile)
+                SkullProfile(currentUser: $currentUser, profile: profile, showProfile: $showProfile, currentIndex: .constant(0))
+                // .animation(.spring().delay(0.20), value: showProfile)
+                    .cornerRadius(profileAppeared ?  40 : 43)
+                    .edgesIgnoringSafeArea(.all)
+                    .offset(y: !profileAppeared ? UIScreen.main.bounds.height *  1.02 : 0)
+                
+                    .onAppear{
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            // action here
+                            withAnimation(.spring()){
+                                profileAppeared = true
+                            }
+                            
+                        }
+                    }
+                    .onDisappear{
+                        withAnimation(.spring()){
+                            profileAppeared = false
+                        }
+                    }
                 
             }
             
@@ -88,10 +117,7 @@ struct HomeView: View {
             
             //  }
             
-            navigation
-                .offset(y:!pageAppeared ? -200 : 0)
-                .animation(.spring(), value: showProfile)
-                .opacity(showProfile ? 0 : 1)
+            
             
             
             
@@ -135,8 +161,8 @@ struct HomeView: View {
             
             
         }.onAppear{
-            getfakeCurrentUser()
-            withAnimation(.spring().speed(0.4)){
+            
+            withAnimation(.spring()){
                 pageAppeared = true
                 
             }
@@ -148,160 +174,7 @@ struct HomeView: View {
         }
         
     }
-    
-    var compatible: some View {
-        VStack {
-            ScrollView(.vertical, showsIndicators: false) {
-                scrollDetection
-                VStack(spacing: 25.0) {
-                    ForEach(filteredProfiles, id: \.id) { user in
-                        CompatibleCard(completion: {
-                            showProfile = true
-                            profile = user
-                        }, user: user, namespace: namespace)
-                    }
-                    
-                    
-                }
-                
-                .padding(.horizontal,0)
-                
-            }
-        }.offset(y:10)
-            .padding(.bottom,0)
-        
-        
-    }
-    var filteredProfiles: [UserStruct] {
-        guard let currentUser = currentUser
-        else {
-            return profiles
-        }
-        let matchingEmails = Set(currentUser.matches)
-        return profiles.filter { !matchingEmails.contains($0.email) }
-    }
-    var active: some View {
-        ZStack {
-            ScrollView {
-                
-                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing:20) {
-                    ForEach(Array(profiles.enumerated()), id: \.element.id) { index, user in
-                        ActiveCard(completion: {
-                            showProfile = true
-                            profile = user
-                        }, user: user)
-                    }
-                }.padding(.bottom,90)
-                    .padding(.top,24)
-                    .padding(.horizontal,5)
-            }
-            
-            VStack {
-                Spacer()
-                Rectangle()
-                    .fill(LinearGradient(colors: [Color("offwhiteneo"), Color.clear], startPoint: .bottom, endPoint: .top))
-                    .frame(height: 120)
-                    .padding(.top,0)
-            }.edgesIgnoringSafeArea(.bottom)
-        }
-    }
-    
-    var near : some View {
-        ZStack {
-            ScrollView {
-                
-                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing:20) {
-                    ForEach(Array(profiles.enumerated()), id: \.element.id) { index, user in
-                        ActiveCard(completion: {
-                            showProfile = true
-                            profile = user
-                        }, user: user)
-                    }
-                }.padding(.bottom,90)
-                    .padding(.top,24)
-                    .padding(.horizontal,5)
-            }
-            
-            VStack {
-                Spacer()
-                Rectangle()
-                    .fill(LinearGradient(colors: [Color("offwhiteneo"), Color.clear], startPoint: .bottom, endPoint: .top))
-                    .frame(height: 120)
-                    .padding(.top,0)
-            }.edgesIgnoringSafeArea(.bottom)
-        }.onAppear{
-            
-        }
-    }
-    var newhere : some View {
-        ZStack {
-            ScrollView {
-                
-                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing:20) {
-                    ForEach(Array(profiles.enumerated()), id: \.element.id) { index, data in
-                        ActiveCard(completion: {
-                            showProfile = true
-                            profile = data
-                        }, user: data)
-                    }
-                }.padding(.bottom,90)
-                    .padding(.top,24)
-                    .padding(.horizontal,5)
-            }
-            
-            VStack {
-                Spacer()
-                Rectangle()
-                    .fill(LinearGradient(colors: [Color("offwhiteneo"), Color.clear], startPoint: .bottom, endPoint: .top))
-                    .frame(height: 120)
-                    .padding(.top,0)
-            }.edgesIgnoringSafeArea(.bottom)
-        }
-    }
-    var nocards: some View {
-        VStack {
-            VStack {
-                LottieView(filename: "loveflying" ,loop: true)
-                    .frame(width: 100)
-                    .opacity(pageAppeared ? 1 : 0)
-                
-            }.offset( x:-40, y:280)
-                .opacity(0.7)
-            
-            VStack {
-                LottieView(filename: "girllikingstuff" ,loop: true)
-                    .frame(width: 280)
-                    .opacity(pageAppeared ? 1 : 0)
-                
-            }
-            
-            VStack(alignment: .center, spacing: 20.0) {
-                
-                Text("Opps! No profiles yet")
-                    .font(.headline)
-                Text("Nothing to seee here. Likes are more intentional on Soulmate so don't worry, They'll come in very soon.")
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal,25)
-                HStack {
-                    Text("Try boosting your profile")
-                        .font(.body)
-                        .fontWeight(.semibold)
-                }.padding(.horizontal,15)
-                    .padding(.vertical,10)
-                    .background(Color(red: 1.0, green: 0.0, blue: 0.0, opacity: 1.0))
-                    .cornerRadius(30)
-            }.padding(10)
-                .opacity(pageAppeared ? 1 : 0)
-        }.offset(y:-210)
-    }
-    var navigation: some View {
-        NavigationBar( title: "Soulmate",
-                       contentHasScrolled: $contentHasScrolled)
-    }
-    
-    
-    var welcoming : some View {
+    var topbar : some View {
         
         VStack {
             
@@ -311,15 +184,28 @@ struct HomeView: View {
                     
                     HStack(spacing:0) {
                         TextWriterAppear(typeText: "Welcome back ", speed: 0.03)
-                            .font(.custom("BodoniFLF-Roman", size: 24))
+                        
+                            .lineLimit(1)
+                            .font(.title3)
+                            .textCase(.uppercase)
+                        
                         Text(currentUser?.firstname.lowercased() ?? "umm" )
-                            .font(.custom("BodoniFLF-Roman", size: 24))
+                            .lineLimit(1)
+                            .font(.callout)
                             .foregroundColor(.clear)
-                            .background(LinearGradient(colors: [Color("black"),Color("black"),Color.blue], startPoint: .leading, endPoint: .trailing))
+                            .background(LinearGradient(colors: [Color.red,Color("black"),Color.blue], startPoint: .leading, endPoint: .trailing))
                             .mask (
                                 Text(currentUser?.firstname.lowercased() ?? "umm" )
-                                    .font(.custom("BodoniFLF-Roman", size: 24))
+                                    .lineLimit(1)
+                                    .font(.callout)
+                                
                             )
+                            .font(.title3)
+                            .textCase(.uppercase)
+                            .padding(.horizontal,8)
+                            .padding(.vertical,5)
+                            .background(Color("offwhiteneo"))
+                            .cornerRadius(23)
                         
                         
                     }
@@ -329,8 +215,13 @@ struct HomeView: View {
                         
                         
                         VStack {
-                            TextWriterAppear(typeText: " You have \(currentUser?.notifications ?? "0" ) notifications today :)", speed: 0.03)
-                                .opacity(0.67)
+                            HStack(spacing: 2.0) {
+                                Image(systemName: "bell")
+                                    .opacity(0.67)
+                                TextWriterAppear(typeText: "You have \(currentUser?.notifications ?? "0" ) notifications!", speed: 0.03)
+                                    .opacity(0.67)
+                                    .lineLimit(1)
+                            }
                         }
                     }.font(.subheadline)
                 }
@@ -384,6 +275,178 @@ struct HomeView: View {
         }
         
     }
+    var compatible: some View {
+        VStack {
+            ZStack {
+                if !filteredProfiles.isEmpty {
+                    ScrollView(.vertical, showsIndicators: false) {
+                        scrollDetection
+                        VStack(spacing: 25.0) {
+                            ForEach(filteredProfiles, id: \.id) { user in
+                                CompatibleCard(completion: {
+                                    showProfile = true
+                                    profile = user
+                                }, user: user, namespace: namespace)
+                            }
+
+
+                        }
+                        .padding(.bottom,85)
+
+                    }
+                } else {
+                    nocards
+                }
+                
+              
+            }
+        }.offset(y:10)
+        
+        
+        
+    }
+    var filteredProfiles: [UserStruct] {
+        guard let currentUser = currentUser
+        else {
+            return profiles
+        }
+        let matchingEmails = Set(currentUser.matches)
+        return profiles.filter { !matchingEmails.contains($0.email) }
+    }
+    var active: some View {
+        ZStack {
+            if !filteredProfiles.isEmpty {
+                ScrollView {
+                    
+                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing:20) {
+                        ForEach(Array(profiles.enumerated()), id: \.element.id) { index, user in
+                            ActiveCard(completion: {
+                                showProfile = true
+                                profile = user
+                            }, user: user)
+                        }
+                    }.padding(.bottom,90)
+                        .padding(.top,24)
+                        .padding(.horizontal,5)
+                }
+            } else {
+                nocards
+            }
+            
+            VStack {
+                Spacer()
+                Rectangle()
+                    .fill(LinearGradient(colors: [Color("offwhiteneo"), Color.clear], startPoint: .bottom, endPoint: .top))
+                    .frame(height: 120)
+                    .padding(.top,0)
+            }.edgesIgnoringSafeArea(.bottom)
+        }
+    }
+    
+    var near : some View {
+        ZStack {
+            if !filteredProfiles.isEmpty {
+                ScrollView {
+                    
+                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing:20) {
+                        ForEach(Array(profiles.enumerated()), id: \.element.id) { index, user in
+                            ActiveCard(completion: {
+                                showProfile = true
+                                profile = user
+                            }, user: user)
+                        }
+                    }.padding(.bottom,90)
+                        .padding(.top,24)
+                        .padding(.horizontal,5)
+                }
+            } else {
+                nocards
+            }
+            
+            VStack {
+                Spacer()
+                Rectangle()
+                    .fill(LinearGradient(colors: [Color("offwhiteneo"), Color.clear], startPoint: .bottom, endPoint: .top))
+                    .frame(height: 120)
+                    .padding(.top,0)
+            }.edgesIgnoringSafeArea(.bottom)
+        }.onAppear{
+            
+        }
+    }
+    var newhere : some View {
+        ZStack {
+            if !filteredProfiles.isEmpty {
+                ScrollView {
+                    
+                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing:20) {
+                        ForEach(Array(profiles.enumerated()), id: \.element.id) { index, data in
+                            ActiveCard(completion: {
+                                showProfile = true
+                                profile = data
+                            }, user: data)
+                        }
+                    }.padding(.bottom,90)
+                        .padding(.top,24)
+                        .padding(.horizontal,5)
+                }
+            } else {
+                nocards
+            }
+            
+            VStack {
+                Spacer()
+                Rectangle()
+                    .fill(LinearGradient(colors: [Color("offwhiteneo"), Color.clear], startPoint: .bottom, endPoint: .top))
+                    .frame(height: 120)
+                    .padding(.top,0)
+            }.edgesIgnoringSafeArea(.bottom)
+        }
+    }
+    var nocards: some View {
+        VStack {
+            VStack {
+                LottieView(filename: "loveflying" ,loop: true)
+                    .frame(width: 100)
+                    .opacity(pageAppeared ? 1 : 0)
+                
+            }.offset( x:-40, y:280)
+                .opacity(0.7)
+            
+            VStack {
+                LottieView(filename: "girllikingstuff" ,loop: true)
+                    .frame(width: 280)
+                    .opacity(pageAppeared ? 1 : 0)
+                
+            }
+            
+            VStack(alignment: .center, spacing: 20.0) {
+                
+                Text("Opps! No profiles yet")
+                    .font(.headline)
+                Text("Nothing to seee here. Matches are more intentional on Soulmate so don't worry, They'll come in very soon.")
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal,25)
+                HStack {
+                    Text(profiletype == 0 ? "Try adjusting preferences" : profiletype == 1 ? "Nobody is active atm :(" : profiletype == 2 ? "Try adjusting preferences" : "Boost profile to be first to see new people!")
+                        .font(.body)
+                        .fontWeight(.semibold)
+                }.padding(.horizontal,15)
+                    .padding(.vertical,10)
+                    .background(Color(red: 1.0, green: 0.0, blue: 0.0, opacity: 1.0))
+                    .cornerRadius(30)
+            }.padding(10)
+                .opacity(pageAppeared ? 1 : 0)
+        }.offset(y:-210)
+    }
+    var navigation: some View {
+        NavigationBar( title: "Soulmate",
+                       contentHasScrolled: $contentHasScrolled)
+    }
+    
+    
+    
     
     var typeofprofiles : some View {
         HStack{
@@ -456,9 +519,7 @@ struct HomeView: View {
             
         }
     }
-    func getfakeCurrentUser(){
-        currentUser = fakeUser
-    }
+  
     
     //    private func fetchUsers() {
     //        let db = Firestore.firestore()
@@ -520,54 +581,3 @@ struct HomeView_Previews: PreviewProvider {
     }
 }
 
-
-struct TypeofMenuRow:  View {
-    @Binding var tap : Int
-    var selected = 0
-    var placeholder = "name?"
-    let completion: () -> Void
-    
-    
-    var body: some View {
-        VStack {
-            ZStack {
-                if tap == selected  {
-                    VStack {
-                        Text(placeholder)
-                            .font(.footnote)
-                            .padding(.vertical,5)
-                            .padding(.horizontal,8)
-                            .foregroundColor(.red)
-                            .background(Color("offwhite"))
-                            .cornerRadius(10)
-                        
-                        
-                    }
-                }
-                
-                else {
-                    Text(placeholder)
-                        .font(.footnote)
-                        .padding(.vertical,5)
-                        .padding(.horizontal,8)
-                    
-                    
-                }
-            }
-            .onTapGesture {
-                completion()
-                
-                withAnimation(.spring()){
-                    tap = selected
-                }
-            }
-            
-            
-            
-            
-        }
-        
-        
-    }
-    
-}

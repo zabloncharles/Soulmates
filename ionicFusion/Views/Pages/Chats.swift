@@ -20,7 +20,7 @@ import FirebaseAuth
 struct NotificationsDetail: View {
     @State var profiles: [UserStruct] = compatibleFakeUsers// Array to hold the user data
     @State var profile = userStruct[0]
-    @State var current: UserStruct = fakeUser
+    @State var currentUser: UserStruct? = fakeUser
     @AppStorage("hidemainTab") var hidemainTab = false
     @AppStorage("wallpaper") var wallpaper = "ob1"
     var namespace: Namespace.ID
@@ -127,7 +127,9 @@ struct NotificationsDetail: View {
                             HStack {
                                 Image(systemName: profiles.count > 0 ? "bell.badge.fill" : "bell")
                                 
-                                Text("\(profiles.count)")
+                                
+                                //number of messages
+                                Text("\(filteredProfiles.count)")
                             }.padding(.horizontal,12)
                                 .padding(.vertical,5)
                                 .background(Color.blue.opacity(0.3))
@@ -170,10 +172,14 @@ struct NotificationsDetail: View {
             .frame(height: 150)
             .offset(y: pageAppeared ?  0 : -120)
             
-            sectionsSection
-                .offset(y: pageAppeared ?  0 : 520)
-                .opacity(pageAppeared ?  1 : 0 )
+            //if  {
+                sectionsSection
+                    .offset(y: pageAppeared ?  0 : 520)
+                    .opacity(pageAppeared ?  1 : 0 )
                 .padding(.bottom, 30)
+          //  } else {
+                
+          //  }
             
         }.onAppear{
             // fetchIncomingMessages()
@@ -185,42 +191,70 @@ struct NotificationsDetail: View {
     var sectionsSection: some View {
         
         VStack(spacing: 10) {
-            ForEach(Array(profiles.enumerated().filter { _, user in
-                current.matches.contains(user.email)
-            }), id: \.element.id) { index, user in
-                
-                NavigationLink(destination:
-                                MessageDetailView(log: user)
-                ) {
-                    MessageCard(section: user, profile: $profile, showProfile: $showProfile)
+            if !filteredProfiles.isEmpty {
+                ForEach(filteredProfiles, id: \.id) { user in
+
+                    NavigationLink(destination:
+                                    MessageDetailView(log: user)
+                    ) {
+                        MessageCard(section: user, profile: $profile, showProfile: $showProfile)
+                    }
                 }
+            } else {
+                nomessages
             }
-//            ForEach(userMessages) {  section in
-//
-//                NavigationLink(destination:
-//                                ZStack {
-//                    MessageDetailView(log: section)
-//
-//                        .onAppear{
-//                        }
-//
-//                }
-//                )
-//                {
-//                    ZStack {
-//                        MessageCard(section: section, showProfile: $showProfile)
-//
-//                    }
-//
-//
-//                }
-//            }
+           
+
         }
         .padding(20)
         .padding(.vertical, 60)
         
     }
-    
+    var nomessages: some View {
+        VStack {
+            VStack {
+                LottieView(filename: "loveflying" ,loop: true)
+                    .frame(width: 100)
+                    .opacity(pageAppeared ? 1 : 0)
+                
+            }.offset( x:-40, y:280)
+                .opacity(0.7)
+            
+            VStack {
+                LottieView(filename: "girllikingstuff" ,loop: true)
+                    .frame(width: 280)
+                    .opacity(pageAppeared ? 1 : 1)
+                
+            }
+            
+            VStack(alignment: .center, spacing: 20.0) {
+                
+                Text("Opps! No messages yet")
+                    .font(.headline)
+                Text("Nothing to seee here. Messages are more intentional on Soulmate so don't worry, They'll come in very soon.")
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal,25)
+                HStack {
+                    Text("Try adjusting preferences")
+                        .font(.body)
+                        .fontWeight(.semibold)
+                }.padding(.horizontal,15)
+                    .padding(.vertical,10)
+                    .background(Color(red: 1.0, green: 0.0, blue: 0.0, opacity: 1.0))
+                    .cornerRadius(30)
+            }.padding(10)
+                .opacity(pageAppeared ? 1 : 0)
+        }.offset(y:150)
+    }
+    var filteredProfiles: [UserStruct] {
+        guard let currentUser = currentUser
+        else {
+            return profiles
+        }
+        let matchingEmails = Set(currentUser.matches)
+        return profiles.filter { !matchingEmails.contains($0.email) }
+    }
     func close() {
         withAnimation {
             viewState = .zero
