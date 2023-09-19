@@ -27,8 +27,8 @@ We welcome contributions from developers, designers, and anyone passionate about
 
 ## Contact
 
-For inquiries and support, please contact our team at [email@example.com](mailto:email@example.com).
+For inquiries and support, please contact my team at [email@example.com](mailto:email@example.com).
 
-Connect with us on [Twitter](https://twitter.com/SoulmateApp) | [Facebook](https://facebook.com/SoulmateApp) | [Instagram](https://instagram.com/SoulmateApp)
+Connect with me on [Twitter](https://twitter.com/fuzen) | [Facebook](https://facebook.com/SoulmateApp) | [Instagram](https://instagram.com/SoulmateApp)
 
 Join us on the journey to rediscover the joy of meaningful connections, one soulmate at a time! 💑
