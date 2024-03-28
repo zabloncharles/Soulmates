@@ -142,7 +142,7 @@ struct FullProfileView: View {
                                 .edgesIgnoringSafeArea(.all)
                                 .transition(.slide)
                                 .animation(.spring().speed(0.45), value: currentIndex)
-                                .overlay(Text("\(currentIndex)"))
+//                                .overlay(Text("\(currentIndex)"))
                         }
                     
                 }.onAppear{

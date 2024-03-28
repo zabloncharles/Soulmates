@@ -204,7 +204,7 @@ struct HomeView: View {
                             .textCase(.uppercase)
                             .padding(.horizontal,8)
                             .padding(.vertical,5)
-                            .background(Color("offwhiteneo"))
+                            .background(Color("offwhite"))
                             .cornerRadius(23)
                         
                         
@@ -256,14 +256,22 @@ struct HomeView: View {
                             .padding(-1.3)
                     )
             }
+            
             .padding(.vertical, 10)
             .padding(.horizontal, 20)
-            .background(Color("offwhite"))
-            .cornerRadius(11)
-            .neoButton(isToggle: false, perform: {
-                //do something
-            })
-            .padding(.horizontal,20)
+            .background(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.white.opacity(0.1), lineWidth: 1)
+                    .background(Color("offwhiteneo"))
+             
+                
+            )
+            
+            
+//            .neoButton(isToggle: false, perform: {
+//                //do something
+//            })
+            .padding(.horizontal,10)
             .padding(.bottom, 5)
             
             
@@ -316,14 +324,14 @@ struct HomeView: View {
     var active: some View {
         ZStack {
             if !filteredProfiles.isEmpty {
-                ScrollView {
+                ScrollView(.vertical, showsIndicators: false) {
                     
-                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing:20) {
+                    VStack(spacing: 25.0) {
                         ForEach(Array(profiles.enumerated()), id: \.element.id) { index, user in
-                            ActiveCard(completion: {
+                            CompatibleCard(completion: {
                                 showProfile = true
                                 profile = user
-                            }, user: user)
+                            }, user: user, namespace: namespace)
                         }
                     }.padding(.bottom,90)
                         .padding(.top,24)
@@ -346,14 +354,14 @@ struct HomeView: View {
     var near : some View {
         ZStack {
             if !filteredProfiles.isEmpty {
-                ScrollView {
+                ScrollView(.vertical, showsIndicators: false) {
                     
-                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing:20) {
+                    VStack(spacing: 25.0) {
                         ForEach(Array(profiles.enumerated()), id: \.element.id) { index, user in
-                            ActiveCard(completion: {
+                            CompatibleCard(completion: {
                                 showProfile = true
                                 profile = user
-                            }, user: user)
+                            }, user: user, namespace: namespace)
                         }
                     }.padding(.bottom,90)
                         .padding(.top,24)
@@ -377,14 +385,14 @@ struct HomeView: View {
     var newhere : some View {
         ZStack {
             if !filteredProfiles.isEmpty {
-                ScrollView {
+                ScrollView(.vertical, showsIndicators: false) {
                     
-                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing:20) {
-                        ForEach(Array(profiles.enumerated()), id: \.element.id) { index, data in
-                            ActiveCard(completion: {
+                    VStack(spacing: 25.0) {
+                        ForEach(Array(profiles.enumerated()), id: \.element.id) { index, user in
+                            CompatibleCard(completion: {
                                 showProfile = true
-                                profile = data
-                            }, user: data)
+                                profile = user
+                            }, user: user, namespace: namespace)
                         }
                     }.padding(.bottom,90)
                         .padding(.top,24)
@@ -519,53 +527,6 @@ struct HomeView: View {
             
         }
     }
-  
-    
-    //    private func fetchUsers() {
-    //        let db = Firestore.firestore()
-    //        let user = Auth.auth().currentUser
-    //        let usersRef = db.collection("users").whereField("email", isNotEqualTo: user?.email ?? "")
-    //
-    //        usersRef.getDocuments { (querySnapshot, error) in
-    //            if let error = error {
-    //                print("Error fetching users: \(error.localizedDescription)")
-    //                return
-    //            }
-    //
-    //            guard let documents = querySnapshot?.documents else {
-    //                print("No documents found.")
-    //                return
-    //            }
-    //
-    //            let users = documents.compactMap { document in
-    //                let documentData = document.data()
-    //
-    //                return UserStruct(
-    //                    firstname: documentData["firstname"] as? String ?? "",
-    //                    lastname: documentData["lastname"] as? String ?? "",
-    //                    notifications: documentData["notifications"] as? String ?? "",
-    //                    avatar: documentData["avatar"] as? String ?? "",
-    //                    cyclechange: documentData["cyclechange"] as? String ?? "",
-    //                    birthday: documentData["birthday"] as? String ?? "",
-    //                    email: documentData["email"] as? String ?? "",
-    //                    aboutme: documentData["aboutme"] as? String ?? "",
-    //                    education: documentData["education"] as? String ?? "",
-    //                    work: documentData["work"] as? String ?? "",
-    //                    images: documentData["images"] as? [String] ?? [],
-    //                    likes: documentData["likes"] as? [String] ?? [],
-    //                    location: documentData["location"] as? [String] ?? [],
-    //                    lookingfor: documentData["lookingfor"] as? String ?? "",
-    //                    online: documentData["online"] as? Bool ?? false,
-    //                    password: documentData["password"] as? String ?? "",
-    //                    matches: documentData["matches"] as? Int ?? 0,
-    //                    age: documentData["age"] as? String ?? "", lifestyle: documentData["lifestyle"] as? [String] ?? [],
-    //                    lifestyledesc: documentData["lifestyledesc"] as? String ?? ""
-    //                )
-    //            }
-    //
-    //            self.profiles = users
-    //        }
-    //    }
     
     
 }

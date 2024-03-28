@@ -29,7 +29,6 @@
 		F743C2762A98BB980089E2FE /* PostCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F743C2752A98BB980089E2FE /* PostCard.swift */; };
 		F743C27A2A9927180089E2FE /* TextAnimatingGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F743C2792A9927180089E2FE /* TextAnimatingGradient.swift */; };
 		F743C27C2A9966F20089E2FE /* StoriesCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F743C27B2A9966F20089E2FE /* StoriesCard.swift */; };
-		F743C27E2A99CF100089E2FE /* searchingearth.json in Resources */ = {isa = PBXBuildFile; fileRef = F743C27D2A99CF100089E2FE /* searchingearth.json */; };
 		F743C2802A99D6DF0089E2FE /* searchingearth2.json in Resources */ = {isa = PBXBuildFile; fileRef = F743C27F2A99D6DF0089E2FE /* searchingearth2.json */; };
 		F743C2822A9A9C050089E2FE /* stars2.json in Resources */ = {isa = PBXBuildFile; fileRef = F743C2812A9A9C050089E2FE /* stars2.json */; };
 		F743C2842A9B52920089E2FE /* SkullProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F743C2832A9B52920089E2FE /* SkullProfile.swift */; };
@@ -43,6 +42,7 @@
 		F7569D572A11DE9900FE3E84 /* LikesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7569D562A11DE9900FE3E84 /* LikesView.swift */; };
 		F7569D5B2A11E66B00FE3E84 /* girllikingstuff.json in Resources */ = {isa = PBXBuildFile; fileRef = F7569D5A2A11E66B00FE3E84 /* girllikingstuff.json */; };
 		F7569D5D2A11E6A200FE3E84 /* loveflying.json in Resources */ = {isa = PBXBuildFile; fileRef = F7569D5C2A11E6A100FE3E84 /* loveflying.json */; };
+		F772ED862BB25CF10055C066 /* BoneProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F772ED852BB25CF10055C066 /* BoneProfile.swift */; };
 		F79594592A246B5B00636776 /* sadheart.json in Resources */ = {isa = PBXBuildFile; fileRef = F79594582A246B5B00636776 /* sadheart.json */; };
 		F795945B2A24791600636776 /* NeoModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = F795945A2A24791600636776 /* NeoModifier.swift */; };
 		F795945D2A252EF200636776 /* TextWriterAppear.swift in Sources */ = {isa = PBXBuildFile; fileRef = F795945C2A252EF200636776 /* TextWriterAppear.swift */; };
@@ -161,7 +161,6 @@
 		F7D223E82A981518008D5C5C /* KerboardAvoiderModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D223E72A981518008D5C5C /* KerboardAvoiderModifier.swift */; };
 		F7D223EA2A982FDE008D5C5C /* TesterFree.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D223E92A982FDE008D5C5C /* TesterFree.swift */; };
 		F7D223EC2A98377E008D5C5C /* likedapost.json in Resources */ = {isa = PBXBuildFile; fileRef = F7D223EB2A98377E008D5C5C /* likedapost.json */; };
-		F7D223F12A9860BE008D5C5C /* BoneProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D223F02A9860BE008D5C5C /* BoneProfile.swift */; };
 		F7D847E62A22BE6400E1E273 /* messageTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D847E52A22BE6400E1E273 /* messageTest.swift */; };
 		F7D847E92A24153B00E1E273 /* SendMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D847E82A24153B00E1E273 /* SendMatch.swift */; };
 		F7D847ED2A2449B400E1E273 /* paperplaneloading.json in Resources */ = {isa = PBXBuildFile; fileRef = F7D847EC2A2449B400E1E273 /* paperplaneloading.json */; };
@@ -169,6 +168,8 @@
 		F7D847F12A245C9600E1E273 /* dislikebrokeheart.json in Resources */ = {isa = PBXBuildFile; fileRef = F7D847F02A245C9600E1E273 /* dislikebrokeheart.json */; };
 		F7D847F32A245E0000E1E273 /* flyingpaperbirdchasinglove.json in Resources */ = {isa = PBXBuildFile; fileRef = F7D847F22A245E0000E1E273 /* flyingpaperbirdchasinglove.json */; };
 		F7EF06262A95276400625108 /* ShuffleMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7EF06252A95276400625108 /* ShuffleMatchView.swift */; };
+		F7F45AB62BB5140C0089EFA9 /* UserImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F45AB52BB5140C0089EFA9 /* UserImageView.swift */; };
+		F7F45AB92BB515260089EFA9 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = F7F45AB82BB515260089EFA9 /* URLImage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -196,7 +197,6 @@
 		F743C2752A98BB980089E2FE /* PostCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCard.swift; sourceTree = "<group>"; };
 		F743C2792A9927180089E2FE /* TextAnimatingGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAnimatingGradient.swift; sourceTree = "<group>"; };
 		F743C27B2A9966F20089E2FE /* StoriesCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesCard.swift; sourceTree = "<group>"; };
-		F743C27D2A99CF100089E2FE /* searchingearth.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = searchingearth.json; sourceTree = "<group>"; };
 		F743C27F2A99D6DF0089E2FE /* searchingearth2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = searchingearth2.json; sourceTree = "<group>"; };
 		F743C2812A9A9C050089E2FE /* stars2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = stars2.json; path = ../../../../../../Downloads/stars2.json; sourceTree = "<group>"; };
 		F743C2832A9B52920089E2FE /* SkullProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkullProfile.swift; sourceTree = "<group>"; };
@@ -210,6 +210,7 @@
 		F7569D562A11DE9900FE3E84 /* LikesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesView.swift; sourceTree = "<group>"; };
 		F7569D5A2A11E66B00FE3E84 /* girllikingstuff.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = girllikingstuff.json; sourceTree = "<group>"; };
 		F7569D5C2A11E6A100FE3E84 /* loveflying.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loveflying.json; sourceTree = "<group>"; };
+		F772ED852BB25CF10055C066 /* BoneProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoneProfile.swift; sourceTree = "<group>"; };
 		F79594582A246B5B00636776 /* sadheart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sadheart.json; sourceTree = "<group>"; };
 		F795945A2A24791600636776 /* NeoModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeoModifier.swift; sourceTree = "<group>"; };
 		F795945C2A252EF200636776 /* TextWriterAppear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextWriterAppear.swift; sourceTree = "<group>"; };
@@ -329,7 +330,6 @@
 		F7D223E72A981518008D5C5C /* KerboardAvoiderModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KerboardAvoiderModifier.swift; sourceTree = "<group>"; };
 		F7D223E92A982FDE008D5C5C /* TesterFree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TesterFree.swift; sourceTree = "<group>"; };
 		F7D223EB2A98377E008D5C5C /* likedapost.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = likedapost.json; sourceTree = "<group>"; };
-		F7D223F02A9860BE008D5C5C /* BoneProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoneProfile.swift; sourceTree = "<group>"; };
 		F7D847E52A22BE6400E1E273 /* messageTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = messageTest.swift; sourceTree = "<group>"; };
 		F7D847E82A24153B00E1E273 /* SendMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMatch.swift; sourceTree = "<group>"; };
 		F7D847EC2A2449B400E1E273 /* paperplaneloading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = paperplaneloading.json; sourceTree = "<group>"; };
@@ -337,6 +337,7 @@
 		F7D847F02A245C9600E1E273 /* dislikebrokeheart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dislikebrokeheart.json; sourceTree = "<group>"; };
 		F7D847F22A245E0000E1E273 /* flyingpaperbirdchasinglove.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = flyingpaperbirdchasinglove.json; sourceTree = "<group>"; };
 		F7EF06252A95276400625108 /* ShuffleMatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuffleMatchView.swift; sourceTree = "<group>"; };
+		F7F45AB52BB5140C0089EFA9 /* UserImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -344,6 +345,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7F45AB92BB515260089EFA9 /* URLImage in Frameworks */,
 				217A2403164EC0396CC256FB /* Pods_ionicFusion.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -428,7 +430,7 @@
 			isa = PBXGroup;
 			children = (
 				F7EF06252A95276400625108 /* ShuffleMatchView.swift */,
-				F7D223F02A9860BE008D5C5C /* BoneProfile.swift */,
+				F772ED852BB25CF10055C066 /* BoneProfile.swift */,
 				F743C2832A9B52920089E2FE /* SkullProfile.swift */,
 				F7569D562A11DE9900FE3E84 /* LikesView.swift */,
 				F7A3135D27F4CDD100F9F550 /* HomeView.swift */,
@@ -538,7 +540,6 @@
 				F743C27F2A99D6DF0089E2FE /* searchingearth2.json */,
 				F7D223EB2A98377E008D5C5C /* likedapost.json */,
 				F7BDF10F2A29C036008FDB4C /* study.json */,
-				F743C27D2A99CF100089E2FE /* searchingearth.json */,
 				F7BDF1192A2AA797008FDB4C /* eyesrainbow.json */,
 				F7BDF1172A2AA5FF008FDB4C /* telescope.json */,
 				F71652ED2A8FFD730063E029 /* heartbeat.json */,
@@ -639,6 +640,7 @@
 				F7A313C427F4CFE100F9F550 /* AngularButton.swift */,
 				F7A313CD27F4CFE100F9F550 /* LottieView.swift */,
 				F7A313CC27F4CFE100F9F550 /* Animations.swift */,
+				F7F45AB52BB5140C0089EFA9 /* UserImageView.swift */,
 			);
 			path = Reusable;
 			sourceTree = "<group>";
@@ -740,6 +742,9 @@
 			dependencies = (
 			);
 			name = ionicFusion;
+			packageProductDependencies = (
+				F7F45AB82BB515260089EFA9 /* URLImage */,
+			);
 			productName = ionicFusion;
 			productReference = F7A391C127F4C24800E5237F /* ionicFusion.app */;
 			productType = "com.apple.product-type.application";
@@ -768,6 +773,9 @@
 				Base,
 			);
 			mainGroup = F7A391B827F4C24800E5237F;
+			packageReferences = (
+				F7F45AB72BB515260089EFA9 /* XCRemoteSwiftPackageReference "url-image" */,
+			);
 			productRefGroup = F7A391C227F4C24800E5237F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -846,7 +854,6 @@
 				F7569D5D2A11E6A200FE3E84 /* loveflying.json in Resources */,
 				F7A3144727F4CFE100F9F550 /* girlcheckinginfo.json in Resources */,
 				F7A3117E27F4CB0500F9F550 /* GoogleService-Info.plist in Resources */,
-				F743C27E2A99CF100089E2FE /* searchingearth.json in Resources */,
 				F7A3145727F4CFE100F9F550 /* mother.json in Resources */,
 				F7A3143B27F4CFE100F9F550 /* error1.json in Resources */,
 				F7A3143627F4CFE100F9F550 /* woman3.json in Resources */,
@@ -927,6 +934,7 @@
 				F79594652A269E3400636776 /* ViewProfileView.swift in Sources */,
 				F79594712A27EE7900636776 /* NameChangePicker.swift in Sources */,
 				F7BDF10C2A29B12E008FDB4C /* WorkView.swift in Sources */,
+				F7F45AB62BB5140C0089EFA9 /* UserImageView.swift in Sources */,
 				F7A3147627F4CFE100F9F550 /* BackgroundView.swift in Sources */,
 				F7A3147D27F4CFE100F9F550 /* ShimmerText.swift in Sources */,
 				F795945B2A24791600636776 /* NeoModifier.swift in Sources */,
@@ -936,7 +944,6 @@
 				F7A313A227F4CDEA00F9F550 /* MessagesModel.swift in Sources */,
 				F7A3135827F4CDB400F9F550 /* ViewController.swift in Sources */,
 				F743C2862A9BF7570089E2FE /* ExploreMenuRow.swift in Sources */,
-				F7D223F12A9860BE008D5C5C /* BoneProfile.swift in Sources */,
 				F71652F22A918E040063E029 /* MessageDetailView.swift in Sources */,
 				F7A3147B27F4CFE100F9F550 /* Notification.swift in Sources */,
 				F7A3143127F4CFE100F9F550 /* ColorExtension.swift in Sources */,
@@ -978,6 +985,7 @@
 				F7A3147F27F4CFE100F9F550 /* SettingsMenuItems.swift in Sources */,
 				F7EF06262A95276400625108 /* ShuffleMatchView.swift in Sources */,
 				F7A3138027F4CDD100F9F550 /* ViewModel.swift in Sources */,
+				F772ED862BB25CF10055C066 /* BoneProfile.swift in Sources */,
 				F755D7C72A2DAB1100319D57 /* SignUpMessageView.swift in Sources */,
 				F795946D2A27D95500636776 /* UniversityPicker.swift in Sources */,
 				F795946F2A27DE9700636776 /* WorkPicker.swift in Sources */,
@@ -1215,6 +1223,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F7F45AB72BB515260089EFA9 /* XCRemoteSwiftPackageReference "url-image" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dmytro-anokhin/url-image.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F7F45AB82BB515260089EFA9 /* URLImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F7F45AB72BB515260089EFA9 /* XCRemoteSwiftPackageReference "url-image" */;
+			productName = URLImage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F7A391B927F4C24800E5237F /* Project object */;
 }

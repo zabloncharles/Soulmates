@@ -226,7 +226,7 @@ struct SettingsView: View {
                     .padding(.vertical, 2)
                     
                
-                if showMoreProfileInfo {
+              
                 //Settings personal info button
                 HStack {
                     Text("Date of Birth")
@@ -279,35 +279,10 @@ struct SettingsView: View {
                         //
                     }
                     .padding(.vertical, 2)
+            
             }
-            }.padding()
-                .overlay(
-                    VStack {
-                        Spacer()
-                        HStack{
-                            Spacer()
-                            //Down arrow button
-                            Image(systemName: "arrow.down")
-                                .padding(8)
-                                .background(LinearGradient(colors: [Color("offwhite"),Color("offwhite"),Color("white"),Color.clear], startPoint: .top, endPoint: .bottom))
-                                .cornerRadius(30)
-                                .neoButton(isToggle: true) {
-                                    //showMoreProfileInfo
-                                    withAnimation(.spring()) {
-                                        showMoreProfileInfo.toggle()
-                                    }
-                                }.offset(y:25)
-                            Spacer()
-                        }.background(
-                            LinearGradient(colors: [Color.clear,Color("white"),Color("white")], startPoint: .top, endPoint: .bottom)
-                                .offset(y:20)
-                    )
-                    }.opacity(showMoreProfileInfo ? 0 : 1)
-                )
-                .padding(.bottom,18)
-                .neoButtonOff(isToggle: false, cornerRadius: 13) {
-                    //
-                }
+             
+               
             
             Divider()
             //New Section
@@ -340,8 +315,6 @@ struct SettingsView: View {
                         //
                     }
                     .padding(.vertical, 2)
-            }.padding().neoButtonOff(isToggle: false, cornerRadius: 13) {
-                //
             }
             
             
@@ -378,8 +351,6 @@ struct SettingsView: View {
                         //
                     }
                     .padding(.vertical, 2)
-            }.padding().neoButtonOff(isToggle: false, cornerRadius: 13) {
-                //
             }
             
             

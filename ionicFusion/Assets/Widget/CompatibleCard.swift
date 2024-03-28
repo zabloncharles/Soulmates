@@ -12,24 +12,19 @@ struct CompatibleCard: View {
     var user: UserStruct
     var namespace: Namespace.ID
     @State var userImageLoaded = false
-    @State var userBackgroundLoaded = false
     @State var appeared = false
     @State var randomGradients = [Color.purple, Color.blue, Color.white,Color.red]
     
     var body: some View {
-        ZStack {
+        
             ZStack {
                 VStack{
                     Spacer()
                 }.frame(width: 390, height: 500)
-                    .background(LinearGradient(colors: [Color("offwhiteneo"), Color.clear, Color.clear], startPoint: .bottom, endPoint: .top))
+                    .background(LinearGradient(colors: [Color.clear, Color.clear, Color.clear], startPoint: .bottom, endPoint: .top))
                     .background(
-                        // Image("image_04")
-                        //  .resizable()
-                        GetImageAlert(url:"https://source.unsplash.com/random/?space,stars", loaded: $userBackgroundLoaded)
-                            .blur(radius: userBackgroundLoaded ? 0 : 5)
+                        GetImageAlert(url:"https://source.unsplash.com/random/?girl,woman", loaded: $userImageLoaded)
                             .opacity(appeared ? 1 : 0)
-                        //  .aspectRatio(contentMode: .fill)
                         
                     )
                     .cornerRadius(15)
@@ -40,17 +35,9 @@ struct CompatibleCard: View {
                     VStack {
                         Text(user.firstname)
                             .font(.custom("BodoniFLF-Roman", size: 28))
-                            .foregroundColor(.clear)
-                            .background(LinearGradient(colors: [randomGradients.randomElement() ?? .clear,Color.white,randomGradients.randomElement() ?? .clear], startPoint: .leading, endPoint: .trailing))
-                        
+                            .foregroundColor(Color("black"))
                             .multilineTextAlignment(.center)
-                        
-                            .mask (
-                                Text(user.firstname)
-                                    .font(.custom("BodoniFLF-Roman", size: 28))
-                                    .multilineTextAlignment(.center)
-                            )
-                        // Text("There is only one way to find love and thats to go out there and expose yourself to the wonders of nature")
+                       
                         Rectangle()
                             .opacity(0.45)
                             .frame(width: 250, height:0.2)
@@ -62,75 +49,15 @@ struct CompatibleCard: View {
                             .frame(maxWidth: 270)
                             .lineLimit(3)
                             .padding(.top,-8)
-                    }
-                    // Text(user.online ? "Active Today" : "Inactive")
-                    // .font(.footnote)
-                    // .foregroundColor(user.online ? .green : .red)
-                    // Spacer()
-                    
-                    // .background(Color.black)
-                    // .cornerRadius(10)
-                }.padding()
-                    .padding(.bottom,10)
-                
-                VStack{
-                    Spacer()
-                }.frame(width: 380, height: 400)
-                
-                    .background( //Image("image_02")
-                        VStack {
-                            
-                            
-                            
-                            GetImageAlert(url:user.avatar, loaded: $userImageLoaded)
-                            // .matchedGeometryEffect(id: "\(user.avatar)", in: namespace)
-                            
-                            
-                            
-                        }
-                    )
-                
-                    .cornerRadius(10)
-                    .offset(y:-44)
-                
-                
-                
-                
-            }.overlay(
-                VStack {
-                    if !userImageLoaded || !userBackgroundLoaded {
-                        ZStack {
-                        Rectangle()
-                        .fill(Color("offwhite").opacity(100))
-                    .cornerRadius(13)
-                        
-                            LottieView(filename: "droplet",loop: true)
-                                .offset(y:-60)
-                                .scaleEffect(1.6)
-                                .mask(Circle())
-                               // .colorInvert()
-                                .colorMultiply(Color("offwhite"))
-                            
-                        Image("fusionhalfgirl")
-                            .resizable()
-                          //  .rotation3DEffect(.degrees(userBackgroundLoaded ? 0 : 180), axis: (x: 0, y: 1, z: 0))
-                           // .frame(width: 185, height: 235)
-                        
-                            .aspectRatio(contentMode: .fit)
-                            .cornerRadius(13)
-                            .padding(30)
-                            .colorMultiply(.black)
-                         
-                            .transition(.asymmetric(insertion: .opacity, removal: .opacity))
-                        
-                            
-                        }
-                    }
+                    } .padding()
+                        .background(Color("offwhite"))
+                        .cornerRadius(12)
                 }
             
-            )
-            
-            //.scaleEffect(appeared ? 1 : 0.97)
+                .frame(width: 900)
+                    .padding(.bottom,10)
+            }
+
             .onAppear{
                 withAnimation(.spring()) {
                     appeared = true
@@ -141,11 +68,12 @@ struct CompatibleCard: View {
                     appeared = false
                 }
             }
+            
             .neoButton(isToggle: false) {
                 //Do this
                 completion()
         }
-        }
+        
     }
 }
 

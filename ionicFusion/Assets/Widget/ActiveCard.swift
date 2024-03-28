@@ -19,19 +19,10 @@ struct ActiveCard: View {
             VStack{
                 
                 Spacer()
-            }.frame(width: 185, height: 230)
+            }.frame(width: 185, height: 220)
             
-                .background(LinearGradient(colors: [Color("offwhiteneo"),  Color.clear], startPoint: .bottom, endPoint: .top))
-                .background(
-                    // Image("image_09")
-                    GetImageAlert(url:"https://source.unsplash.com/random/?landscape,dark", loaded: $userBackgroundLoaded)
-                        .animation(.easeIn, value: userBackgroundLoaded)
-                        .opacity(userBackgroundLoaded ? 1 : 0)
-                    //   .resizable()
-                    //  .blur(radius: 1)
-                    //  .aspectRatio(contentMode: .fill)
-                    
-                )
+                
+             
                 .cornerRadius(8)
             
             VStack{
@@ -52,7 +43,7 @@ struct ActiveCard: View {
             
             VStack{
                 Spacer()
-            }.frame(width: 180, height: 180)
+            }.frame(width: 190, height: 250)
             
                 .background(
                     
@@ -63,25 +54,14 @@ struct ActiveCard: View {
                     
                 )
                 .cornerRadius(5)
-                .offset(y:-22)
+               
             
             
         }
-        .overlay(
-            
-            Image("cardhalfgirldark")
-                .resizable()
-                .rotation3DEffect(.degrees(userBackgroundLoaded ? 0 : 180), axis: (x: 0, y: 1, z: 0))
-                .frame(width: 185, height: 235)
-            
-                .cornerRadius(10)
-                .frame(width: 185, height: 230)
-                .animation(.easeInOut.speed(0.25), value: userBackgroundLoaded)
-                .opacity(userBackgroundLoaded ? 0 : 1)
-        )
-        .rotation3DEffect(.degrees(userBackgroundLoaded ? 0 : 180), axis: (x: 0, y: 1, z: 0))
+        .background(Color("white"))
+        .cornerRadius(12)
         .animation(.spring(), value: userBackgroundLoaded)
-        .scaleEffect(appeared ? 1 : 0.95)
+       
         .onAppear{
             withAnimation(.spring()) {
                 appeared = true

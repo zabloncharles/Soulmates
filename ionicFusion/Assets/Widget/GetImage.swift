@@ -170,43 +170,27 @@ struct GetImageAndUrl: View {
     
     
     var body: some View {
-        ZStack {
-            VStack {
-                if url == "loading" {
-                    LottieView(filename: "paperplaneloading" ,loop: true)
-                        .frame(width: 400)
-                } else {
-                    if let image = image {
-                        image
+        VStack {
+            
+              
+                    if image != nil {
+                        image!
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .onAppear{
-                                
-                               
                                     loaded = true
-                                
-                                
                             }
-                        
                         
                     } else {
                         
                         LottieView(filename: "paperplaneloading" ,loop: true)
                             .frame(width: 400)
-                        
-                        
-                        
-                        
                     }
-                }
                 
-            }
-           
-            .onAppear {
-                loadImageFromAPI()
-            }
+               
             
-            
+        }.onAppear {
+            loadImageFromAPI()
         }
     }
     
@@ -235,6 +219,9 @@ struct GetImageAndUrl: View {
         }.resume()
     }
 }
+
+
+
 struct GetImage: View {
     @State private var image: Image?
     

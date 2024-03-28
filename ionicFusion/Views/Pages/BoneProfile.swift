@@ -382,7 +382,7 @@ struct BoneProfile: View {
                             .font(.title).bold()
                             .foregroundColor(Color("black"))
                         
-                        Text("First Date Idea?")
+                        Text("First Date Ideabone?")
                             .font(.title2).bold()
                     }
                     Text("What would you like to do with siri on a first date? :)")

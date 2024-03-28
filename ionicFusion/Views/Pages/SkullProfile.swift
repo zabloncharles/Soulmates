@@ -45,8 +45,11 @@ struct SkullProfile: View {
         
         
         ZStack {
+          
             
-            BackgroundView()
+            Color("offwhite")
+          
+            
             VStack {
                 if !outOfMatches && dislike {
                     VStack {
@@ -127,6 +130,7 @@ struct SkullProfile: View {
                     
                 }.animation(.spring(), value: dislike)
                
+//            the name of the profile and the heart icon
                 nameandheart
         }
         .onAppear{
@@ -216,6 +220,16 @@ struct SkullProfile: View {
                     
                     
                 })
+            .overlay {
+                VStack{
+                    Spacer()
+                    Rectangle()
+                        .fill(LinearGradient(colors: [Color("offwhiteneo"),Color.clear], startPoint: .bottom, endPoint: .top))
+                        .frame(height: 150)
+                        
+                        .offset(y:20)
+                }
+            }
         }
         .frame(height: 400)
     }
@@ -231,9 +245,8 @@ struct SkullProfile: View {
                 
                 
                 
+//                About me card
                 VStack(alignment: .leading, spacing: 13.0) {
-                    
-                    
                     HStack {
                         Text("About Me")
                             .font(.title).bold()
@@ -244,6 +257,32 @@ struct SkullProfile: View {
                             .padding(5)
                             .background(Color.orange)
                             .cornerRadius(60)
+                    }
+                    
+                    HStack{
+                        
+                        HStack{
+                            Image(systemName: "pencil.and.ruler")
+                            Text("5'0")
+                        }
+                            .padding(.horizontal,10)
+                            .padding(.vertical,4)
+                            .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 6, action: $liked)
+                           
+                            
+                        
+                     VStack{
+                            Spacer()
+                     }.frame(width: 1, height: 12)
+                            .background(Color.white)
+                        
+                        HStack{
+                            Image(systemName: "house")
+                            Text("Cambridge")
+                        }
+                        .padding(.horizontal,10)
+                        .padding(.vertical,4)
+                        .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 6, action: $liked)
                     }
                     
                     TextWriterAppear(typeText: profile.aboutme, speed: 0.02)
@@ -295,8 +334,9 @@ struct SkullProfile: View {
                     }.foregroundColor(Color("black"))
                 }
                 .padding(20)
-                .background(Color("offwhite"))
-                .cornerRadius(19)
+                .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 19, action: $liked)
+                
+               
                 
                 Rectangle()
                     .fill(Color.gray)
@@ -308,11 +348,11 @@ struct SkullProfile: View {
                         
                         
                         Image(systemName: "hand.thumbsup")
-                            .font(.title).bold()
+                            .font(.title)
                             .foregroundColor(Color("black"))
                         
                         Text("First Date Idea?")
-                            .font(.title2).bold()
+                            .font(.subheadline)
                     }
                     Text("What would you like to do with siri on a first date? :)")
                         .font(.footnote)
@@ -365,6 +405,9 @@ struct SkullProfile: View {
                             .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 14, action: $liked)
                     }
                 }.padding()
+                    
+                   
+                   
                     .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 18, action: .constant(false))
                 
                 
@@ -372,38 +415,19 @@ struct SkullProfile: View {
                 
                 
                 
-                VStack {
+                
                     
                     GetImageAndUrl(url:profile.images[0], imageUrl: $profileImages[0])
+                        .frame(width: UIScreen.main.bounds.width - 22, height: 400)
                     
-                    
-                    
-                }.frame(width: UIScreen.main.bounds.width - 22, height: 400)
-                
-                
-                
-                //.padding(20)
-                
-                    .cornerRadius(13)
-                    .neoDoubleTapButton(isToggle: false, perform: {
-                        //when first image is clicked
-                        liked = true
-                        likedImage = profileImages[0]
-                        
-                    })
-                    .overlay(
-                        VStack {
-                            Spacer()
-                            HStack {
-                                Spacer()
-                                Image(systemName: "heart.circle.fill")
-                                
-                                    .font(.largeTitle)
-                                    .foregroundColor(.white)
-                            }.padding(10)
+                        .cornerRadius(13)
+                        .neoDoubleTapButton(isToggle: false, perform: {
+                            //when first image is clicked
+                            liked = true
+                            likedImage = profileImages[0]
                             
-                        }
-                    )
+                        })
+                
                 
                 
                 
@@ -415,14 +439,15 @@ struct SkullProfile: View {
                         
                         
                         Image(systemName: "hand.thumbsup")
-                            .font(.title).bold()
+                            .font(.title)
                         
                         
                         Text("Likes")
-                            .font(.title).bold()
+                            .font(.subheadline)
                         Spacer()
                     }
-                    Text("Fun loving and looking to settle up with this stuff and do me. its really not like that said no one ever.")
+                    Text("\"Fun loving and looking to settle up with this stuff and do me. its really not like that said no one ever.\"")
+
                         .font(.callout)
                         .multilineTextAlignment(.leading)
                         .lineLimit(3)
@@ -443,38 +468,19 @@ struct SkullProfile: View {
                 
                 
                 
-                VStack {
-                    
+               
+                                  
                     GetImageAndUrl(url:profile.images[1], imageUrl: $profileImages[1])
-                    
-                    
-                    
-                }.frame(width: UIScreen.main.bounds.width - 22, height: 400)
-                
-                
-                
-                //.padding(20)
+                 .frame(width: UIScreen.main.bounds.width - 22, height: 400)
                 
                     .cornerRadius(13)
                     .neoDoubleTapButton(isToggle: false, perform: {
                         //when first image is clicked
                         liked = true
-                        likedImage = profileImages[1]
+                        likedImage = profileImages[0]
                         
                     })
-                    .overlay(
-                        VStack {
-                            Spacer()
-                            HStack {
-                                Spacer()
-                                Image(systemName: "heart.circle.fill")
-                                
-                                    .font(.largeTitle)
-                                    .foregroundColor(.white)
-                            }.padding(10)
-                            
-                        }
-                    )
+                   
                 
                 
                 
@@ -484,15 +490,15 @@ struct SkullProfile: View {
                         
                         
                         Image(systemName: "teddybear")
-                            .font(.title).bold()
+                            .font(.title)
                         
-                        Text("Lifestyle")
-                            .font(.title).bold()
+                        Text("The best way to ask me out is by")
+                            .font(.subheadline)
                         
                         Spacer()
                     }
                     
-                    Text(profile.lifestyledesc )
+                    Text("\"\(profile.lifestyledesc)\"")
                         .font(.callout)
                         .multilineTextAlignment(.leading)
                         .lineLimit(showMore ? 10 : 3)
@@ -500,13 +506,7 @@ struct SkullProfile: View {
                     
                     
                     
-                    HStack {
-                        ForEach(profile.lifestyle, id: \.self) { like in
-                            LikesPill(placeholder: like)
-                        }
-                        
-                        
-                    }
+                  
                 }.foregroundColor(Color("black"))
                     .padding(20)
                 

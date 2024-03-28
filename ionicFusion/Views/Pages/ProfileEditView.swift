@@ -8,6 +8,7 @@ import SwiftUI
 
 struct ProfileEditView: View {
     @State var profile: UserStruct = fakeUser
+    @State var profilefake: UserStruct?
         @AppStorage("hidemainTab") var hidemainTab = false
         var isAnimated = true
         @State var viewState: CGSize = .zero
@@ -36,25 +37,25 @@ struct ProfileEditView: View {
             
             ZStack {
                 
-                BackgroundView()
+//                BackgroundView()
+                Color("offwhite")
                 
                 ZStack {
                    
                     
                     ScrollView {
                         
-                        cover
-                            .background(scrollDetection)
-                            .overlay(
-                                
-                                    LinearGradient(colors: [Color.clear,Color("white"),Color.clear], startPoint: .top, endPoint: .bottom)
-                                        .offset(y:370)
-                                   
-                                    
-                            )
+                        if !isEditing {
+                            SkullProfile(currentUser: $profilefake, profile: profile, showProfile: .constant(false), currentIndex: .constant(0))
+                        }
                         
+                       
                         
                         if showSettings {
+                            cover
+                                .background(scrollDetection)
+                                
+                                
                             SettingsView( userInfo: profile)
                                 .offset(y:-60)
                                 .transition(.asymmetric(
@@ -64,25 +65,7 @@ struct ProfileEditView: View {
                                 .opacity(!showSettings ? 0 : 1)
                                 .offset(y: !animateapper ? UIScreen.main.bounds.height * 1.02 : 0)
                         }
-                            content
-                                .background(
-                                    LinearGradient(colors: [Color("offwhite"),Color.clear], startPoint: .bottom, endPoint: .top)
-                                    // Color("offwhite")
-                                        .offset(y:254))
-                                .transition(.asymmetric(
-                                    insertion: .opacity,
-                                    removal: .opacity))
-                                .opacity(showSettings ? 0 : 1)
-                                .onAppear{
-                                    withAnimation(.spring()) {
-                                        aboutMeAppeared = true
-                                    }
-                                }
-                                .onDisappear{
-                                    withAnimation(.spring()) {
-                                        aboutMeAppeared = false
-                                    }
-                                }
+                           
                         
                         
                         
@@ -244,13 +227,12 @@ struct ProfileEditView: View {
                                 .rotationEffect(.degrees(showSettings ? 0 : 180))
                                 .animation(.linear, value: showSettings)
                                 .padding(3)
-                                .background(.ultraThinMaterial)
-                                .mask(Circle())
+                                
                                 .neoButton(isToggle: false) {
                                     //
                                     withAnimation(.spring()) {
                                         editItem = 0
-                                        isEditing = false
+                                        isEditing = true
                                         blurBackground = false
                                         showSettings.toggle()
                                         notifactionMessage[0] = "Settings"
@@ -300,8 +282,7 @@ struct ProfileEditView: View {
                                             Text("Click anything you want to edit")
                                                
                                         } .padding(10)
-                                            .background(.ultraThinMaterial)
-                                            .cornerRadius(10)
+                                          
                                             .padding(.top,260)
                                     }
                                 )
@@ -553,33 +534,11 @@ struct ProfileEditView: View {
                     
                     
                     // MARK: First Image
-                    ZStack {
-                        VStack {
-                            ImageViewer(url: profile.images[0] )
-                            
-                                .frame(minHeight:  400)
-                            
-                        }
-                        
-                    }.padding(-20)
-                        .padding(.bottom,20)
+                    GetImageAndUrl(url:profile.images[0], imageUrl: .constant("true"))
+                        .frame(width: UIScreen.main.bounds.width - 22, height: 400)
                     
-                        .overlay(
-                            VStack {
-                                Spacer()
-                                HStack {
-                                    Spacer()
-                                    Image(systemName: "heart.circle.fill")
-                                    
-                                        .font(.largeTitle)
-                                        .foregroundColor(.white)
-                                }.padding(10)
-                                
-                            }
-                        )
-                        .neoButtonOff(isToggle: false, cornerRadius: 15) {
-                            //
-                        }
+                        .cornerRadius(13)
+                        
                     
                     
                     
@@ -618,42 +577,23 @@ struct ProfileEditView: View {
                         .neoButtonOff(isToggle: false, cornerRadius: 15) {
                             //
                         }
-                        .padding(.bottom,25)
+                        
                     
                     VStack {
                         // MARK: Second Image
-                        ZStack {
-                            
-                            ImageViewer(url: profile.images[1] )
-                            
-                                .frame(maxWidth: 500 , minHeight:  400)
-                            
-                            
+                        
+                        GetImageAndUrl(url:profile.images[1], imageUrl: .constant("true"))
+                            .frame(width: UIScreen.main.bounds.width - 22, height: 400)
+                        
+                            .cornerRadius(13)
+                            .offset(y:-15)
                         
                         
-                    }.padding(-20)
-                        .padding(.bottom,20)
-                        .neoButtonOff(isToggle: false, cornerRadius: 15) {
-                            //
-                        }
-                        .overlay(
-                            VStack {
-                                Spacer()
-                                HStack {
-                                    Spacer()
-                                    Image(systemName: "heart.circle.fill")
-                                    
-                                        .font(.largeTitle)
-                                        .foregroundColor(.white)
-                                }.padding(10)
-                                
-                            }
-                        )
                     
                     
                     
                     // MARK: LifeStyle
-                    VStack {
+                    
                         VStack(alignment: .leading, spacing: 15.0){
                             HStack {
                                 
@@ -684,18 +624,19 @@ struct ProfileEditView: View {
                             }
                         }.foregroundColor(Color("black"))
                             .padding(20)
+                           
                         
                             .neoButtonOff(isToggle: false, cornerRadius: 15) {
                                 //
                             }
                             .padding(.bottom,95)
-                    }
+               
                     }
                     
                 }
               
                 
-                .padding(.top,-10)
+                .padding(.top,-20)
                 .padding(10)
                 
                 
