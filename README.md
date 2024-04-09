@@ -44,7 +44,9 @@ Soulmate is not just another dating app; it's a revolution in how we approach re
 <img width="976" alt="Screen Shot 2024-03-17 at 2 14 59 AM" src="https://github.com/zabloncharles/Soulmates/assets/74889517/c236ca49-a458-48ac-b6f5-7ee77e0de4b6">
 <img width="976" alt="Screen Shot 2024-03-17 at 2 14 46 AM" src="https://github.com/zabloncharles/Soulmates/assets/74889517/0e0628c2-9deb-43e4-b007-ef65bc759bda">
 <img width="976" alt="Screen Shot 2024-03-17 at 2 14 36 AM" src="https://github.com/zabloncharles/Soulmates/assets/74889517/3da8e049-2c7a-4e99-96bc-20a6282e2445">
-
+## Backend Database
+This project is connected to firebase for user creation and messaging service
+<img width="976" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjrW1076YaMtpkxAdpl9E8g5xe3UBx0Al0uYI02dbld-CRHDHx1bjWQgJ-zKv79Ra1-NWZK1KXw-ERfQadXXTxVkI21PvoxiT109OofiU3y0szHQ_sLsIZ7Mmux_omUyZGbtvHzTz6eIcJI/w1200-h630-p-k-no-nu/image00.png" >
 
 ## Contributing
 
