@@ -7,11 +7,22 @@
 # Soulmate: Your Path to Meaningful Connections
   </p>
   
-In an era dominated by swipes, likes, and instant gratification, making genuine, meaningful connections has become increasingly challenging. The digital age has given us countless ways to interact, yet finding a soulful connection has never felt more elusive. Enter Soulmate, an app designed to revolutionize the way we connect with others, bringing authenticity and depth back into the world of dating and relationships.
+
+In a time where quick interactions and superficial connections prevail, forming authentic and significant relationships has become more difficult. This project aims to develop an app that prioritizes genuine values, diverging from the norms often seen on platforms like Tinder and other dating apps.
 
 ## The Challenge of Connection in the Digital Age
 
 The paradox of modern dating is that while we have more tools than ever to connect, we often find ourselves feeling more disconnected. Shallow interactions, superficial judgments based on profile pictures, and the pressure to keep up with a fast-paced dating culture can leave us longing for something more. Deep down, we all yearn for those soulful connections that transcend the digital realm.
+
+
+
+
+
+[Watch the Video: for a live preview]https://github.com/zabloncharles/Soulmates/assets/74889517/2059ed66-a171-4680-8e81-f4316701ceef
+
+
+
+
 
 <img width="976" alt="Screen Shot 2024-03-17 at 2 15 50 AM" src="https://github.com/zabloncharles/Soulmates/assets/74889517/d2f49ca4-9568-4535-919e-40fa23652c91">
 
