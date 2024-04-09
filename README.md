@@ -20,8 +20,11 @@ The paradox of modern dating is that while we have more tools than ever to conne
 
 [Watch the Video: for a live preview]https://github.com/zabloncharles/Soulmates/assets/74889517/2059ed66-a171-4680-8e81-f4316701ceef
 
+<div style="display: flex;">
 
-
+<img width="485" alt="Screen Shot 2024-03-25 at 8 47 27 PM" src="https://github.com/zabloncharles/Soulmates/assets/74889517/3b47af79-dee9-4805-81f8-70d7b2288323">
+<img width="485" alt="Screen Shot 2024-03-25 at 8 48 41 PM" src="https://github.com/zabloncharles/Soulmates/assets/74889517/b68ba974-42dd-4f35-837b-62351e395c7d">
+</div>
 
 
 <img width="976" alt="Screen Shot 2024-03-17 at 2 15 50 AM" src="https://github.com/zabloncharles/Soulmates/assets/74889517/d2f49ca4-9568-4535-919e-40fa23652c91">
