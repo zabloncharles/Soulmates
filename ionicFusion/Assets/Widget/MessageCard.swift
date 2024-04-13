@@ -27,7 +27,7 @@ struct MessageCard: View {
               //  Image(section.avatar)
                   //  .resizable()
                   //  .aspectRatio(contentMode: .fill)
-                GetImageAlert(url:section.avatar, loaded: $userAvatarLoaded)
+                GetImageAndUrl(url:"", loaded: .constant(true), imageUrl: .constant(""))
                     .frame(width: 49, height: 49)
                     .mask(Circle())
                    

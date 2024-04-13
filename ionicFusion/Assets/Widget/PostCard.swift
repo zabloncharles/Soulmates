@@ -38,7 +38,7 @@ struct PostCard: View {
                 
                 //The image is this
                 ZStack {
-                    GetImageViewer(url:poster)
+                    GetImageAndUrl(url:poster, loaded: .constant(true), imageUrl: .constant(""))
                         .frame(width: 340, height: 500)
                         .cornerRadius(34)
                         .padding(.horizontal,0)
@@ -49,7 +49,7 @@ struct PostCard: View {
                     VStack {
                         Spacer()
                         HStack {
-                            GetImageViewer(url:avatar)
+                            GetImageAndUrl(url:avatar, loaded: .constant(true), imageUrl: .constant(""))
                                 .frame(width: 60,height: 60)
                                 .cornerRadius(60)
                             

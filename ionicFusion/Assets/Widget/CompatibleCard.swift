@@ -23,7 +23,7 @@ struct CompatibleCard: View {
                 }.frame(width: 390, height: 500)
                     .background(LinearGradient(colors: [Color.clear, Color.clear, Color.clear], startPoint: .bottom, endPoint: .top))
                     .background(
-                        GetImageAlert(url:"https://source.unsplash.com/random/?hotgirl,prettywoman", loaded: $userImageLoaded)
+                        GetImageAndUrl(url:"", loaded: .constant(true), imageUrl: .constant(""))
                             .opacity(appeared ? 1 : 0)
                         
                     )

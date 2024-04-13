@@ -276,7 +276,7 @@ struct BoneProfile: View {
             
             .overlay(
                 VStack{
-                    GetImageAlert(url:profile.avatar,loaded: $profileLoaded)
+                    GetImageAndUrl(url:profile.avatar,loaded: $profileLoaded)
                         .offset(y: scrollY > 0 ? -scrollY : 0)
                         .scaleEffect(liked ? 1.4 : scrollY > 0 ? scrollY / 1000 + 1 : 1)
                         .blur(radius: liked ? 14 : scrollY > 0 ? scrollY / 10 : 0)

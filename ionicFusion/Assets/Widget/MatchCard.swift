@@ -219,7 +219,7 @@ struct MatchCard: View {
             
                 .overlay(
                     //Image(section.avatar)
-                    ImageViewer(url: section.avatar)
+                    GetImageAndUrl(url:section.avatar, loaded: .constant(true), imageUrl: .constant(""))
                        // .resizable(resizingMode: .stretch)
                       //  .aspectRatio(contentMode: .fill)
                         .frame(width: 90.0, height: 90.0)

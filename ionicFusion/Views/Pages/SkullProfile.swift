@@ -302,7 +302,7 @@ struct SkullProfile: View {
             
             .overlay(
                 VStack{
-                    GetImageAlert(url:profile.avatar,loaded: $profileLoaded)
+                    GetImageAndUrl(url:"", loaded: .constant(true), imageUrl: .constant(""))
                         .offset(y: scrollY > 0 ? -scrollY : 0)
                         .scaleEffect(liked ? 1.4 : scrollY > 0 ? scrollY / 1000 + 1 : 1)
                         .blur(radius: liked ? 14 : scrollY > 0 ? scrollY / 10 : 0)
@@ -326,7 +326,246 @@ struct SkullProfile: View {
         }
         .frame(height: 400)
     }
+    var avatarandthreeinfo: some View {
+        VStack {
+            HStack {
+                ZStack {
+                    Circle()
+                        .fill(.angularGradient(colors: [.purple, .orange, .purple], center: .center, startAngle: .degrees(0), endAngle: .degrees(360)))
+                        .frame(height: 95)
+                        .frame(width: 95)
+                        .cornerRadius(64)
+                    GetImageAndUrl(url:profile.avatar, loaded: .constant(true), imageUrl: .constant(""))
+                    
+                        .frame(height: 91)
+                        .frame(width: 91)
+                        .cornerRadius(64)
+                        .overlay(
+                            Text("Active")
+                                .font(.caption)
+                                .padding(.horizontal,5)
+                                .padding(.vertical,2)
+                                .background(.black)
+                                .foregroundColor(.white)
+                                .cornerRadius(12)
+                                .offset(x:30,y:30)
+                        )
+                }
+                .padding(.horizontal,5)
+                .padding(.bottom,-20)
+                
+                Spacer()
+                
+                HStack{
+                    
+                    VStack{
+                        Image(systemName: "balloon.fill")
+                        Text("24")
+                    }
+                    .padding(.horizontal,10)
+                    .padding(.vertical,4)
+                    .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 6, action: $liked)
+                    
+                    
+                    
+                    VStack{
+                        Spacer()
+                    }.frame(width: 1, height: 12)
+                        .background(Color("black"))
+                    
+                    VStack{
+                        Image(systemName: "figure.cooldown")
+                        
+                        Text("5'6")
+                    }
+                    .padding(.horizontal,10)
+                    .padding(.vertical,4)
+                    .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 6, action: $liked)
+                    
+                    VStack{
+                        Spacer()
+                    }.frame(width: 1, height: 12)
+                        .background(Color("black"))
+                    
+                    VStack{
+                        Image(systemName: "mappin.and.ellipse")
+                        Text("1,200M")
+                    }
+                    .padding(.horizontal,10)
+                    .padding(.vertical,4)
+                    .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 6, action: $liked)
+                }
+                
+                
+                Spacer()
+            }
+            Spacer()
+            
+            VStack {
+                HStack(spacing: 2){
+                    Text(profile.firstname)
+                        .bold()
+                        .font(.headline)
+                    Image(systemName: "checkmark.circle.fill")
+                        .foregroundColor(.blue)
+                        .font(.system(size: 18, weight: .medium))
+                    Text("her/she")
+                       
+                        .font(.callout)
+                    Spacer()
+                }
+                HStack{
+                    Text("I love going out hiking and fishing :)")
+                    Spacer()
+                }
+               
+            } .padding(.top,20)
+        }.padding(.leading,20)
+    }
     
+    var moreinfohorizontalcards: some View {
+        ScrollView(.horizontal,showsIndicators: false){
+            HStack {
+                ZStack {
+                   
+                    HStack(spacing: 3.9){
+                        Image(systemName: "graduationcap")
+                            .font(.system(size: 18, weight: .medium))
+                        
+                        
+                        TextWriterAppear(typeText: profile.education, speed: 0.02)
+                            .font(.footnote)
+                            .fontWeight(.semibold)
+                            .lineLimit(1)
+                        
+                    }.foregroundColor(Color("black"))
+                        .padding(.horizontal,5)
+                    .padding(.vertical,4)
+                    .background(Color("offwhite"))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(Color("black"), lineWidth: 1)
+                        
+                    )
+                    .cornerRadius(8)
+                    
+                   
+                }
+                  
+                   
+                
+                VStack{
+                    Spacer()
+                }.frame(width: 1, height: 12)
+                    .background(Color("black"))
+                
+                HStack {
+                    Image(systemName: "building")
+                        .font(.system(size: 18, weight: .medium))
+                    
+                    TextWriterAppear(typeText: "Works in \(profile.work)", speed: 0.02)
+                    // Text("Works in \(profile.work)")
+                        .font(.footnote)
+                        .fontWeight(.semibold)
+                        .lineLimit(1)
+                }.foregroundColor(Color("black"))
+                    .padding(.horizontal,5)
+                    .padding(.vertical,4)
+                    .background(Color("offwhite"))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(Color("black"), lineWidth: 1)
+                        
+                    )
+                    .cornerRadius(8)
+                   
+                
+                VStack{
+                    Spacer()
+                }.frame(width: 1, height: 12)
+                    .background(Color("black"))
+                
+                HStack {
+                    Image(systemName: "location")
+                        .font(.system(size: 18, weight: .medium))
+                    
+                    
+                    HStack {
+                        //  DistanceView()
+                        TextWriterAppear(typeText: profile.location[0], speed: 0.02)
+                            .font(.footnote)
+                            .fontWeight(.semibold)
+                            .lineLimit(1)
+                        
+                    }
+                    
+                }.foregroundColor(Color("black"))
+                    .padding(.horizontal,5)
+                    .padding(.vertical,4)
+                    .background(Color("offwhite"))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(Color("black"), lineWidth: 1)
+                        
+                    )
+                    .cornerRadius(8)
+                
+                  
+                
+                VStack{
+                    Spacer()
+                }.frame(width: 1, height: 12)
+                    .background(Color("black"))
+            }
+            .padding(.leading,20)
+            
+          
+            
+        }
+    }
+    var whatilike: some View{
+        VStack(alignment: .leading, spacing: 15.0){
+            
+            HStack {
+                
+                
+                
+                
+                HStack {
+                    Text(profile.firstname)
+                        .bold()
+                        .font(.subheadline)
+                    Image(systemName: "checkmark.circle.fill")
+                        .foregroundColor(.blue)
+                        .font(.system(size: 18, weight: .medium))
+                    Text("2d")
+                    
+                        .font(.callout)
+                    
+                    Spacer()
+                    Image(systemName: "ellipsis")
+                }.padding(.trailing,10)
+                Spacer()
+            }
+            Text("\"Fun loving and looking to settle up with this stuff and do me. its really not like that said no one ever.\"")
+            
+                .font(.callout)
+                .multilineTextAlignment(.leading)
+                .lineLimit(3)
+                .padding(.trailing,10)
+            
+            
+            
+            HStack {
+                ForEach(profile.likes, id: \.self) { like in
+                    LikesPill(placeholder: like)
+                }
+                
+                
+            }
+        }.foregroundColor(Color("black"))
+            .padding(.leading,20)
+    }
     var content: some View {
         
       
@@ -337,347 +576,173 @@ struct SkullProfile: View {
             VStack(alignment: .leading, spacing: 20.0) {
                 
                 nameandheart
-                ZStack {
+             
                 
-                    GetImageAlert(url:profile.avatar,loaded: $profileLoaded)
-                        .blur(radius: 90)
-                        .frame(height: 461)
-                    
-                        .cornerRadius(34)
-                    
-                        .padding(.horizontal,5)
-                       
-                    
-                      
-                        .padding(.bottom,-20)
-                    
-                    GetImageAlert(url:profile.avatar,loaded: $profileLoaded)
-                        .frame(height: 450)
-                    
-                        .cornerRadius(31)
-                    
-                        .padding(.horizontal,10)
-                    
-                       
-                        .padding(.bottom,-20)
-                        .overlay {
-                            VStack {
-                                Spacer()
-                                VStack {
-                                    HStack {
-                                        Text(profile.firstname)
-                                            .font(.title).bold()
-                                        Text(profile.age )
-                                            .font(.title3).bold()
-                                            .padding(5)
-                                            .background(Color.orange)
-                                            .cornerRadius(60)
-                                        Spacer()
-                                    }
-                                    
-                                    
-                                    HStack {
-                                        TextWriterAppear(typeText: profile.aboutme, speed: 0.02)
-                                            .font(.footnote)
-                                            .multilineTextAlignment(.leading)
-                                            .lineLimit(2)
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                            .foregroundColor(Color("black"))
-                                        Spacer()
-                                      
-                                    }
-                              
-                                }
-                                .padding(.horizontal,20)
-                                    .padding(.vertical,15)
-                                .background(Rectangle()
-                                    .fill(.ultraThinMaterial))
-                                .cornerRadius(42)
-                                .offset(y:30)
-                                .padding(20)
-                            }
-                        }
-                }
-              
-                    
+               avatarandthreeinfo
+                   
+                 
+               
+                
                 
 //                About me card
                 VStack(alignment: .leading, spacing: 13.0) {
-                 
-                    
-                    HStack{
-                        
-                        HStack{
-                            Image(systemName: "pencil.and.ruler")
-                            Text("5'0")
-                        }
-                            .padding(.horizontal,10)
-                            .padding(.vertical,4)
-                            .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 6, action: $liked)
-                           
-                            
-                        
-                     VStack{
-                            Spacer()
-                     }.frame(width: 1, height: 12)
-                            .background(Color.white)
-                        
-                        HStack{
-                            Image(systemName: "house")
-                            Text("Cambridge")
-                        }
-                        .padding(.horizontal,10)
-                        .padding(.vertical,4)
-                        .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 6, action: $liked)
-                    }
-                    
-                  
-                    Spacer(minLength: 0.1)
-                    
-                    
-                    HStack(spacing: 3.9){
-                        Image(systemName: "graduationcap")
-                            .font(.system(size: 18, weight: .medium))
-                        
-                        
-                        TextWriterAppear(typeText: profile.education, speed: 0.02)
-                            .font(.footnote)
-                            .fontWeight(.semibold)
-                            .lineLimit(2)
-                        
-                    }.foregroundColor(Color("black"))
-                    
-                    HStack {
-                        Image(systemName: "building")
-                            .font(.system(size: 18, weight: .medium))
-                        
-                        TextWriterAppear(typeText: "Works in \(profile.work)", speed: 0.02)
-                        // Text("Works in \(profile.work)")
-                            .font(.footnote)
-                            .fontWeight(.semibold)
-                            .lineLimit(2)
-                    }.foregroundColor(Color("black"))
-                    
-                    HStack {
-                        Image(systemName: "location")
-                            .font(.system(size: 18, weight: .medium))
-                        
-                        
-                        HStack {
-                            //  DistanceView()
-                            TextWriterAppear(typeText: profile.location[0], speed: 0.02)
-                                .font(.footnote)
-                                .fontWeight(.semibold)
-                                .lineLimit(2)
-                            
-                        }
-                        
-                    }.foregroundColor(Color("black"))
-                }
-                .padding(10)
-                .offset(y:10)
-//                .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 19, action: $liked)
-                .background(Color("offwhiteneo"))
-                
-               
-                
-         
-                
-                VStack(alignment: .leading, spacing: 10.0){
-                    
-                    HStack {
-                        
-                        
-                        Image(systemName: "sparkles")
-                            .font(.title)
-                            .foregroundColor(Color("black"))
-                        
-                        Text("First Date Idea?")
-                            .font(.subheadline)
-                    }
-                    Text("What would you like to do with siri on a first date? :)")
-                        .font(.footnote)
-                        .multilineTextAlignment(.leading)
-                        .lineLimit(3)
-                        .foregroundColor(Color("black"))
-                    
-                    
-                    VStack(spacing: 26.0) {
-                        HStack {
-                            HStack(spacing: 4.0) {
-                                Text("Bar")
-                                Spacer()
-                                
-                                Image(systemName: "wineglass")
-                                
-                                    .padding(.horizontal, 10)
-                                    .padding(.vertical, 5)
-                            }
-                            
-                        }.padding(12)
-                            .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 10, action: $liked)
-                        
-                        HStack {
-                            HStack(spacing: 4.0) {
-                                
-                                Text("Dinner")
-                                Spacer()
-                                Image(systemName: "fork.knife")
-                                
-                                    .padding(.horizontal, 10)
-                                    .padding(.vertical, 5)
-                            }
-                            
-                        }.padding(12)
-                            .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 10, action: $liked)
-                        
-                        HStack {
-                            HStack(spacing: 4.0) {
-                                
-                                Text("Other")
-                                Spacer()
-                                Image(systemName: "eyes.inverse")
-                                
-                                    .padding(.horizontal, 10)
-                                    .padding(.vertical, 5)
-                            }
-                            
-                        }.padding(12)
-                            .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 10, action: $liked)
-                            .padding(.bottom,10)
-                    }
-                }.padding(10)
                     
                    
-                    .background(Color("offwhiteneo").cornerRadius(19).padding(1).cornerRadius(12))
-                    .background(Color("black").opacity(0.2).cornerRadius(19))
-//                    .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 18, action: .constant(false))
-                
-                
-                
-                
-                
-                
-                
+                        moreinfohorizontalcards
+                       
                     
-                HStack {
-                    Spacer()
-                    GetImageAndUrl(url:"https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80", imageUrl: $profileImages[0])
-                            .frame(width: UIScreen.main.bounds.width - 20, height: 400)
+                        Divider()
+                     
+                    
+                       
                         
-                            .cornerRadius(20)
-                            
+                    VStack {
+                        GetImageAndUrl(url:profileImages[0], loaded: .constant(true), imageUrl: $profileImages[0])
+                        
+                            .frame(width:UIScreen.main.bounds.width, height: 400)
+                        
+                            .cornerRadius(0)
+                        
                             .neoDoubleTapButton(isToggle: false, perform: {
                                 //when first image is clicked
                                 liked = true
-                                likedImage = profileImages[0]
+                                likedImage = profileImages[1]
                                 
-                        })
-                    Spacer()
-                }.scaleEffect(1.035)
-                    .padding(.vertical,10)
-                
-                
-                
-                
-                
-                
-                
-                VStack(alignment: .leading, spacing: 15.0){
-                    HStack {
+                            })
                         
-                        
-                        Image(systemName: "hand.thumbsup")
-                            .font(.title)
-                        
-                        
-                        Text("Likes")
-                            .font(.subheadline)
-                        Spacer()
-                    }
-                    Text("\"Fun loving and looking to settle up with this stuff and do me. its really not like that said no one ever.\"")
-
-                        .font(.callout)
-                        .multilineTextAlignment(.leading)
-                        .lineLimit(3)
-                    
-                    
-                    
-                    HStack {
-                        ForEach(profile.likes, id: \.self) { like in
-                            LikesPill(placeholder: like)
-                        }
-                        
-                        
-                    }
-                }.foregroundColor(Color("black"))
-                    .padding(10)
-                  
-//                    .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 18, action: $liked)
-                    .background(Color("offwhiteneo").cornerRadius(19).padding(1).cornerRadius(12))
-                    .background(Color("black").opacity(0.2).cornerRadius(19))
-          
-                
-                HStack {
-                    Spacer()
-                    GetImageAndUrl(url:profile.images[1], imageUrl: $profileImages[1])
-                        .frame(width: UIScreen.main.bounds.width - 20, height: 400)
-                    
-                        .cornerRadius(20)
-                    
-                        .neoDoubleTapButton(isToggle: false, perform: {
-                            //when first image is clicked
-                            liked = true
-                            likedImage = profileImages[0]
+                        VStack {
                             
-                        })
-                    Spacer()
-                }.scaleEffect(1.035)
-                    .padding(.vertical,10)
-                   
-                
-                
-                
-                
-                VStack(alignment: .leading, spacing: 15.0){
-                    HStack {
-                        
-                        
-                        Image(systemName: "teddybear")
-                            .font(.title)
-                        
-                        Text("The best way to ask me out is by")
-                            .font(.subheadline)
-                        
-                        Spacer()
+                            
+                            
+                            
+                            
+                            HStack {
+                                HStack(spacing:4) {
+                                    Text(profile.firstname)
+                                        .bold()
+                                    .font(.subheadline)
+                                    Image(systemName: "checkmark.circle.fill")
+                                        .foregroundColor(.blue)
+                                        .font(.system(size: 18, weight: .medium))
+                                }
+                                
+                                Text("2d")
+                                
+                                    .font(.callout)
+                                
+                                Spacer()
+                                Image(systemName: "ellipsis")
+                            }.padding(.trailing,20)
+                            Spacer()
+                            
+                            HStack {
+                                VStack {
+                                    Image(systemName: "quote.opening")
+                                        .font(.system(size: 18, weight: .medium))
+                                    
+                                }
+                                Text("this is how i like to unwind")
+                                    .font(.callout)
+                                    .italic()
+                                
+                                Spacer()
+                            }.padding(.trailing,10)
+                        }
+                        .padding(.leading,20)
+                        .padding(.vertical)
+                        .background(Color("offwhite"))
+                        .padding(.top,-10)
                     }
-                    
-                    Text("\"\(profile.lifestyledesc)\"")
-                        .font(.callout)
-                        .multilineTextAlignment(.leading)
-                        .lineLimit(showMore ? 10 : 3)
+                        
+                 
                     
                     
                     
                     
+                    
+                    Divider()
+//                    Likes Pill
+                  whatilike
+                    
+                      Divider()
+                    
+                    
+                   
+                    
+                        
+                        VStack {
+                            GetImageAndUrl(url:profileImages[1], imageUrl: $profileImages[1])
+                                .frame(width:UIScreen.main.bounds.width, height: 400)
+                            
+                                .cornerRadius(0)
+                            
+                                .neoDoubleTapButton(isToggle: false, perform: {
+                                    //when first image is clicked
+                                    liked = true
+                                    likedImage = profileImages[1]
+                                    
+                                })
+                            
+                            VStack {
+                              
+                                    
+                                    
+                                    
+                                    
+                                    HStack {
+                                        HStack(spacing:4) {
+                                            Text(profile.firstname)
+                                                .bold()
+                                                .font(.subheadline)
+                                            Image(systemName: "checkmark.circle.fill")
+                                                .foregroundColor(.blue)
+                                                .font(.system(size: 18, weight: .medium))
+                                        }
+                                        Text("2d")
+                                        
+                                            .font(.callout)
+                                        
+                                        Spacer()
+                                        Image(systemName: "ellipsis")
+                                    }.padding(.trailing,20)
+                                    Spacer()
+                               
+                                HStack {
+                                    VStack {
+                                        Image(systemName: "quote.opening")
+                                            .font(.system(size: 18, weight: .medium))
+                                        
+                                    }
+                                    Text("When i knew my modeling career was over. i was devastated")
+                                        .font(.callout)
+                                        .italic()
+                                    
+                                    Spacer()
+                                }.padding(.trailing,10)
+                            }
+                            .padding(.leading,20)
+                            .padding(.vertical)
+                            .background(Color("offwhite"))
+                                .padding(.top,-10)
+                        }
                   
-                }.foregroundColor(Color("black"))
-                    .padding(10)
-                
-//                    .offwhitebutton(isTapped: liked, isToggle: true, cornerRadius: 20, action: $showMore)
-                    .background(Color("offwhiteneo").cornerRadius(19).padding(1).cornerRadius(12))
-                    .background(Color("black").opacity(0.2).cornerRadius(19))
+                    
+                    Divider()
                     
                     
                     
-              
-                
-                
+                   answerprompt
+                    
+                    
+                    
+                    
+                    
+                }
                 
             }
             
             .padding(.top,40)
-            .padding(.horizontal,20)
+           
             .padding(.bottom,120)
             
             
@@ -693,6 +758,66 @@ struct SkullProfile: View {
         
         
         
+    }
+    
+    var answerprompt: some View{
+        VStack(alignment: .leading, spacing: 15.0){
+            
+            HStack {
+                
+                
+                
+                
+                HStack {
+                    HStack(spacing:4) {
+                        Text(profile.firstname)
+                            .bold()
+                            .font(.subheadline)
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundColor(.blue)
+                            .font(.system(size: 18, weight: .medium))
+                    }
+                    Text("2d")
+                    
+                        .font(.callout)
+                    
+                    Spacer()
+                    Image(systemName: "ellipsis")
+                }.padding(.trailing,10)
+                Spacer()
+            }
+            Text("\"I like going going out to clubs and studying for my mcat lol.\"")
+            
+                .font(.callout)
+                .multilineTextAlignment(.leading)
+                .lineLimit(3)
+            
+            
+            //                        the prompt
+            HStack {
+                VStack{
+                    Spacer()
+                }.frame(width: 1, height: .infinity)
+                    .background(Color("black"))
+                HStack {
+                    Spacer()
+                    Text("What do you like to do for fun?")
+                        .bold()
+                        .font(.callout)
+                        .multilineTextAlignment(.trailing)
+                        .lineLimit(3)
+                    
+                    
+                }.padding(20)
+                
+                    .cornerRadius(12)
+                    .padding(.leading,20)
+            }
+            
+            
+        }.foregroundColor(Color("black"))
+        
+            .padding(.leading,20)
     }
     
     var outofmatchesView: some View {
@@ -821,7 +946,7 @@ struct SkullProfile: View {
                     VStack{
                         Color.black.opacity(0.25)
                     }
-                    ImageViewer(url: likedImage.isEmpty ? profile.avatar.isEmpty ? "" : profile.avatar : likedImage)
+                    GetImageAndUrl(url:"", loaded: .constant(true), imageUrl: .constant(""))
                     // .matchedGeometryEffect(id: profile.avatar, in: namespace)
                     
                     

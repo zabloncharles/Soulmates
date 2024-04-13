@@ -229,7 +229,7 @@ struct HomeView: View {
                 
                 
                 Spacer()
-                GetImageAlert(url:currentUser?.avatar ?? "" , loaded: .constant(true))
+                GetImageAndUrl(url:"", loaded: .constant(true), imageUrl: .constant(""))
                 // .resizable()
                 // .aspectRatio(contentMode: .fill)
                 //  ImageViewer(url: currentUser?.avatar ?? "")

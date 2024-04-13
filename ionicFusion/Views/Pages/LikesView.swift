@@ -52,9 +52,9 @@ struct LikesView: View {
     var showprofile: some View {
         ZStack {
             if showProfile {
-                BoneProfile(currentUser: $currentUser, profile: profile, showProfile: $showProfile)
+                Rectangle()
                   //  .background(Color("offwhite"))
-                    .background(.ultraThinMaterial)
+                   
                     .transition(.asymmetric(
                         insertion: .push(from: .bottom),
                         removal: .push(from: .top)))
@@ -223,7 +223,7 @@ struct LikesView: View {
                             ForEach(filteredProfiles, id: \.id) { user in
                                 VStack {
                                     
-                                    GetImageViewer(url:user.avatar)
+                                    GetImageAndUrl(url:user.avatar, loaded: .constant(true), imageUrl: .constant(""))
                                         .frame(width: 70,height: 70)
                                         .cornerRadius(60)
                                         .overlay (

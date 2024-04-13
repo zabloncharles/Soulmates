@@ -52,10 +52,7 @@ struct SmallMatchActive: View {
                             }
                         }
                         Spacer()
-                       // Image(section.avatar)
-                        ImageViewer(url: section.avatar)
-                           // .resizable()
-                           // .aspectRatio(contentMode: .fill)
+                        GetImageAndUrl(url:section.avatar, loaded: .constant(true), imageUrl: .constant(""))
                             .frame(width: 50, height: 50)
                             .cornerRadius(60)
                     }.padding(6)

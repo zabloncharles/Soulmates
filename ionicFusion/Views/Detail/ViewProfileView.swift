@@ -206,7 +206,7 @@ struct ViewProfileView: View {
             .overlay(
                 VStack{
                     
-                    GetImageAlert(url:profile.avatar,loaded: $profileLoaded)
+                    GetImageAndUrl(url:profile.avatar, loaded: .constant(true), imageUrl: .constant(""))
                         .offset(y: scrollY > 0 ? -scrollY : 0)
                         .scaleEffect(liked ? 1.4 : scrollY > 0 ? scrollY / 1000 + 1 : 1)
                         .blur(radius: liked ? 14 : scrollY > 0 ? scrollY / 10 : 0)
@@ -380,7 +380,7 @@ struct ViewProfileView: View {
               
                     VStack {
                         // ImageViewer(url: profile.images[0] )
-                        GetImageAndUrl(url:profile.images[0], imageUrl: $profileImages[0])
+                        GetImageAndUrl(url:profile.images[0], loaded: .constant(true), imageUrl: $profileImages[0])
                            // .frame(width: UIScreen.main.bounds.width - 52, height: 400)
                         
                     }.frame(width: UIScreen.main.bounds.width - 22, height: 400)
@@ -445,7 +445,7 @@ struct ViewProfileView: View {
                 
                     VStack {
                         
-                        GetImageAndUrl(url:profile.images[1], imageUrl: $profileImages[1])
+                        GetImageAndUrl(url:profile.images[1], loaded: .constant(true), imageUrl: $profileImages[1])
                         
                         
                         
@@ -597,7 +597,7 @@ struct ViewProfileView: View {
                     VStack{
                         Color.black.opacity(0.25)
                     }
-                    ImageViewer(url: likedImage.isEmpty ? profile.avatar.isEmpty ? "" : profile.avatar : likedImage)
+                    GetImageAndUrl(url:"", loaded: .constant(true), imageUrl: .constant(""))
                     // .matchedGeometryEffect(id: profile.avatar, in: namespace)
                     
                     

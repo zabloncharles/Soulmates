@@ -8,9 +8,6 @@
 
 
 import SwiftUI
-import Firebase
-import FirebaseFirestore
-import FirebaseAuth
 
 struct MessageDetailView: View {
     @AppStorage("hidemainTab") var hidemainTab = false
@@ -86,7 +83,7 @@ struct MessageDetailView: View {
                 //    .resizable(resizingMode: .stretch)
                   //  .aspectRatio(contentMode: .fill)
                 //  ImageViewer(url: "")
-                GetImageAlert(url:log.avatar, loaded: $userAvatarLoaded)
+                GetImageAndUrl(url:log.avatar, loaded: .constant(true), imageUrl: .constant(""))
                     .cornerRadius(80)
                     .neoButton(isToggle: false, perform: {
                         //go to user profile
@@ -408,102 +405,7 @@ struct MessageDetailView: View {
         }
     }
     
-//    func sendMessage(message: String) {
-//        let user = Auth.auth().currentUser
-//        let db = Firestore.firestore()
-//        let collectionRef = db.collection("messages").document(log.docid)
-//            .collection("log")
-//
-//
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "MMM d, yyyy 'at' h:mm:ss a"
-//        let timeinstring = dateFormatter.string(from: Date())
-//
-//
-//        let dateFormatter2 = DateFormatter()
-//        dateFormatter2.dateFormat = "h:mm a"
-//        let timeinstring2 = dateFormatter2.string(from: Date())
-//
-//
-//        let data: [String: Any] = [
-//            "text": message,
-//            "time":  timeinstring,
-//            "stamp": timeinstring2,
-//            "sender": user?.email ?? ""
-//            // Add more fields and values as needed
-//        ]
-//
-//        collectionRef.addDocument(data: data) { error in
-//            if let error = error {
-//                typeWriteText("Error adding document: \(error.localizedDescription)") {
-//                    //nothing
-//                }
-//                print("Error adding document: \(error.localizedDescription)")
-//            } else {
-//                print("Document added successfully")
-//                typeWriteText("Message sent successfully") {
-//                    //nothing
-//                }
-//            }
-//        }
-//    }
-    
-//    private func fetchMessages() {
-//        let user = Auth.auth().currentUser
-//        let db = Firestore.firestore()
-//        let usersRef = db.collection("messages")
-//            .document(log.docid) // Specify the document ID in the "messages" collection
-//            .collection("log") // Go one collection deeper
-//                               // .whereField("email", arrayContains: holdData.email) //
-//                               // .whereField("email", arrayContains: user?.email)
-//
-//
-//            .addSnapshotListener { snapshot, error in
-//                guard let documents = snapshot?.documents else {
-//                    print("Error fetching documents: \(error?.localizedDescription ?? "Unknown error")")
-//                    return
-//                }
-//
-//                // Process the updated documents and update your UI accordingly
-//                // For example, you can update an @State variable holding chat messages
-//                let messages = documents.map { document -> Message in
-//                    let data = document.data()
-//                    let name = data["name"] as? String ?? ""
-//                    let docid = data["documentID"] as? String ?? ""
-//                    let text = data["text"] as? String ?? ""
-//                    let sender = data["sender"] as? String ?? ""
-//                    let stamp = data["stamp"] as? String ?? ""
-//
-//                    let timestamp = data["timestamp"] as? String ?? ""
-//                    return Message(documentID: docid, name: name, text: text, sender: sender, timestamp: timestamp, stamp:stamp)
-//
-//                }
-//                self.chatMessages = messages
-//            }
-//
-//    }
-    
-    //    func deleteMessage(messageID: String) {
-    //        withAnimation {
-    //            chatMessages.remove(at: Int(messageID) ?? 0)
-    //        }
-    //    }
-    
-//    func deleteMessage(messageID: String) {
-//        let db = Firestore.firestore()
-//        let messageRef = db.collection("messages")
-//            .document(log.docid) // Specify the document ID in the "messages" collection
-//            .collection("log").document(messageID) // Go one collection deeper
-//        
-//        messageRef.delete { error in
-//            if let error = error {
-//                print("Error deleting message: \(error.localizedDescription)")
-//            } else {
-//                print("Message deleted successfully")
-//            }
-//        }
-//    }
-    
+
     
     
 }

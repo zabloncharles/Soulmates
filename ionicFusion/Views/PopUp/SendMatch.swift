@@ -29,7 +29,7 @@ struct SendMatch: View {
             
             
             VStack {
-                ImageViewer(url: "https://www.realsimple.com/thmb/b9QUPtKe2W-bDsH2pCQPVNbRn5o=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/curly-girl-hair-2000-4a9e1c74afc44a539b8b0434d9b9d319.jpg")
+                GetImageAndUrl(url:"", loaded: .constant(true), imageUrl: .constant(""))
                 
                     .frame(width: 400 , height: 430)
             }.offwhitebutton(isTapped: false, isToggle: false, cornerRadius: 20, action:  .constant(false))

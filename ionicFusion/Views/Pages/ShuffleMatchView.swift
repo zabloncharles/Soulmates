@@ -252,7 +252,7 @@ struct FullProfileView: View {
                 //    .resizable()
                 //  .aspectRatio(contentMode: .fill)
                 VStack{
-                    GetImageAlert(url:profile.avatar,loaded: $profileLoaded)
+                    GetImageAndUrl(url:profile.avatar, loaded: .constant(true), imageUrl: .constant(""))
                     //  GetImageAlert(url: "",loaded: .constant(false))
                        // .matchedGeometryEffect(id: profile.avatar, in: namespace)
                         .offset(y: scrollY > 0 ? -scrollY : 0)
@@ -426,7 +426,7 @@ struct FullProfileView: View {
                 ZStack {
                     VStack {
                        // ImageViewer(url: profile.images[0] )
-                        GetImageAndUrl(url:profile.images[0], imageUrl: $profileImages[0])
+                        GetImageAndUrl(url:profile.images[0], loaded: .constant(true), imageUrl: $profileImages[0])
                             .frame(minHeight:  400)
                         
                     }
@@ -496,7 +496,7 @@ struct FullProfileView: View {
                 ZStack {
                     VStack {
                         // ImageViewer(url: profile.images[0] )
-                        GetImageAndUrl(url:profile.images[1], imageUrl: $profileImages[1])
+                        GetImageAndUrl(url:profile.images[1], loaded: .constant(true), imageUrl: $profileImages[1])
                             .frame(minHeight:  400)
                         
                     }
@@ -778,7 +778,7 @@ struct FullProfileView: View {
                     VStack{
                         Color.black.opacity(0.25)
                     }
-                    ImageViewer(url: likedImage.isEmpty ? profile.avatar.isEmpty ? "" : profile.avatar : likedImage)
+                    GetImageAndUrl(url:profile.avatar, loaded: .constant(true), imageUrl: .constant(""))
                        // .matchedGeometryEffect(id: profile.avatar, in: namespace)
                        
                     

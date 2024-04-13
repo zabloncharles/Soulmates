@@ -48,7 +48,7 @@ struct ActiveCard: View {
                 .background(
                     
                     
-                    GetImageAlert(url:user.avatar, loaded: $userImageLoaded)
+                    GetImageAndUrl(url:user.avatar, loaded: $userImageLoaded, imageUrl: .constant(""))
                     //
                     //                        .transition(.asymmetric(insertion: .opacity, removal: .opacity))
                     
