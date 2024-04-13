@@ -70,7 +70,7 @@ struct MessageDetailView: View {
         VStack {
             HStack {
                 Image(systemName: "chevron.left")
-                    .font(.headline)
+                    .font(.title)
                     .foregroundColor(backButtonTapped ? .clear : Color("black"))
 //                    .neoButton(isToggle: false, perform: {
 //                        //go back to messages view

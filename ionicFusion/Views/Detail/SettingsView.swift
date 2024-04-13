@@ -47,35 +47,34 @@ struct SettingsView: View {
         
         ZStack {
             
-            LinearGradient(colors: [Color.clear,Color("white"),Color("white"),Color("white"),Color("offwhite"),Color.clear], startPoint: .top, endPoint: .bottom)
-                .edgesIgnoringSafeArea(.all)
+         Color("offwhiteneo")
             //First Section
             wallpaperandsettingsinfo
-                .padding(.top, 30)
+                
             
             //image picker
-                .fullScreenCover(isPresented: $showImagePicker, onDismiss: nil) {
-                    ImagePicker(image: $image)
-                        .ignoresSafeArea()
-                        .onDisappear {
-                            changePic()
-                            
-                            withAnimation(.spring()) {
-                                tappedImage = false
-                            }
-                            
-                            
-                        }
-                }
+//                .fullScreenCover(isPresented: $showImagePicker, onDismiss: nil) {
+//                    ImagePicker(image: $image)
+//                        .ignoresSafeArea()
+//                        .onDisappear {
+//                            changePic()
+//
+//                            withAnimation(.spring()) {
+//                                tappedImage = false
+//                            }
+//
+//
+//                        }
+//                }
             
-            VStack{
-                HStack {
-                    Image(systemName: "photo")
-                        .font(.headline)
-                        
-                }.offset(y:-140)
-                Spacer()
-            }
+//            VStack{
+//                HStack {
+//                    Image(systemName: "photo")
+//                        .font(.headline)
+//
+//                }.offset(y:-170)
+//                Spacer()
+//            }
             
             Notification(title: notificationMessage, notification: "Notification", showNotification: $showNotification)
                 .padding(.top, -6)
@@ -118,7 +117,7 @@ struct SettingsView: View {
                         Text("Sign Out")
                         Spacer()
                         Image(systemName: "power")
-                            .foregroundColor(Color("black"))
+                            .foregroundColor(Color.red)
                         
                         
                     }.padding()
@@ -129,11 +128,8 @@ struct SettingsView: View {
                         .padding(.vertical, 2)
                     
                     
-                }.padding().neoButtonOff(isToggle: false, cornerRadius: 13) {
-                    //
-                    
                 }
-                .padding()
+            
                 
             }
             
@@ -147,6 +143,7 @@ struct SettingsView: View {
             
         }
         .padding()
+        .padding(.bottom,80)
         
         
     }
@@ -171,8 +168,67 @@ struct SettingsView: View {
         VStack(alignment: .leading, spacing: 12) {
             VStack(alignment: .leading){
                 HStack {
+                    
+                    Text("Settings")
+                        .font(.title).bold()
+                    Spacer()
+                    Image(systemName: "arrow.up")
+                        .padding(8)
+                        .background(Color("offwhite"))
+                        .cornerRadius(30)
+                        .opacity(showMoreProfileInfo ? 1 : 0)
+                        .neoButton(isToggle: true) {
+                            //showMoreProfileInfo
+                            withAnimation(.spring()) {
+                                showMoreProfileInfo.toggle()
+                            }
+                        }
+                }
+                HStack(alignment: .center, spacing: 8) {
+                    //  Image(section.avatar)
+                    //  .resizable()
+                    //  .aspectRatio(contentMode: .fill)
+                    GetImageAlert(url:"", loaded: .constant(true))
+                        .frame(width: 49, height: 49)
+                        .mask(Circle())
+                    
+                    VStack(alignment: .leading, spacing: 4) {
+                        
+                        
+                        // GradientText(text: section.name, gradient: [.black, .blue])
+                        Text("Ceran")
+                            .customfontFunc(customFont: "sanfrancisco", style: .title3)
+                            .foregroundColor(Color("black"))
+                        
+                        Text("I love milk")
+                            .customfontFunc(customFont: "sanfrancisco", style: .footnote)
+                            .foregroundColor(.gray)
+                            .lineLimit(1)
+                        
+                    }
+                    Spacer()
+                    HStack {
+                        Text("Edit Profile")
+                            .font(.caption)
+                            .foregroundColor(.gray )
+                        
+                        Image(systemName: "chevron.right")
+                            .font(.caption)
+                            .foregroundColor(.gray )
+                        
+                    }
+                    
+                    
+                }
+                
+                .padding(.vertical, 10)
+                .padding(.horizontal, 10)
+                .offwhitebutton(isTapped: false, isToggle: false, cornerRadius: 10, action: .constant(false))
+                
+                
+                HStack {
                     Text("Profile Infomation")
-                        .font(.title3).bold()
+                        .font(.headline)
                     Spacer()
                     Image(systemName: "arrow.up")
                         .padding(8)
@@ -288,7 +344,7 @@ struct SettingsView: View {
             //New Section
             VStack(alignment: .leading) {
                 Text("Account Options")
-                    .font(.title3).bold()
+                    .font(.headline)
                 HStack {
                     Text("Deactivate Account")
                     Spacer()
@@ -358,20 +414,9 @@ struct SettingsView: View {
             
             
             
-        }.padding(5)
+        }
         .padding(.vertical, 10)
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+     
     }
     
   

@@ -28,10 +28,9 @@ struct MessageCard: View {
                   //  .resizable()
                   //  .aspectRatio(contentMode: .fill)
                 GetImageAlert(url:section.avatar, loaded: $userAvatarLoaded)
-                    .frame(width: 59, height: 59)
+                    .frame(width: 49, height: 49)
                     .mask(Circle())
-                    .padding(5)
-                    .mask(Circle())
+                   
                     .neoButton(isToggle: false, perform: {
                         //user tapped the avatar
                         showProfile = true
@@ -72,8 +71,9 @@ struct MessageCard: View {
             .padding(.vertical, 5)
             .padding(.horizontal, 10)
             
+            Divider()
         }
-        // .offwhiteCard(isToggle: false, cornerRadius: 10, action: $isTapped)
+    
         
         
     }
@@ -90,12 +90,5 @@ struct MessageCard: View {
     
     
 }
-struct MessageCard_Previews: PreviewProvider {
-    
-    
-    static var previews: some View {
-        ViewController()
-        
-    }
-}
+
 

@@ -9,7 +9,7 @@ import SwiftUI
 
 
 struct SkullProfile: View {
-    @AppStorage("hidemainTab") var hidemainTab = false
+    @State var showblacknav = false
     @AppStorage("currentPage") var selected = 0
     @State var profiles: [UserStruct] = compatibleFakeUsers
     @Binding var currentUser: UserStruct?
@@ -35,6 +35,7 @@ struct SkullProfile: View {
     @State var profileImages = ["","",""]
     @State var likedImage = ""
     @State var showMore = false
+    @State var hidenav = false
     @State var scrolledItem = 0
     @State var profileNumber = 0
     @Binding var currentIndex : Int
@@ -47,7 +48,7 @@ struct SkullProfile: View {
         ZStack {
           
             
-            Color("offwhite")
+            Color("offwhiteneo")
           
             
             VStack {
@@ -93,14 +94,16 @@ struct SkullProfile: View {
            
                 ZStack {
                     
-                    
+
                     ScrollView {
                         
-                        cover
-                            .background(scrollDetection)
-                        
+//                        cover
+//                            .background(scrollDetection)
+                          
+                     
                         content
-                        
+                            .background(scrollDetection)
+                          
                         
                     }
                     .coordinateSpace(name: "scroll")
@@ -110,28 +113,43 @@ struct SkullProfile: View {
                     .onAppear{
                         // DispatchQueue.main.asyncAfter(deadline: .now() + 0.3)
                         profileNumber = profileNumber + 1
-                    }.ignoresSafeArea()
+                    }
+                    .blur(radius: liked ? 20 : 0)
+                    .ignoresSafeArea()
                     
                     //the send text view that comes after liking a potential match
-                    if liked  {
+                   
                         ZStack {
-                            LinearGradient(colors: [Color("white").opacity(0.94), Color.clear,Color.clear], startPoint: .bottom, endPoint: .top)
-                                .animation(.easeInOut.speed(0.65), value: hidemainTab)
-                                .opacity(hidemainTab ? 1 : 0)
+                            LinearGradient(colors: [Color("offwhiteneo"),Color.clear], startPoint: .bottom, endPoint: .top)
+                                .animation(.easeInOut.speed(0.65), value: liked)
+                                .opacity(liked ? 1 : 0)
+                            nameandheart
+                            
                             likedcontent
-                                .animation(.easeInOut.delay(0.05), value: hidemainTab)
-                                .offset(y: !hidemainTab ? UIScreen.main.bounds.height * 1.02 : 0)
+                                .animation(.spring(), value: liked)
+                                .offset(y:110)
                             
                             
-                        }.background(.ultraThinMaterial)
-                            .edgesIgnoringSafeArea(.all)
-                    }
+                        }.background(LinearGradient(colors: [Color("offwhiteneo"),Color("offwhiteneo"),Color("offwhiteneo").opacity(0.80)], startPoint: .bottom, endPoint: .top).offset(y: !liked ? UIScreen.main.bounds.height * 1.30 : 0).opacity(liked ? 1 : 0))
+                        .cornerRadius(liked ? 0 : 15)
+                        .offset(y: !liked ? UIScreen.main.bounds.height * 1.30 : 0)
+
+                  
+                                      
+                      
                     
+                            
+                      
                     
                 }.animation(.spring(), value: dislike)
                
-//            the name of the profile and the heart icon
-                nameandheart
+            nameandheartnav
+                .opacity(liked ? 0 : 1)
+            
+            
+       
+              
+            
         }
         .onAppear{
             withAnimation(.spring()) {
@@ -141,7 +159,7 @@ struct SkullProfile: View {
         .onDisappear{
             withAnimation(.spring()) {
                 animateapper = false
-             
+                
             }
         }
     }
@@ -150,18 +168,29 @@ struct SkullProfile: View {
             HStack {
                 HStack {
                     
-                   // TextWriterAppear(typeText:animateapper ? "Loading..." : profile.firstname)
-                   Text(profile.firstname)
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .lineLimit(1)
+                
+                    Text("Soulmate")
+                        .font(.custom("MrDafoe-Regular", size: 42))
+                    
+                        .foregroundColor(.clear)
+                        .background( LinearGradient(colors: [Color.red,.blue,.purple], startPoint: .leading, endPoint: .trailing))
+                        .mask(
+                            
+                            Text("Soulmate")
+                                .font(.custom("MrDafoe-Regular", size:  42))
+                            
+                            
+                        )
+                       
+                    
+                        
                     
                     
                     
-                }  .padding(.horizontal,12)
+                }
                     .padding(.vertical, 6)
-                    .background(.ultraThinMaterial)
-                    .cornerRadius(69)
+                    .background(Color("offwhiteneo"))
+                 
                     
                 
                 Spacer()
@@ -174,6 +203,60 @@ struct SkullProfile: View {
                         
                     }
                 
+                    
+                } label: {
+                    if !liked {
+                        Image(systemName: "heart.slash")
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .foregroundColor(.red)
+                    } else {
+                        
+                        Image(systemName: "heart.slash.fill")
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .foregroundColor(.red)
+                        
+                    }
+                    
+                    
+                }
+            }.padding(.horizontal,15)
+            Divider()
+        }
+    }
+    var nameandheartnav: some View{
+        VStack {
+            HStack {
+                HStack {
+                    
+                    
+                    Text(profile.firstname)
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .lineLimit(1)
+                    
+                    
+                    
+                }  .padding(.horizontal,12)
+                    .padding(.vertical, 6)
+                    .background(Color("offwhiteneo"))
+                    .cornerRadius(69)
+                   
+                
+                Spacer()
+                Button {
+                    showProfile = false
+                    showblacknav = true
+                    withAnimation {
+                        // if currentIndex != profiles.count - 1 {
+                  
+                        currentIndex += 1
+                        
+                        // }
+                        
+                    }
+                    
                     
                 } label: {
                     if !dislike {
@@ -192,9 +275,19 @@ struct SkullProfile: View {
                     
                     
                 }
-            }.padding(.horizontal,25)
+            } .offset(y:69)
+                .padding(.horizontal,25)
+                
+                .frame(height: 199)
+                
+                .background(Color("offwhiteneo"))
+                .offset(y:-100)
             Spacer()
-        }.offset(y:60)
+        }
+        .animation(.spring(), value: showblacknav)
+        .opacity(showblacknav ? 1 : 0)
+        .offset(y: showblacknav ? 0 : -100)
+      
     }
     var cover: some View {
         GeometryReader { proxy in
@@ -236,28 +329,81 @@ struct SkullProfile: View {
     
     var content: some View {
         
-        VStack {
+      
             
             
             
             
-            VStack(alignment: .leading, spacing: 30.0) {
+            VStack(alignment: .leading, spacing: 20.0) {
                 
+                nameandheart
+                ZStack {
                 
+                    GetImageAlert(url:profile.avatar,loaded: $profileLoaded)
+                        .blur(radius: 90)
+                        .frame(height: 461)
+                    
+                        .cornerRadius(34)
+                    
+                        .padding(.horizontal,5)
+                       
+                    
+                      
+                        .padding(.bottom,-20)
+                    
+                    GetImageAlert(url:profile.avatar,loaded: $profileLoaded)
+                        .frame(height: 450)
+                    
+                        .cornerRadius(31)
+                    
+                        .padding(.horizontal,10)
+                    
+                       
+                        .padding(.bottom,-20)
+                        .overlay {
+                            VStack {
+                                Spacer()
+                                VStack {
+                                    HStack {
+                                        Text(profile.firstname)
+                                            .font(.title).bold()
+                                        Text(profile.age )
+                                            .font(.title3).bold()
+                                            .padding(5)
+                                            .background(Color.orange)
+                                            .cornerRadius(60)
+                                        Spacer()
+                                    }
+                                    
+                                    
+                                    HStack {
+                                        TextWriterAppear(typeText: profile.aboutme, speed: 0.02)
+                                            .font(.footnote)
+                                            .multilineTextAlignment(.leading)
+                                            .lineLimit(2)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .foregroundColor(Color("black"))
+                                        Spacer()
+                                      
+                                    }
+                              
+                                }
+                                .padding(.horizontal,20)
+                                    .padding(.vertical,15)
+                                .background(Rectangle()
+                                    .fill(.ultraThinMaterial))
+                                .cornerRadius(42)
+                                .offset(y:30)
+                                .padding(20)
+                            }
+                        }
+                }
+              
+                    
                 
 //                About me card
                 VStack(alignment: .leading, spacing: 13.0) {
-                    HStack {
-                        Text("About Me")
-                            .font(.title).bold()
-                        
-                        
-                        Text(profile.age )
-                            .font(.title3).bold()
-                            .padding(5)
-                            .background(Color.orange)
-                            .cornerRadius(60)
-                    }
+                 
                     
                     HStack{
                         
@@ -285,12 +431,7 @@ struct SkullProfile: View {
                         .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 6, action: $liked)
                     }
                     
-                    TextWriterAppear(typeText: profile.aboutme, speed: 0.02)
-                        .font(.footnote)
-                        .multilineTextAlignment(.leading)
-                        .lineLimit(2)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .foregroundColor(Color("black"))
+                  
                     Spacer(minLength: 0.1)
                     
                     
@@ -333,21 +474,21 @@ struct SkullProfile: View {
                         
                     }.foregroundColor(Color("black"))
                 }
-                .padding(20)
-                .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 19, action: $liked)
+                .padding(10)
+                .offset(y:10)
+//                .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 19, action: $liked)
+                .background(Color("offwhiteneo"))
                 
                
                 
-                Rectangle()
-                    .fill(Color.gray)
-                    .frame(height: 0.1)
+         
                 
-                VStack(alignment: .leading, spacing: 15.0){
+                VStack(alignment: .leading, spacing: 10.0){
                     
                     HStack {
                         
                         
-                        Image(systemName: "hand.thumbsup")
+                        Image(systemName: "sparkles")
                             .font(.title)
                             .foregroundColor(Color("black"))
                         
@@ -374,7 +515,7 @@ struct SkullProfile: View {
                             }
                             
                         }.padding(12)
-                            .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 14, action: $liked)
+                            .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 10, action: $liked)
                         
                         HStack {
                             HStack(spacing: 4.0) {
@@ -388,7 +529,7 @@ struct SkullProfile: View {
                             }
                             
                         }.padding(12)
-                            .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 14, action: $liked)
+                            .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 10, action: $liked)
                         
                         HStack {
                             HStack(spacing: 4.0) {
@@ -402,13 +543,15 @@ struct SkullProfile: View {
                             }
                             
                         }.padding(12)
-                            .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 14, action: $liked)
+                            .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 10, action: $liked)
+                            .padding(.bottom,10)
                     }
-                }.padding()
+                }.padding(10)
                     
                    
-                   
-                    .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 18, action: .constant(false))
+                    .background(Color("offwhiteneo").cornerRadius(19).padding(1).cornerRadius(12))
+                    .background(Color("black").opacity(0.2).cornerRadius(19))
+//                    .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 18, action: .constant(false))
                 
                 
                 
@@ -417,16 +560,22 @@ struct SkullProfile: View {
                 
                 
                     
-                    GetImageAndUrl(url:profile.images[0], imageUrl: $profileImages[0])
-                        .frame(width: UIScreen.main.bounds.width - 22, height: 400)
-                    
-                        .cornerRadius(13)
-                        .neoDoubleTapButton(isToggle: false, perform: {
-                            //when first image is clicked
-                            liked = true
-                            likedImage = profileImages[0]
+                HStack {
+                    Spacer()
+                    GetImageAndUrl(url:"https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80", imageUrl: $profileImages[0])
+                            .frame(width: UIScreen.main.bounds.width - 20, height: 400)
+                        
+                            .cornerRadius(20)
                             
+                            .neoDoubleTapButton(isToggle: false, perform: {
+                                //when first image is clicked
+                                liked = true
+                                likedImage = profileImages[0]
+                                
                         })
+                    Spacer()
+                }.scaleEffect(1.035)
+                    .padding(.vertical,10)
                 
                 
                 
@@ -462,24 +611,29 @@ struct SkullProfile: View {
                         
                     }
                 }.foregroundColor(Color("black"))
-                    .padding()
-                    .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 18, action: $liked)
-                    .padding(.bottom,5)
+                    .padding(10)
+                  
+//                    .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 18, action: $liked)
+                    .background(Color("offwhiteneo").cornerRadius(19).padding(1).cornerRadius(12))
+                    .background(Color("black").opacity(0.2).cornerRadius(19))
+          
                 
-                
-                
-               
-                                  
+                HStack {
+                    Spacer()
                     GetImageAndUrl(url:profile.images[1], imageUrl: $profileImages[1])
-                 .frame(width: UIScreen.main.bounds.width - 22, height: 400)
-                
-                    .cornerRadius(13)
-                    .neoDoubleTapButton(isToggle: false, perform: {
-                        //when first image is clicked
-                        liked = true
-                        likedImage = profileImages[0]
-                        
-                    })
+                        .frame(width: UIScreen.main.bounds.width - 20, height: 400)
+                    
+                        .cornerRadius(20)
+                    
+                        .neoDoubleTapButton(isToggle: false, perform: {
+                            //when first image is clicked
+                            liked = true
+                            likedImage = profileImages[0]
+                            
+                        })
+                    Spacer()
+                }.scaleEffect(1.035)
+                    .padding(.vertical,10)
                    
                 
                 
@@ -508,24 +662,30 @@ struct SkullProfile: View {
                     
                   
                 }.foregroundColor(Color("black"))
-                    .padding(20)
+                    .padding(10)
                 
-                    .offwhitebutton(isTapped: liked, isToggle: true, cornerRadius: 20, action: $showMore)
+//                    .offwhitebutton(isTapped: liked, isToggle: true, cornerRadius: 20, action: $showMore)
+                    .background(Color("offwhiteneo").cornerRadius(19).padding(1).cornerRadius(12))
+                    .background(Color("black").opacity(0.2).cornerRadius(19))
+                    
+                    
+                    
+              
                 
-                    .padding(.bottom,95)
                 
                 
             }
             
-            .padding(.top,-10)
-            .padding(10)
+            .padding(.top,40)
+            .padding(.horizontal,20)
+            .padding(.bottom,120)
             
             
             
             
             
             
-        }.padding(.bottom,-70)
+        
         
         
         
@@ -604,7 +764,7 @@ struct SkullProfile: View {
             }.padding(20)
         }
         .onAppear{
-            hidemainTab = false
+          
             withAnimation(.spring().speed(0.4)){
                 pageAppeared = true
             }
@@ -646,10 +806,12 @@ struct SkullProfile: View {
                     Image(systemName: "quote.closing")
                 }
             }.padding(15)
-                .neoButtonOff(isToggle: false, cornerRadius: 15, perform: {
-                    //clikced you liked
-                    sendMessageFocused = false
-                })
+//                .neoButtonOff(isToggle: false, cornerRadius: 15, perform: {
+//                    //clikced you liked
+//                    sendMessageFocused = false
+//                })
+                .background(Color("offwhiteneo"))
+                .cornerRadius(15)
                 .padding(.top, 30)
                 .offset(y: liked ? 0 : -20)
             
@@ -668,11 +830,12 @@ struct SkullProfile: View {
                 
                 .frame(width: 400 , height: 400)
             }
-            .animation(.spring(), value: hidemainTab)
-            .neoButtonOff(isToggle: false, cornerRadius: 15, perform: {
-                //clikced you liked
-                sendMessageFocused = false
-            })
+            .animation(.spring(), value: showblacknav)
+//            .neoButtonOff(isToggle: false, cornerRadius: 15, perform: {
+//                //clikced you liked
+//                sendMessageFocused = false
+//            })
+            .cornerRadius(15)
             //.matchedGeometryEffect(id: "profileimage", in: namespace)
             
             
@@ -705,7 +868,7 @@ struct SkullProfile: View {
                                 liked = false
                               
                             }
-                            .offset(x: 150)
+                            .offset(x: 155)
                     )
                     .offwhitebutton(isTapped: false, isToggle: false, cornerRadius: 25, action:  .constant(false))
                     .padding(.horizontal,0)
@@ -722,11 +885,11 @@ struct SkullProfile: View {
                         .cornerRadius(60)
                         .neoButton(isToggle: false) {
                             //
-                            hidemainTab = false
+                          
                             withAnimation(.spring()) {
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                               
                                     liked = false
-                                }
+                              
                             }
                         }
                         .padding(.top,10)
@@ -734,20 +897,19 @@ struct SkullProfile: View {
             }
             Spacer()
         }.padding(.horizontal, 20)
-            .offset(y:hidemainTab ? 110 : 220)
-        // .background(Color.black.opacity(0.65))
+
         
             .onAppear{
                 
                 withAnimation(.spring()) {
-                    hidemainTab = true
+                    showblacknav = false
                     
                 }
             }
             .onDisappear{
                 
                 withAnimation(.spring()) {
-                    hidemainTab = false
+//                    showblacknav = false
                 }
             }
         
@@ -768,18 +930,19 @@ struct SkullProfile: View {
                 }
             }
             
-            if offset < -15 {
+            if offset < -110 {
                 
                 withAnimation(.spring()) {
-                    hidemainTab = true
-                    
+                    showblacknav = true
+                  
                 }
                 
             }
             
             else {
                 withAnimation(.spring()) {
-                    hidemainTab = false
+                    showblacknav = false
+                    
                 }
                 
                 
@@ -795,14 +958,18 @@ struct SkullProfile: View {
             .onChanged { value in
                 guard value.translation.width > 0 else { return }
                 
+                
+            
                 if value.startLocation.x < 100 {
                     withAnimation {
                         viewState = value.translation
+                       
                     }
                 }
                 
-                if viewState.width > 100 {
-                    
+                if viewState.height > 10 {
+                   
+                   
                 }
             }
             .onEnded { value in

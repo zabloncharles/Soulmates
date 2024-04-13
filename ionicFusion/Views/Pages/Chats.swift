@@ -40,7 +40,7 @@ struct NotificationsDetail: View {
     
     var body: some View {
         ZStack {
-            NavigationView  {
+  
                 VStack {
                     ScrollView(showsIndicators: false) {
                         cover
@@ -50,17 +50,18 @@ struct NotificationsDetail: View {
                     }
                     .coordinateSpace(name: "scroll")
                     .background(BackgroundView())
-                    .mask(RoundedRectangle(cornerRadius: appear[0] ? 0 : 30))
-                    .mask(RoundedRectangle(cornerRadius: viewState.width / 3))
-                    .scaleEffect(-viewState.width/500 + 1)
+                    
                     .gesture(isAnimated ? drag : nil)
-                    .ignoresSafeArea()}
+                }
                 
                 
-            }
+            
             if showProfile {
                 ViewProfileView(namespace: namespace, profile: profile, dislike: $showProfile, scrolling: $showProfile)
-                // .matchedGeometryEffect(id: profile.avatar, in: namespace)
+                    .onAppear{
+                        
+                        hidemainTab = false
+                    }
                 
                 
             }
@@ -77,7 +78,7 @@ struct NotificationsDetail: View {
                 pageAppeared = false
             }
         }
-        .zIndex(1)
+      
         
     }
     
@@ -90,38 +91,20 @@ struct NotificationsDetail: View {
                     Spacer()
                 }
                 .frame(maxWidth: .infinity)
-                .frame(height:220)
-                
-                //                .background(
-                //                   // Image(course.background)
-                //                  //  Image(wallpaper)
-                //                   Rectangle()
-                //                    .fill(Color("offwhiteneo"))
-                //
-                //                      //  .resizable()
-                //                      //  .aspectRatio(contentMode: .fill)
-                //
-                //  .offset(y: scrollY > 0 ? -scrollY : 0)
-                //                        .scaleEffect(scrollY > 0 ? scrollY / 1000 + 1 : 1)
-                //                        .blur(radius: scrollY > 0 ? scrollY / 10 : 0)
-                //                        .accessibility(hidden: true)
-                //
-                //                )
-                .mask(
-                    RoundedRectangle(cornerRadius: 0)
-                    
-                    // .offset(y: scrollY > 0 ? -scrollY : 0)
-                )
+                .frame(height:50)
+            
+              
                 
                 .overlay(
                     VStack(alignment: .trailing, spacing: 8) {
                         HStack {
                             HStack {
-                                Image(systemName: "fleuron")
-                                   
                                 Text(texter.isEmpty ? "Messages" : texter)
+//                                Image(systemName: "fleuron")
+                                   
+                               
                                 
-                            }.font(.title3)
+                            }.font(.title)
                                 .fontWeight(.bold)
                             Spacer()
                             HStack {
@@ -136,16 +119,11 @@ struct NotificationsDetail: View {
                                 .cornerRadius(20)
                             
                         }.padding(15)
-                            .offwhitebutton(isTapped: false, isToggle: false, cornerRadius: 15, action:  .constant(false))
+//                            .offwhitebutton(isTapped: false, isToggle: false, cornerRadius: 15, action:  .constant(false))
                         
                         
                         
-                        Text("By default, Fusion alerts you whenever someone, or extension wants to send you notifications. You can change this setting at any time.")
-                            .font(.footnote)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .foregroundStyle(Color("black"))
-                            .padding(.horizontal,10)
-                            .padding(.top,10)
+                       
                         
                         
                         
@@ -165,21 +143,19 @@ struct NotificationsDetail: View {
                     
                     // .offset(y:scrollY > 0 ? -scrollY  : scrollY)
                         .frame(maxHeight: .infinity, alignment: .bottom)
-                        .offset(y: 15)
-                        .padding(20)
+                        
+                        .padding(10)
                 )
             }
-            .frame(height: 150)
-            .offset(y: pageAppeared ?  0 : -120)
+            .frame(height: 10)
+            .offset(y: pageAppeared ?  0 : -150)
             
-            //if  {
+           
                 sectionsSection
                     .offset(y: pageAppeared ?  0 : 520)
                     .opacity(pageAppeared ?  1 : 0 )
                 .padding(.bottom, 30)
-          //  } else {
-                
-          //  }
+         
             
         }.onAppear{
             // fetchIncomingMessages()
@@ -198,6 +174,7 @@ struct NotificationsDetail: View {
                                     MessageDetailView(log: user)
                     ) {
                         MessageCard(section: user, profile: $profile, showProfile: $showProfile)
+                        
                     }
                 }
             } else {
@@ -206,7 +183,7 @@ struct NotificationsDetail: View {
            
 
         }
-        .padding(20)
+        .padding(.horizontal,10)
         .padding(.vertical, 60)
         
     }
@@ -341,12 +318,5 @@ struct NotificationsDetail: View {
     
 }
 
-struct NotificationsDetail_Previews: PreviewProvider {
-    @Namespace static var namespace
-    
-    static var previews: some View {
-        ViewController()
-    }
-}
 
 

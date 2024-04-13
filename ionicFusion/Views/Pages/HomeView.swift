@@ -514,11 +514,11 @@ struct HomeView: View {
             
             
             withAnimation(.spring()) {
-                hidemainTab = true
+              
             }
             Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { timer in
                 withAnimation(.spring()) {
-                    hidemainTab = false
+                    
                 }
             }
             

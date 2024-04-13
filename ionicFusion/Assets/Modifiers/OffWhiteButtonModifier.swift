@@ -16,10 +16,10 @@ struct OffwhiteButtonTapped: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .background(Color("offwhite"))
+            .background(Color("offwhite").opacity(0.8))
             .cornerRadius(cornerRadius)
-            .shadow(color:  .black.opacity(0.3), radius: 10, x:isTapped ? -5 : 10, y:isTapped ? -5 : 10 )
-            .shadow(color: Color("white").opacity(0.9),radius: 10, x:isTapped  ? 10 : -5, y:isTapped  ? 10 : -5)
+//            .shadow(color:  .black.opacity(0.9), radius: 10, x:isTapped ? -5 : 10, y:isTapped ? -5 : 10 )
+//            .shadow(color: Color("white").opacity(0.3),radius: 10, x:isTapped  ? 10 : -5, y:isTapped  ? 10 : -5)
             .scaleEffect(isTapped ? 0.97 : 1)
         
             .onTapGesture {
@@ -62,37 +62,6 @@ extension View {
 
 
 
-struct OffwhiteButtonTapped2: ViewModifier {
-    @State var isTapped: Bool
-    @State var cornerRadius: CGFloat = 15
- 
-    
-    
-    func body(content: Content) -> some View {
-        ZStack {
-            if isTapped {
-                content
-                    .background(Color("offwhite"))
-                    .cornerRadius(cornerRadius)
-                    .shadow(color:  .black.opacity(0.3), radius: 10, x:10, y: 10 )
-                    .shadow(color: Color("white").opacity( 0.9 ),radius: -5, x:-5, y: -5)
-                .scaleEffect(isTapped ? 0.97 : 1)
-            } else {
-                content
-            }
-            
-        }
-        
-    }
-}
-
-extension View {
-    func offwhitebutton2(isTapped: Bool, cornerRadius: CGFloat) -> some View {
-        self.modifier(OffwhiteButtonTapped2(isTapped: isTapped, cornerRadius: cornerRadius))
-    }
-}
-
-
 //------------------------------------------------------
 //MARK: Neurmorphic Cutom Modifiers that can tap above
 struct offwhiteModifier2: ViewModifier {
@@ -107,7 +76,7 @@ struct offwhiteModifier2: ViewModifier {
         content
         //  .background(Color("offwhite"))
         // .cornerRadius(19)
-            .shadow(color:  offwhitecolor.opacity(0.2), radius: 10, x:offwhiteisTapped ? -5 : 10, y:offwhiteisTapped ? -5 : 10 )
+            .shadow(color:  offwhitecolor.opacity(0.9), radius: 10, x:offwhiteisTapped ? -5 : 10, y:offwhiteisTapped ? -5 : 10 )
             .shadow(color: offwhitecolorShadow.opacity(0.9),radius: 10, x:offwhiteisTapped  ? 10 : -5, y:offwhiteisTapped  ? 10 : -5)
             .onTapGesture {
                 

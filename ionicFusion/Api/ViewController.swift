@@ -9,16 +9,14 @@ import SwiftUI
 
 struct ViewController: View {
     @AppStorage("signedIn") var signedIn = false
-    @AppStorage("doneIntro") var doneIntro = false
+   
    
     
     var body: some View {
-        if doneIntro && signedIn {
+        if  signedIn {
             MainTab()
-        } else if doneIntro {
-            SigninView(signIn: $signedIn)
         } else {
-            OnboardingView(doneIntro: $doneIntro)
+            SigninView(signIn: $signedIn)
         }
 
             }
@@ -28,7 +26,7 @@ struct ViewController: View {
         struct ViewController_Previews: PreviewProvider {
             static var previews: some View {
                 ViewController()
-                    .preferredColorScheme(.dark)
+//                    .preferredColorScheme(.dark)
                     
             }
         }

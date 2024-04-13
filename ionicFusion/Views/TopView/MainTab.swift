@@ -131,26 +131,33 @@ struct FloatingTabbar : View {
     var body : some View{
         
         VStack(){
-        
-        GeometryReader { proxy in
+           
+               
+            GeometryReader { proxy in
             let hasHomeIndicator = proxy.safeAreaInsets.bottom > 0
            
-            
-            HStack( alignment: .center, spacing: 17.0){
-                
+               
+                HStack( alignment: .center, spacing: 17.0){
+               
                   
                 TabIcon(selected: $selected, selectedicon: 0, icon: "rectangle.portrait.on.rectangle.portrait.angled", name:"Match" ,tappedicon: $tappedicon )
+                Spacer()
                 TabIcon(selected: $selected, selectedicon: 1, icon: "fleuron",name:"Likes" , tappedicon: $tappedicon )
+                Spacer()
                 TabIcon(selected: $selected, selectedicon: 2, icon: "person.2" , name:"Explore" ,tappedicon: $tappedicon )
+                Spacer()
                 TabIcon(selected: $selected, selectedicon: 3, icon: "bubble.left.and.bubble.right",name:"Chats" , tappedicon: $tappedicon )
+                Spacer()
                 TabIcon(selected: $selected, selectedicon: 4, icon: "person.2.badge.gearshape",name:"Profile" , tappedicon: $tappedicon )
+                
+         
            
                 
                 
             }
             .frame(maxWidth: .infinity, maxHeight: hasHomeIndicator ? 64 : 64)
-          
-            .background(Color("offwhite"))
+            .padding(.horizontal,20)
+            .background(Color("offwhiteneo"))
            
             .background(Image("cover2")
                             .resizable()
@@ -162,12 +169,12 @@ struct FloatingTabbar : View {
                            
             )
             
-            .offwhitebutton(isTapped: tappedicon, isToggle: false, cornerRadius: 36, action: .constant(false))
+//            .offwhitebutton(isTapped: tappedicon, isToggle: false, cornerRadius: 36, action: .constant(false))
          //   .background(.ultraThinMaterial)
            // .cornerRadius(36)
-            .scaleEffect(tappedicon ? 0.97 : 1)
+//            .scaleEffect(tappedicon ? 0.97 : 1)
             .animation(.spring(), value: tappedicon)
-            .padding(.horizontal, 61.0) //makes tabbar smaller
+//            .padding(.horizontal, 61.0) //makes tabbar smaller
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
             
             
