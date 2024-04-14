@@ -2,8 +2,7 @@
 
 
 import SwiftUI
-import FirebaseFirestore
-import Firebase
+
 
 struct MainTab: View {
     @State var currentUser: UserStruct? = fakeUser // Variable to hold the user data
@@ -36,7 +35,7 @@ struct MainTab: View {
                         
                     }
                     if self.selected == 4{
-                        ProfileEditView()
+                    
                         
                     }
                 }
@@ -46,6 +45,7 @@ struct MainTab: View {
             FloatingTabbar(selected: self.$selected)
                 .offset(y:  hidemainTab  ? UIScreen.main.bounds.height * 0.13 : 0)
                 .animation(.spring(), value: hidemainTab)
+               
             
             
             
@@ -62,53 +62,7 @@ struct MainTab: View {
     func fetchFakeUser(){
         
     }
-    private func fetchCurrentUser() {
-        
-        let db = Firestore.firestore()
-        let user = Auth.auth().currentUser
-        let usersRef = db.collection("users").whereField("email", isEqualTo: user?.email ?? "")
-        
-        usersRef.getDocuments { (querySnapshot, error) in
-            if let error = error {
-                print("Error fetching users: \(error.localizedDescription)")
-                return
-            }
-            
-            guard let documents = querySnapshot?.documents else {
-                print("No documents found.")
-                return
-            }
-            
-            if let documentData = documents.first?.data() {
-                let user = UserStruct(
-                    firstname: documentData["firstname"] as? String ?? "",
-                    lastname: documentData["lastname"] as? String ?? "",
-                    notifications: documentData["notifications"] as? String ?? "",
-                    avatar: documentData["avatar"] as? String ?? "",
-                    cyclechange: documentData["cyclechange"] as? String ?? "",
-                    birthday: documentData["birthday"] as? String ?? "",
-                    email: documentData["email"] as? String ?? "",
-                    aboutme: documentData["aboutme"] as? String ?? "",
-                    education: documentData["education"] as? String ?? "",
-                    work: documentData["work"] as? String ?? "",
-                    images: documentData["images"] as? [String] ?? [],
-                    likes: documentData["likes"] as? [String] ?? [],
-                    location: documentData["location"] as? [String] ?? [],
-                    lookingfor: documentData["lookingfor"] as? String ?? "",
-                    online: documentData["online"] as? Bool ?? false,
-                    password: documentData["password"] as? String ?? "",
-                    matches: documentData["matches"] as? [String] ?? [],
-                    age: documentData["age"] as? String ?? "", lifestyle: documentData["lifestyle"] as? [String] ?? [],
-                    lifestyledesc: documentData["lifestyledesc"] as? String ?? ""
-                )
-                
-                self.currentUser = user
-            } else {
-                print("User document not found")
-            }
-        }
-  
-    }
+   
 }
 
 
@@ -157,8 +111,15 @@ struct FloatingTabbar : View {
             }
             .frame(maxWidth: .infinity, maxHeight: hasHomeIndicator ? 64 : 64)
             .padding(.horizontal,20)
-            .background(Color("offwhiteneo"))
-           
+             .background(
+                GeometryReader { geometry in
+                    Rectangle()
+                        .fill(Color("black").opacity(0.10))
+                        .frame(height: 1)
+                        .padding(.bottom, geometry.size.height) // Position the border at the bottom
+                }
+            )
+             .background(Color("offwhite"))
             .background(Image("cover2")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -176,7 +137,7 @@ struct FloatingTabbar : View {
             .animation(.spring(), value: tappedicon)
 //            .padding(.horizontal, 61.0) //makes tabbar smaller
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
-            
+         
             
         }
        

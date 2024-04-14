@@ -9,11 +9,12 @@ import SwiftUI
 
 
 struct SkullProfile: View {
+    @State  var previousOffset: CGFloat = 0
     @State var showblacknav = false
     @AppStorage("currentPage") var selected = 0
     @State var profiles: [UserStruct] = compatibleFakeUsers
     @Binding var currentUser: UserStruct?
-   
+    @AppStorage("hidemainTab") var hidemainTab = false
     var profile = userStruct[0]
     var isAnimated = true
     @State var viewState: CGSize = .zero
@@ -48,16 +49,16 @@ struct SkullProfile: View {
         ZStack {
           
             
-            Color("offwhiteneo")
+            Color("offwhite")
           
             
             VStack {
                 if !outOfMatches && dislike {
                     VStack {
                         LottieView(filename: "girlonphone")
-                            .neoButton(isToggle: false, perform: {
+                            neoButton(isToggle: false, shadow: false) {
                                 //
-                            })
+                            }
                             .onAppear{
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                                     
@@ -114,23 +115,33 @@ struct SkullProfile: View {
                         // DispatchQueue.main.asyncAfter(deadline: .now() + 0.3)
                         profileNumber = profileNumber + 1
                     }
-                    .blur(radius: liked ? 20 : 0)
+                    .blur(radius: liked ? 10 : 0)
+                    .onTapGesture {
+                        withAnimation(.spring()) {
+                            liked = false
+                        }
+                    }
                     .ignoresSafeArea()
                     
                     //the send text view that comes after liking a potential match
                    
                         ZStack {
-                            LinearGradient(colors: [Color("offwhiteneo"),Color.clear], startPoint: .bottom, endPoint: .top)
-                                .animation(.easeInOut.speed(0.65), value: liked)
-                                .opacity(liked ? 1 : 0)
-                            nameandheart
+                            LinearGradient(colors: [Color("offwhite"),Color.clear,Color("offwhite")], startPoint: .bottom, endPoint: .top)
+                                .animation(.easeInOut, value: liked)
+                                
+                            VStack {
+                                nameandheart
+                                    .offset(y:40)
+                                Spacer()
+                            }
                             
                             likedcontent
                                 .animation(.spring(), value: liked)
                                 .offset(y:110)
+                               
+                           
                             
-                            
-                        }.background(LinearGradient(colors: [Color("offwhiteneo"),Color("offwhiteneo"),Color("offwhiteneo").opacity(0.80)], startPoint: .bottom, endPoint: .top).offset(y: !liked ? UIScreen.main.bounds.height * 1.30 : 0).opacity(liked ? 1 : 0))
+                        }
                         .cornerRadius(liked ? 0 : 15)
                         .offset(y: !liked ? UIScreen.main.bounds.height * 1.30 : 0)
 
@@ -162,9 +173,16 @@ struct SkullProfile: View {
                 
             }
         }
+        .onChange(of: liked) { V in
+            if liked {
+                hidemainTab = true
+            } else {
+                hidemainTab = false
+            }
+        }
     }
     var nameandheart: some View{
-        VStack {
+       
             HStack {
                 HStack {
                     
@@ -184,18 +202,21 @@ struct SkullProfile: View {
                        
                     
                         
-                    
+                 
                     
                     
                 }
                     .padding(.vertical, 6)
-                    .background(Color("offwhiteneo"))
+                 
+                
                  
                     
                 
                 Spacer()
                 Button {
-                    showProfile = false
+                    withAnimation(.spring()) {
+                        showProfile = false
+                    }
                     withAnimation {
                        // if currentIndex != profiles.count - 1 {
                             currentIndex += 1
@@ -221,9 +242,18 @@ struct SkullProfile: View {
                     
                     
                 }
-            }.padding(.horizontal,15)
-            Divider()
-        }
+                
+            }.padding(.horizontal,20)
+            .background(
+                GeometryReader { geometry in
+                    Rectangle()
+                        .frame(height: 1)
+                        .foregroundColor(Color("black").opacity(0.12)) // Adjust color as needed
+                        .padding(.top, geometry.size.height) // Position the border at the bottom
+                }
+            )
+           
+       
     }
     var nameandheartnav: some View{
         VStack {
@@ -231,22 +261,31 @@ struct SkullProfile: View {
                 HStack {
                     
                     
-                    Text(profile.firstname)
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .lineLimit(1)
+                    HStack(spacing: 2){
+                        Text(profile.firstname)
+                            .bold()
+                            .font(.title)
+                        Image(systemName: "square.and.arrow.down.fill")
+                            .foregroundColor(.blue)
+                            .font(.title2)
+                        
+                        
+                    }
                     
                     
                     
-                }  .padding(.horizontal,12)
+                }
                     .padding(.vertical, 6)
                     .background(Color("offwhiteneo"))
-                    .cornerRadius(69)
+                  
                    
                 
                 Spacer()
                 Button {
-                    showProfile = false
+                    withAnimation(.spring()) {
+                        showProfile = false
+                    }
+                  
                     showblacknav = true
                     withAnimation {
                         // if currentIndex != profiles.count - 1 {
@@ -278,7 +317,7 @@ struct SkullProfile: View {
             } .offset(y:69)
                 .padding(.horizontal,25)
                 
-                .frame(height: 199)
+                .frame(height: 190)
                 
                 .background(Color("offwhiteneo"))
                 .offset(y:-100)
@@ -602,7 +641,7 @@ struct SkullProfile: View {
                             .frame(width:UIScreen.main.bounds.width, height: 400)
                         
                             .cornerRadius(0)
-                        
+                           
                             .neoDoubleTapButton(isToggle: false, perform: {
                                 //when first image is clicked
                                 liked = true
@@ -671,7 +710,7 @@ struct SkullProfile: View {
                     
                         
                         VStack {
-                            GetImageAndUrl(url:profileImages[1], imageUrl: $profileImages[1])
+                            GetImageAndUrl(url:profileImages[1], loaded:.constant(true),imageUrl: $profileImages[1])
                                 .frame(width:UIScreen.main.bounds.width, height: 400)
                             
                                 .cornerRadius(0)
@@ -876,7 +915,7 @@ struct SkullProfile: View {
                         .padding(.vertical,10)
                         .background(Color(red: 1.0, green: 0.0, blue: 0.0, opacity: 1.0))
                         .cornerRadius(30)
-                        .neoButton(isToggle: false) {
+                        neoButton(isToggle: false, shadow: false) {
                             //code
                             selected = 4
                         }
@@ -906,8 +945,33 @@ struct SkullProfile: View {
         VStack(spacing: 20.0) {
             
             
-            
+           
+            HStack {
+                
+          
+                
+                
+                HStack {
+                    HStack(spacing:4) {
+                        Text(profile.firstname)
+                            .bold()
+                            .font(.title2)
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundColor(.blue)
+                            .font(.system(size: 18, weight: .medium))
+                    }
+                    Text("2d")
+                    
+                        .font(.callout)
+                    
+                    Spacer()
+                    Image(systemName: "ellipsis")
+                }
+                Spacer()
+            }.offset(y:40)
+           
             VStack(alignment: .leading) {
+            
                 HStack {
                     HStack {
                         Image(systemName: "person.2.fill")
@@ -935,7 +999,7 @@ struct SkullProfile: View {
 //                    //clikced you liked
 //                    sendMessageFocused = false
 //                })
-                .background(Color("offwhiteneo"))
+                .background(Color("offwhite"))
                 .cornerRadius(15)
                 .padding(.top, 30)
                 .offset(y: liked ? 0 : -20)
@@ -948,7 +1012,7 @@ struct SkullProfile: View {
                     }
                     GetImageAndUrl(url:"", loaded: .constant(true), imageUrl: .constant(""))
                     // .matchedGeometryEffect(id: profile.avatar, in: namespace)
-                    
+                       
                     
                     
                 }
@@ -969,7 +1033,7 @@ struct SkullProfile: View {
             
             
             HStack {
-                TextField("Message...", text: $sendMessage)
+                TextField("Say Hi...", text: $sendMessage)
                 
                     .focused($sendMessageFocused)
                     .padding(.vertical,16)
@@ -1008,7 +1072,7 @@ struct SkullProfile: View {
                         .padding(.horizontal,20)
                         .background(Color("offwhite"))
                         .cornerRadius(60)
-                        .neoButton(isToggle: false) {
+                        .neoButton(isToggle: false, shadow: true) {
                             //
                           
                             withAnimation(.spring()) {
@@ -1028,6 +1092,7 @@ struct SkullProfile: View {
                 
                 withAnimation(.spring()) {
                     showblacknav = false
+                 
                     
                 }
             }
@@ -1052,6 +1117,7 @@ struct SkullProfile: View {
                 //hide profile after pulling down cover
                 withAnimation(.spring()) {
                     showProfile = false
+                    hidemainTab = false
                 }
             }
             
@@ -1059,7 +1125,18 @@ struct SkullProfile: View {
                 
                 withAnimation(.spring()) {
                     showblacknav = true
-                  
+                    
+                }
+                if offset < previousOffset {
+                    // Scrolling up
+                    withAnimation(.spring()) {
+                        hidemainTab = true
+                    }
+                } else {
+                    // Scrolling down
+                    withAnimation(.spring()) {
+                        hidemainTab = false
+                    }
                 }
                 
             }
@@ -1067,13 +1144,16 @@ struct SkullProfile: View {
             else {
                 withAnimation(.spring()) {
                     showblacknav = false
+                
                     
                 }
                 
                 
             }
             
+          
             
+            previousOffset = offset
         }
     }
     
@@ -1101,7 +1181,7 @@ struct SkullProfile: View {
                 if viewState.width > 50 {
                     
                 } else {
-                    withAnimation(.openCard) {
+                    withAnimation(.spring()) {
                         viewState = .zero
                     }
                 }

@@ -72,7 +72,7 @@ struct ActiveCard: View {
                 appeared = false
             }
         }
-        .neoButton(isToggle: false) {
+        neoButton(isToggle: false, shadow: false) {
             //Do this
             completion()
         }

@@ -93,12 +93,13 @@ struct TapCompletionModifier: ViewModifier {
     @State var isTapped = false
     @State var appeared = false
     var isToggle = false
+    @State var shadow = false
     let completion: () -> Void
     
     func body(content: Content) -> some View {
         content
-            .shadow(color:  .black.opacity(0.3), radius: 10, x:isTapped ? -5 : 10, y:isTapped ? -5 : 10 )
-            .shadow(color: Color("white").opacity(0.9),radius: 10, x:isTapped  ? 10 : -5, y:isTapped  ? 10 : -5)
+            .shadow(color:  .black.opacity(shadow ? 0.3 : 0), radius: 10, x:isTapped ? -5 : 10, y:isTapped ? -5 : 10 )
+            .shadow(color: Color("white").opacity(shadow ? 0.9 : 0),radius: 10, x:isTapped  ? 10 : -5, y:isTapped  ? 10 : -5)
             .scaleEffect(isTapped ? 0.97 : 1)
             .onTapGesture {
             // Execute the completion closure when the view is tapped
@@ -135,8 +136,8 @@ struct TapCompletionModifier: ViewModifier {
 
 
 extension View {
-    func neoButton(isToggle: Bool, perform completion: @escaping () -> Void) -> some View {
-        return modifier(TapCompletionModifier(isToggle: isToggle, completion: completion))
+    func neoButton(isToggle: Bool, shadow:Bool,perform completion: @escaping () -> Void) -> some View {
+        return modifier(TapCompletionModifier(isToggle: isToggle, shadow:shadow, completion: completion))
     }
 }
 

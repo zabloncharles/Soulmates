@@ -48,32 +48,7 @@ struct SettingsView: View {
          Color("offwhiteneo")
             //First Section
             wallpaperandsettingsinfo
-                
-            
-            //image picker
-//                .fullScreenCover(isPresented: $showImagePicker, onDismiss: nil) {
-//                    ImagePicker(image: $image)
-//                        .ignoresSafeArea()
-//                        .onDisappear {
-//                            changePic()
-//
-//                            withAnimation(.spring()) {
-//                                tappedImage = false
-//                            }
-//
-//
-//                        }
-//                }
-            
-//            VStack{
-//                HStack {
-//                    Image(systemName: "photo")
-//                        .font(.headline)
-//
-//                }.offset(y:-170)
-//                Spacer()
-//            }
-            
+
             Notification(title: notificationMessage, notification: "Notification", showNotification: $showNotification)
                 .padding(.top, -6)
                 .opacity(showNotification ? 1 : 0)
@@ -175,7 +150,7 @@ struct SettingsView: View {
                         .background(Color("offwhite"))
                         .cornerRadius(30)
                         .opacity(showMoreProfileInfo ? 1 : 0)
-                        .neoButton(isToggle: true) {
+                        neoButton(isToggle: false, shadow: false) {
                             //showMoreProfileInfo
                             withAnimation(.spring()) {
                                 showMoreProfileInfo.toggle()
@@ -233,7 +208,7 @@ struct SettingsView: View {
                         .background(Color("offwhite"))
                         .cornerRadius(30)
                         .opacity(showMoreProfileInfo ? 1 : 0)
-                        .neoButton(isToggle: true) {
+                        neoButton(isToggle: false, shadow: false) {
                             //showMoreProfileInfo
                             withAnimation(.spring()) {
                                 showMoreProfileInfo.toggle()
@@ -417,41 +392,6 @@ struct SettingsView: View {
      
     }
     
-  
-//    func changeUsernameFunc() {
-//        let db = Firestore.firestore()
-//        let user = Auth.auth().currentUser
-//        // Set the data to update
-//        let fullName = "\(textEdit)"
-//        var components = fullName.components(separatedBy: " ")
-//        if components.count > 0 {
-//            let firstName = components.removeFirst()
-//            let lastName = components.joined(separator: " ")
-//            
-//            
-//            db.collection("users").whereField("email", isEqualTo: user?.email ?? "")
-//                .getDocuments() { (querySnapshot, error) in
-//                    if error != nil {
-//                        showNotification = true
-//                        notificationMessage = "there was an error getting the right dociment with emal"
-//                    } else {
-//                        for document in querySnapshot!.documents {
-//                            db.collection("users").document("\(document.documentID)").setData(["firstName": "\(firstName)","lastName": "\(lastName)"], merge: true) { error in
-//                                
-//                                if error == nil {
-//                                    
-//                                    showNotification = true
-//                                    notificationMessage = "Your name was changed to \(textEdit) successfully."
-//                                } else {
-//                                    showNotification = true
-//                                    notificationMessage = "there was an error at last line"
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//        }
-//    }
     func convertAge() -> String{
         
         let formatter = DateFormatter()
@@ -490,140 +430,18 @@ struct SettingsView: View {
             showNotification = true
             notificationMessage = "Mhm, too young? Try a different date."
         } else {
-            changebirthdayFunc()
+           
         }
     }
-//    func changebirthdayFunc(){
-//        let db = Firestore.firestore()
-//        let user = Auth.auth().currentUser
-//        // Set the data to update
-//
-//        db.collection("users").whereField("email", isEqualTo: user?.email ?? "")
-//            .getDocuments() { (querySnapshot, error) in
-//                if error != nil {
-//
-//                } else {
-//                    for document in querySnapshot!.documents {
-//                        db.collection("users").document("\(document.documentID)").setData(["age": "\(getage())"], merge: true) { error in
-//
-//                            if error == nil {
-//
-//                                showNotification = true
-//                                notificationMessage = "Your birthdate has been changed successfully."
-//                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
-//                                    showBlur = false
-//
-//                                }
-//                            } else {
-//
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//
-//    }
+
     
     func signout(){
-//        let db = Firestore.firestore()
-//        let user = Auth.auth().currentUser
-//        // Set the data to update
-//
-//        db.collection("users").whereField("email", isEqualTo: user?.email ?? "")
-//            .getDocuments() { (querySnapshot, error) in
-//                if error != nil {
-//
-//                } else {
-//                    for document in querySnapshot!.documents {
-//                        db.collection("users").document("\(document.documentID)").setData(["online": false], merge: true) { error in
-//
-//                            if error == nil {
-//
-//
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        try! Auth.auth().signOut()
+
         signIn = false
         signInAnimation = true
         
     }
-//    func changePic(){
-//
-//        let storageRef = Storage.storage().reference()
-//        // Create a reference to the file you want to upload
-//        guard let uid = Auth.auth().currentUser?.uid
-//        else { return }
-//        // let imageurl = storageRef.storage.reference(withPath:uid)
-//        let ref = storageRef.child("profileimages/\(uid).jpg")
-//
-//        guard let imageData = self.image?.jpegData(compressionQuality:
-//                                                    0.5) else { return }
-//        ref.putData(imageData, metadata: nil) { metadata, err in
-//            if let err = err {
-//                //some err
-//                //Storage: \(err)"
-//                return
-//            } else {
-//                notificationMessage = "Your picture saved successfully"
-//            }
-//            ref.downloadURL { url, err in
-//                if let err = err {
-//                    //som err
-//
-//                    return
-//                } else {
-//                    notificationMessage = "Your url downloaded successfully"
-//                }
-//            }
-//        }
-//        let impactMed = UIImpactFeedbackGenerator(style: .light)
-//        impactMed.impactOccurred()
-//        loadImageFromFirebase()
-//    }
-//    func loadImageFromFirebase() {
-//
-//        let db = Firestore.firestore()
-//        let user = Auth.auth().currentUser
-//        guard let uid = Auth.auth().currentUser?.uid
-//        else { return }
-//        //  let avatarurl = "profileimages/\(userID ?? "error").jpg"
-//        let storageRef = Storage.storage().reference(withPath:"profileimages/\(uid).jpg")
-//        storageRef.downloadURL { (url, error) in
-//            if error != nil {
-//                print((error?.localizedDescription)!)
-//                notificationMessage = "error reaching database"
-//                return
-//            }
-//            // info = "success"
-//
-//            let imageurl = "\(url!)"
-//            //  self.imageURL = imageurl
-//            notificationMessage = "connected to storage"
-//
-//            //save the dounload url to database key
-//            db.collection("users").whereField("email", isEqualTo: user?.email ?? "")
-//                .getDocuments() { (querySnapshot, error) in
-//                    if error != nil {
-//                        //there is an error
-//                    } else {
-//                        for document in querySnapshot!.documents {
-//                            db.collection("users").document("\(document.documentID)").setData(["avatar": imageurl], merge: true) { error in
-//
-//                                if error == nil {
-//                                    notificationMessage = "url saved to database"
-//
-//                                } else {
-//                                    notificationMessage = "url not saved to database"
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//        }
-//    }
+
 }
 
 

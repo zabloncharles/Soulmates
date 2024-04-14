@@ -69,7 +69,7 @@ struct CompatibleCard: View {
                 }
             }
             
-            .neoButton(isToggle: false) {
+            neoButton(isToggle: false, shadow: false) {
                 //Do this
                 completion()
         }

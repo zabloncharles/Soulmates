@@ -31,11 +31,11 @@ struct MessageCard: View {
                     .frame(width: 49, height: 49)
                     .mask(Circle())
                    
-                    .neoButton(isToggle: false, perform: {
+                    neoButton(isToggle: false, shadow: false) {
                         //user tapped the avatar
                         showProfile = true
                         profile = section
-                    })
+                    }
 //                    .onTapGesture {
 //                        showProfile = true
 //                        profile = section

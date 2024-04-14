@@ -6,8 +6,7 @@
 //
 
 import SwiftUI
-import FirebaseFirestore
-import Firebase
+
 
 struct SendMatch: View {
     @State var erro = ""
@@ -120,30 +119,30 @@ struct SendMatch: View {
 
     func sendMatchMessage(text: String) {
         
-        
-        let user = Auth.auth().currentUser
-        let db = Firestore.firestore()
-        
-        // Data for the new document
-        
-        
-        // Add a placeholder for the document ID
-        let docRef = db.collection("messages").document()
-        
-        
-        // Add the document with the modified data
-        docRef.setData(["docid": docRef.documentID,
-                        "matched": true,
-                        "time":  Date(),
-                        "email": [user?.email ?? "" , "zab.charles@gmail.com"]
-                        // Add other fields as needed
-                       ], merge: false) { error in
-            if let error = error {
-                // Handle error
-            } else {
-                // Data added successfully
-            }
-        }
+//        
+//        let user = Auth.auth().currentUser
+//        let db = Firestore.firestore()
+//        
+//        // Data for the new document
+//        
+//        
+//        // Add a placeholder for the document ID
+//        let docRef = db.collection("messages").document()
+//        
+//        
+//        // Add the document with the modified data
+//        docRef.setData(["docid": docRef.documentID,
+//                        "matched": true,
+//                        "time":  Date(),
+//                        "email": [user?.email ?? "" , "zab.charles@gmail.com"]
+//                        // Add other fields as needed
+//                       ], merge: false) { error in
+//            if let error = error {
+//                // Handle error
+//            } else {
+//                // Data added successfully
+//            }
+//        }
         
     }
 

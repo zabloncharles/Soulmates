@@ -90,7 +90,8 @@ struct LikesView: View {
                     .background(Color.blue.opacity(0.3))
                     .cornerRadius(20)
                 
-            }.padding(15).offwhitebutton(isTapped: false, isToggle: false, cornerRadius: 15, action:  .constant(false))
+            }.padding(15)
+               
                 .offset(y: pageAppeared ? 0 : -300)
             Spacer()
         }.padding(20)
@@ -158,10 +159,7 @@ struct LikesView: View {
                         scrollDetection
                         VStack(spacing: 25.0) {
                             ForEach(filteredProfiles, id: \.id) { user in
-        //                        CompatibleCard(completion: {
-        //                            showProfile = true
-        //                            profile = user
-        //                        }, user: user, namespace: namespace)
+        //
                                 PostCard(firstname: user.firstname,avatar: user.avatar,poster: user.images[0]){
                                     //tapp does what?
                                     withAnimation(.spring()) {
@@ -210,7 +208,7 @@ struct LikesView: View {
                                     )
                                     .frame(width: 70,height: 70)
                                     .cornerRadius(60)
-                                    .neoButton(isToggle: false) {
+                                    neoButton(isToggle: false, shadow: false) {
                                         //Start matching
                                         selected = 0
                                     }
@@ -240,7 +238,7 @@ struct LikesView: View {
                                                 
                                             }
                                         )
-                                        .neoButton(isToggle: false) {
+                                        neoButton(isToggle: false, shadow: false) {
                                             //when a story is clicked
                                             showProfile = true
                                             profile = user
@@ -256,12 +254,7 @@ struct LikesView: View {
                         .padding(.top,20)
                         .padding(.bottom,10)
                         .offset(x:10)
-                        
-                        
-                        // .background(LinearGradient(colors: [Color("white"),Color("white"),Color.clear], startPoint: .top, endPoint: .bottom))
-                        //  .background(Color("offwhite").opacity(0.50))
-                        //  .background( .ultraThinMaterial.opacity(userScrolledAmount < 35 ? 1 : 0.0))
-                        // .background(Color("white"))
+                      
                         
                         
                         

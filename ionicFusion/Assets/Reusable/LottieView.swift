@@ -1,27 +1,22 @@
 
 
+
 import SwiftUI
 import Lottie
 
 struct LottieView: UIViewRepresentable {
-    typealias UIViewType = UIView
-    var filename: String
-    var loop: Bool = false
-    var reverse: Bool = false
     
-    func makeUIView(context: UIViewRepresentableContext<LottieView> ) -> UIView {
-        let view = UIView(frame: .zero)
+    var filename: String
+    var loopMode: LottieLoopMode = .playOnce
+    var animationView = LottieAnimationView()
+    var loop = true
+    
+    func makeUIView(context: UIViewRepresentableContext<LottieView>) -> UIView {
+        let view = UIView()
         
-        let animationView = AnimationView()
-        let animation = Animation.named(filename)
-        animationView.animation = animation
-        animationView.contentMode = .scaleAspectFit
-        animationView.play()
-        if loop == true {
-            animationView.loopMode = .loop
-        }
-       
-       
+        animationView.animation = LottieAnimation.named(filename)
+        animationView.contentMode = .scaleAspectFill
+      
         
         animationView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(animationView)
@@ -35,6 +30,6 @@ struct LottieView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UIView, context: UIViewRepresentableContext<LottieView>) {
-        
+        animationView.play()
     }
 }

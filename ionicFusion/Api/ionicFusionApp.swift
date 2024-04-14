@@ -4,14 +4,14 @@
 //
 //  Created by Zablon Charles on 3/30/22.
 //
-import Firebase
+
 import SwiftUI
 
 @main
 struct ionicFusionApp: App {
-    init() {
-        FirebaseApp.configure()
-    }
+//    init() {
+//        FirebaseApp.configure()
+//    }
     var body: some Scene {
         WindowGroup {
             ViewController()

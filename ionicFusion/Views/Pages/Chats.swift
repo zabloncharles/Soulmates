@@ -13,9 +13,7 @@
 //
 
 import SwiftUI
-import Firebase
-import FirebaseFirestore
-import FirebaseAuth
+
 
 struct NotificationsDetail: View {
     @State var profiles: [UserStruct] = compatibleFakeUsers// Array to hold the user data
@@ -50,18 +48,14 @@ struct NotificationsDetail: View {
                     }
                     .coordinateSpace(name: "scroll")
                     .background(BackgroundView())
-                    
-                    .gesture(isAnimated ? drag : nil)
+                  
                 }
                 
                 
             
             if showProfile {
-                ViewProfileView(namespace: namespace, profile: profile, dislike: $showProfile, scrolling: $showProfile)
-                    .onAppear{
-                        
-                        hidemainTab = false
-                    }
+               
+                    
                 
                 
             }
@@ -239,31 +233,7 @@ struct NotificationsDetail: View {
         
     }
     
-    var drag: some Gesture {
-        DragGesture(minimumDistance: 30, coordinateSpace: .local)
-            .onChanged { value in
-                guard value.translation.width > 0 else { return }
-                
-                if value.startLocation.x < 100 {
-                    withAnimation {
-                        viewState = value.translation
-                    }
-                }
-                
-                if viewState.width > 120 {
-                    close()
-                }
-            }
-            .onEnded { value in
-                if viewState.width > 80 {
-                    close()
-                } else {
-                    withAnimation(.openCard) {
-                        viewState = .zero
-                    }
-                }
-            }
-    }
+  
     
     func fetchFakeMessages() {
        // userMessages = messageContent

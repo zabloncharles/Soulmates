@@ -69,7 +69,7 @@ struct MatchCard: View {
                 .cornerRadius(20)
                 .padding(.horizontal,20)
                 .padding(.vertical)
-                .neoButton(isToggle: false) {
+                neoButton(isToggle: false, shadow: false) {
                     //
                     completion()
                 }

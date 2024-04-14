@@ -7,9 +7,7 @@
 
 
 import SwiftUI
-import Firebase
-import FirebaseFirestore
-import FirebaseAuth
+
 
 struct FullProfileView: View {
     @AppStorage("hidemainTab") var hidemainTab = false
@@ -67,9 +65,9 @@ struct FullProfileView: View {
                        
                        
                        
-                           .neoButton(isToggle: false, perform: {
+                           neoButton(isToggle: false, shadow: false) {
                                //
-                           })
+                           }
                            .onAppear{
                                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                                    
@@ -90,9 +88,9 @@ struct FullProfileView: View {
                         
                     }
                    )
-                   .neoButton(isToggle: false, perform: {
+                   neoButton(isToggle: false, shadow: false) {
                        //code
-                   })
+                   }
                    .overlay(
                     CircleText(radius: 100, text: "Looking for your soulmate...",kerning: 8)
                         .rotationEffect(.degrees(animategirl ? 180 : 0))
@@ -434,12 +432,12 @@ struct FullProfileView: View {
                 }.padding(-20)
                     .padding(.bottom,20)
                     .cornerRadius(13)
-                    .neoButton(isToggle: false, perform: {
+                    neoButton(isToggle: false, shadow: false) {
                         //when first image is clicked
                         liked = true
                         likedImage = profileImages[0]
                         
-                    })
+                    }
                    // .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 14, action: $liked)
                     .overlay(
                         VStack {
@@ -504,12 +502,12 @@ struct FullProfileView: View {
                 }.padding(-20)
                     .padding(.bottom,20)
                     .cornerRadius(13)
-                    .neoButton(isToggle: false, perform: {
+                    neoButton(isToggle: false, shadow: false) {
                         //when first image is clicked
                         liked = true
                         likedImage = profileImages[1]
                         
-                    })
+                    }
                     .overlay(
                         VStack {
                             Spacer()
@@ -710,7 +708,7 @@ struct FullProfileView: View {
                         .padding(.vertical,10)
                         .background(Color(red: 1.0, green: 0.0, blue: 0.0, opacity: 1.0))
                         .cornerRadius(30)
-                        .neoButton(isToggle: false) {
+                        neoButton(isToggle: false, shadow: false) {
                             //code
                             selected = 4
                         }
@@ -822,7 +820,7 @@ struct FullProfileView: View {
                             .onTapGesture {
                                 //
                                 liked = false
-                                sendMatch()
+                               
                             }
                             .offset(x: 150)
                     )
@@ -846,7 +844,7 @@ struct FullProfileView: View {
                         .padding(.horizontal,20)
                         .background(Color("offwhite"))
                         .cornerRadius(60)
-                        .neoButton(isToggle: false) {
+                        neoButton(isToggle: false, shadow: false) {
                             //
                             hidemainTab = false
                             withAnimation(.spring()) {
@@ -921,35 +919,7 @@ struct FullProfileView: View {
             }
         }
     }
-    
-    //    func sendMatchMessage(text: String) {
-    //
-    //
-    //        let user = Auth.auth().currentUser
-    //        let db = Firestore.firestore()
-    //
-    //        // Data for the new document
-    //
-    //
-    //        // Add a placeholder for the document ID
-    //        let docRef = db.collection("messages").document()
-    //
-    //
-    //        // Add the document with the modified data
-    //        docRef.setData(["docid": docRef.documentID,
-    //                        "matched": true,
-    //                        "time":  Date(),
-    //                        "email": [user?.email ?? "" , "zab.charles@gmail.com"]
-    //                        // Add other fields as needed
-    //                       ], merge: false) { error in
-    //            if let error = error {
-    //                // Handle error
-    //            } else {
-    //                // Data added successfully
-    //            }
-    //        }
-    //
-    //    }
+ 
     var drag: some Gesture {
         DragGesture(minimumDistance: 30, coordinateSpace: .local)
             .onChanged { value in
@@ -969,7 +939,7 @@ struct FullProfileView: View {
                 if viewState.width > 50 {
                     
                 } else {
-                    withAnimation(.openCard) {
+                    withAnimation(.spring()) {
                         viewState = .zero
                     }
                 }
@@ -996,119 +966,12 @@ struct FullProfileView: View {
                 
                 timer.invalidate()
                 completion()
-                // Timer.scheduledTimer(withTimeInterval: 0.6, repeats: false) { timer in
-                //   withAnimation(.easeInOut) {
-                //  typeText = original
-                //
-                //   }
-                // }
+              
                 
             }
         }
     }
-    
-    
-    func unMatch(){
-        
-        //xzv  x      zn                     let db = Firestore.firestore()
-        //    let user = Auth.auth().currentUser
-        //save the dounload url to database key
-        
-        //We look for the user id of the current user
-        //    db.collection("users").whereField("email", isEqualTo: profile.email)
-        //            .getDocuments() { (querySnapshot, error) in
-        //                if error != nil {
-        //                    //there is an error
-        //                } else {
-        //                    for document in querySnapshot!.documents {
-        //
-        //                        //We add that user id to our unmatch collection
-        //                        //erro = "\(user?.uid ?? "")"
-        //                        db.collection("users").whereField("email", isEqualTo: user?.email)
-        //                            .getDocuments() { (querySnapshot, error) in
-        //                                if error != nil {
-        //                                    //there is an error
-        //                                } else {
-        //                                    for myinfo in querySnapshot!.documents {
-        //
-        //                                        //We add that user id to our unmatch collection
-        //                                        //erro = "\(user?.uid ?? "")"
-        //                                        db.collection("users").document(myinfo.documentID)
-        //                                            .collection("notamatch").document(document.documentID).setData(["date": Date()], merge: true) { error in
-        //
-        //                                                if error == nil {
-        //
-        //
-        //                                                }
-        //                                            }
-        //                                    }
-        //                                }
-        //                            }
-        //
-        //                    }
-        //                }
-        //            }
-        
-    }
-    func sendMatch() {
-        let user = Auth.auth().currentUser
-        let db = Firestore.firestore()
-        
-        
-        
-        let docRef = db.collection("messages").document()
-        let docid = docRef.documentID
-        
-        // Add the document with the modified data
-        
-        if sendMessage.isEmpty {
-            docRef.setData(["matched": true,
-                            "time":  Date(),
-                            "email": [user?.email ?? "" , profile.email],
-                            "matchid": docRef.documentID
-                            // Add other fields as needed
-                           ], merge: true) { error in
-                if let error = error {
-                    // Handle the error
-                    print("Error updating message data: \(error.localizedDescription)")
-                    return
-                }
-            }
-        } else {
-            docRef.setData(["matched": true,
-                            "time":  Date(),
-                            "email": [user?.email ?? "" , profile.email],
-                            "matchid": docRef.documentID
-                            
-                            // Add other fields as needed
-                           ], merge: true) { error in
-                if let error = error {
-                    // Handle the error
-                    print("Error updating message data: \(error.localizedDescription)")
-                    return
-                }
-            }
-            
-            docRef.collection("log").document().setData([
-                "text": sendMessage,
-                "time":  Date(),
-                "email": user?.email
-                
-                // Add other fields as needed
-            ], merge: true) { error in
-                if let error = error {
-                    // Handle the error
-                    print("Error updating message data: \(error.localizedDescription)")
-                    return
-                }
-            }
-            
-            
-        }
-    }
-    func getLocation(){
-        
-    }
+   
 }
 
 struct FullMatchProfileView_Previews: PreviewProvider {

@@ -7,8 +7,7 @@
 
 import SwiftUI
 import Lottie
-import FirebaseFirestore
-import Firebase
+
 struct HomeView: View {
     @State var profiles: [UserStruct] = compatibleFakeUsers
     @Binding var currentUser: UserStruct?
@@ -28,136 +27,87 @@ struct HomeView: View {
         
         ZStack {
             
-            appbackground
-            //  ScrollView {
+            BackgroundView()
             
             
-            VStack {
-                
-                topbar
-                // .opacity(showProfile || !pageAppeared ? 0 : 1)
-                // .animation(.spring(), value: showProfile)
-                    .padding(.top,70)
-                
-                
-                TabView(selection: $profiletype){
-                    
-                    
-                    
-                    
-                    compatible
-                        .tag(0)
-                    
-                    
-                    
-                    active
-                        .tag(1)
-                    
-                    
-                    
-                    near
-                        .tag(2)
-                    
-                    
-                    
-                    newhere
-                        .tag(3)
-                    
-                    Spacer()
-                    
-                }.edgesIgnoringSafeArea(.bottom)
-            }.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-            // .blur(radius: showProfile ? 19 : 0)
-                .background(appbackground)
-                .scaleEffect(showProfile ? 0.90: 1)
-               
-                .animation(.spring(), value: showProfile)
-            
-            
-            
-            
-            
-            navigation
-            //.offset(y:!pageAppeared ? -200 : 0)
-            
-            //   .opacity(showProfile ? 0 : 1)
-                .scaleEffect(showProfile ? 0.90: 1)
-                .animation(.spring(), value: showProfile)
-            
-            
-            if showProfile {
-                SkullProfile(currentUser: $currentUser, profile: profile, showProfile: $showProfile, currentIndex: .constant(0))
-                // .animation(.spring().delay(0.20), value: showProfile)
-                    .cornerRadius(profileAppeared ?  40 : 43)
-                    .edgesIgnoringSafeArea(.all)
-                    .offset(y: !profileAppeared ? UIScreen.main.bounds.height *  1.02 : 0)
-                
-                    .onAppear{
+           
+                ScrollView {
+                    VStack {
                         
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                            // action here
-                            withAnimation(.spring()){
-                                profileAppeared = true
-                            }
+                        topbar
+                            .padding(.top,70)
+                        
+                        
+                       
+                            
+                            
+                            
+                        if (profiletype == 0) {
+                            compatible
+                                .tag(0)
                             
                         }
-                    }
-                    .onDisappear{
-                        withAnimation(.spring()){
-                            profileAppeared = false
+                           
+                            
+                        if (profiletype == 1) {
+                            
+                            active
+                                .tag(1)
+                             
                         }
-                    }
-                
-            }
-            
-            
-            
-            
-            
-            
-            //  }
-            
-            
-            
-            
-            
-            if !showProfile {
-                VStack{
-                    HStack{
-                        Spacer()
-                        VStack {
-                            Image(systemName: profiletype == 0 ? "figure.2.arms.open" : profiletype == 1 ? "figure.cooldown" : profiletype == 2 ? "figure.stand.line.dotted.figure.stand" : profiletype == 3 ? "person.fill.badge.plus" : "person.fill.badge.plus")
-                                .font(.system(size:  17, weight: .bold))
-                                .frame(width: 36, height: 36)
-                                .foregroundColor( .secondary)
-                                .background( Color("offwhite"))
-                                .cornerRadius(30)
-                                .scaleEffect( 1)
-                                .overlay(
-                                    VStack{
-                                        
-                                        Text(currentUser?.notifications ?? "0")
-                                            .foregroundColor(.white)
-                                            .font(.caption)
-                                            .padding(2)
-                                            .background(
-                                                Circle()
-                                                
-                                                    .fill(.red)
-                                                    .padding(-3)
-                                            )
-                                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-                                            .offset(x:6, y: -5)
-                                        
-                                    }.opacity(profiletype == 0 ? 1:0)
-                                )
+                            
+                           
+                            
+                        if (profiletype == 2) {
+                            
+                            near
+                                .tag(2)
+                               
+                        }
+                            
+                            
+                            
+                        if (profiletype == 3) {
+                            newhere
+                                .tag(3)
+                               
                             
                         }
-                    }.padding(.top,15)
-                        .padding(.horizontal,25)
-                    Spacer()
+                            
+                         
+                            
+                          
+                            
+                        
+                    }
+//                  .offset(y: showProfile ? UIScreen.main.bounds.height *  -1.02 : 0)
+               
+                    .cornerRadius(showProfile ? 25 : 0)
+                    .scaleEffect( showProfile ? 0.90 : 1)
                 }
-            }
+          
+            
+            
+            
+            
+            
+            
+            
+          
+                SkullProfile(currentUser: $currentUser, profile: profile, showProfile: $showProfile, currentIndex: .constant(0))
+                 .animation(.spring(), value: showProfile)
+                    .cornerRadius(showProfile ?  40 : 43)
+                    .edgesIgnoringSafeArea(.all)
+                    .offset(y: !showProfile ? UIScreen.main.bounds.height *  1.02 : 0)
+                    
+                   
+                
+            
+            
+            
+                
+            
+          
             
             
         }.onAppear{
@@ -177,36 +127,16 @@ struct HomeView: View {
     var topbar : some View {
         
         VStack {
-            
+         
             HStack(spacing: 16){
                 VStack(alignment: .leading, spacing: 5) {
-                    
-                    
+            
                     HStack(spacing:0) {
-                        TextWriterAppear(typeText: "Welcome back ", speed: 0.03)
+                       
                         
-                            .lineLimit(1)
-                            .font(.title3)
-                            .textCase(.uppercase)
-                        
-                        Text(currentUser?.firstname.lowercased() ?? "umm" )
-                            .lineLimit(1)
-                            .font(.callout)
-                            .foregroundColor(.clear)
-                            .background(LinearGradient(colors: [Color.red,Color("black"),Color.blue], startPoint: .leading, endPoint: .trailing))
-                            .mask (
-                                Text(currentUser?.firstname.lowercased() ?? "umm" )
-                                    .lineLimit(1)
-                                    .font(.callout)
-                                
-                            )
-                            .font(.title3)
-                            .textCase(.uppercase)
-                            .padding(.horizontal,8)
-                            .padding(.vertical,5)
-                            .background(Color("offwhite"))
-                            .cornerRadius(23)
-                        
+                        Text(currentUser?.firstname ?? "umm")
+                            .bold()
+                            .font(.title)
                         
                     }
                     
@@ -262,53 +192,60 @@ struct HomeView: View {
             .background(
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(Color.white.opacity(0.1), lineWidth: 1)
-                    .background(Color("offwhiteneo"))
+                    .background(Color("offwhite"))
              
                 
             )
-            
-            
-//            .neoButton(isToggle: false, perform: {
-//                //do something
-//            })
-            .padding(.horizontal,10)
+            .cornerRadius(14)
+            .padding(.horizontal,15)
             .padding(.bottom, 5)
+          
             
             
+            Divider()
             
             typeofprofiles
             
+            Divider()
             
+            
+        }.overlay{
+            navigation
+                .offset(y:-50)
             
         }
         
     }
     var compatible: some View {
         VStack {
-            ZStack {
+       
                 if !filteredProfiles.isEmpty {
-                    ScrollView(.vertical, showsIndicators: false) {
+                 
                         scrollDetection
                         VStack(spacing: 25.0) {
                             ForEach(filteredProfiles, id: \.id) { user in
-                                CompatibleCard(completion: {
-                                    showProfile = true
+                                HomeCard(firstname: user.firstname,avatar: user.avatar,poster: user.images[0]){
+                                    //tapp does what?
+                                    withAnimation(.spring()) {
+                                        showProfile = true
+                                        hidemainTab = true
+                                    }
                                     profile = user
-                                }, user: user, namespace: namespace)
+                                }
                             }
 
 
                         }
                         .padding(.bottom,85)
 
-                    }
+                
                 } else {
                     nocards
                 }
                 
               
-            }
-        }.offset(y:10)
+          
+        }
         
         
         
@@ -323,92 +260,90 @@ struct HomeView: View {
     }
     var active: some View {
         ZStack {
+            
             if !filteredProfiles.isEmpty {
-                ScrollView(.vertical, showsIndicators: false) {
-                    
-                    VStack(spacing: 25.0) {
-                        ForEach(Array(profiles.enumerated()), id: \.element.id) { index, user in
-                            CompatibleCard(completion: {
+                
+                scrollDetection
+                VStack(spacing: 25.0) {
+                    ForEach(filteredProfiles, id: \.id) { user in
+                        HomeCard(firstname: user.firstname,avatar: user.avatar,poster: user.images[0]){
+                            //tapp does what?
+                            withAnimation(.spring()) {
                                 showProfile = true
-                                profile = user
-                            }, user: user, namespace: namespace)
+                            }
+                            profile = user
                         }
-                    }.padding(.bottom,90)
-                        .padding(.top,24)
-                        .padding(.horizontal,5)
-                }
+                    }
+                    
+                    
+                }.padding(.top,20)
+                    .padding(.bottom,85)
+                
+                
             } else {
                 nocards
             }
+        }.onAppear{
             
-            VStack {
-                Spacer()
-                Rectangle()
-                    .fill(LinearGradient(colors: [Color("offwhiteneo"), Color.clear], startPoint: .bottom, endPoint: .top))
-                    .frame(height: 120)
-                    .padding(.top,0)
-            }.edgesIgnoringSafeArea(.bottom)
         }
     }
     
     var near : some View {
         ZStack {
+          
             if !filteredProfiles.isEmpty {
-                ScrollView(.vertical, showsIndicators: false) {
-                    
-                    VStack(spacing: 25.0) {
-                        ForEach(Array(profiles.enumerated()), id: \.element.id) { index, user in
-                            CompatibleCard(completion: {
+                
+                scrollDetection
+                VStack(spacing: 25.0) {
+                    ForEach(filteredProfiles, id: \.id) { user in
+                        HomeCard(firstname: user.firstname,avatar: user.avatar,poster: user.images[0]){
+                            //tapp does what?
+                            withAnimation(.spring()) {
                                 showProfile = true
-                                profile = user
-                            }, user: user, namespace: namespace)
+                            }
+                            profile = user
                         }
-                    }.padding(.bottom,90)
-                        .padding(.top,24)
-                        .padding(.horizontal,5)
-                }
+                    }
+                    
+                    
+                }.padding(.top,20)
+                .padding(.bottom,85)
+                
+                
             } else {
                 nocards
             }
-            
-            VStack {
-                Spacer()
-                Rectangle()
-                    .fill(LinearGradient(colors: [Color("offwhiteneo"), Color.clear], startPoint: .bottom, endPoint: .top))
-                    .frame(height: 120)
-                    .padding(.top,0)
-            }.edgesIgnoringSafeArea(.bottom)
         }.onAppear{
             
         }
     }
     var newhere : some View {
         ZStack {
+            
             if !filteredProfiles.isEmpty {
-                ScrollView(.vertical, showsIndicators: false) {
-                    
-                    VStack(spacing: 25.0) {
-                        ForEach(Array(profiles.enumerated()), id: \.element.id) { index, user in
-                            CompatibleCard(completion: {
+                
+                scrollDetection
+                VStack(spacing: 25.0) {
+                    ForEach(filteredProfiles, id: \.id) { user in
+                        HomeCard(firstname: user.firstname,avatar: user.avatar,poster: user.images[0]){
+                            //tapp does what?
+                            withAnimation(.spring()) {
                                 showProfile = true
-                                profile = user
-                            }, user: user, namespace: namespace)
+                            }
+                            profile = user
                         }
-                    }.padding(.bottom,90)
-                        .padding(.top,24)
-                        .padding(.horizontal,5)
-                }
+                    }
+                    
+                    
+                }.padding(.top,20)
+                    .padding(.bottom,85)
+                
+                
             } else {
                 nocards
             }
+        }.onAppear{
             
-            VStack {
-                Spacer()
-                Rectangle()
-                    .fill(LinearGradient(colors: [Color("offwhiteneo"), Color.clear], startPoint: .bottom, endPoint: .top))
-                    .frame(height: 120)
-                    .padding(.top,0)
-            }.edgesIgnoringSafeArea(.bottom)
         }
     }
     var nocards: some View {
@@ -449,8 +384,49 @@ struct HomeView: View {
         }.offset(y:-210)
     }
     var navigation: some View {
-        NavigationBar( title: "Soulmate",
-                       contentHasScrolled: $contentHasScrolled)
+        HStack {
+            NavigationBar( title: "Soulmate",
+                           contentHasScrolled: $contentHasScrolled)
+            .overlay {
+                if !showProfile {
+                    VStack{
+                        HStack{
+                            Spacer()
+                            VStack {
+                                Image(systemName: profiletype == 0 ? "figure.2.arms.open" : profiletype == 1 ? "figure.cooldown" : profiletype == 2 ? "figure.stand.line.dotted.figure.stand" : profiletype == 3 ? "person.fill.badge.plus" : "person.fill.badge.plus")
+                                    .font(.system(size:  17, weight: .bold))
+                                    .frame(width: 36, height: 36)
+                                    .foregroundColor( .secondary)
+                                    .background( Color("offwhite"))
+                                    .cornerRadius(30)
+                                    .scaleEffect( 1)
+                                    .overlay(
+                                        VStack{
+                                            
+                                            Text(currentUser?.notifications ?? "0")
+                                                .foregroundColor(.white)
+                                                .font(.caption)
+                                                .padding(2)
+                                                .background(
+                                                    Circle()
+                                                    
+                                                        .fill(.red)
+                                                        .padding(-3)
+                                                )
+                                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+                                                .offset(x:6, y: -5)
+                                            
+                                        }.opacity(profiletype == 0 ? 1:0)
+                                    )
+                                
+                            }
+                        }.padding(.top,12)
+                            .padding(.horizontal,26)
+                        Spacer()
+                    }
+                }
+            }
+        }
     }
     
     
@@ -492,10 +468,10 @@ struct HomeView: View {
             
         }.padding(.horizontal)
             .padding(.vertical,5)
-            .background(Color("offwhite"))
-            .cornerRadius(12)
+       
+            .cornerRadius(10)
             .padding(.horizontal)
-            .padding(.top,10)
+          
         
     }
     var scrollDetection: some View {

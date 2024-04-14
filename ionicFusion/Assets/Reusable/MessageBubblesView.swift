@@ -7,8 +7,7 @@
 
 
 import SwiftUI
-import FirebaseAuth
-import FirebaseFirestore
+
 
 struct MessageBubblesView: View {
     
@@ -186,13 +185,6 @@ struct MessageBubblesView: View {
         return dateFormatter.string(from: timedate)
         
     }
-    
-//    func getUserId() -> String{
-//        let db = Firestore.firestore()
-//        let user = Auth.auth().currentUser
-//
-//        return user?.email ?? ""
-//    }
 }
 
 struct MessageBubblesView_Previews: PreviewProvider {

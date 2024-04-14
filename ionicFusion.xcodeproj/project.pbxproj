@@ -10,7 +10,6 @@
 		217A2403164EC0396CC256FB /* Pods_ionicFusion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E80590F914965A253665F93F /* Pods_ionicFusion.framework */; };
 		F70636322A1D6398007A9FEF /* MatchCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F70636312A1D6398007A9FEF /* MatchCard.swift */; };
 		F70636362A1D8960007A9FEF /* GetImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F70636352A1D8960007A9FEF /* GetImage.swift */; };
-		F706363B2A1E6F6E007A9FEF /* DistanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F706363A2A1E6F6E007A9FEF /* DistanceView.swift */; };
 		F706363D2A1E76AF007A9FEF /* LikesPill.swift in Sources */ = {isa = PBXBuildFile; fileRef = F706363C2A1E76AF007A9FEF /* LikesPill.swift */; };
 		F71652EC2A8FF8B20063E029 /* heartbroken.json in Resources */ = {isa = PBXBuildFile; fileRef = F71652EB2A8FF8B20063E029 /* heartbroken.json */; };
 		F71652EE2A8FFD730063E029 /* heartbeat.json in Resources */ = {isa = PBXBuildFile; fileRef = F71652ED2A8FFD730063E029 /* heartbeat.json */; };
@@ -22,7 +21,6 @@
 		F71653002A93E58F0063E029 /* BodoniLean.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F71652FE2A93E58F0063E029 /* BodoniLean.ttf */; };
 		F71653042A93EDBD0063E029 /* BodoniFLF-Roman.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F71653032A93EDBD0063E029 /* BodoniFLF-Roman.ttf */; };
 		F71653062A93F3030063E029 /* BodoniFLF-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F71653052A93F3030063E029 /* BodoniFLF-Italic.ttf */; };
-		F73F32342A138C800038A6D3 /* DragsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73F32332A138C800038A6D3 /* DragsCard.swift */; };
 		F73F32362A1522880038A6D3 /* nomorecards.json in Resources */ = {isa = PBXBuildFile; fileRef = F73F32352A1522880038A6D3 /* nomorecards.json */; };
 		F73F32382A156D340038A6D3 /* redpoof.json in Resources */ = {isa = PBXBuildFile; fileRef = F73F32372A156D340038A6D3 /* redpoof.json */; };
 		F743C2762A98BB980089E2FE /* PostCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F743C2752A98BB980089E2FE /* PostCard.swift */; };
@@ -32,6 +30,8 @@
 		F743C2842A9B52920089E2FE /* SkullProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F743C2832A9B52920089E2FE /* SkullProfile.swift */; };
 		F743C2862A9BF7570089E2FE /* ExploreMenuRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F743C2852A9BF7570089E2FE /* ExploreMenuRow.swift */; };
 		F743C2882A9C025C0089E2FE /* droplet.json in Resources */ = {isa = PBXBuildFile; fileRef = F743C2872A9C025C0089E2FE /* droplet.json */; };
+		F744FE5F2BCA771300DC1E9D /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = F744FE5E2BCA771300DC1E9D /* Lottie */; };
+		F744FE612BCA84AB00DC1E9D /* HomeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F744FE602BCA84AB00DC1E9D /* HomeCard.swift */; };
 		F755D7C52A2D378800319D57 /* workbuildings.json in Resources */ = {isa = PBXBuildFile; fileRef = F755D7C42A2D378800319D57 /* workbuildings.json */; };
 		F755D7C72A2DAB1100319D57 /* SignUpMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F755D7C62A2DAB1100319D57 /* SignUpMessageView.swift */; };
 		F7569D572A11DE9900FE3E84 /* LikesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7569D562A11DE9900FE3E84 /* LikesView.swift */; };
@@ -42,7 +42,6 @@
 		F795945D2A252EF200636776 /* TextWriterAppear.swift in Sources */ = {isa = PBXBuildFile; fileRef = F795945C2A252EF200636776 /* TextWriterAppear.swift */; };
 		F79594612A25E91700636776 /* CompatibleCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79594602A25E91700636776 /* CompatibleCard.swift */; };
 		F79594632A268D8700636776 /* ActiveCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79594622A268D8700636776 /* ActiveCard.swift */; };
-		F79594672A27907800636776 /* ProfileEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F79594662A27907800636776 /* ProfileEditView.swift */; };
 		F7A3117E27F4CB0500F9F550 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7A3117D27F4CB0500F9F550 /* GoogleService-Info.plist */; };
 		F7A3135827F4CDB400F9F550 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A3135727F4CDB300F9F550 /* ViewController.swift */; };
 		F7A3137527F4CDD100F9F550 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A3135C27F4CDD100F9F550 /* NavigationBar.swift */; };
@@ -137,7 +136,6 @@
 		F7D847F12A245C9600E1E273 /* dislikebrokeheart.json in Resources */ = {isa = PBXBuildFile; fileRef = F7D847F02A245C9600E1E273 /* dislikebrokeheart.json */; };
 		F7D847F32A245E0000E1E273 /* flyingpaperbirdchasinglove.json in Resources */ = {isa = PBXBuildFile; fileRef = F7D847F22A245E0000E1E273 /* flyingpaperbirdchasinglove.json */; };
 		F7EF06262A95276400625108 /* ShuffleMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7EF06252A95276400625108 /* ShuffleMatchView.swift */; };
-		F7F45AB92BB515260089EFA9 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = F7F45AB82BB515260089EFA9 /* URLImage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -146,7 +144,6 @@
 		E80590F914965A253665F93F /* Pods_ionicFusion.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ionicFusion.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F70636312A1D6398007A9FEF /* MatchCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchCard.swift; sourceTree = "<group>"; };
 		F70636352A1D8960007A9FEF /* GetImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetImage.swift; sourceTree = "<group>"; };
-		F706363A2A1E6F6E007A9FEF /* DistanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceView.swift; sourceTree = "<group>"; };
 		F706363C2A1E76AF007A9FEF /* LikesPill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesPill.swift; sourceTree = "<group>"; };
 		F71652EB2A8FF8B20063E029 /* heartbroken.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = heartbroken.json; sourceTree = "<group>"; };
 		F71652ED2A8FFD730063E029 /* heartbeat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = heartbeat.json; sourceTree = "<group>"; };
@@ -158,7 +155,6 @@
 		F71652FE2A93E58F0063E029 /* BodoniLean.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BodoniLean.ttf; sourceTree = "<group>"; };
 		F71653032A93EDBD0063E029 /* BodoniFLF-Roman.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BodoniFLF-Roman.ttf"; sourceTree = "<group>"; };
 		F71653052A93F3030063E029 /* BodoniFLF-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BodoniFLF-Italic.ttf"; sourceTree = "<group>"; };
-		F73F32332A138C800038A6D3 /* DragsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragsCard.swift; sourceTree = "<group>"; };
 		F73F32352A1522880038A6D3 /* nomorecards.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = nomorecards.json; sourceTree = "<group>"; };
 		F73F32372A156D340038A6D3 /* redpoof.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = redpoof.json; sourceTree = "<group>"; };
 		F743C2752A98BB980089E2FE /* PostCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCard.swift; sourceTree = "<group>"; };
@@ -168,6 +164,7 @@
 		F743C2832A9B52920089E2FE /* SkullProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkullProfile.swift; sourceTree = "<group>"; };
 		F743C2852A9BF7570089E2FE /* ExploreMenuRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreMenuRow.swift; sourceTree = "<group>"; };
 		F743C2872A9C025C0089E2FE /* droplet.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = droplet.json; sourceTree = "<group>"; };
+		F744FE602BCA84AB00DC1E9D /* HomeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCard.swift; sourceTree = "<group>"; };
 		F755D7C42A2D378800319D57 /* workbuildings.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = workbuildings.json; sourceTree = "<group>"; };
 		F755D7C62A2DAB1100319D57 /* SignUpMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpMessageView.swift; sourceTree = "<group>"; };
 		F7569D562A11DE9900FE3E84 /* LikesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesView.swift; sourceTree = "<group>"; };
@@ -178,7 +175,6 @@
 		F795945C2A252EF200636776 /* TextWriterAppear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextWriterAppear.swift; sourceTree = "<group>"; };
 		F79594602A25E91700636776 /* CompatibleCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompatibleCard.swift; sourceTree = "<group>"; };
 		F79594622A268D8700636776 /* ActiveCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveCard.swift; sourceTree = "<group>"; };
-		F79594662A27907800636776 /* ProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditView.swift; sourceTree = "<group>"; };
 		F7A3117D27F4CB0500F9F550 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F7A3135727F4CDB300F9F550 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F7A3135C27F4CDD100F9F550 /* NavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
@@ -281,8 +277,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F7F45AB92BB515260089EFA9 /* URLImage in Frameworks */,
 				217A2403164EC0396CC256FB /* Pods_ionicFusion.framework in Frameworks */,
+				F744FE5F2BCA771300DC1E9D /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,7 +305,6 @@
 		F70636392A1E6F48007A9FEF /* Funcs */ = {
 			isa = PBXGroup;
 			children = (
-				F706363A2A1E6F6E007A9FEF /* DistanceView.swift */,
 			);
 			path = Funcs;
 			sourceTree = "<group>";
@@ -329,7 +324,7 @@
 				F743C27B2A9966F20089E2FE /* StoriesCard.swift */,
 				F79594602A25E91700636776 /* CompatibleCard.swift */,
 				F79594622A268D8700636776 /* ActiveCard.swift */,
-				F73F32332A138C800038A6D3 /* DragsCard.swift */,
+				F744FE602BCA84AB00DC1E9D /* HomeCard.swift */,
 			);
 			path = Widget;
 			sourceTree = "<group>";
@@ -360,7 +355,6 @@
 				F7569D562A11DE9900FE3E84 /* LikesView.swift */,
 				F7A3135D27F4CDD100F9F550 /* HomeView.swift */,
 				F71652F92A92988B0063E029 /* Chats.swift */,
-				F79594662A27907800636776 /* ProfileEditView.swift */,
 			);
 			path = Pages;
 			sourceTree = "<group>";
@@ -639,7 +633,7 @@
 			);
 			name = ionicFusion;
 			packageProductDependencies = (
-				F7F45AB82BB515260089EFA9 /* URLImage */,
+				F744FE5E2BCA771300DC1E9D /* Lottie */,
 			);
 			productName = ionicFusion;
 			productReference = F7A391C127F4C24800E5237F /* ionicFusion.app */;
@@ -671,6 +665,7 @@
 			mainGroup = F7A391B827F4C24800E5237F;
 			packageReferences = (
 				F7F45AB72BB515260089EFA9 /* XCRemoteSwiftPackageReference "url-image" */,
+				F744FE5D2BCA771300DC1E9D /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = F7A391C227F4C24800E5237F /* Products */;
 			projectDirPath = "";
@@ -813,11 +808,11 @@
 			files = (
 				F7A3143327F4CFE100F9F550 /* NavigationExten.swift in Sources */,
 				F71652FC2A92DC320063E029 /* ChatTester.swift in Sources */,
-				F73F32342A138C800038A6D3 /* DragsCard.swift in Sources */,
 				F743C2842A9B52920089E2FE /* SkullProfile.swift in Sources */,
 				F743C27C2A9966F20089E2FE /* StoriesCard.swift in Sources */,
 				F7A3142927F4CFE100F9F550 /* TextModifiers.swift in Sources */,
 				F7A3147527F4CFE100F9F550 /* ImagePicker.swift in Sources */,
+				F744FE612BCA84AB00DC1E9D /* HomeCard.swift in Sources */,
 				F7D223E82A981518008D5C5C /* KerboardAvoiderModifier.swift in Sources */,
 				F7A3137527F4CDD100F9F550 /* NavigationBar.swift in Sources */,
 				F7A3147627F4CFE100F9F550 /* BackgroundView.swift in Sources */,
@@ -851,7 +846,6 @@
 				F7A3142827F4CFE100F9F550 /* OffWhiteButtonModifier.swift in Sources */,
 				F7A3137F27F4CDD100F9F550 /* MainTab.swift in Sources */,
 				F7A3142627F4CFE100F9F550 /* NeumorphicModifier.swift in Sources */,
-				F79594672A27907800636776 /* ProfileEditView.swift in Sources */,
 				F7A3142E27F4CFE100F9F550 /* BackButton.swift in Sources */,
 				F7A3147F27F4CFE100F9F550 /* SettingsMenuItems.swift in Sources */,
 				F7EF06262A95276400625108 /* ShuffleMatchView.swift in Sources */,
@@ -861,7 +855,6 @@
 				F7A3148327F4CFE100F9F550 /* SmallClocks.swift in Sources */,
 				F7A3146D27F4CFE100F9F550 /* CircleLabel.swift in Sources */,
 				F70636322A1D6398007A9FEF /* MatchCard.swift in Sources */,
-				F706363B2A1E6F6E007A9FEF /* DistanceView.swift in Sources */,
 				F7A3141F27F4CFE100F9F550 /* SuccessView.swift in Sources */,
 				F7D847EF2A244D4300E1E273 /* AppUserData.swift in Sources */,
 				F70636362A1D8960007A9FEF /* GetImage.swift in Sources */,
@@ -1089,6 +1082,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		F744FE5D2BCA771300DC1E9D /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 		F7F45AB72BB515260089EFA9 /* XCRemoteSwiftPackageReference "url-image" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/dmytro-anokhin/url-image.git";
@@ -1100,10 +1101,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		F7F45AB82BB515260089EFA9 /* URLImage */ = {
+		F744FE5E2BCA771300DC1E9D /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F7F45AB72BB515260089EFA9 /* XCRemoteSwiftPackageReference "url-image" */;
-			productName = URLImage;
+			package = F744FE5D2BCA771300DC1E9D /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

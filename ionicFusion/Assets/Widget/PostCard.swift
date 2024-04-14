@@ -96,7 +96,7 @@ struct PostCard: View {
                         Spacer()
                     })
                 
-                .neoButton(isToggle: false) {
+                neoButton(isToggle: false, shadow: false) {
                     //code here
                     completion()
                 }
@@ -107,17 +107,17 @@ struct PostCard: View {
                 VStack {
                     Spacer()
                     HStack {
-                        TextAnimatingGradient(text: "LIKED YOU : 02/05/2023",font: "Mignitte",useCustomFont: true)
-                       // Text("02/05/2023")
+                     
+                       Text("Liked You: 02/05/2023")
                            
                             .padding(.horizontal)
                             .padding(.vertical,10)
                             .background(Color("offwhite"))
                             
                             .cornerRadius(23)
-                            .neoButton(isToggle: false, perform: {
+                            neoButton(isToggle: false, shadow: false) {
                                 //code
-                            })
+                            }
                             .rotationEffect(.degrees(-90))
                             .offset(x:-63)
                         Spacer()

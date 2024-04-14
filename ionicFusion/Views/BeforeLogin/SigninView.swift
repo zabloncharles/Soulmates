@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import Firebase
+
 
 struct SigninView: View {
     @AppStorage("currentPage") var selected = 0
@@ -163,193 +163,7 @@ struct SigninView: View {
         }
     }
     
-    var titleandDescription: some View{
-//        VStack {
-            VStack{
-                //MARK: PROFILE PICTURE
-//                Image(profilePictureTapped ? "image_04" : "image_03")
-//                    .resizable(resizingMode: .stretch)
-//                    .aspectRatio(contentMode: .fill)
-//                    .font(.body)
-//                    .rotationEffect(.degrees(profilePictureTapped ? 360 : 0))
-//                    .animation(.spring(), value: profilePictureTapped)
-//
-//            }.frame(width:  90, height:  90)
-//                .background(.ultraThinMaterial)
-//                .background(Circle().fill(.blue).blur(radius: 20))
-//                .cornerRadius(80)
-//                .background(
-//                    Circle()
-//                        .fill(.ultraThinMaterial)
-//                        .padding(-0.5)
-//                )
-//                .onTapGesture {
-//                    withAnimation(.easeInOut(duration: 23)){
-//                        profilePictureTapped.toggle()
-//                    }
-//                }
-            
-            //MARK: SIGN IN MESSAGE AND DESCRIPTION
-//            Text(messageTitle)
-//                .font(.title)
-//                .foregroundColor(Color("black"))
-//                .lineLimit(2)
-          
-            if !infoTapped {
-                VStack {
-                 //  Text(messageDescription)
-                    GradientText(text: messageDescription, gradient: [Color("black"), Color("black"), .purple])
-                            .font(.subheadline)
-                            .multilineTextAlignment(.center)
-                            .padding()
-    //                        .background(
-    //                            Rectangle()
-    //                                .background(.ultraThinMaterial)
-    //                                .opacity(0.10)
-    //
-    //                        )
-    //                        .background(Circle()
-    //                                        .fill(.purple.opacity(0.5))
-    //                                        .blur(radius: 33)
-    //                                        .offset(x:90, y:98)
-    //                                        .frame(width: 266, height: 266)
-    //                        )
-                    //        .cornerRadius(20)
-                            .onTapGesture {
-                                isPasswordFocused = false
-                                isEmailFocused = false
-                            }
-                            .offset(x:animate ? -390 : !animate ? 0 : 0)
-                        .animation(.spring(), value: animate)
-                    }
-                    
-                
-            }
-               
-        }
-    }
-    var helpSuggestions: some View{
-        VStack{
-            //MARK: Message and questions
-            
-            
-            VStack{
-                Text("How you resolve problems signing into your fusion account depends on the type of issue preventing you from signing in. For example, are you having a password problem? Did you forget your username? Or did you get a message that your account is locked? To help you find the correct solution, select the issue from below that best describes the reason you can't sign in.")
-                    .font(.subheadline)
-                    .multilineTextAlignment(.center)
-                    .padding()
-                    .background(
-                        Rectangle()
-                            .background(.ultraThinMaterial)
-                            .opacity(0.10)
-                        
-                    )
-                    .background(Circle()
-                                    .fill(.purple.opacity(0.5))
-                                    .blur(radius: 33)
-                                    .offset(x:90, y:98)
-                                    .frame(width: 266, height: 266)
-                    )
-                    .cornerRadius(20)
-                    .onTapGesture {
-                        isPasswordFocused = false
-                        isEmailFocused = false
-                    }
-            }.padding(.bottom, 10)
-            
-            HStack{
-                VStack (alignment: .leading, spacing: 13){
-                    NavigationLink {helpwithSignin(
-                        doneIntro: $doneIntro,
-                        question: 1,
-                        showalltextFields: true)}
-                label: {
-                    Label("Help with verification",
-                          systemImage: "questionmark.circle")
-                    Spacer()
-                    
-                    Image(systemName: "chevron.right")
-                }.padding(.horizontal,20)
-                        .padding(.vertical,14)
-                        .background(.ultraThinMaterial)
-                        .cornerRadius(15)
-                    
-                    Divider()
-                        .padding(.horizontal, 50)
-                    
-                    NavigationLink {helpwithSignin(
-                        doneIntro: $doneIntro,
-                        question: 2,
-                        backgroundColor: "Background",
-                        background: "image_03",
-                        icon: "questionmark.circle",
-                        titleMessage: "Forgot you email?",
-                        titleDescription: "If you forgot your Fusion account email address or you signed in and got the error message, That account may not exist, we recommend you to request a security code to be sent to the phone number or email you used.",
-                        askText: "Email/Phone",
-                        userMessage: "Submit")}
-                label: {
-                    Label("Forgot you email",
-                          systemImage: "questionmark.circle")
-                    Spacer()
-                    
-                    Image(systemName: "chevron.right")
-                }.padding(.horizontal,20)
-                        .padding(.vertical,14)
-                        .background(.ultraThinMaterial)
-                        .cornerRadius(15)
-                    
-                    Divider().padding(.horizontal, 50)
-                    NavigationLink {helpwithSignin(
-                        doneIntro: $doneIntro, question: 3,
-                        backgroundColor: "Background",
-                        background: "image_03",
-                        icon: "person.circle",
-                        titleMessage: "Forgot you password?",
-                        titleDescription: "If the password you typed is incorrect, you’ll see a message that says: Your account or password is incorrect. If you don't remember your password, reset it now.",
-                        askText: "Email",
-                        userMessage: "Reset")
-                        
-                    }
-                label: {
-                    Label("Forgot your password",
-                          systemImage: "questionmark.circle")
-                    Spacer()
-                    Image(systemName: "chevron.right")
-                }.padding(.horizontal,20)
-                        .padding(.vertical,14)
-                        .background(.ultraThinMaterial)
-                        .cornerRadius(15)
-                    
-                    Divider().padding(.horizontal, 50)
-                    VStack{
-                        Button {
-                           
-                            doneIntro = false
-                           
-                        }
-                    label: {
-                        Label("Make a new account",
-                              systemImage: "questionmark.circle")
-                        
-                        Spacer()
-                        Image(systemName: "chevron.right")
-                        
-                    }
-                    .padding(.horizontal,20)
-                    .padding(.vertical,14)
-                    .background(.ultraThinMaterial)
-                    .cornerRadius(15)
-                    }
-                }
-            }
-            .foregroundColor(Color("black"))
-            Spacer()
-            
-        }.padding()
-            .navigationBarTitle("Trouble signing in ?")
-          
-        
-    }
+  
     var textandsecureFields: some View{
         VStack(alignment: .center, spacing:8){
             Spacer()
@@ -420,7 +234,7 @@ struct SigninView: View {
                     
                 } label: {
                     
-                    AngularButton(title: userMessage)
+                    Text(userMessage)
                     
                         .neoButtonOffShadow(cornerRadius: 15, isTapped: false)
                         .padding(.horizontal,120)
@@ -442,7 +256,71 @@ struct SigninView: View {
 //            removal: .move(edge: .bottom)
 //        ))
     }
-    
+    var titleandDescription: some View{
+        //        VStack {
+        VStack{
+            //MARK: PROFILE PICTURE
+            //                Image(profilePictureTapped ? "image_04" : "image_03")
+            //                    .resizable(resizingMode: .stretch)
+            //                    .aspectRatio(contentMode: .fill)
+            //                    .font(.body)
+            //                    .rotationEffect(.degrees(profilePictureTapped ? 360 : 0))
+            //                    .animation(.spring(), value: profilePictureTapped)
+            //
+            //            }.frame(width:  90, height:  90)
+            //                .background(.ultraThinMaterial)
+            //                .background(Circle().fill(.blue).blur(radius: 20))
+            //                .cornerRadius(80)
+            //                .background(
+            //                    Circle()
+            //                        .fill(.ultraThinMaterial)
+            //                        .padding(-0.5)
+            //                )
+            //                .onTapGesture {
+            //                    withAnimation(.easeInOut(duration: 23)){
+            //                        profilePictureTapped.toggle()
+            //                    }
+            //                }
+            
+            //MARK: SIGN IN MESSAGE AND DESCRIPTION
+            //            Text(messageTitle)
+            //                .font(.title)
+            //                .foregroundColor(Color("black"))
+            //                .lineLimit(2)
+            
+            if !infoTapped {
+                VStack {
+                    //  Text(messageDescription)
+                    GradientText(text: messageDescription, gradient: [Color("black"), Color("black"), .purple])
+                        .font(.subheadline)
+                        .multilineTextAlignment(.center)
+                        .padding()
+                    //                        .background(
+                    //                            Rectangle()
+                    //                                .background(.ultraThinMaterial)
+                    //                                .opacity(0.10)
+                    //
+                    //                        )
+                    //                        .background(Circle()
+                    //                                        .fill(.purple.opacity(0.5))
+                    //                                        .blur(radius: 33)
+                    //                                        .offset(x:90, y:98)
+                    //                                        .frame(width: 266, height: 266)
+                    //                        )
+                    //        .cornerRadius(20)
+                        .onTapGesture {
+                            isPasswordFocused = false
+                            isEmailFocused = false
+                        }
+                        .offset(x:animate ? -390 : !animate ? 0 : 0)
+                        .animation(.spring(), value: animate)
+                }
+                
+                
+            }
+            
+        }
+    }
     func userTyping(){
         infoTapped = false
     }
@@ -498,66 +376,7 @@ struct SigninView: View {
       
         if infoTapped{
             infoPressed()
-        } else {
-            Auth.auth().signIn(withEmail: text, password: password) { (result, error) in
-                if error != nil {
-                    
-                    //if the auth is unsuccessful
-                    UserDefaults.standard.set(false, forKey: "signedIn")
-                    self.alertMessage = error?.localizedDescription ?? ""
-                    userMessage = "There was an error!"
-                    //                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    //                    userMessage = "\(error?.localizedDescription ?? "")"
-                    //                }
-                    
-                } else {
-                    let db = Firestore.firestore()
-                    let user = Auth.auth().currentUser
-                    // Set the data to update
-                    
-                    db.collection("users").whereField("email", isEqualTo: user?.email ?? "")
-                        .getDocuments() { (querySnapshot, error) in
-                            if error != nil {
-                                
-                            } else {
-                                for document in querySnapshot!.documents {
-                                    db.collection("users").document("\(document.documentID)").setData(["online": true], merge: true) { error in
-                                        
-                                        if error == nil {
-                                            
-                                            
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    
-                    //if the auth is not successful
-                    userMessage = "Checking info..."
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        userMessage = "Successful..."
-                        vibrate()
-                    }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                        userMessage = "Signing you in..."
-                        vibrate()
-                        
-                    }
-                    
-                    
-                    // Logs the user in then dismisses the model
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                        selected = 0
-                        self.signIn = true
-                        UserDefaults.standard.set(true, forKey: "signedIn")
-                        self.text = "\(signIn)"
-                        self.password = ""
-                        userMessage = "Sign in"
-                        
-                    }
-                }
-            }
-        }
+        } 
         
         
         
@@ -576,228 +395,6 @@ struct SigninView_Previews: PreviewProvider {
     }
 }
 
-// MARK: the help struct
-struct helpwithSignin: View {
-    @Environment(\.presentationMode) var presentationMode
-    @AppStorage("signedIn") var signIn = false
-    @Binding var doneIntro : Bool
-    @State var question = 1
-    @State var backgroundColor = "Background"
-    @State var background = "Blob 1"
-    @State var icon = "person.circle"
-    @State var titleMessage = "Verification"
-    @State var titleDescription = "If you don’t see an option for where to send a code or you no longer have access to any of the verification options shown, you won't be able to reset your password this way. Remember to check your email when signing up for a verification code. Yes even in your junk folder. You can also request a new verification email below."
-    @State var askText = "Email"
-    @State var text = ""
-    @State var userMessage = "Submit"
-    
-    @State var askSecure = "Secure"
-    @State var secureText = ""
-    @State var showalltextFields = false
-    @State var showtextSubmit = true
-    @State var showsecureSubmit = true
-    @FocusState var isEmailFocused: Bool
-    @State var showButton = true
-    
-    
-    
-    var body: some View {
-        
-        VStack{
-            iconTitleMessage
-            Spacer()
-            
-            Divider()
-            ZStack {
-                LottieView(filename: "birds" ,loop: true)
-                    .frame(width: 399)
-                alltextFields
-                    .padding(.vertical,5)
-                    .padding(.horizontal,5)
-            }
-            
-            if showButton {
-                Button {
-                    submit()
-                } label: {
-                    AngularButton(title: userMessage)
-                        .padding(.horizontal,90)
-                        .padding(.top, 20)
-                }
-            }
-            
-            
-        } .padding(20)
-            .background(
-                
-                Image("ob7")
-                    .resizable(resizingMode: .stretch)
-                    .aspectRatio(contentMode: .fill)
-                    .offset(x:UIScreen.main.bounds.width * 0.99)
-                    .blur(radius: 17)
-                
-                    .padding()
-                    .edgesIgnoringSafeArea(.all) )
-            .statusBar(hidden: false)
-            .background(Color(backgroundColor).edgesIgnoringSafeArea(.vertical))
-            .onTapGesture{hidekeyboard()}
-        
-        
-            .navigationBarBackButtonHidden(false)
-        
-            .onAppear {
-                method()
-            }
-    }
-    
-    var iconTitleMessage: some View {
-        VStack(spacing:10){
-            VStack(spacing:10) {
-                Image(systemName: icon)
-                    .font(.title2)
-                    .foregroundStyle(.secondary)
-                    .padding(10)
-                    .background(.ultraThinMaterial)
-                    .cornerRadius(30)
-                
-                
-                Text(titleMessage)
-                    .font(.title2)
-                    .fontWeight(.regular)
-                    .foregroundColor(Color("black"))
-                    .padding(.vertical, 10)
-                    .padding(.horizontal, 19)
-                    .background(.ultraThinMaterial)
-                    .cornerRadius(25)
-                    .onTapGesture {
-                        //presentationMode.wrappedValue.dismiss()
-                        hidekeyboard()
-                        
-                    }
-                
-            }
-            Divider()
-            Text(titleDescription)
-                .font(.subheadline)
-                .padding(18)
-                .background(.ultraThinMaterial)
-                .cornerRadius(25)
-                .multilineTextAlignment(.center)
-        }.padding(.top, -80)
-            .onTapGesture {
-                hidekeyboard()
-            }
-        
-        
-    }
-    var alltextFields: some View {
-        VStack{
-            
-            Group{
-                if showtextSubmit{
-                    TextField(askText, text: $text)
-                        .keyboardType(.default)
-                        .autocapitalization(.none)
-                        .disableAutocorrection(true)
-                        .customField(icon: "envelope.open.fill")
-                        .focused($isEmailFocused)
-                        .onTapGesture {
-                            userMessage = "Submit"
-                            vibrate()
-                        }
-                        .onChange(of: text) { text in
-                            userMessage = "Submit"
-                        }
-                }
-                
-                
-                if showsecureSubmit{
-                    SecureField(askSecure, text: $secureText)
-                        .keyboardType(.default)
-                        .autocapitalization(.none)
-                        .disableAutocorrection(true)
-                        .customField(icon: "key")
-                        .focused($isEmailFocused)
-                        .onTapGesture {
-                            userMessage = "Submit"
-                            vibrate()
-                        }
-                        .onChange(of: secureText) { secureText in
-                            userMessage = "Submit"
-                        }
-                }
-                
-            }
-            Spacer()
-            
-            
-        }
-    }
-    func hidekeyboard(){
-        isEmailFocused = false
-    }
-    func method(){
-        vibrate()
-        
-        if question == 1 || question == 2 || question == 3 || question == 4 {
-            
-            showsecureSubmit = false
-            
-        }
-        
-        if question == 1{
-            
-            
-        }
-        if question == 2{
-            
-            showtextSubmit = true
-            
-            
-        }
-        if question == 3{
-            
-            
-        }
-        if question == 4{
-            
-            showtextSubmit = false
-            showButton = true
-            
-            
-        }
-        
-    }
-    func submit(){
-        vibrate()
-        if question == 1 || question == 2 || question == 3  {
-            
-            if text.isEmpty || !text.contains("@") || !text.contains("."){
-                userMessage = "Retype email"
-            }else {
-                userMessage = "Sending email..."
-                userMessage = "Email sent"
-            }
-            
-        } else if question == 4 {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                
-                userMessage = "Let's GO!"
-                UserDefaults.standard.set(true, forKey: "doneIntro")
-                signIn = false
-                doneIntro = false
-                vibrate()
-            }
-            userMessage = "Loading..."
-            
-        }
-        
-    }
-    func vibrate() {
-        let impactMed = UIImpactFeedbackGenerator(style: .light)
-        impactMed.impactOccurred()
-    }
-}
 
 
 

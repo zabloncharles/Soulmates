@@ -22,6 +22,7 @@ struct GetImageAndUrl: View {
                         image!
                             .resizable()
                             .aspectRatio(contentMode: .fill)
+                            .frame(maxHeight:500)
                             .onAppear{
                                     loaded = true
                             }

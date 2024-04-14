@@ -69,7 +69,7 @@ struct MessageDetailView: View {
                 Image(systemName: "chevron.left")
                     .font(.title)
                     .foregroundColor(backButtonTapped ? .clear : Color("black"))
-//                    .neoButton(isToggle: false, perform: {
+//                    neoButton(isToggle: false, shadow: false) {
 //                        //go back to messages view
 //                        backButtonTapped = true
 //                        presentationMode.wrappedValue.dismiss()
@@ -85,9 +85,9 @@ struct MessageDetailView: View {
                 //  ImageViewer(url: "")
                 GetImageAndUrl(url:log.avatar, loaded: .constant(true), imageUrl: .constant(""))
                     .cornerRadius(80)
-                    .neoButton(isToggle: false, perform: {
+                    neoButton(isToggle: false, shadow: false) {
                         //go to user profile
-                    })
+                    }
                     .mask(Circle())
                     .background(
                         Circle()
