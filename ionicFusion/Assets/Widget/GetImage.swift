@@ -38,14 +38,16 @@ struct GetImageAndUrl: View {
             
         }.contentShape(Rectangle())
             
-            
+            .onChange(of: url, perform: { newValue in
+                loadImageFromAPI()
+            })
         .onAppear {
             loadImageFromAPI()
         }
     }
     
     func loadImageFromAPI() {
-        guard let url = URL(string: url.isEmpty ? "https://source.unsplash.com/random/?bikini,beautiful" : url) else {
+        guard let url = URL(string: url.isEmpty ? "https://source.unsplash.com/random/?bikini,hotgirl" : url) else {
             return
         }
         
@@ -69,3 +71,5 @@ struct GetImageAndUrl: View {
         }.resume()
     }
 }
+
+

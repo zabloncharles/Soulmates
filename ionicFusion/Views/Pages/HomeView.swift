@@ -15,7 +15,6 @@ struct HomeView: View {
     @State var profiletype = 0
     @State var userScrolledAmount = 0
     @State var contentHasScrolled = false
-    @Namespace var namespace
     @State private var pageAppeared = false
     @State var profileAppeared = false
     @State private var showProfile = false

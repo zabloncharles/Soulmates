@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ViewController: View {
-    @AppStorage("signedIn") var signedIn = false
+    @AppStorage("signedIn") var signedIn = true
    
    
     

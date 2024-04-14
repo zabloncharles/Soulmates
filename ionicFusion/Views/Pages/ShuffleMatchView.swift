@@ -946,7 +946,6 @@ struct FullProfileView: View {
             }
     }
     func typeWriter(_ text: String, completion: @escaping () -> Void) {
-        let original = typeText
         //typeText = ""
         var currentIndex = 0
         

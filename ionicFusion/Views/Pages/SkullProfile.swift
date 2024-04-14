@@ -33,7 +33,7 @@ struct SkullProfile: View {
     @State var animategirl = false
     @State var liked = false
     @State var cancelLike = false
-    @State var profileImages = ["","",""]
+    @State var profileImages = ["",""]
     @State var likedImage = ""
     @State var showMore = false
     @State var hidenav = false
@@ -119,6 +119,7 @@ struct SkullProfile: View {
                     .onTapGesture {
                         withAnimation(.spring()) {
                             liked = false
+                            sendMessageFocused = false
                         }
                     }
                     .ignoresSafeArea()
@@ -636,25 +637,16 @@ struct SkullProfile: View {
                        
                         
                     VStack {
-                        GetImageAndUrl(url:profileImages[0], loaded: .constant(true), imageUrl: $profileImages[0])
-                        
+                        GetImageAndUrl(url:"", loaded: .constant(true), imageUrl: $profileImages[0])
                             .frame(width:UIScreen.main.bounds.width, height: 400)
-                        
                             .cornerRadius(0)
-                           
                             .neoDoubleTapButton(isToggle: false, perform: {
                                 //when first image is clicked
-                                liked = true
-                                likedImage = profileImages[1]
-                                
+                                likedImage = profileImages[0]
+                                    liked = true
                             })
                         
                         VStack {
-                            
-                            
-                            
-                            
-                            
                             HStack {
                                 HStack(spacing:4) {
                                     Text(profile.firstname)
@@ -666,9 +658,7 @@ struct SkullProfile: View {
                                 }
                                 
                                 Text("2d")
-                                
                                     .font(.callout)
-                                
                                 Spacer()
                                 Image(systemName: "ellipsis")
                             }.padding(.trailing,20)
@@ -714,7 +704,7 @@ struct SkullProfile: View {
                                 .frame(width:UIScreen.main.bounds.width, height: 400)
                             
                                 .cornerRadius(0)
-                            
+//
                                 .neoDoubleTapButton(isToggle: false, perform: {
                                     //when first image is clicked
                                     liked = true
@@ -1008,11 +998,13 @@ struct SkullProfile: View {
             VStack {
                 ZStack{
                     VStack{
-                        Color.black.opacity(0.25)
+                        Color("offwhite")
                     }
-                    GetImageAndUrl(url:"", loaded: .constant(true), imageUrl: .constant(""))
-                    // .matchedGeometryEffect(id: profile.avatar, in: namespace)
-                       
+                    if liked {
+                        GetImageAndUrl(url:likedImage, loaded: .constant(true), imageUrl: .constant(""))
+//
+                         
+                    }
                     
                     
                 }
@@ -1188,7 +1180,7 @@ struct SkullProfile: View {
             }
     }
     func typeWriter(_ text: String, completion: @escaping () -> Void) {
-        let original = typeText
+      
         //typeText = ""
         var currentIndex = 0
         
