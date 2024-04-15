@@ -7,18 +7,229 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7E52D23886849852767335C4 /* Pods_Soul25.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AE65DE2F6550D2F9B0273A2 /* Pods_Soul25.framework */; };
+		F71110312BCC8B880045A36B /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F71110302BCC8B880045A36B /* BackgroundView.swift */; };
+		F71110332BCC8BAF0045A36B /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F71110322BCC8BAF0045A36B /* LottieView.swift */; };
+		F7C37D1F2BCC8C0E002E6B25 /* HomeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C37D1E2BCC8C0E002E6B25 /* HomeCard.swift */; };
+		F7C37D212BCC8C87002E6B25 /* GetImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C37D202BCC8C87002E6B25 /* GetImage.swift */; };
+		F7C37D232BCC8D52002E6B25 /* LikesPill.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C37D222BCC8D52002E6B25 /* LikesPill.swift */; };
+		F7C37D252BCC8D62002E6B25 /* NeoModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C37D242BCC8D62002E6B25 /* NeoModifier.swift */; };
+		F7C37D272BCC8E13002E6B25 /* MessageDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C37D262BCC8E13002E6B25 /* MessageDetailView.swift */; };
+		F7C37D292BCC8E19002E6B25 /* MessageCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C37D282BCC8E19002E6B25 /* MessageCard.swift */; };
+		F7C37D2B2BCC8E38002E6B25 /* CircularView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C37D2A2BCC8E38002E6B25 /* CircularView.swift */; };
+		F7C37D2D2BCC8E4D002E6B25 /* PostCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C37D2C2BCC8E4D002E6B25 /* PostCard.swift */; };
+		F7C37D2F2BCC8E7C002E6B25 /* MessageBubblesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C37D2E2BCC8E7C002E6B25 /* MessageBubblesView.swift */; };
+		F7C37D312BCC8EBA002E6B25 /* OffWhiteButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C37D302BCC8EBA002E6B25 /* OffWhiteButtonModifier.swift */; };
+		F7C37D332BCC8F9B002E6B25 /* TextModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C37D322BCC8F9B002E6B25 /* TextModifiers.swift */; };
+		F7C37D352BCC9144002E6B25 /* SkullProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C37D342BCC9144002E6B25 /* SkullProfile.swift */; };
+		F7C37D372BCC922B002E6B25 /* TextWriterAppear.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C37D362BCC922B002E6B25 /* TextWriterAppear.swift */; };
+		F7C37D392BCC937B002E6B25 /* MatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C37D382BCC937B002E6B25 /* MatchView.swift */; };
+		F7C37D3B2BCC94DA002E6B25 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C37D3A2BCC94DA002E6B25 /* ColorExtension.swift */; };
+		F7C37D3D2BCC9508002E6B25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7C37D3C2BCC9508002E6B25 /* Assets.xcassets */; };
+		F7C37D402BCC97C6002E6B25 /* LikesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C37D3F2BCC97C6002E6B25 /* LikesView.swift */; };
+		F7C37D422BCCA42C002E6B25 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C37D412BCCA42C002E6B25 /* HomeView.swift */; };
+		F7C37D442BCCA4A4002E6B25 /* ExploreMenuRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C37D432BCCA4A4002E6B25 /* ExploreMenuRow.swift */; };
+		F7C37D462BCCA7F6002E6B25 /* ShimmerText.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C37D452BCCA7F6002E6B25 /* ShimmerText.swift */; };
+		F7C37D482BCCB085002E6B25 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C37D472BCCB085002E6B25 /* ProfileView.swift */; };
 		F7FF11EE2BCC72D800880D0A /* Soul25App.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FF11ED2BCC72D800880D0A /* Soul25App.swift */; };
-		F7FF11F02BCC72D800880D0A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FF11EF2BCC72D800880D0A /* ContentView.swift */; };
-		F7FF11F22BCC72DA00880D0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7FF11F12BCC72DA00880D0A /* Assets.xcassets */; };
 		F7FF11F52BCC72DA00880D0A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7FF11F42BCC72DA00880D0A /* Preview Assets.xcassets */; };
+		F7FF12132BCC745400880D0A /* PreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FF12012BCC745300880D0A /* PreferenceKey.swift */; };
+		F7FF12182BCC745400880D0A /* MessagesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FF12062BCC745300880D0A /* MessagesModel.swift */; };
+		F7FF121F2BCC745400880D0A /* AppUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FF120D2BCC745300880D0A /* AppUserData.swift */; };
+		F7FF130A2BCC746A00880D0A /* woman3.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF125A2BCC746500880D0A /* woman3.json */; };
+		F7FF130B2BCC746A00880D0A /* girlwaving.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF125B2BCC746500880D0A /* girlwaving.json */; };
+		F7FF130C2BCC746A00880D0A /* paperplaneloading.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF125C2BCC746500880D0A /* paperplaneloading.json */; };
+		F7FF130D2BCC746A00880D0A /* girlholdingphoneoninsta.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF125D2BCC746500880D0A /* girlholdingphoneoninsta.json */; };
+		F7FF130E2BCC746A00880D0A /* sadheart.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF125E2BCC746500880D0A /* sadheart.json */; };
+		F7FF130F2BCC746A00880D0A /* likethumb.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF125F2BCC746600880D0A /* likethumb.json */; };
+		F7FF13102BCC746A00880D0A /* birth.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12602BCC746600880D0A /* birth.json */; };
+		F7FF13112BCC746A00880D0A /* error.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12612BCC746600880D0A /* error.json */; };
+		F7FF13122BCC746A00880D0A /* study.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12622BCC746600880D0A /* study.json */; };
+		F7FF13132BCC746A00880D0A /* error1.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12632BCC746600880D0A /* error1.json */; };
+		F7FF13142BCC746A00880D0A /* ergirl.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12642BCC746600880D0A /* ergirl.json */; };
+		F7FF13152BCC746A00880D0A /* lock.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12652BCC746600880D0A /* lock.json */; };
+		F7FF13162BCC746A00880D0A /* nomorecards.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12662BCC746600880D0A /* nomorecards.json */; };
+		F7FF13172BCC746A00880D0A /* droplet.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12672BCC746600880D0A /* droplet.json */; };
+		F7FF13182BCC746A00880D0A /* loadingimage1.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12682BCC746600880D0A /* loadingimage1.json */; };
+		F7FF13192BCC746A00880D0A /* telescope.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12692BCC746600880D0A /* telescope.json */; };
+		F7FF131A2BCC746A00880D0A /* confetti.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF126A2BCC746600880D0A /* confetti.json */; };
+		F7FF131B2BCC746A00880D0A /* girlpic1dark.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF126B2BCC746600880D0A /* girlpic1dark.json */; };
+		F7FF131C2BCC746A00880D0A /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF126C2BCC746600880D0A /* loading.json */; };
+		F7FF131D2BCC746A00880D0A /* heartbeat.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF126D2BCC746600880D0A /* heartbeat.json */; };
+		F7FF131E2BCC746A00880D0A /* success.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF126E2BCC746600880D0A /* success.json */; };
+		F7FF131F2BCC746A00880D0A /* girlpic1.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF126F2BCC746600880D0A /* girlpic1.json */; };
+		F7FF13202BCC746A00880D0A /* woman2.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12702BCC746600880D0A /* woman2.json */; };
+		F7FF13212BCC746A00880D0A /* birds.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12712BCC746600880D0A /* birds.json */; };
+		F7FF13222BCC746A00880D0A /* logged.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12722BCC746600880D0A /* logged.json */; };
+		F7FF13232BCC746A00880D0A /* earth.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12732BCC746600880D0A /* earth.json */; };
+		F7FF13242BCC746A00880D0A /* heartbroken.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12742BCC746600880D0A /* heartbroken.json */; };
+		F7FF13252BCC746A00880D0A /* 300loveletter.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12752BCC746600880D0A /* 300loveletter.json */; };
+		F7FF13262BCC746A00880D0A /* girlcheckinginfo.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12762BCC746600880D0A /* girlcheckinginfo.json */; };
+		F7FF13272BCC746A00880D0A /* flyingpaperbirdchasinglove.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12772BCC746600880D0A /* flyingpaperbirdchasinglove.json */; };
+		F7FF13282BCC746A00880D0A /* womandepressed.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12782BCC746600880D0A /* womandepressed.json */; };
+		F7FF13292BCC746A00880D0A /* doctor.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12792BCC746600880D0A /* doctor.json */; };
+		F7FF132A2BCC746A00880D0A /* girlsitting.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF127A2BCC746600880D0A /* girlsitting.json */; };
+		F7FF132B2BCC746A00880D0A /* girlpic2dark.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF127B2BCC746600880D0A /* girlpic2dark.json */; };
+		F7FF132C2BCC746A00880D0A /* dislikebrokeheart.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF127C2BCC746600880D0A /* dislikebrokeheart.json */; };
+		F7FF132D2BCC746A00880D0A /* searchingearth2.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF127D2BCC746600880D0A /* searchingearth2.json */; };
+		F7FF132E2BCC746A00880D0A /* monito.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF127E2BCC746600880D0A /* monito.json */; };
+		F7FF132F2BCC746A00880D0A /* card.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF127F2BCC746600880D0A /* card.json */; };
+		F7FF13302BCC746A00880D0A /* redpoof.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12802BCC746600880D0A /* redpoof.json */; };
+		F7FF13312BCC746A00880D0A /* editcard.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12812BCC746600880D0A /* editcard.json */; };
+		F7FF13322BCC746A00880D0A /* writing.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12822BCC746600880D0A /* writing.json */; };
+		F7FF13332BCC746A00880D0A /* sign.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12832BCC746600880D0A /* sign.json */; };
+		F7FF13342BCC746A00880D0A /* notification.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12842BCC746600880D0A /* notification.json */; };
+		F7FF13352BCC746A00880D0A /* girllikingstuff.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12852BCC746600880D0A /* girllikingstuff.json */; };
+		F7FF13362BCC746A00880D0A /* searchingearth.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12862BCC746600880D0A /* searchingearth.json */; };
+		F7FF13372BCC746A00880D0A /* woman1.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12872BCC746600880D0A /* woman1.json */; };
+		F7FF13382BCC746A00880D0A /* girlpic2.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12882BCC746600880D0A /* girlpic2.json */; };
+		F7FF13392BCC746A00880D0A /* eyesrainbow.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12892BCC746600880D0A /* eyesrainbow.json */; };
+		F7FF133A2BCC746A00880D0A /* error2.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF128A2BCC746600880D0A /* error2.json */; };
+		F7FF133B2BCC746A00880D0A /* loveflying.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF128B2BCC746600880D0A /* loveflying.json */; };
+		F7FF133C2BCC746A00880D0A /* setComplete.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF128C2BCC746600880D0A /* setComplete.json */; };
+		F7FF133D2BCC746A00880D0A /* workbuildings.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF128D2BCC746600880D0A /* workbuildings.json */; };
+		F7FF133E2BCC746A00880D0A /* error3.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF128E2BCC746600880D0A /* error3.json */; };
+		F7FF133F2BCC746A00880D0A /* mother.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF128F2BCC746600880D0A /* mother.json */; };
+		F7FF13402BCC746A00880D0A /* girlcheckingonly.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12902BCC746600880D0A /* girlcheckingonly.json */; };
+		F7FF13412BCC746A00880D0A /* workout.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12912BCC746600880D0A /* workout.json */; };
+		F7FF13422BCC746A00880D0A /* girlonphone.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12922BCC746600880D0A /* girlonphone.json */; };
+		F7FF13432BCC746A00880D0A /* likedapost.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12932BCC746600880D0A /* likedapost.json */; };
+		F7FF13442BCC746A00880D0A /* stars.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12942BCC746600880D0A /* stars.json */; };
+		F7FF13472BCC746A00880D0A /* BodoniFLF-Roman.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12992BCC746600880D0A /* BodoniFLF-Roman.ttf */; };
+		F7FF13482BCC746A00880D0A /* MrDafoe-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F7FF129A2BCC746600880D0A /* MrDafoe-Regular.ttf */; };
+		F7FF13492BCC746A00880D0A /* sanfrancisco.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F7FF129B2BCC746600880D0A /* sanfrancisco.ttf */; };
+		F7FF134A2BCC746A00880D0A /* minimal.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F7FF129C2BCC746600880D0A /* minimal.ttf */; };
+		F7FF134B2BCC746A00880D0A /* Aloka.otf in Resources */ = {isa = PBXBuildFile; fileRef = F7FF129D2BCC746600880D0A /* Aloka.otf */; };
+		F7FF134C2BCC746A00880D0A /* Carlotte.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F7FF129E2BCC746600880D0A /* Carlotte.ttf */; };
+		F7FF134D2BCC746A00880D0A /* Davinci.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F7FF129F2BCC746600880D0A /* Davinci.ttf */; };
+		F7FF134E2BCC746A00880D0A /* BodoniFLF-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12A02BCC746600880D0A /* BodoniFLF-Italic.ttf */; };
+		F7FF134F2BCC746A00880D0A /* Houdient.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12A12BCC746600880D0A /* Houdient.ttf */; };
+		F7FF13502BCC746A00880D0A /* Mignitte.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12A22BCC746600880D0A /* Mignitte.ttf */; };
+		F7FF13512BCC746A00880D0A /* Minimalistic Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12A32BCC746600880D0A /* Minimalistic Light.otf */; };
+		F7FF13522BCC746A00880D0A /* BodoniLean.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12A42BCC746600880D0A /* BodoniLean.ttf */; };
+		F7FF13532BCC746A00880D0A /* BodoniFancy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12A52BCC746600880D0A /* BodoniFancy.ttf */; };
+		F7FF13542BCC746A00880D0A /* FontModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FF12A62BCC746600880D0A /* FontModifier.swift */; };
+		F7FF13D02BCC74B800880D0A /* LauchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FF13A72BCC74B700880D0A /* LauchView.swift */; };
+		F7FF13D12BCC74B800880D0A /* SigninView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FF13A82BCC74B700880D0A /* SigninView.swift */; };
+		F7FF13D82BCC74B800880D0A /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FF13B12BCC74B700880D0A /* NavigationBar.swift */; };
+		F7FF13DA2BCC74B800880D0A /* MainTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FF13B32BCC74B700880D0A /* MainTab.swift */; };
+		F7FF13F12BCC74B800880D0A /* ChatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FF13CC2BCC74B700880D0A /* ChatsView.swift */; };
+		F7FF13F82BCC74C100880D0A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FF13F52BCC74C100880D0A /* ViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		46F1BCB289D8FA8D21EA6FF1 /* Pods-Soul25.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Soul25.debug.xcconfig"; path = "Target Support Files/Pods-Soul25/Pods-Soul25.debug.xcconfig"; sourceTree = "<group>"; };
+		6AE65DE2F6550D2F9B0273A2 /* Pods_Soul25.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Soul25.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A68E6CDEC6DC3FC38611AF7C /* Pods-Soul25.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Soul25.release.xcconfig"; path = "Target Support Files/Pods-Soul25/Pods-Soul25.release.xcconfig"; sourceTree = "<group>"; };
+		F71110302BCC8B880045A36B /* BackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
+		F71110322BCC8BAF0045A36B /* LottieView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
+		F7C37D1E2BCC8C0E002E6B25 /* HomeCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeCard.swift; sourceTree = "<group>"; };
+		F7C37D202BCC8C87002E6B25 /* GetImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetImage.swift; sourceTree = "<group>"; };
+		F7C37D222BCC8D52002E6B25 /* LikesPill.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikesPill.swift; sourceTree = "<group>"; };
+		F7C37D242BCC8D62002E6B25 /* NeoModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeoModifier.swift; sourceTree = "<group>"; };
+		F7C37D262BCC8E13002E6B25 /* MessageDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDetailView.swift; sourceTree = "<group>"; };
+		F7C37D282BCC8E19002E6B25 /* MessageCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCard.swift; sourceTree = "<group>"; };
+		F7C37D2A2BCC8E38002E6B25 /* CircularView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularView.swift; sourceTree = "<group>"; };
+		F7C37D2C2BCC8E4D002E6B25 /* PostCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCard.swift; sourceTree = "<group>"; };
+		F7C37D2E2BCC8E7C002E6B25 /* MessageBubblesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageBubblesView.swift; sourceTree = "<group>"; };
+		F7C37D302BCC8EBA002E6B25 /* OffWhiteButtonModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OffWhiteButtonModifier.swift; sourceTree = "<group>"; };
+		F7C37D322BCC8F9B002E6B25 /* TextModifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextModifiers.swift; sourceTree = "<group>"; };
+		F7C37D342BCC9144002E6B25 /* SkullProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkullProfile.swift; sourceTree = "<group>"; };
+		F7C37D362BCC922B002E6B25 /* TextWriterAppear.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextWriterAppear.swift; sourceTree = "<group>"; };
+		F7C37D382BCC937B002E6B25 /* MatchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchView.swift; sourceTree = "<group>"; };
+		F7C37D3A2BCC94DA002E6B25 /* ColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
+		F7C37D3C2BCC9508002E6B25 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F7C37D3E2BCC9545002E6B25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		F7C37D3F2BCC97C6002E6B25 /* LikesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikesView.swift; sourceTree = "<group>"; };
+		F7C37D412BCCA42C002E6B25 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		F7C37D432BCCA4A4002E6B25 /* ExploreMenuRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreMenuRow.swift; sourceTree = "<group>"; };
+		F7C37D452BCCA7F6002E6B25 /* ShimmerText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShimmerText.swift; sourceTree = "<group>"; };
+		F7C37D472BCCB085002E6B25 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		F7FF11EA2BCC72D800880D0A /* Soul25.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Soul25.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7FF11ED2BCC72D800880D0A /* Soul25App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Soul25App.swift; sourceTree = "<group>"; };
-		F7FF11EF2BCC72D800880D0A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		F7FF11F12BCC72DA00880D0A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F7FF11F42BCC72DA00880D0A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		F7FF12012BCC745300880D0A /* PreferenceKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferenceKey.swift; sourceTree = "<group>"; };
+		F7FF12062BCC745300880D0A /* MessagesModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesModel.swift; sourceTree = "<group>"; };
+		F7FF120D2BCC745300880D0A /* AppUserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppUserData.swift; sourceTree = "<group>"; };
+		F7FF125A2BCC746500880D0A /* woman3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = woman3.json; sourceTree = "<group>"; };
+		F7FF125B2BCC746500880D0A /* girlwaving.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = girlwaving.json; sourceTree = "<group>"; };
+		F7FF125C2BCC746500880D0A /* paperplaneloading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = paperplaneloading.json; sourceTree = "<group>"; };
+		F7FF125D2BCC746500880D0A /* girlholdingphoneoninsta.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = girlholdingphoneoninsta.json; sourceTree = "<group>"; };
+		F7FF125E2BCC746500880D0A /* sadheart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sadheart.json; sourceTree = "<group>"; };
+		F7FF125F2BCC746600880D0A /* likethumb.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = likethumb.json; sourceTree = "<group>"; };
+		F7FF12602BCC746600880D0A /* birth.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = birth.json; sourceTree = "<group>"; };
+		F7FF12612BCC746600880D0A /* error.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = error.json; sourceTree = "<group>"; };
+		F7FF12622BCC746600880D0A /* study.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = study.json; sourceTree = "<group>"; };
+		F7FF12632BCC746600880D0A /* error1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = error1.json; sourceTree = "<group>"; };
+		F7FF12642BCC746600880D0A /* ergirl.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ergirl.json; sourceTree = "<group>"; };
+		F7FF12652BCC746600880D0A /* lock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lock.json; sourceTree = "<group>"; };
+		F7FF12662BCC746600880D0A /* nomorecards.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = nomorecards.json; sourceTree = "<group>"; };
+		F7FF12672BCC746600880D0A /* droplet.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = droplet.json; sourceTree = "<group>"; };
+		F7FF12682BCC746600880D0A /* loadingimage1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loadingimage1.json; sourceTree = "<group>"; };
+		F7FF12692BCC746600880D0A /* telescope.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = telescope.json; sourceTree = "<group>"; };
+		F7FF126A2BCC746600880D0A /* confetti.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = confetti.json; sourceTree = "<group>"; };
+		F7FF126B2BCC746600880D0A /* girlpic1dark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = girlpic1dark.json; sourceTree = "<group>"; };
+		F7FF126C2BCC746600880D0A /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
+		F7FF126D2BCC746600880D0A /* heartbeat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = heartbeat.json; sourceTree = "<group>"; };
+		F7FF126E2BCC746600880D0A /* success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = success.json; sourceTree = "<group>"; };
+		F7FF126F2BCC746600880D0A /* girlpic1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = girlpic1.json; sourceTree = "<group>"; };
+		F7FF12702BCC746600880D0A /* woman2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = woman2.json; sourceTree = "<group>"; };
+		F7FF12712BCC746600880D0A /* birds.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = birds.json; sourceTree = "<group>"; };
+		F7FF12722BCC746600880D0A /* logged.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = logged.json; sourceTree = "<group>"; };
+		F7FF12732BCC746600880D0A /* earth.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = earth.json; sourceTree = "<group>"; };
+		F7FF12742BCC746600880D0A /* heartbroken.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = heartbroken.json; sourceTree = "<group>"; };
+		F7FF12752BCC746600880D0A /* 300loveletter.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 300loveletter.json; sourceTree = "<group>"; };
+		F7FF12762BCC746600880D0A /* girlcheckinginfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = girlcheckinginfo.json; sourceTree = "<group>"; };
+		F7FF12772BCC746600880D0A /* flyingpaperbirdchasinglove.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = flyingpaperbirdchasinglove.json; sourceTree = "<group>"; };
+		F7FF12782BCC746600880D0A /* womandepressed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = womandepressed.json; sourceTree = "<group>"; };
+		F7FF12792BCC746600880D0A /* doctor.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = doctor.json; sourceTree = "<group>"; };
+		F7FF127A2BCC746600880D0A /* girlsitting.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = girlsitting.json; sourceTree = "<group>"; };
+		F7FF127B2BCC746600880D0A /* girlpic2dark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = girlpic2dark.json; sourceTree = "<group>"; };
+		F7FF127C2BCC746600880D0A /* dislikebrokeheart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dislikebrokeheart.json; sourceTree = "<group>"; };
+		F7FF127D2BCC746600880D0A /* searchingearth2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = searchingearth2.json; sourceTree = "<group>"; };
+		F7FF127E2BCC746600880D0A /* monito.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = monito.json; sourceTree = "<group>"; };
+		F7FF127F2BCC746600880D0A /* card.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = card.json; sourceTree = "<group>"; };
+		F7FF12802BCC746600880D0A /* redpoof.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = redpoof.json; sourceTree = "<group>"; };
+		F7FF12812BCC746600880D0A /* editcard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = editcard.json; sourceTree = "<group>"; };
+		F7FF12822BCC746600880D0A /* writing.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = writing.json; sourceTree = "<group>"; };
+		F7FF12832BCC746600880D0A /* sign.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sign.json; sourceTree = "<group>"; };
+		F7FF12842BCC746600880D0A /* notification.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = notification.json; sourceTree = "<group>"; };
+		F7FF12852BCC746600880D0A /* girllikingstuff.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = girllikingstuff.json; sourceTree = "<group>"; };
+		F7FF12862BCC746600880D0A /* searchingearth.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = searchingearth.json; sourceTree = "<group>"; };
+		F7FF12872BCC746600880D0A /* woman1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = woman1.json; sourceTree = "<group>"; };
+		F7FF12882BCC746600880D0A /* girlpic2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = girlpic2.json; sourceTree = "<group>"; };
+		F7FF12892BCC746600880D0A /* eyesrainbow.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = eyesrainbow.json; sourceTree = "<group>"; };
+		F7FF128A2BCC746600880D0A /* error2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = error2.json; sourceTree = "<group>"; };
+		F7FF128B2BCC746600880D0A /* loveflying.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loveflying.json; sourceTree = "<group>"; };
+		F7FF128C2BCC746600880D0A /* setComplete.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = setComplete.json; sourceTree = "<group>"; };
+		F7FF128D2BCC746600880D0A /* workbuildings.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = workbuildings.json; sourceTree = "<group>"; };
+		F7FF128E2BCC746600880D0A /* error3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = error3.json; sourceTree = "<group>"; };
+		F7FF128F2BCC746600880D0A /* mother.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mother.json; sourceTree = "<group>"; };
+		F7FF12902BCC746600880D0A /* girlcheckingonly.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = girlcheckingonly.json; sourceTree = "<group>"; };
+		F7FF12912BCC746600880D0A /* workout.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = workout.json; sourceTree = "<group>"; };
+		F7FF12922BCC746600880D0A /* girlonphone.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = girlonphone.json; sourceTree = "<group>"; };
+		F7FF12932BCC746600880D0A /* likedapost.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = likedapost.json; sourceTree = "<group>"; };
+		F7FF12942BCC746600880D0A /* stars.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = stars.json; sourceTree = "<group>"; };
+		F7FF12992BCC746600880D0A /* BodoniFLF-Roman.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BodoniFLF-Roman.ttf"; sourceTree = "<group>"; };
+		F7FF129A2BCC746600880D0A /* MrDafoe-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MrDafoe-Regular.ttf"; sourceTree = "<group>"; };
+		F7FF129B2BCC746600880D0A /* sanfrancisco.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sanfrancisco.ttf; sourceTree = "<group>"; };
+		F7FF129C2BCC746600880D0A /* minimal.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = minimal.ttf; sourceTree = "<group>"; };
+		F7FF129D2BCC746600880D0A /* Aloka.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Aloka.otf; sourceTree = "<group>"; };
+		F7FF129E2BCC746600880D0A /* Carlotte.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Carlotte.ttf; sourceTree = "<group>"; };
+		F7FF129F2BCC746600880D0A /* Davinci.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Davinci.ttf; sourceTree = "<group>"; };
+		F7FF12A02BCC746600880D0A /* BodoniFLF-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BodoniFLF-Italic.ttf"; sourceTree = "<group>"; };
+		F7FF12A12BCC746600880D0A /* Houdient.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Houdient.ttf; sourceTree = "<group>"; };
+		F7FF12A22BCC746600880D0A /* Mignitte.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Mignitte.ttf; sourceTree = "<group>"; };
+		F7FF12A32BCC746600880D0A /* Minimalistic Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Minimalistic Light.otf"; sourceTree = "<group>"; };
+		F7FF12A42BCC746600880D0A /* BodoniLean.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BodoniLean.ttf; sourceTree = "<group>"; };
+		F7FF12A52BCC746600880D0A /* BodoniFancy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BodoniFancy.ttf; sourceTree = "<group>"; };
+		F7FF12A62BCC746600880D0A /* FontModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontModifier.swift; sourceTree = "<group>"; };
+		F7FF13A72BCC74B700880D0A /* LauchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LauchView.swift; sourceTree = "<group>"; };
+		F7FF13A82BCC74B700880D0A /* SigninView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigninView.swift; sourceTree = "<group>"; };
+		F7FF13B12BCC74B700880D0A /* NavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
+		F7FF13B32BCC74B700880D0A /* MainTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTab.swift; sourceTree = "<group>"; };
+		F7FF13CC2BCC74B700880D0A /* ChatsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatsView.swift; sourceTree = "<group>"; };
+		F7FF13F52BCC74C100880D0A /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,17 +237,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E52D23886849852767335C4 /* Pods_Soul25.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		92C95327F2ED9A9B170EC683 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				46F1BCB289D8FA8D21EA6FF1 /* Pods-Soul25.debug.xcconfig */,
+				A68E6CDEC6DC3FC38611AF7C /* Pods-Soul25.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		E9611084717B8B33B8F37C6B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6AE65DE2F6550D2F9B0273A2 /* Pods_Soul25.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		F7FF11E12BCC72D800880D0A = {
 			isa = PBXGroup;
 			children = (
 				F7FF11EC2BCC72D800880D0A /* Soul25 */,
 				F7FF11EB2BCC72D800880D0A /* Products */,
+				92C95327F2ED9A9B170EC683 /* Pods */,
+				E9611084717B8B33B8F37C6B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -51,9 +282,12 @@
 		F7FF11EC2BCC72D800880D0A /* Soul25 */ = {
 			isa = PBXGroup;
 			children = (
+				F7C37D3E2BCC9545002E6B25 /* Info.plist */,
 				F7FF11ED2BCC72D800880D0A /* Soul25App.swift */,
-				F7FF11EF2BCC72D800880D0A /* ContentView.swift */,
-				F7FF11F12BCC72DA00880D0A /* Assets.xcassets */,
+				F7FF13F52BCC74C100880D0A /* ViewController.swift */,
+				F7FF13A32BCC74B700880D0A /* Views */,
+				F7FF12222BCC746500880D0A /* Assets */,
+				F7FF11FD2BCC745300880D0A /* Models */,
 				F7FF11F32BCC72DA00880D0A /* Preview Content */,
 			);
 			path = Soul25;
@@ -67,6 +301,179 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		F7FF11FD2BCC745300880D0A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F7FF12012BCC745300880D0A /* PreferenceKey.swift */,
+				F7FF12062BCC745300880D0A /* MessagesModel.swift */,
+				F7FF120D2BCC745300880D0A /* AppUserData.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		F7FF12222BCC746500880D0A /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				F71110302BCC8B880045A36B /* BackgroundView.swift */,
+				F71110322BCC8BAF0045A36B /* LottieView.swift */,
+				F7C37D1E2BCC8C0E002E6B25 /* HomeCard.swift */,
+				F7C37D202BCC8C87002E6B25 /* GetImage.swift */,
+				F7C37D222BCC8D52002E6B25 /* LikesPill.swift */,
+				F7C37D242BCC8D62002E6B25 /* NeoModifier.swift */,
+				F7C37D262BCC8E13002E6B25 /* MessageDetailView.swift */,
+				F7C37D282BCC8E19002E6B25 /* MessageCard.swift */,
+				F7C37D2E2BCC8E7C002E6B25 /* MessageBubblesView.swift */,
+				F7C37D2A2BCC8E38002E6B25 /* CircularView.swift */,
+				F7C37D2C2BCC8E4D002E6B25 /* PostCard.swift */,
+				F7C37D302BCC8EBA002E6B25 /* OffWhiteButtonModifier.swift */,
+				F7C37D322BCC8F9B002E6B25 /* TextModifiers.swift */,
+				F7C37D362BCC922B002E6B25 /* TextWriterAppear.swift */,
+				F7C37D452BCCA7F6002E6B25 /* ShimmerText.swift */,
+				F7C37D3A2BCC94DA002E6B25 /* ColorExtension.swift */,
+				F7C37D432BCCA4A4002E6B25 /* ExploreMenuRow.swift */,
+				F7C37D3C2BCC9508002E6B25 /* Assets.xcassets */,
+				F7FF12592BCC746500880D0A /* Lottie */,
+				F7FF12982BCC746600880D0A /* Fonts */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		F7FF12592BCC746500880D0A /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				F7FF125A2BCC746500880D0A /* woman3.json */,
+				F7FF125B2BCC746500880D0A /* girlwaving.json */,
+				F7FF125C2BCC746500880D0A /* paperplaneloading.json */,
+				F7FF125D2BCC746500880D0A /* girlholdingphoneoninsta.json */,
+				F7FF125E2BCC746500880D0A /* sadheart.json */,
+				F7FF125F2BCC746600880D0A /* likethumb.json */,
+				F7FF12602BCC746600880D0A /* birth.json */,
+				F7FF12612BCC746600880D0A /* error.json */,
+				F7FF12622BCC746600880D0A /* study.json */,
+				F7FF12632BCC746600880D0A /* error1.json */,
+				F7FF12642BCC746600880D0A /* ergirl.json */,
+				F7FF12652BCC746600880D0A /* lock.json */,
+				F7FF12662BCC746600880D0A /* nomorecards.json */,
+				F7FF12672BCC746600880D0A /* droplet.json */,
+				F7FF12682BCC746600880D0A /* loadingimage1.json */,
+				F7FF12692BCC746600880D0A /* telescope.json */,
+				F7FF126A2BCC746600880D0A /* confetti.json */,
+				F7FF126B2BCC746600880D0A /* girlpic1dark.json */,
+				F7FF126C2BCC746600880D0A /* loading.json */,
+				F7FF126D2BCC746600880D0A /* heartbeat.json */,
+				F7FF126E2BCC746600880D0A /* success.json */,
+				F7FF126F2BCC746600880D0A /* girlpic1.json */,
+				F7FF12702BCC746600880D0A /* woman2.json */,
+				F7FF12712BCC746600880D0A /* birds.json */,
+				F7FF12722BCC746600880D0A /* logged.json */,
+				F7FF12732BCC746600880D0A /* earth.json */,
+				F7FF12742BCC746600880D0A /* heartbroken.json */,
+				F7FF12752BCC746600880D0A /* 300loveletter.json */,
+				F7FF12762BCC746600880D0A /* girlcheckinginfo.json */,
+				F7FF12772BCC746600880D0A /* flyingpaperbirdchasinglove.json */,
+				F7FF12782BCC746600880D0A /* womandepressed.json */,
+				F7FF12792BCC746600880D0A /* doctor.json */,
+				F7FF127A2BCC746600880D0A /* girlsitting.json */,
+				F7FF127B2BCC746600880D0A /* girlpic2dark.json */,
+				F7FF127C2BCC746600880D0A /* dislikebrokeheart.json */,
+				F7FF127D2BCC746600880D0A /* searchingearth2.json */,
+				F7FF127E2BCC746600880D0A /* monito.json */,
+				F7FF127F2BCC746600880D0A /* card.json */,
+				F7FF12802BCC746600880D0A /* redpoof.json */,
+				F7FF12812BCC746600880D0A /* editcard.json */,
+				F7FF12822BCC746600880D0A /* writing.json */,
+				F7FF12832BCC746600880D0A /* sign.json */,
+				F7FF12842BCC746600880D0A /* notification.json */,
+				F7FF12852BCC746600880D0A /* girllikingstuff.json */,
+				F7FF12862BCC746600880D0A /* searchingearth.json */,
+				F7FF12872BCC746600880D0A /* woman1.json */,
+				F7FF12882BCC746600880D0A /* girlpic2.json */,
+				F7FF12892BCC746600880D0A /* eyesrainbow.json */,
+				F7FF128A2BCC746600880D0A /* error2.json */,
+				F7FF128B2BCC746600880D0A /* loveflying.json */,
+				F7FF128C2BCC746600880D0A /* setComplete.json */,
+				F7FF128D2BCC746600880D0A /* workbuildings.json */,
+				F7FF128E2BCC746600880D0A /* error3.json */,
+				F7FF128F2BCC746600880D0A /* mother.json */,
+				F7FF12902BCC746600880D0A /* girlcheckingonly.json */,
+				F7FF12912BCC746600880D0A /* workout.json */,
+				F7FF12922BCC746600880D0A /* girlonphone.json */,
+				F7FF12932BCC746600880D0A /* likedapost.json */,
+				F7FF12942BCC746600880D0A /* stars.json */,
+			);
+			path = Lottie;
+			sourceTree = "<group>";
+		};
+		F7FF12982BCC746600880D0A /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				F7FF12992BCC746600880D0A /* BodoniFLF-Roman.ttf */,
+				F7FF129A2BCC746600880D0A /* MrDafoe-Regular.ttf */,
+				F7FF129B2BCC746600880D0A /* sanfrancisco.ttf */,
+				F7FF129C2BCC746600880D0A /* minimal.ttf */,
+				F7FF129D2BCC746600880D0A /* Aloka.otf */,
+				F7FF129E2BCC746600880D0A /* Carlotte.ttf */,
+				F7FF129F2BCC746600880D0A /* Davinci.ttf */,
+				F7FF12A02BCC746600880D0A /* BodoniFLF-Italic.ttf */,
+				F7FF12A12BCC746600880D0A /* Houdient.ttf */,
+				F7FF12A22BCC746600880D0A /* Mignitte.ttf */,
+				F7FF12A32BCC746600880D0A /* Minimalistic Light.otf */,
+				F7FF12A42BCC746600880D0A /* BodoniLean.ttf */,
+				F7FF12A52BCC746600880D0A /* BodoniFancy.ttf */,
+				F7FF12A62BCC746600880D0A /* FontModifier.swift */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		F7FF13A32BCC74B700880D0A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F7FF13A62BCC74B700880D0A /* BeforeLogin */,
+				F7FF13B02BCC74B700880D0A /* TopView */,
+				F7FF13B42BCC74B700880D0A /* Detail */,
+				F7FF13C12BCC74B700880D0A /* Views */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		F7FF13A62BCC74B700880D0A /* BeforeLogin */ = {
+			isa = PBXGroup;
+			children = (
+				F7FF13A72BCC74B700880D0A /* LauchView.swift */,
+				F7FF13A82BCC74B700880D0A /* SigninView.swift */,
+			);
+			path = BeforeLogin;
+			sourceTree = "<group>";
+		};
+		F7FF13B02BCC74B700880D0A /* TopView */ = {
+			isa = PBXGroup;
+			children = (
+				F7FF13B12BCC74B700880D0A /* NavigationBar.swift */,
+				F7FF13B32BCC74B700880D0A /* MainTab.swift */,
+			);
+			path = TopView;
+			sourceTree = "<group>";
+		};
+		F7FF13B42BCC74B700880D0A /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		F7FF13C12BCC74B700880D0A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F7C37D3F2BCC97C6002E6B25 /* LikesView.swift */,
+				F7C37D412BCCA42C002E6B25 /* HomeView.swift */,
+				F7FF13CC2BCC74B700880D0A /* ChatsView.swift */,
+				F7C37D342BCC9144002E6B25 /* SkullProfile.swift */,
+				F7C37D382BCC937B002E6B25 /* MatchView.swift */,
+				F7C37D472BCCB085002E6B25 /* ProfileView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -74,9 +481,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F7FF11F82BCC72DA00880D0A /* Build configuration list for PBXNativeTarget "Soul25" */;
 			buildPhases = (
+				A327F9E3A1AA4BDA12A0CD86 /* [CP] Check Pods Manifest.lock */,
 				F7FF11E62BCC72D800880D0A /* Sources */,
 				F7FF11E72BCC72D800880D0A /* Frameworks */,
 				F7FF11E82BCC72D800880D0A /* Resources */,
+				0D7613767A4369DEBE382468 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -125,20 +534,165 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7FF133E2BCC746A00880D0A /* error3.json in Resources */,
+				F7FF130F2BCC746A00880D0A /* likethumb.json in Resources */,
+				F7FF132E2BCC746A00880D0A /* monito.json in Resources */,
+				F7FF130A2BCC746A00880D0A /* woman3.json in Resources */,
+				F7FF131F2BCC746A00880D0A /* girlpic1.json in Resources */,
+				F7FF132D2BCC746A00880D0A /* searchingearth2.json in Resources */,
+				F7FF13132BCC746A00880D0A /* error1.json in Resources */,
+				F7FF132A2BCC746A00880D0A /* girlsitting.json in Resources */,
+				F7FF13382BCC746A00880D0A /* girlpic2.json in Resources */,
+				F7FF130E2BCC746A00880D0A /* sadheart.json in Resources */,
+				F7FF131C2BCC746A00880D0A /* loading.json in Resources */,
+				F7FF13292BCC746A00880D0A /* doctor.json in Resources */,
+				F7FF134B2BCC746A00880D0A /* Aloka.otf in Resources */,
+				F7FF134A2BCC746A00880D0A /* minimal.ttf in Resources */,
+				F7FF134F2BCC746A00880D0A /* Houdient.ttf in Resources */,
+				F7FF13332BCC746A00880D0A /* sign.json in Resources */,
+				F7FF131E2BCC746A00880D0A /* success.json in Resources */,
+				F7FF13502BCC746A00880D0A /* Mignitte.ttf in Resources */,
+				F7FF13242BCC746A00880D0A /* heartbroken.json in Resources */,
+				F7FF13182BCC746A00880D0A /* loadingimage1.json in Resources */,
+				F7FF13302BCC746A00880D0A /* redpoof.json in Resources */,
+				F7FF131A2BCC746A00880D0A /* confetti.json in Resources */,
+				F7FF132C2BCC746A00880D0A /* dislikebrokeheart.json in Resources */,
+				F7FF13222BCC746A00880D0A /* logged.json in Resources */,
+				F7FF134C2BCC746A00880D0A /* Carlotte.ttf in Resources */,
+				F7FF13352BCC746A00880D0A /* girllikingstuff.json in Resources */,
+				F7FF13102BCC746A00880D0A /* birth.json in Resources */,
+				F7FF133C2BCC746A00880D0A /* setComplete.json in Resources */,
+				F7FF13162BCC746A00880D0A /* nomorecards.json in Resources */,
 				F7FF11F52BCC72DA00880D0A /* Preview Assets.xcassets in Resources */,
-				F7FF11F22BCC72DA00880D0A /* Assets.xcassets in Resources */,
+				F7C37D3D2BCC9508002E6B25 /* Assets.xcassets in Resources */,
+				F7FF131B2BCC746A00880D0A /* girlpic1dark.json in Resources */,
+				F7FF130C2BCC746A00880D0A /* paperplaneloading.json in Resources */,
+				F7FF13532BCC746A00880D0A /* BodoniFancy.ttf in Resources */,
+				F7FF13152BCC746A00880D0A /* lock.json in Resources */,
+				F7FF13392BCC746A00880D0A /* eyesrainbow.json in Resources */,
+				F7FF13282BCC746A00880D0A /* womandepressed.json in Resources */,
+				F7FF13192BCC746A00880D0A /* telescope.json in Resources */,
+				F7FF13262BCC746A00880D0A /* girlcheckinginfo.json in Resources */,
+				F7FF13142BCC746A00880D0A /* ergirl.json in Resources */,
+				F7FF13322BCC746A00880D0A /* writing.json in Resources */,
+				F7FF131D2BCC746A00880D0A /* heartbeat.json in Resources */,
+				F7FF13432BCC746A00880D0A /* likedapost.json in Resources */,
+				F7FF13202BCC746A00880D0A /* woman2.json in Resources */,
+				F7FF13112BCC746A00880D0A /* error.json in Resources */,
+				F7FF13492BCC746A00880D0A /* sanfrancisco.ttf in Resources */,
+				F7FF13362BCC746A00880D0A /* searchingearth.json in Resources */,
+				F7FF132B2BCC746A00880D0A /* girlpic2dark.json in Resources */,
+				F7FF133D2BCC746A00880D0A /* workbuildings.json in Resources */,
+				F7FF130D2BCC746A00880D0A /* girlholdingphoneoninsta.json in Resources */,
+				F7FF13482BCC746A00880D0A /* MrDafoe-Regular.ttf in Resources */,
+				F7FF13342BCC746A00880D0A /* notification.json in Resources */,
+				F7FF13272BCC746A00880D0A /* flyingpaperbirdchasinglove.json in Resources */,
+				F7FF13212BCC746A00880D0A /* birds.json in Resources */,
+				F7FF134D2BCC746A00880D0A /* Davinci.ttf in Resources */,
+				F7FF13522BCC746A00880D0A /* BodoniLean.ttf in Resources */,
+				F7FF133B2BCC746A00880D0A /* loveflying.json in Resources */,
+				F7FF13402BCC746A00880D0A /* girlcheckingonly.json in Resources */,
+				F7FF133F2BCC746A00880D0A /* mother.json in Resources */,
+				F7FF130B2BCC746A00880D0A /* girlwaving.json in Resources */,
+				F7FF13252BCC746A00880D0A /* 300loveletter.json in Resources */,
+				F7FF134E2BCC746A00880D0A /* BodoniFLF-Italic.ttf in Resources */,
+				F7FF132F2BCC746A00880D0A /* card.json in Resources */,
+				F7FF13172BCC746A00880D0A /* droplet.json in Resources */,
+				F7FF13422BCC746A00880D0A /* girlonphone.json in Resources */,
+				F7FF13442BCC746A00880D0A /* stars.json in Resources */,
+				F7FF133A2BCC746A00880D0A /* error2.json in Resources */,
+				F7FF13122BCC746A00880D0A /* study.json in Resources */,
+				F7FF13372BCC746A00880D0A /* woman1.json in Resources */,
+				F7FF13472BCC746A00880D0A /* BodoniFLF-Roman.ttf in Resources */,
+				F7FF13412BCC746A00880D0A /* workout.json in Resources */,
+				F7FF13512BCC746A00880D0A /* Minimalistic Light.otf in Resources */,
+				F7FF13312BCC746A00880D0A /* editcard.json in Resources */,
+				F7FF13232BCC746A00880D0A /* earth.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0D7613767A4369DEBE382468 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Soul25/Pods-Soul25-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Soul25/Pods-Soul25-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Soul25/Pods-Soul25-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A327F9E3A1AA4BDA12A0CD86 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Soul25-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F7FF11E62BCC72D800880D0A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F7FF11F02BCC72D800880D0A /* ContentView.swift in Sources */,
+				F7C37D332BCC8F9B002E6B25 /* TextModifiers.swift in Sources */,
+				F71110332BCC8BAF0045A36B /* LottieView.swift in Sources */,
+				F7FF12132BCC745400880D0A /* PreferenceKey.swift in Sources */,
+				F7C37D422BCCA42C002E6B25 /* HomeView.swift in Sources */,
+				F7C37D372BCC922B002E6B25 /* TextWriterAppear.swift in Sources */,
+				F7C37D252BCC8D62002E6B25 /* NeoModifier.swift in Sources */,
+				F7C37D462BCCA7F6002E6B25 /* ShimmerText.swift in Sources */,
+				F7C37D312BCC8EBA002E6B25 /* OffWhiteButtonModifier.swift in Sources */,
+				F7FF13D82BCC74B800880D0A /* NavigationBar.swift in Sources */,
+				F7C37D272BCC8E13002E6B25 /* MessageDetailView.swift in Sources */,
+				F7C37D1F2BCC8C0E002E6B25 /* HomeCard.swift in Sources */,
+				F7C37D352BCC9144002E6B25 /* SkullProfile.swift in Sources */,
+				F7C37D3B2BCC94DA002E6B25 /* ColorExtension.swift in Sources */,
+				F7C37D442BCCA4A4002E6B25 /* ExploreMenuRow.swift in Sources */,
+				F7C37D2D2BCC8E4D002E6B25 /* PostCard.swift in Sources */,
+				F7C37D232BCC8D52002E6B25 /* LikesPill.swift in Sources */,
+				F7FF13DA2BCC74B800880D0A /* MainTab.swift in Sources */,
+				F7FF12182BCC745400880D0A /* MessagesModel.swift in Sources */,
 				F7FF11EE2BCC72D800880D0A /* Soul25App.swift in Sources */,
+				F7C37D2F2BCC8E7C002E6B25 /* MessageBubblesView.swift in Sources */,
+				F7FF121F2BCC745400880D0A /* AppUserData.swift in Sources */,
+				F7C37D402BCC97C6002E6B25 /* LikesView.swift in Sources */,
+				F7FF13D12BCC74B800880D0A /* SigninView.swift in Sources */,
+				F71110312BCC8B880045A36B /* BackgroundView.swift in Sources */,
+				F7FF13D02BCC74B800880D0A /* LauchView.swift in Sources */,
+				F7FF13542BCC746A00880D0A /* FontModifier.swift in Sources */,
+				F7C37D392BCC937B002E6B25 /* MatchView.swift in Sources */,
+				F7FF13F82BCC74C100880D0A /* ViewController.swift in Sources */,
+				F7C37D212BCC8C87002E6B25 /* GetImage.swift in Sources */,
+				F7C37D292BCC8E19002E6B25 /* MessageCard.swift in Sources */,
+				F7C37D2B2BCC8E38002E6B25 /* CircularView.swift in Sources */,
+				F7C37D482BCCB085002E6B25 /* ProfileView.swift in Sources */,
+				F7FF13F12BCC74B800880D0A /* ChatsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,7 +749,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -249,7 +803,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -261,6 +815,7 @@
 		};
 		F7FF11F92BCC72DA00880D0A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 46F1BCB289D8FA8D21EA6FF1 /* Pods-Soul25.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -270,11 +825,13 @@
 				DEVELOPMENT_TEAM = 25W7NUNB49;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Soul25/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -282,14 +839,18 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.pipion.com.Soul25;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		F7FF11FA2BCC72DA00880D0A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A68E6CDEC6DC3FC38611AF7C /* Pods-Soul25.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -299,11 +860,13 @@
 				DEVELOPMENT_TEAM = 25W7NUNB49;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Soul25/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -311,9 +874,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.pipion.com.Soul25;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
