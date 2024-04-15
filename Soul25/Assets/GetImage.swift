@@ -10,23 +10,32 @@ import SwiftUI
 struct GetImageAndUrl: View {
     @State private var image: Image?
     @State var url = ""
+    var width : CGFloat = 0
+    var height : CGFloat = 0
     @Binding var loaded : Bool
     @Binding var imageUrl : String
     
     
     var body: some View {
-       ZStack {
+       VStack {
             
               
                     if image != nil {
-                        image!
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(maxHeight:500)
-                            .onAppear{
+                        
+                       
+                            image!
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: height != 0 ? width : nil, height: height != 0 ? height : nil)
+                                .contentShape(Rectangle())
+                                .clipped()
+                                
+                                .onAppear{
                                     loaded = true
-                            }
-                            .clipped()
+                                }
+                               
+                      
+                        
                         
                     } else {
                         
@@ -36,8 +45,9 @@ struct GetImageAndUrl: View {
                 
                
             
-        }.contentShape(Rectangle())
-           
+        }
+            .frame(width: height != 0 ? width : nil, height: height != 0 ? height : nil)
+          
         .onAppear {
             loadImageFromAPI()
         }

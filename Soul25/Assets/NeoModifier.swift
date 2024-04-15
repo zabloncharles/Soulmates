@@ -16,9 +16,9 @@ struct DoubleTapCompletionModifier: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .shadow(color:  .black.opacity(0.3), radius: 10, x:isTapped ? -5 : 10, y:isTapped ? -5 : 10 )
-            .shadow(color: Color("white").opacity(0.9),radius: 10, x:isTapped  ? 10 : -5, y:isTapped  ? 10 : -5)
-            .scaleEffect(isTapped ? 0.97 : 1)
+//            .shadow(color:  .black.opacity(0.3), radius: 10, x:isTapped ? -5 : 10, y:isTapped ? -5 : 10 )
+//            .shadow(color: Color("white").opacity(0.9),radius: 10, x:isTapped  ? 10 : -5, y:isTapped  ? 10 : -5)
+            .scaleEffect(isTapped ? 0.985 : 1)
             .gesture(
                 TapGesture()
                     .onEnded { _ in

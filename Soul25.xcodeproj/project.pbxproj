@@ -31,6 +31,10 @@
 		F7C37D442BCCA4A4002E6B25 /* ExploreMenuRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C37D432BCCA4A4002E6B25 /* ExploreMenuRow.swift */; };
 		F7C37D462BCCA7F6002E6B25 /* ShimmerText.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C37D452BCCA7F6002E6B25 /* ShimmerText.swift */; };
 		F7C37D482BCCB085002E6B25 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C37D472BCCB085002E6B25 /* ProfileView.swift */; };
+		F7C37D4A2BCCF0B7002E6B25 /* InfoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C37D492BCCF0B7002E6B25 /* InfoButton.swift */; };
+		F7C37D4C2BCCF563002E6B25 /* QuoteImageCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C37D4B2BCCF563002E6B25 /* QuoteImageCard.swift */; };
+		F7C37D4E2BCCF98F002E6B25 /* QuotePillsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C37D4D2BCCF98F002E6B25 /* QuotePillsCard.swift */; };
+		F7C37D502BCCFC21002E6B25 /* QuoteAnswerCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C37D4F2BCCFC21002E6B25 /* QuoteAnswerCard.swift */; };
 		F7FF11EE2BCC72D800880D0A /* Soul25App.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FF11ED2BCC72D800880D0A /* Soul25App.swift */; };
 		F7FF11F52BCC72DA00880D0A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7FF11F42BCC72DA00880D0A /* Preview Assets.xcassets */; };
 		F7FF12132BCC745400880D0A /* PreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FF12012BCC745300880D0A /* PreferenceKey.swift */; };
@@ -145,6 +149,10 @@
 		F7C37D432BCCA4A4002E6B25 /* ExploreMenuRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreMenuRow.swift; sourceTree = "<group>"; };
 		F7C37D452BCCA7F6002E6B25 /* ShimmerText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShimmerText.swift; sourceTree = "<group>"; };
 		F7C37D472BCCB085002E6B25 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		F7C37D492BCCF0B7002E6B25 /* InfoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoButton.swift; sourceTree = "<group>"; };
+		F7C37D4B2BCCF563002E6B25 /* QuoteImageCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteImageCard.swift; sourceTree = "<group>"; };
+		F7C37D4D2BCCF98F002E6B25 /* QuotePillsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotePillsCard.swift; sourceTree = "<group>"; };
+		F7C37D4F2BCCFC21002E6B25 /* QuoteAnswerCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteAnswerCard.swift; sourceTree = "<group>"; };
 		F7FF11EA2BCC72D800880D0A /* Soul25.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Soul25.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7FF11ED2BCC72D800880D0A /* Soul25App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Soul25App.swift; sourceTree = "<group>"; };
 		F7FF11F42BCC72DA00880D0A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -331,9 +339,13 @@
 				F7C37D452BCCA7F6002E6B25 /* ShimmerText.swift */,
 				F7C37D3A2BCC94DA002E6B25 /* ColorExtension.swift */,
 				F7C37D432BCCA4A4002E6B25 /* ExploreMenuRow.swift */,
+				F7C37D492BCCF0B7002E6B25 /* InfoButton.swift */,
 				F7C37D3C2BCC9508002E6B25 /* Assets.xcassets */,
 				F7FF12592BCC746500880D0A /* Lottie */,
 				F7FF12982BCC746600880D0A /* Fonts */,
+				F7C37D4B2BCCF563002E6B25 /* QuoteImageCard.swift */,
+				F7C37D4D2BCCF98F002E6B25 /* QuotePillsCard.swift */,
+				F7C37D4F2BCCFC21002E6B25 /* QuoteAnswerCard.swift */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -660,6 +672,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7C37D4C2BCCF563002E6B25 /* QuoteImageCard.swift in Sources */,
 				F7C37D332BCC8F9B002E6B25 /* TextModifiers.swift in Sources */,
 				F71110332BCC8BAF0045A36B /* LottieView.swift in Sources */,
 				F7FF12132BCC745400880D0A /* PreferenceKey.swift in Sources */,
@@ -679,6 +692,7 @@
 				F7FF13DA2BCC74B800880D0A /* MainTab.swift in Sources */,
 				F7FF12182BCC745400880D0A /* MessagesModel.swift in Sources */,
 				F7FF11EE2BCC72D800880D0A /* Soul25App.swift in Sources */,
+				F7C37D502BCCFC21002E6B25 /* QuoteAnswerCard.swift in Sources */,
 				F7C37D2F2BCC8E7C002E6B25 /* MessageBubblesView.swift in Sources */,
 				F7FF121F2BCC745400880D0A /* AppUserData.swift in Sources */,
 				F7C37D402BCC97C6002E6B25 /* LikesView.swift in Sources */,
@@ -686,7 +700,9 @@
 				F71110312BCC8B880045A36B /* BackgroundView.swift in Sources */,
 				F7FF13D02BCC74B800880D0A /* LauchView.swift in Sources */,
 				F7FF13542BCC746A00880D0A /* FontModifier.swift in Sources */,
+				F7C37D4E2BCCF98F002E6B25 /* QuotePillsCard.swift in Sources */,
 				F7C37D392BCC937B002E6B25 /* MatchView.swift in Sources */,
+				F7C37D4A2BCCF0B7002E6B25 /* InfoButton.swift in Sources */,
 				F7FF13F82BCC74C100880D0A /* ViewController.swift in Sources */,
 				F7C37D212BCC8C87002E6B25 /* GetImage.swift in Sources */,
 				F7C37D292BCC8E19002E6B25 /* MessageCard.swift in Sources */,
