@@ -162,7 +162,7 @@ struct SkullProfile: View {
            
               
             
-        }.background(Color("offwhite"))
+        }.background(Color("offwhiteneo"))
         .onAppear{
             withAnimation(.spring()) {
                 animateapper = true
@@ -197,7 +197,7 @@ struct SkullProfile: View {
                     Image(systemName:currentUser?.email == profile.email ?  "person.crop.circle" : "person.2")
                         .font(.title)
                         .fontWeight(.bold)
-                        .foregroundColor(.black)
+                        
                     
                     
                  
@@ -240,16 +240,12 @@ struct SkullProfile: View {
                     
                     
                 }
+               
                 
             }.padding(.horizontal,25)
-            .background(
-                GeometryReader { geometry in
-                    Rectangle()
-                        .frame(height: 1)
-                        .foregroundColor(Color("black").opacity(0.12)) // Adjust color as needed
-                        .padding(.top, geometry.size.height) // Position the border at the bottom
-                }
-            )
+            .padding(.top,5)
+           
+        
            
        
     }
@@ -326,43 +322,7 @@ struct SkullProfile: View {
         .offset(y: showblacknav ? 0 : -100)
       
     }
-    var cover: some View {
-        GeometryReader { proxy in
-            let scrollY = proxy.frame(in: .named("scroll")).minY
-            
-            VStack {
-                
-                Spacer()
-            }
-            .frame(maxWidth: .infinity)
-            .frame(height: scrollY > 0 ? 500 + scrollY : 500)
-            
-            .overlay(
-                VStack{
-                    GetImageAndUrl(url:"", loaded: .constant(true), imageUrl: .constant(""))
-                        .offset(y: scrollY > 0 ? -scrollY : 0)
-                        .scaleEffect(liked ? 1.4 : scrollY > 0 ? scrollY / 1000 + 1 : 1)
-                        .blur(radius: liked ? 14 : scrollY > 0 ? scrollY / 10 : 0)
-                        .accessibility(hidden: true)
-                        .animation(.spring(), value: liked)
-                    
-                    
-                    
-                    
-                })
-            .overlay {
-                VStack{
-                    Spacer()
-                    Rectangle()
-                        .fill(LinearGradient(colors: [Color("offwhiteneo"),Color.clear], startPoint: .bottom, endPoint: .top))
-                        .frame(height: 150)
-                        
-                        .offset(y:20)
-                }
-            }
-        }
-        .frame(height: 400)
-    }
+  
     var avatarandthreeinfo: some View {
         VStack {
             HStack {
@@ -402,7 +362,7 @@ struct SkullProfile: View {
                         }
                         .padding(.horizontal,10)
                         .padding(.vertical,4)
-                        .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 6, action: $liked)
+                        
                         
                         
                         
@@ -418,7 +378,7 @@ struct SkullProfile: View {
                         }
                         .padding(.horizontal,10)
                         .padding(.vertical,4)
-                        .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 6, action: $liked)
+                       
                         
                         VStack{
                             Spacer()
@@ -431,13 +391,11 @@ struct SkullProfile: View {
                         }
                         .padding(.horizontal,10)
                         .padding(.vertical,4)
-                        .offwhitebutton(isTapped: liked, isToggle: false, cornerRadius: 6, action: $liked)
+                        
                     }
                     
                     
                     if (currentUser?.email == profile.email){
-                        
-                  
                     HStack{
                         Spacer()
                         Text("Edit Profile")
@@ -583,15 +541,6 @@ struct SkullProfile: View {
                         })
                     
                     
-                   
-                    Divider()
-                        
-                        
-                  
-                    
-                    
-                    
-                    
                    answerprompt
                     
                     
@@ -606,23 +555,11 @@ struct SkullProfile: View {
            
             .padding(.bottom,120)
             
-            
-            
-            
-            
-            
-        
-        
-        
-        
-        
-        
-        
         
     }
     
     var answerprompt: some View{
-        QuoteAnswerCard(name: profile.firstname,day: "2",caption: "I'm a professional couch potato. Netflix marathons are my specialty!", question: "What do you do for fun?")
+        QuoteAnswerCard(name: profile.firstname,day: "1",caption: "I'm a professional couch potato. Netflix marathons are my specialty!", question: "What do you do for fun?")
             .padding(.leading,20)
             .neoDoubleTapButton(isToggle: false, perform: {
                 withAnimation(.spring()) {

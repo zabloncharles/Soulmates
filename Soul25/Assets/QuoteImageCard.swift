@@ -47,7 +47,7 @@ struct QuoteImageCard: View {
             }
             .padding(.leading,20)
             .padding(.vertical)
-            .background(Color("offwhite"))
+            
             
             .padding(.top,-10)
             

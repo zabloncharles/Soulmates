@@ -43,10 +43,6 @@ struct MatchView: View {
         
         ZStack {
             
-            appbackground
-     
-          
-            
             VStack {
                if !outOfMatches && dislike {
                

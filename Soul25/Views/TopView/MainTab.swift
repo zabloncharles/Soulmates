@@ -119,7 +119,7 @@ struct FloatingTabbar : View {
                         .padding(.bottom, geometry.size.height) // Position the border at the bottom
                 }
             )
-             .background(Color("offwhite"))
+             .background(Color("offwhiteneo"))
             .background(Image("cover2")
                             .resizable()
                             .aspectRatio(contentMode: .fit)

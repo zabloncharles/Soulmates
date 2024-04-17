@@ -50,7 +50,7 @@ struct QuoteAnswerCard: View {
                 VStack{
                     Spacer()
                 }.frame(width: 1, height: .infinity)
-                    .background(Color("black"))
+                   
                 HStack {
                     Spacer()
                     Text(question)

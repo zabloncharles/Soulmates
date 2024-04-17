@@ -13,7 +13,7 @@ struct BackgroundView: View {
     var body: some View {
        // LinearGradient(gradient: Gradient(colors: [Color("linearoff"), Color("background"), Color("background"),Color("background"), Color("linearoff")]), startPoint: .top, endPoint: .bottom)
         ZStack {
-            LinearGradient(gradient: Gradient(colors: [Color("offwhite"),Color("offwhite"), Color("offwhite")]), startPoint: .top, endPoint: .bottom)
+            LinearGradient(gradient: Gradient(colors: [Color("offwhiteneo"),Color("offwhiteneo"), Color("offwhiteneo")]), startPoint: .top, endPoint: .bottom)
 //            VStack {
 //                Image("cover9")
 //                    .resizable()
