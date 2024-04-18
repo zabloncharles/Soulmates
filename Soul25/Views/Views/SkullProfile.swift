@@ -21,6 +21,8 @@ struct SkullProfile: View {
     @State var pageAppeared = false
     @Binding var showProfile : Bool
     @FocusState var sendMessageFocused: Bool
+    @State var profileImagesLoaded = [false,false,false]
+    @State var showHearts = false
     @State var text = ""
     @State var erro = ""
     @State var sendMessage = ""
@@ -33,10 +35,11 @@ struct SkullProfile: View {
     @State var animategirl = false
     @State var liked = false
     @State var likedtext = false
-    @State var likedquote = ""
+    @State var likedquote = "I enjoy playing the zumba"
     @State var cancelLike = false
-    @State var profileImages = ["",""]
-    @State var likedImage = ""
+    @State var profileImages = ["","",""]
+    @State var likedImageUrl = ""
+    @State var report = false
     @State var showMore = false
     @State var hidenav = false
     @State var scrolledItem = 0
@@ -118,30 +121,21 @@ struct SkullProfile: View {
                     }
                     .blur(radius: liked ? 10 : 0)
                     .onTapGesture {
-                        withAnimation(.spring()) {
-                            liked = false
-                            sendMessageFocused = false
-                        }
+                        
+                        
+                        
                     }
                     .ignoresSafeArea()
                     
                     //the send text view that comes after liking a potential match
                    
-                        ZStack {
-                            LinearGradient(colors: [Color("offwhite"),Color("offwhite"),Color("offwhite")], startPoint: .bottom, endPoint: .top)
-                                .animation(.easeInOut, value: liked)
-                                
-                           
+                
+                    if liked {
+                        likedcontent
+                            .transition(.offset(y:UIScreen.main.bounds.height))
                             
-                            likedcontent
-                                .animation(.spring(), value: liked)
-                                .offset(y:110)
-                               
+                    }
                            
-                            
-                        }
-                        .cornerRadius(liked ? 0 : 15)
-                        .offset(y: !liked ? UIScreen.main.bounds.height * 1.30 : 0)
 
                   
                                       
@@ -155,11 +149,19 @@ struct SkullProfile: View {
             nameandheartnav
                 .opacity(liked ? 0 : currentUser?.email == profile.email ? 0 : 1)
             
-            
-            
-                likedtextvar
-                    .offset(y: !likedtext ? UIScreen.main.bounds.height * 1.30 : 0)
            
+            
+            if likedtext {
+                likedcontent
+                    .transition(.offset(y:UIScreen.main.bounds.height))
+                
+            }
+            
+            if report {
+              ReportCard(report: $report, appeared: $hidemainTab)
+            }
+             
+            
               
             
         }.background(Color("offwhiteneo"))
@@ -177,10 +179,18 @@ struct SkullProfile: View {
         .onChange(of: liked) { V in
             if liked {
                 hidemainTab = true
+                withAnimation(.spring()) {
+                    showHearts = true
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        showHearts = false
+                    }
+                }
             } else {
+                likedquote = ""
                 hidemainTab = false
             }
         }
+        
     }
     var nameandheart: some View{
        
@@ -481,9 +491,15 @@ struct SkullProfile: View {
         }
     }
     var whatilike: some View{
-        QuotePillsCard(name: profile.firstname)
+        QuotePillsCard(name: profile.firstname, caption: profile.lifestyledesc,report: $report)
             .neoDoubleTapButton(isToggle: false, perform: {
-                likedtext = true
+                likedImageUrl = ""
+               
+                withAnimation(.spring()) {
+                    liked = true
+                }
+                likedquote = profile.lifestyledesc
+               
             })
             .padding(.leading,20)
          
@@ -518,11 +534,16 @@ struct SkullProfile: View {
                     
                        
                         
-                    QuoteImageCard(name: profile.firstname, caption: "Life is too short to worry about thigh gaps, focus on making memories",url: "https://source.unsplash.com/random/?hotgirl")
+                    QuoteImageCard(name: profile.firstname, caption: "Life is too short to worry about thigh gaps, focus on making memories",url: profile.images[0], urlReturned: $profileImages[0], loaded: $profileImagesLoaded[0], report: $report)
                         .neoDoubleTapButton(isToggle: false, perform: {
                             //when first image is clicked
-                            liked = true
-                            likedImage = profileImages[0]
+                           likedquote = "Life is too short to worry about thigh gaps, focus on making memories"
+                            likedImageUrl = profileImages[0]
+                            if profileImagesLoaded[0] {
+                                withAnimation(.spring()) {
+                                    liked = true
+                                }
+                            }
                             
                         })
                  
@@ -532,11 +553,18 @@ struct SkullProfile: View {
                     
                     Divider()
                     
-                    QuoteImageCard(name: profile.firstname, caption: "Life's a beach, enjoy the waves and soak up the sun", url: "")
+                    QuoteImageCard(name: profile.firstname, caption: "Life's a beach, enjoy the waves and soak up the sun", url: profile.images[1], urlReturned: $profileImages[1], loaded: $profileImagesLoaded[1], report: $report)
                         .neoDoubleTapButton(isToggle: false, perform: {
                             //when first image is clicked
-                            liked = true
-                            likedImage = profileImages[0]
+                            likedquote = "Life's a beach, enjoy the waves and soak up the sun"
+                            likedImageUrl = profileImages[1]
+                            
+                            if profileImagesLoaded[1] {
+                                withAnimation(.spring()) {
+                                    liked = true
+                                }
+                            }
+                            
                             
                         })
                     
@@ -559,12 +587,15 @@ struct SkullProfile: View {
     }
     
     var answerprompt: some View{
-        QuoteAnswerCard(name: profile.firstname,day: "1",caption: "I'm a professional couch potato. Netflix marathons are my specialty!", question: "What do you do for fun?")
+        QuoteAnswerCard(name: profile.firstname,day: "1",caption: "I'm a professional couch potato. Netflix marathons are my specialty!", question: "What do you do for fun?", report: $report)
             .padding(.leading,20)
             .neoDoubleTapButton(isToggle: false, perform: {
+                likedImageUrl = ""
+                
                 withAnimation(.spring()) {
-                    likedtext = true
+                    liked = true
                 }
+                likedquote = "I'm a professional couch potato. Netflix marathons are my specialty!"
             })
     }
     
@@ -649,169 +680,20 @@ struct SkullProfile: View {
             }
         }
     }
-    var likedtextvar: some View {
-        
-            VStack(spacing: 20.0) {
-                
-                Spacer()
-                
-                HStack {
-                    
-                    
-                    
-                    
-                    HStack {
-                        HStack(spacing:4) {
-                            Text(profile.firstname)
-                                .bold()
-                                .font(.title2)
-                            Image(systemName: "checkmark.circle.fill")
-                                .foregroundColor(.blue)
-                                .font(.system(size: 18, weight: .medium))
-                        }
-                        Text("2d")
-                        
-                            .font(.callout)
-                        
-                        Spacer()
-                        Image(systemName: "ellipsis")
-                    }.padding(.horizontal,4)
-                    Spacer()
-                }
-                
-                VStack(alignment: .leading) {
-                    
-                    HStack {
-                        HStack {
-                            Image(systemName: "person.2.fill")
-                            Text("Comment :)")
-                            
-                        }.font(.title3)
-                            .fontWeight(.bold)
-                        Spacer()
-                        HStack {
-                            Image(systemName: "fleuron")
-                            Text("Boost")
-                        }.padding(.horizontal,12)
-                            .padding(.vertical,5)
-                            .background(Color.blue.opacity(0.3))
-                            .cornerRadius(20)
-                        
-                    }
-                    HStack {
-                        Image(systemName: "quote.opening")
-                        Text(profile.aboutme)
-                            .font(.subheadline)
-                            
-                      
-                    }
-                }.padding(15)
-                    .background(Color("offwhite"))
-                    .cornerRadius(15)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 14)
-                            .stroke(Color("black"), lineWidth: 1)
-                        
-                    )
-                    .padding(.top, 30)
-                    .offset(y: liked ? 0 : -20)
-      
-                
-                
-                
-                
-                
-                
-                HStack {
-                    TextField("Say Hi...", text: $sendMessage)
-                    
-                        .focused($sendMessageFocused)
-                        .padding(.vertical,16)
-                        .padding(.leading, 15)
-                        .foregroundColor(Color("black"))
-                        .background(Color("offwhite"))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 30)
-                                .stroke(Color("black"), lineWidth: 1)
-                            
-                        )
-                        .cornerRadius(30)
-                        .overlay(
-                            HStack {
-                                Spacer()
-                                HStack(spacing: 0.0) {
-                                    Image(systemName: "paperplane")
-                                    
-                                    
-                                }    .padding(.vertical,12)
-                                    .padding(.horizontal,12)
-                                    .foregroundColor(.white)
-                                    .background(Color.blue)
-                                    .cornerRadius(29)
-                                    .offset(x: -5)
-                                    .onTapGesture {
-                                        
-                                    }
-                                
-                            }
-                        )
-                        .offwhitebutton(isTapped: false, isToggle: false, cornerRadius: 25, action:  .constant(false))
-                        .padding(.horizontal,0)
-                    
-                }
-                
-                
-                if !sendMessageFocused {
-                    VStack {
-                        Image(systemName: "xmark")
-                            .padding(.vertical,20)
-                            .padding(.horizontal,20)
-                            .background(Color("offwhite"))
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 60)
-                                    .stroke(Color("black").opacity(0.50), lineWidth: 1)
-                                
-                            )
-                        
-                            .neoButton(isToggle: false) {
-                                //
-                                
-                                withAnimation(.spring()) {
-                                    
-                                    likedtext = false
-                                    
-                                }
-                            }
-                            .padding(.top,10)
-                    }
-                }
-                Spacer()
-            }.padding(.horizontal, 20)
-            .background(Color("offwhite"))
-            
-                .onAppear{
-                    
-                    withAnimation(.spring()) {
-                        showblacknav = false
-                        
-                        
-                    }
-                }
-                .onDisappear{
-                    
-                    withAnimation(.spring()) {
-                        //                    showblacknav = false
-                    }
-                }
-            
-            
-        
-    }
+    
     var likedcontent: some View {
         
         VStack(spacing: 20.0) {
-            
-            
+          
+            Spacer()
+            if showHearts {
+                
+                LottieView(filename: "loveflying")
+                    .frame(width: 299, height: 250)
+                    .colorMultiply(.white) 
+                    .opacity(0.57)
+                
+            }
            
             HStack {
                 
@@ -823,6 +705,7 @@ struct SkullProfile: View {
                         Text(profile.firstname)
                             .bold()
                             .font(.title2)
+                       
                         Image(systemName: "checkmark.circle.fill")
                             .foregroundColor(.blue)
                             .font(.system(size: 18, weight: .medium))
@@ -839,86 +722,91 @@ struct SkullProfile: View {
            
             VStack(alignment: .leading) {
             
-                HStack {
+                
                     HStack {
-                        Image(systemName: "person.2.fill")
-                        Text(erro.isEmpty ? "You Liked :)" : erro)
+                        if liked && !likedImageUrl.isEmpty {
+                            Rectangle()
+                                .fill(.gray)
+                                .frame(width:1, height:30)
+                        }
+                        VStack {
+                            
+                            if liked && !likedImageUrl.isEmpty {
+                                GetImageAndUrl(url:likedImageUrl, width: 40 , height: 40, loaded: .constant(true), imageUrl: .constant(likedImageUrl))
+                                    .frame(width: 40 , height: 40)
+                                    .onAppear {
+                                        sendMessageFocused = true
+                                    }
+                            }
+                            
+                        }
+                        .animation(.spring(), value: showblacknav)
                         
+                        .cornerRadius(5)
+                        HStack (spacing: 4.0){
+                           
+                            if likedImageUrl.isEmpty {
+                                Image(systemName: "fleuron.fill")
+                                    .foregroundColor(.red)
+                            }
+                            
+                            Text(erro.isEmpty ? "You Liked :)" : erro)
+                            Spacer()
+                            if !likedImageUrl.isEmpty {
+                                Image(systemName: "fleuron.fill")
+                                    .foregroundColor(.red)
+                            }
+                            
+                        }
+                        
+                        Spacer()
+                        
+                       
+                           
                     }.font(.title3)
                         .fontWeight(.bold)
-                    Spacer()
-                    HStack {
-                        Image(systemName: "fleuron")
-                        Text("Boost")
-                    }.padding(.horizontal,12)
-                        .padding(.vertical,5)
-                        .background(Color.blue.opacity(0.3))
-                        .cornerRadius(20)
+              
                     
-                }
-                HStack { Image(systemName: "quote.opening")
-                    Text(profile.aboutme)
-                        .lineLimit(1)
-                    Image(systemName: "quote.closing")
-                }
+                
+                HStack(spacing: 6.0) {
+                    Image(systemName: likedImageUrl.isEmpty ? "quote.opening" : "quote.opening")
+                        .font(.callout)
+                    
+                    Text(likedquote)
+                        .font(.callout)
+                        .italic()
+                        .multilineTextAlignment(.leading)
+                        
+                    
+                }.padding(.top,0.3)
             }.padding(15)
 //                .neoButtonOff(isToggle: false, cornerRadius: 15, perform: {
 //                    //clikced you liked
 //                    sendMessageFocused = false
 //                })
-                .background(Color("offwhite"))
+                .background(Color("offwhiteneo"))
                 .cornerRadius(15)
                 .overlay(
                     RoundedRectangle(cornerRadius: 14)
-                        .stroke(Color("black"), lineWidth: 1)
+                        .stroke(Color("black").opacity(0.50), lineWidth: 1)
                     
                 )
                 .padding(.top, 30)
-                .offset(y: liked ? 0 : -20)
+                .offset(y: liked ? 5 : -20)
             
-            
-            VStack {
-                ZStack{
-                    VStack{
-                        Color("offwhite")
-                    }
-                   
-                    
-                    if liked {
-                        GetImageAndUrl(url:likedImage, width: 400 , height: 400, loaded: .constant(true), imageUrl: .constant(""))
-//
-                         
-                    }
-                    
-                    
-                }
-                
-                .frame(width: 400 , height: 400)
-            }
-            .animation(.spring(), value: showblacknav)
-//            .neoButtonOff(isToggle: false, cornerRadius: 15, perform: {
-//                //clikced you liked
-//                sendMessageFocused = false
-//            })
-            .cornerRadius(15)
-            //.matchedGeometryEffect(id: "profileimage", in: namespace)
-            
-            
-            
-            
-            
-            
-            HStack {
+         
+        
                 TextField("Say Hi...", text: $sendMessage)
                 
                     .focused($sendMessageFocused)
                     .padding(.vertical,16)
                     .padding(.leading, 15)
                     .foregroundColor(Color("black"))
-                    .background(Color("offwhite"))
+                    .background(Color("offwhiteneo"))
+                   
                     .overlay(
                         RoundedRectangle(cornerRadius: 30)
-                            .stroke(Color("black"), lineWidth: 1)
+                            .stroke(Color("black").opacity(0.50), lineWidth: 1)
                         
                     )
                     .cornerRadius(30)
@@ -941,44 +829,29 @@ struct SkullProfile: View {
                             
                         }
                     )
-                    .offwhitebutton(isTapped: false, isToggle: false, cornerRadius: 25, action:  .constant(false))
-                    .padding(.horizontal,0)
-                   
-            }
+                    
+                    .modifier(KeyboardAwareModifier())
+                    
+          
             
             
-            if !sendMessageFocused {
-                VStack {
-                    Image(systemName: "xmark")
-                        .padding(.vertical,20)
-                        .padding(.horizontal,20)
-                        .background(Color("offwhite"))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 60)
-                                .stroke(Color("black").opacity(0.50), lineWidth: 1)
-                            
-                        )
-                       
-                        .neoButton(isToggle: false) {
-                            //
-                          
-                            withAnimation(.spring()) {
-                               
-                                    liked = false
-                              
-                            }
-                        }
-                        .padding(.top,10)
+            
+        }.padding(.horizontal, 10)
+            .padding(.bottom,10)
+
+            .background(Color("offwhite").opacity(0.02))
+            .onTapGesture {
+                withAnimation(.spring()) {
+                    liked = false
+                    
+                    
                 }
             }
-            Spacer()
-        }.padding(.horizontal, 20)
-
-        
             .onAppear{
                 
                 withAnimation(.spring()) {
                     showblacknav = false
+                    
                  
                     
                 }

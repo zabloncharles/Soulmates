@@ -35,6 +35,9 @@
 		F7C37D4C2BCCF563002E6B25 /* QuoteImageCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C37D4B2BCCF563002E6B25 /* QuoteImageCard.swift */; };
 		F7C37D4E2BCCF98F002E6B25 /* QuotePillsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C37D4D2BCCF98F002E6B25 /* QuotePillsCard.swift */; };
 		F7C37D502BCCFC21002E6B25 /* QuoteAnswerCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C37D4F2BCCFC21002E6B25 /* QuoteAnswerCard.swift */; };
+		F7F6D34F2BD07B6900B9C526 /* ReportCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F6D34E2BD07B6900B9C526 /* ReportCard.swift */; };
+		F7F6D3512BD0837400B9C526 /* KeyboardModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F6D3502BD0837400B9C526 /* KeyboardModifier.swift */; };
+		F7F6D3532BD08D2900B9C526 /* loader.json in Resources */ = {isa = PBXBuildFile; fileRef = F7F6D3522BD08D2900B9C526 /* loader.json */; };
 		F7FF11EE2BCC72D800880D0A /* Soul25App.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FF11ED2BCC72D800880D0A /* Soul25App.swift */; };
 		F7FF11F52BCC72DA00880D0A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7FF11F42BCC72DA00880D0A /* Preview Assets.xcassets */; };
 		F7FF12132BCC745400880D0A /* PreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FF12012BCC745300880D0A /* PreferenceKey.swift */; };
@@ -54,7 +57,6 @@
 		F7FF13152BCC746A00880D0A /* lock.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12652BCC746600880D0A /* lock.json */; };
 		F7FF13162BCC746A00880D0A /* nomorecards.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12662BCC746600880D0A /* nomorecards.json */; };
 		F7FF13172BCC746A00880D0A /* droplet.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12672BCC746600880D0A /* droplet.json */; };
-		F7FF13182BCC746A00880D0A /* loadingimage1.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12682BCC746600880D0A /* loadingimage1.json */; };
 		F7FF13192BCC746A00880D0A /* telescope.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF12692BCC746600880D0A /* telescope.json */; };
 		F7FF131A2BCC746A00880D0A /* confetti.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF126A2BCC746600880D0A /* confetti.json */; };
 		F7FF131B2BCC746A00880D0A /* girlpic1dark.json in Resources */ = {isa = PBXBuildFile; fileRef = F7FF126B2BCC746600880D0A /* girlpic1dark.json */; };
@@ -153,6 +155,9 @@
 		F7C37D4B2BCCF563002E6B25 /* QuoteImageCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteImageCard.swift; sourceTree = "<group>"; };
 		F7C37D4D2BCCF98F002E6B25 /* QuotePillsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotePillsCard.swift; sourceTree = "<group>"; };
 		F7C37D4F2BCCFC21002E6B25 /* QuoteAnswerCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteAnswerCard.swift; sourceTree = "<group>"; };
+		F7F6D34E2BD07B6900B9C526 /* ReportCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportCard.swift; sourceTree = "<group>"; };
+		F7F6D3502BD0837400B9C526 /* KeyboardModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardModifier.swift; sourceTree = "<group>"; };
+		F7F6D3522BD08D2900B9C526 /* loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loader.json; sourceTree = "<group>"; };
 		F7FF11EA2BCC72D800880D0A /* Soul25.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Soul25.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7FF11ED2BCC72D800880D0A /* Soul25App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Soul25App.swift; sourceTree = "<group>"; };
 		F7FF11F42BCC72DA00880D0A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -173,7 +178,6 @@
 		F7FF12652BCC746600880D0A /* lock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lock.json; sourceTree = "<group>"; };
 		F7FF12662BCC746600880D0A /* nomorecards.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = nomorecards.json; sourceTree = "<group>"; };
 		F7FF12672BCC746600880D0A /* droplet.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = droplet.json; sourceTree = "<group>"; };
-		F7FF12682BCC746600880D0A /* loadingimage1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loadingimage1.json; sourceTree = "<group>"; };
 		F7FF12692BCC746600880D0A /* telescope.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = telescope.json; sourceTree = "<group>"; };
 		F7FF126A2BCC746600880D0A /* confetti.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = confetti.json; sourceTree = "<group>"; };
 		F7FF126B2BCC746600880D0A /* girlpic1dark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = girlpic1dark.json; sourceTree = "<group>"; };
@@ -346,6 +350,8 @@
 				F7C37D4B2BCCF563002E6B25 /* QuoteImageCard.swift */,
 				F7C37D4D2BCCF98F002E6B25 /* QuotePillsCard.swift */,
 				F7C37D4F2BCCFC21002E6B25 /* QuoteAnswerCard.swift */,
+				F7F6D34E2BD07B6900B9C526 /* ReportCard.swift */,
+				F7F6D3502BD0837400B9C526 /* KeyboardModifier.swift */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -367,7 +373,6 @@
 				F7FF12652BCC746600880D0A /* lock.json */,
 				F7FF12662BCC746600880D0A /* nomorecards.json */,
 				F7FF12672BCC746600880D0A /* droplet.json */,
-				F7FF12682BCC746600880D0A /* loadingimage1.json */,
 				F7FF12692BCC746600880D0A /* telescope.json */,
 				F7FF126A2BCC746600880D0A /* confetti.json */,
 				F7FF126B2BCC746600880D0A /* girlpic1dark.json */,
@@ -380,6 +385,7 @@
 				F7FF12722BCC746600880D0A /* logged.json */,
 				F7FF12732BCC746600880D0A /* earth.json */,
 				F7FF12742BCC746600880D0A /* heartbroken.json */,
+				F7F6D3522BD08D2900B9C526 /* loader.json */,
 				F7FF12752BCC746600880D0A /* 300loveletter.json */,
 				F7FF12762BCC746600880D0A /* girlcheckinginfo.json */,
 				F7FF12772BCC746600880D0A /* flyingpaperbirdchasinglove.json */,
@@ -565,7 +571,6 @@
 				F7FF131E2BCC746A00880D0A /* success.json in Resources */,
 				F7FF13502BCC746A00880D0A /* Mignitte.ttf in Resources */,
 				F7FF13242BCC746A00880D0A /* heartbroken.json in Resources */,
-				F7FF13182BCC746A00880D0A /* loadingimage1.json in Resources */,
 				F7FF13302BCC746A00880D0A /* redpoof.json in Resources */,
 				F7FF131A2BCC746A00880D0A /* confetti.json in Resources */,
 				F7FF132C2BCC746A00880D0A /* dislikebrokeheart.json in Resources */,
@@ -619,6 +624,7 @@
 				F7FF13412BCC746A00880D0A /* workout.json in Resources */,
 				F7FF13512BCC746A00880D0A /* Minimalistic Light.otf in Resources */,
 				F7FF13312BCC746A00880D0A /* editcard.json in Resources */,
+				F7F6D3532BD08D2900B9C526 /* loader.json in Resources */,
 				F7FF13232BCC746A00880D0A /* earth.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -701,6 +707,8 @@
 				F7FF13D02BCC74B800880D0A /* LauchView.swift in Sources */,
 				F7FF13542BCC746A00880D0A /* FontModifier.swift in Sources */,
 				F7C37D4E2BCCF98F002E6B25 /* QuotePillsCard.swift in Sources */,
+				F7F6D3512BD0837400B9C526 /* KeyboardModifier.swift in Sources */,
+				F7F6D34F2BD07B6900B9C526 /* ReportCard.swift in Sources */,
 				F7C37D392BCC937B002E6B25 /* MatchView.swift in Sources */,
 				F7C37D4A2BCCF0B7002E6B25 /* InfoButton.swift in Sources */,
 				F7FF13F82BCC74C100880D0A /* ViewController.swift in Sources */,

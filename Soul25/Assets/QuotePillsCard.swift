@@ -12,6 +12,7 @@ struct QuotePillsCard: View {
     var day : String = "2d"
     var caption : String = "\"Fun loving and looking to settle up with this stuff and do me. its really not like that said no one ever.\""
     var pills = userStruct[0]
+    @Binding var report : Bool
     var body: some View {
         VStack(alignment: .leading, spacing: 15.0){
             
@@ -33,6 +34,11 @@ struct QuotePillsCard: View {
                     
                     Spacer()
                     Image(systemName: "ellipsis")
+                        .onTapGesture {
+                            withAnimation(.spring()){
+                                report = true
+                            }
+                        }
                 }.padding(.trailing,10)
                 Spacer()
             }
@@ -54,11 +60,8 @@ struct QuotePillsCard: View {
                 
             }
         }.foregroundColor(Color("black"))
+           
     }
 }
 
-struct QuotePillsCard_Previews: PreviewProvider {
-    static var previews: some View {
-        QuotePillsCard()
-    }
-}
+

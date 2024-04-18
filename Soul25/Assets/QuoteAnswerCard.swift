@@ -12,6 +12,7 @@ struct QuoteAnswerCard: View {
     var day : String = "2d"
     var caption : String = "\"I like going going out to clubs and studying for my mcat lol.\""
     var question : String = "What do you like to do for fun?"
+    @Binding var report : Bool
     var body: some View {
         VStack(alignment: .leading, spacing: 15.0){
             
@@ -35,6 +36,11 @@ struct QuoteAnswerCard: View {
                     
                     Spacer()
                     Image(systemName: "ellipsis")
+                        .onTapGesture {
+                            withAnimation(.spring()){
+                                report = true
+                            }
+                        }
                 }.padding(.trailing,10)
                 Spacer()
             }
@@ -71,8 +77,4 @@ struct QuoteAnswerCard: View {
     }
 }
 
-struct QuoteAnswerCard_Previews: PreviewProvider {
-    static var previews: some View {
-        QuoteAnswerCard()
-    }
-}
+

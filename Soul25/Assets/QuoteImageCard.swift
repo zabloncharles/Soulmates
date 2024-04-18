@@ -12,6 +12,9 @@ struct QuoteImageCard: View {
     var day : String = "2d"
     var caption : String = "this is how i like to unwind"
     var url : String = ""
+    @Binding var urlReturned : String
+    @Binding var loaded : Bool
+    @Binding var report : Bool
     var body: some View {
         VStack {
             VStack {
@@ -29,6 +32,11 @@ struct QuoteImageCard: View {
                         .font(.callout)
                     Spacer()
                     Image(systemName: "ellipsis")
+                        .onTapGesture {
+                            withAnimation(.spring()){
+                                report = true
+                            }
+                        }
                 }.padding(.trailing,20)
                 Spacer()
                 
@@ -52,7 +60,7 @@ struct QuoteImageCard: View {
             .padding(.top,-10)
             
             
-            GetImageAndUrl(url:url, width: UIScreen.main.bounds.width , height: 400, loaded: .constant(true), imageUrl: .constant(""))
+            GetImageAndUrl(url:url, width: UIScreen.main.bounds.width , height: 400, loaded: $loaded, imageUrl: $urlReturned)
                 .frame(width:UIScreen.main.bounds.width, height: 400)
                 .cornerRadius(0)
                 .overlay(
@@ -67,8 +75,8 @@ struct QuoteImageCard: View {
     }
 }
 
-struct QuoteImageCard_Previews: PreviewProvider {
-    static var previews: some View {
-        QuoteImageCard()
-    }
-}
+//struct QuoteImageCard_Previews: PreviewProvider {
+//    static var previews: some View {
+//        QuoteImageCard()
+//    }
+//}

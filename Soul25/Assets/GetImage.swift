@@ -29,9 +29,13 @@ struct GetImageAndUrl: View {
                                 .frame(width: height != 0 ? width : nil, height: height != 0 ? height : nil)
                                 .contentShape(Rectangle())
                                 .clipped()
-                                
+
                                 .onAppear{
-                                    loaded = true
+                                    
+                                    withAnimation(.spring()){
+                                        loaded = true
+                                    }
+                                  
                                 }
                                
                       
@@ -39,8 +43,13 @@ struct GetImageAndUrl: View {
                         
                     } else {
                         
-                        LottieView(filename: "paperplaneloading" ,loop: true)
-                            .frame(width: 400)
+                        
+//                            LottieView(filename: "paperplaneloading" ,loop: true)
+//                                .frame(width: 400)
+                       
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                     
                     }
                 
                
@@ -54,7 +63,7 @@ struct GetImageAndUrl: View {
     }
     
     func loadImageFromAPI() {
-        guard let url = URL(string: url.isEmpty ? "https://source.unsplash.com/random/?bikini,hotgirl" : url) else {
+        guard let url = URL(string: url.isEmpty ? "https://source.unsplash.com/random/?robot" : url) else {
             return
         }
         
