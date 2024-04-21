@@ -39,4 +39,4 @@ var messages = [
 ]
 
 
-var chatLogs = (["email":"zab.charles@gmail.com"],["logs": messages])
+var chatLogs = (["email":"fakeemail@gmail.com"],["logs": messages])

@@ -11,7 +11,7 @@ struct QuotePillsCard: View {
     var name : String = "name"
     var day : String = "2d"
     var caption : String = "\"Fun loving and looking to settle up with this stuff and do me. its really not like that said no one ever.\""
-    var pills = userStruct[0]
+    var pills = ["Hiking","Golf"]
     @Binding var report : Bool
     var body: some View {
         VStack(alignment: .leading, spacing: 15.0){
@@ -46,14 +46,15 @@ struct QuotePillsCard: View {
             
                 .font(.callout)
                 .multilineTextAlignment(.leading)
-                .lineLimit(3)
+                .lineLimit(4)
                 .padding(.trailing,10)
             
             
             
             HStack {
-                ForEach(pills.likes, id: \.self) { like in
+                ForEach(pills, id: \.self) { like in
                     LikesPill(placeholder: like)
+                        
                     
                 }
                 

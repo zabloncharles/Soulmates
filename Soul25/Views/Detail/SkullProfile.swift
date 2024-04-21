@@ -4,7 +4,7 @@
 //
 //  Created by Zablon Charles on 8/27/23.
 //
-
+import CoreLocation
 import SwiftUI
 
 
@@ -12,10 +12,10 @@ struct SkullProfile: View {
     @State  var previousOffset: CGFloat = 0
     @State var showblacknav = false
     @AppStorage("currentPage") var selected = 0
-    @State var profiles: [UserStruct] = compatibleFakeUsers
+    @State var profiles: [UserStruct] = fakeUsers
     @Binding var currentUser: UserStruct?
     @AppStorage("hidemainTab") var hidemainTab = false
-    var profile = userStruct[0]
+    var profile = fakeUsers[0]
     var isAnimated = true
     @State var viewState: CGSize = .zero
     @State var pageAppeared = false
@@ -23,6 +23,11 @@ struct SkullProfile: View {
     @FocusState var sendMessageFocused: Bool
     @State var profileImagesLoaded = [false,false,false]
     @State var showHearts = false
+    var editingProfile = false
+    @State var previewProfile = false
+    @State private var isShowingModal = false
+    
+    @State var showDragProgressView = false
     @State var text = ""
     @State var erro = ""
     @State var sendMessage = ""
@@ -101,25 +106,25 @@ struct SkullProfile: View {
                 ZStack {
                     
 
-                    ScrollView {
+                    ScrollView(.vertical, showsIndicators: false) {
                         
 //                        cover
 //                            .background(scrollDetection)
                           
-                     
+                        
                         content
                             .background(scrollDetection)
                           
                         
                     }
                     .coordinateSpace(name: "scroll")
-                    .mask(RoundedRectangle(cornerRadius: viewState.width / 3))
-                    .scaleEffect(-viewState.width/500 + 1)
+                    
+                    
                     .onAppear{
                         // DispatchQueue.main.asyncAfter(deadline: .now() + 0.3)
                         profileNumber = profileNumber + 1
                     }
-                    .blur(radius: liked ? 10 : 0)
+                   
                     .onTapGesture {
                         
                         
@@ -130,11 +135,7 @@ struct SkullProfile: View {
                     //the send text view that comes after liking a potential match
                    
                 
-                    if liked {
-                        likedcontent
-                            .transition(.offset(y:UIScreen.main.bounds.height))
-                            
-                    }
+                   
                            
 
                   
@@ -147,15 +148,12 @@ struct SkullProfile: View {
                 }.animation(.spring(), value: dislike)
                
             nameandheartnav
-                .opacity(liked ? 0 : currentUser?.email == profile.email ? 0 : 1)
+                .opacity(liked ? 0 : editingProfile ? 1 : 1)
+                .offset(y:editingProfile ? -50 : 0)
             
            
             
-            if likedtext {
-                likedcontent
-                    .transition(.offset(y:UIScreen.main.bounds.height))
-                
-            }
+           
             
             if report {
               ReportCard(report: $report, appeared: $hidemainTab)
@@ -165,7 +163,19 @@ struct SkullProfile: View {
               
             
         }.background(Color("offwhiteneo"))
+            .sheet(isPresented: $isShowingModal) {
+                likedcontent
+            }
+           
         .onAppear{
+          
+            
+                // Fetch user data when the view appears
+            
+                
+            
+                
+            
             withAnimation(.spring()) {
                 animateapper = true
             }
@@ -199,12 +209,12 @@ struct SkullProfile: View {
                     
                 
                    
-                    Text(currentUser?.email == profile.email ? "Profile" : "Match")
+                    Text(editingProfile  && !previewProfile ? "Profile" : "Match")
                             .font(.title)
                         .bold()
                 
                     
-                    Image(systemName:currentUser?.email == profile.email ?  "person.crop.circle" : "person.2")
+                    Image(systemName:editingProfile   && !previewProfile ?  "person.crop.circle" : "person.2")
                         .font(.title)
                         .fontWeight(.bold)
                         
@@ -223,7 +233,13 @@ struct SkullProfile: View {
                 Spacer()
                 Button {
                     withAnimation(.spring()) {
-                        showProfile = false
+                        if editingProfile {
+                            showProfile = true
+                        } else {
+                            showProfile = false
+                        }
+                        
+                        
                     }
                     withAnimation {
                        // if currentIndex != profiles.count - 1 {
@@ -235,10 +251,10 @@ struct SkullProfile: View {
                     
                 } label: {
                     if !liked {
-                        Image(systemName:currentUser?.email == profile.email ?  "gear" : "heart.slash")
+                        Image(systemName:editingProfile  && !previewProfile ?  "gear" : "heart.slash")
                             .font(.title)
                             .fontWeight(.bold)
-                            .foregroundColor(currentUser?.email == profile.email ?  Color("black") : .red)
+                            .foregroundColor(editingProfile   && !previewProfile ?  Color("black") : .red)
                     } else {
                         
                         Image(systemName: "heart.slash.fill")
@@ -266,7 +282,7 @@ struct SkullProfile: View {
                     
                     
                     HStack(spacing: 2){
-                        Text(profile.firstname)
+                        Text(profile.firstName)
                             .bold()
                             .font(.title)
                         Image(systemName: "square.and.arrow.down.fill")
@@ -287,7 +303,9 @@ struct SkullProfile: View {
                 Spacer()
                 Button {
                     withAnimation(.spring()) {
-                        showProfile = false
+                        if !editingProfile {
+                            showProfile = false
+                        }
                     }
                   
                     showblacknav = true
@@ -302,18 +320,18 @@ struct SkullProfile: View {
                     
                     
                 } label: {
-                    if !dislike {
+                    if editingProfile && !previewProfile {
+                        Image(systemName: "gear")
+                            .font(.title)
+                            .fontWeight(.bold)
+                        .foregroundColor(.red)
+                    }
+                    
+                    if !dislike && !editingProfile {
                         Image(systemName: "heart.slash")
                             .font(.title)
                             .fontWeight(.bold)
                             .foregroundColor(.red)
-                    } else {
-                        
-                        LottieView(filename: "heartbeat")
-                            .frame(width: 99, height: 50)
-                            .offset(x:30)
-                            .opacity(0.57)
-                        
                     }
                     
                     
@@ -397,7 +415,7 @@ struct SkullProfile: View {
                         
                         VStack{
                             Image(systemName: "mappin.and.ellipse")
-                            Text("1,200M")
+                            Text("25k")
                         }
                         .padding(.horizontal,10)
                         .padding(.vertical,4)
@@ -405,19 +423,59 @@ struct SkullProfile: View {
                     }
                     
                     
-                    if (currentUser?.email == profile.email){
-                    HStack{
-                        Spacer()
-                        Text("Edit Profile")
-                            .foregroundColor(Color("white"))
-                           
-                        Spacer()
-                    }.background(.blue)
-                        .padding(.horizontal,10)
-                        .padding(.vertical,5)
-                        .background(.blue)
-                        .cornerRadius(6)
-                        .padding(.horizontal,70)
+                    if (editingProfile){
+                        HStack(alignment: .center) {
+                            if !previewProfile {
+                                HStack{
+                                  
+                                    Text("Edit")
+                                     
+                                        .foregroundColor(editingProfile ? .white : Color("black"))
+                                    
+                                    
+                                }
+                                .padding(.horizontal,30)
+                                .padding(.vertical,5)
+                                .background(previewProfile ? Color("white") : editingProfile ? .gray : .blue)
+                                .cornerRadius(6)
+                                .neoButton(isToggle: false, perform: {
+                                  currentIndex = 1
+                                    if currentIndex == 1 {
+                                        withAnimation(.spring()) {
+                                            showProfile = true
+                                        }
+                                    }
+                                    
+                                    
+                            })
+                            }
+                        
+                            HStack{
+                            
+                            Text(previewProfile ? "End Preview" : "Preview")
+                               
+                                .foregroundColor(editingProfile ? .white : Color("black"))
+                               
+                            
+                        }
+                            .padding(.horizontal,30)
+                            .padding(.vertical,5)
+                            .background(previewProfile ? Color("white") : editingProfile ? .blue : .blue)
+                            .cornerRadius(6)
+                            .neoButton(isToggle: false, perform: {
+                               if  editingProfile && !previewProfile {
+                                   withAnimation(.spring()) {
+                                       previewProfile = true
+                                   }
+                                } else {
+                                    withAnimation(.spring()) {
+                                        previewProfile = false
+                                    }
+                                }
+                                
+                            })
+                        
+                        }
                     }
                 }
                 
@@ -429,7 +487,7 @@ struct SkullProfile: View {
             
             VStack {
                 HStack(spacing: 2){
-                    Text(profile.firstname)
+                    Text(profile.firstName)
                         .bold()
                         .font(.headline)
                     Image(systemName: "checkmark.circle.fill")
@@ -456,6 +514,15 @@ struct SkullProfile: View {
         ScrollView(.horizontal,showsIndicators: false){
             HStack {
                
+                
+                InfoButton(icon: "globe.europe.africa", label: calculateDistance())
+                    .neoDoubleTapButton(isToggle: false, perform: {
+                        likedtext = true
+                    })
+                VStack{
+                    Spacer()
+                }.frame(width: 1, height: 12)
+                    .background(Color("black"))
                 InfoButton(icon: "graduationcap", label: profile.education)
                     .neoDoubleTapButton(isToggle: false, perform: {
                         likedtext = true
@@ -465,7 +532,7 @@ struct SkullProfile: View {
                 }.frame(width: 1, height: 12)
                     .background(Color("black"))
                 
-                InfoButton(icon: "building", label: profile.work)
+                InfoButton(icon: "building", label: profile.occupation)
                     .neoDoubleTapButton(isToggle: false, perform: {
                         likedtext = true
                     })
@@ -475,7 +542,7 @@ struct SkullProfile: View {
                 }.frame(width: 1, height: 12)
                     .background(Color("black"))
                 
-                InfoButton(icon: "location", label: profile.location[0])
+                InfoButton(icon: "location", label: profile.location[2])
                     .neoDoubleTapButton(isToggle: false, perform: {
                         likedtext = true
                     })
@@ -491,15 +558,16 @@ struct SkullProfile: View {
         }
     }
     var whatilike: some View{
-        QuotePillsCard(name: profile.firstname, caption: profile.lifestyledesc,report: $report)
+        QuotePillsCard(name: profile.firstName, caption: "Finding out what your matches like to do for fun shouldn't feel like a chore. With Match Interests, exploring hobbies and activities is enjoyable and interactive", report: $report)
             .neoDoubleTapButton(isToggle: false, perform: {
+                //
                 likedImageUrl = ""
-               
-                withAnimation(.spring()) {
-                    liked = true
-                }
-                likedquote = profile.lifestyledesc
-               
+                likedtext = true
+                //                withAnimation(.spring()) {
+                //                    liked = true
+                //                }
+                isShowingModal.toggle()
+                likedquote = "What do you like to do for fun?"
             })
             .padding(.leading,20)
          
@@ -511,7 +579,13 @@ struct SkullProfile: View {
             
             
             
-            VStack(alignment: .leading, spacing: 20.0) {
+            VStack( spacing: 20.0) {
+                if showDragProgressView {
+                    VStack {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: Color("black")))
+                    }.padding(.top,30)
+                }
                 
                 nameandheart
              
@@ -520,11 +594,53 @@ struct SkullProfile: View {
                    
                  
                
-                
+          
+                if editingProfile  && !previewProfile {
+                    ScrollView(.horizontal) {
+                            HStack(spacing: 10.0) {
+                                AddCards(icon: "text.bubble.fill" ,caption: "prompt")
+                                    .neoButton(isToggle: false) {
+                                        //
+                                        likedImageUrl = ""
+                                        likedtext = true
+                                        //                withAnimation(.spring()) {
+                                        //                    liked = true
+                                        //                }
+                                        isShowingModal.toggle()
+                                        likedquote = "What do you like to do for fun?"
+                                    }
+                                
+                                Divider()
+                                AddCards(icon: "photo.circle.fill", caption: "photo")
+                                    .neoButton(isToggle: false) {
+                                        //
+                                    }
+                                Divider()
+                                AddCards(icon: "quote.bubble", caption: "quote")
+                                    .neoButton(isToggle: false) {
+                                        //
+                                    }
+                            }
+                          
+                    }.offset(x:20)
+                }
+             
                 
 //                About me card
+                
+                if !profileImagesLoaded[0] {
+                    VStack(alignment: .center) {
+                        Divider()
+                        
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                            .padding(.top,70)
+                    }
+                }
+               
                 VStack(alignment: .leading, spacing: 13.0) {
                     
+                   
                    
                         moreinfohorizontalcards
                        
@@ -534,15 +650,16 @@ struct SkullProfile: View {
                     
                        
                         
-                    QuoteImageCard(name: profile.firstname, caption: "Life is too short to worry about thigh gaps, focus on making memories",url: profile.images[0], urlReturned: $profileImages[0], loaded: $profileImagesLoaded[0], report: $report)
+                    QuoteImageCard(name: profile.firstName, caption: "Life is too short to worry about thigh gaps, focus on making memories",url: profile.photos[0], urlReturned: $profileImages[0], loaded: $profileImagesLoaded[0], report: $report)
                         .neoDoubleTapButton(isToggle: false, perform: {
                             //when first image is clicked
                            likedquote = "Life is too short to worry about thigh gaps, focus on making memories"
                             likedImageUrl = profileImages[0]
                             if profileImagesLoaded[0] {
-                                withAnimation(.spring()) {
-                                    liked = true
-                                }
+//                                withAnimation(.spring()) {
+//                                    liked = true
+//                                }
+                                isShowingModal.toggle()
                             }
                             
                         })
@@ -553,16 +670,15 @@ struct SkullProfile: View {
                     
                     Divider()
                     
-                    QuoteImageCard(name: profile.firstname, caption: "Life's a beach, enjoy the waves and soak up the sun", url: profile.images[1], urlReturned: $profileImages[1], loaded: $profileImagesLoaded[1], report: $report)
+                    QuoteImageCard(name: profile.firstName, caption: "Life's a beach, enjoy the waves and soak up the sun", url: profile.photos[1], urlReturned: $profileImages[1], loaded: $profileImagesLoaded[1], report: $report)
                         .neoDoubleTapButton(isToggle: false, perform: {
                             //when first image is clicked
                             likedquote = "Life's a beach, enjoy the waves and soak up the sun"
                             likedImageUrl = profileImages[1]
                             
                             if profileImagesLoaded[1] {
-                                withAnimation(.spring()) {
-                                    liked = true
-                                }
+                               
+                                isShowingModal.toggle()
                             }
                             
                             
@@ -575,8 +691,12 @@ struct SkullProfile: View {
                     
                     
                     
-                }
+                }.offset(y:  !profileImagesLoaded[0] && !profileImagesLoaded[1] ? UIScreen.main.bounds.height : 0)
                 
+                
+                
+             
+                    
             }
             
             .padding(.top,40)
@@ -587,14 +707,15 @@ struct SkullProfile: View {
     }
     
     var answerprompt: some View{
-        QuoteAnswerCard(name: profile.firstname,day: "1",caption: "I'm a professional couch potato. Netflix marathons are my specialty!", question: "What do you do for fun?", report: $report)
+        QuoteAnswerCard(name: profile.firstName,day: "1",caption: "I'm a professional couch potato. Netflix marathons are my specialty!", question: "What do you do for fun?", report: $report)
             .padding(.leading,20)
             .neoDoubleTapButton(isToggle: false, perform: {
                 likedImageUrl = ""
-                
-                withAnimation(.spring()) {
-                    liked = true
-                }
+                likedtext = true
+//                withAnimation(.spring()) {
+//                    liked = true
+//                }
+                isShowingModal.toggle()
                 likedquote = "I'm a professional couch potato. Netflix marathons are my specialty!"
             })
     }
@@ -683,189 +804,271 @@ struct SkullProfile: View {
     
     var likedcontent: some View {
         
-        VStack(spacing: 20.0) {
+        ScrollView(.vertical) {
+            VStack(spacing: 20.0) {
+                Text("Message")
+                    .font(.body)
+                    .bold()
+                    .padding()
+                    .padding(.bottom,-40)
+                
+                
+               
           
-            Spacer()
-            if showHearts {
-                
-                LottieView(filename: "loveflying")
-                    .frame(width: 299, height: 250)
-                    .colorMultiply(.white) 
-                    .opacity(0.57)
-                
-            }
-           
-            HStack {
-                
-          
-                
-                
-                HStack {
-                    HStack(spacing:4) {
-                        Text(profile.firstname)
-                            .bold()
-                            .font(.title2)
-                       
-                        Image(systemName: "checkmark.circle.fill")
-                            .foregroundColor(.blue)
-                            .font(.system(size: 18, weight: .medium))
-                    }
-                    Text("2d")
+               
+                VStack(alignment: .leading) {
                     
-                        .font(.callout)
-                    
-                    Spacer()
-                    Image(systemName: "ellipsis")
-                }.padding(.horizontal,4)
-                Spacer()
-            }.offset(y:40)
-           
-            VStack(alignment: .leading) {
-            
-                
-                    HStack {
-                        if liked && !likedImageUrl.isEmpty {
-                            Rectangle()
-                                .fill(.gray)
-                                .frame(width:1, height:30)
-                        }
-                        VStack {
-                            
-                            if liked && !likedImageUrl.isEmpty {
+                        
+                        
+                        
+                        
+                        HStack {
+                           
                                 GetImageAndUrl(url:likedImageUrl, width: 40 , height: 40, loaded: .constant(true), imageUrl: .constant(likedImageUrl))
                                     .frame(width: 40 , height: 40)
-                                    .onAppear {
-                                        sendMessageFocused = true
-                                    }
-                            }
-                            
-                        }
-                        .animation(.spring(), value: showblacknav)
-                        
-                        .cornerRadius(5)
-                        HStack (spacing: 4.0){
-                           
-                            if likedImageUrl.isEmpty {
-                                Image(systemName: "fleuron.fill")
-                                    .foregroundColor(.red)
-                            }
-                            
-                            Text(erro.isEmpty ? "You Liked :)" : erro)
-                            Spacer()
-                            if !likedImageUrl.isEmpty {
-                                Image(systemName: "fleuron.fill")
-                                    .foregroundColor(.red)
-                            }
-                            
-                        }
-                        
-                        Spacer()
-                        
-                       
-                           
-                    }.font(.title3)
-                        .fontWeight(.bold)
-              
-                    
-                
-                HStack(spacing: 6.0) {
-                    Image(systemName: likedImageUrl.isEmpty ? "quote.opening" : "quote.opening")
-                        .font(.callout)
-                    
-                    Text(likedquote)
-                        .font(.callout)
-                        .italic()
-                        .multilineTextAlignment(.leading)
-                        
-                    
-                }.padding(.top,0.3)
-            }.padding(15)
-//                .neoButtonOff(isToggle: false, cornerRadius: 15, perform: {
-//                    //clikced you liked
-//                    sendMessageFocused = false
-//                })
-                .background(Color("offwhiteneo"))
-                .cornerRadius(15)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 14)
-                        .stroke(Color("black").opacity(0.50), lineWidth: 1)
-                    
-                )
-                .padding(.top, 30)
-                .offset(y: liked ? 5 : -20)
-            
-         
-        
-                TextField("Say Hi...", text: $sendMessage)
-                
-                    .focused($sendMessageFocused)
-                    .padding(.vertical,16)
-                    .padding(.leading, 15)
-                    .foregroundColor(Color("black"))
-                    .background(Color("offwhiteneo"))
-                   
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 30)
-                            .stroke(Color("black").opacity(0.50), lineWidth: 1)
-                        
-                    )
-                    .cornerRadius(30)
-                    .overlay(
-                        HStack {
-                            Spacer()
-                            HStack(spacing: 0.0) {
-                                Image(systemName: "paperplane")
-                              
-                                
-                            }    .padding(.vertical,12)
-                                .padding(.horizontal,12)
-                                .foregroundColor(.white)
-                                .background(Color.blue)
-                                .cornerRadius(29)
-                                .offset(x: -5)
-                                .onTapGesture {
-                               
+                                    .cornerRadius(36)
+                                VStack {
+                                    Text(profile.firstName)
+                                        .bold()
+                                    .font(.title3)
+                                  
                                 }
+                                
+                                Image(systemName: "checkmark.circle.fill")
+                                    .foregroundColor(.blue)
+                                    .font(.system(size: 18, weight: .medium))
+                            
+                            Text("2d")
+                            
+                                .font(.callout)
+                            
+                            Spacer()
+                            HStack (spacing: 4.0){
+                               
+                               
+                                    Image(systemName: "fleuron.fill")
+                                        .foregroundColor(.red)
+                                        .font(.title3)
+                                        .padding(.trailing,10)
+                                
+                            
+                               
+                                
+                            }
+                           
+                        }
+                     
+                        
+                        HStack(spacing: 6.0) {
+                           
+                            
+                            
+                            VStack {
+                                Text("\"\(likedquote)\"")
+                                    .font(.callout)
+                                    .italic()
+                                    .multilineTextAlignment(.leading)
+                                    .padding(.leading,40)
+                                    .overlay{
+                                        HStack {
+                                            Rectangle()
+                                                .fill(.red)
+                                                .frame(width:1)
+                                                .offset(x:20)
+                                            Spacer()
+                                        }
+                                    }
+                                
+                                if !likedImageUrl.isEmpty {
+                                    GetImageAndUrl(url:likedImageUrl, width:UIScreen.main.bounds.width - 80 , height: UIScreen.main.bounds.width - 80, loaded: .constant(true), imageUrl: .constant(likedImageUrl))
+                                        .frame(width: UIScreen.main.bounds.width - 80, height: UIScreen.main.bounds.width - 80)
+                                        .cornerRadius(13)
+                                        .padding(.leading,40)
+                                        .overlay{
+                                            ZStack {
+                                                HStack {
+                                                    Rectangle()
+                                                        .fill(.gray)
+                                                        .frame(width:1)
+                                                        .offset(x:20)
+                                                    Spacer()
+                                                }
+                                                if showHearts {
+                                                    
+                                                    LottieView(filename: "loveflying",loop: false)
+                                                        .frame(width: 299, height: 250)
+                                                        .colorMultiply(.white)
+                                                        .opacity(0.57)
+                                                    
+                                                }
+                                            }
+                                    }
+                                }
+                            }.overlay{
+                                HStack {
+                                    Rectangle()
+                                        .fill(.gray)
+                                        .frame(width:1)
+                                        .offset(x:20)
+                                    Spacer()
+                                }
+                            }
+                            
                             
                         }
-                    )
                     
-                    .modifier(KeyboardAwareModifier())
+                  
+                        
                     
-          
-            
-            
-            
-        }.padding(.horizontal, 10)
-            .padding(.bottom,10)
-
-            .background(Color("offwhite").opacity(0.02))
-            .onTapGesture {
-                withAnimation(.spring()) {
-                    liked = false
-                    
-                    
+                   
                 }
-            }
-            .onAppear{
+ 
                 
-                withAnimation(.spring()) {
-                    showblacknav = false
-                    
-                 
-                    
-                }
-            }
-            .onDisappear{
                 
-                withAnimation(.spring()) {
-//                    showblacknav = false
+                   
+                    .padding(.top, 30)
+                   
+                
+             
+            
+                HStack {
+                    GetImageAndUrl(url:currentUser?.avatar ?? "", width: 40 , height: 40, loaded: .constant(true), imageUrl: .constant(likedImageUrl))
+                        .frame(width: 40 , height: 40)
+                        .cornerRadius(36)
+                    
+                    VStack(spacing: 8.0) {
+                        HStack{
+                           
+                            Text(currentUser?.firstName ?? "")
+                                    .bold()
+                                    .font(.title3)
+                                
+                           
+                            
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundColor(.blue)
+                                .font(.system(size: 18, weight: .medium))
+                            
+                            Text("2d")
+                            
+                                .font(.callout)
+                        Spacer()
+                     
+                        }
+                        TextField("What do you think...", text: $sendMessage)
+                            
+                                .focused($sendMessageFocused)
+                                .italic()
+                                .foregroundColor(Color("black"))
+                                
+                                .padding(.trailing,70)
+                                .overlay{
+                                    
+                                       
+                                    HStack(alignment: .center, spacing: 0.0) {
+                                            Spacer()
+                                            Image(systemName: "paperplane")
+                                                .padding(.vertical,12)
+                                                .padding(.horizontal,12)
+                                                .foregroundColor(.white)
+                                                .background(Color.blue)
+                                                .cornerRadius(29)
+                                            
+                                        }
+                                    .offset(x: -10,y:-10)
+                                    .neoButton(isToggle: false) {
+                                        isShowingModal.toggle()
+                                    }
+                                        
+                                    
+                                }
+                                .onAppear{
+                                    sendMessageFocused = true
+                                }
+                           
+                            
+                    }
                 }
+                
+                       
+                        
+                      
+                        
+                        
+                        
+                        
+              
+                Spacer()
+                
+                
+            }.padding(.horizontal, 10)
+                .padding(.bottom,10)
+                
+                
+                .onTapGesture {
+                    withAnimation(.spring()) {
+                        liked = false
+                        
+                        
+                    }
+                }
+                .onAppear{
+                    
+                    withAnimation(.spring()) {
+                        showblacknav = false
+                        
+                        heartsFunc()
+                        
+                    }
+                }
+                .onDisappear{
+                    
+                    withAnimation(.spring()) {
+    //                    showblacknav = false
+                    }
             }
+            
+           
+//
+        }.background(Color("offwhiteneo"))
+            .modifier(KeyboardAwareModifier())
         
         
     }
+   
+   
+    func roundDistance(distanceInMiles: Double) -> String {
+        if distanceInMiles >= 1000 {
+            let roundedDistance = Int(distanceInMiles / 1000)
+            return "\(roundedDistance)k miles"
+        } else if distanceInMiles >= 100 {
+            let roundedDistance = Int(distanceInMiles / 100) * 100
+            return "\(roundedDistance) miles"
+        } else if distanceInMiles >= 10 {
+            let roundedDistance = Int(distanceInMiles / 10) * 10
+            return "\(roundedDistance) miles"
+        } else {
+            let roundedDistance = Int(distanceInMiles)
+            return "\(roundedDistance)"
+        }
+    }
     
+func calculateDistance() -> String {
+   
+ 
+    
+    let coordinatesA = (latitude: Double(profile.coordinates[0]), longitude: Double(profile.coordinates[1]))
+    let coordinatesB = (latitude: Double(fakeUser.coordinates[0]), longitude: Double(fakeUser.coordinates[1]))
+    
+    let locationA = CLLocation(latitude: coordinatesA.latitude ?? 0.0, longitude: coordinatesA.longitude ?? 0.0)
+    let locationB = CLLocation(latitude: coordinatesB.latitude ?? 0.0, longitude: coordinatesB.longitude ?? 0.0)
+    
+//    let distance = locationA.distance(from: locationB)
+//    return String(format: "%.2f meters", distance)
+    let distanceInMeters = locationA.distance(from: locationB)
+    let distanceInMiles = distanceInMeters * 0.000621371
+    return roundDistance(distanceInMiles: distanceInMiles)
+}
     var scrollDetection: some View {
         GeometryReader { proxy in
             let offset = proxy.frame(in: .named("scroll")).minY
@@ -878,6 +1081,9 @@ struct SkullProfile: View {
                 withAnimation(.spring()) {
                     showProfile = false
                     hidemainTab = false
+                    if profiles.count == 1 {
+                        topDragFunc()
+                    }
                 }
             }
             
@@ -917,7 +1123,28 @@ struct SkullProfile: View {
         }
     }
     
-   
+    func heartsFunc(){
+        withAnimation(.spring()){
+            showHearts = true
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            withAnimation(.spring()){
+                showHearts = false
+            }
+        }
+    }
+    func topDragFunc(){
+        withAnimation(.spring()){
+            showDragProgressView = true
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            withAnimation(.spring()){
+                showDragProgressView = false
+            }
+        }
+    }
     
     func typeWriter(_ text: String, completion: @escaping () -> Void) {
       

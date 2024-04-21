@@ -10,9 +10,17 @@ import SwiftUI
 struct PostCard: View {
     var firstname = "Jane"
     var avatar = ""
+    var post = ""
     var quote = "Do not go gently into that goodnight!"
-    var poster = ""
+    var showProfile = false
+    @State var profileLoaded = false
+    @Binding var indexRemoved : Int
+    @Binding var imageUrlReturned : String
+    @Binding var imageLoaded : Int
     @State var percent = 56
+    @State var animatex = false
+    @Binding var unmatch : Bool
+    var index = 0
     let completion: () -> Void
     var body: some View {
         
@@ -28,17 +36,33 @@ struct PostCard: View {
                     }
                     Image(systemName: "paperplane")
                         .font(.title)
-                    Image(systemName: "bookmark")
+                    Image(systemName: "multiply")
                         .font(.title)
+                        .rotationEffect(.degrees(animatex ? 90 : 0))
+                        .animation(.spring()) // Add animation for smooth transition
+                        .neoButton(isToggle: true) {
+                            //
+                            animatex = true
+                            indexRemoved = index
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.20) {
+                                animatex = false
+                                unmatch = true
+                                
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.20) {
+                                    unmatch = false
+                                }
+                            }
+                        }
                     Spacer()
                     
                 }.padding()
+//                    .opacity(index == 0 ? 1 : 0)
                     
                 
                 
                 //The image is this
                 ZStack {
-                    GetImageAndUrl(url:poster, loaded: .constant(true), imageUrl: .constant(""))
+                    GetImageAndUrl(url:post, loaded: $profileLoaded, imageUrl: .constant(""))
                         .frame(width: 340, height: 500)
                         .cornerRadius(34)
                         .padding(.horizontal,0)
@@ -49,7 +73,7 @@ struct PostCard: View {
                     VStack {
                         Spacer()
                         HStack {
-                            GetImageAndUrl(url:avatar, loaded: .constant(true), imageUrl: .constant(""))
+                            GetImageAndUrl(url:avatar, loaded: .constant(true), imageUrl: $imageUrlReturned)
                                 .frame(width: 60,height: 60)
                                 .cornerRadius(60)
                             
@@ -96,7 +120,7 @@ struct PostCard: View {
                         Spacer()
                     })
                 
-                .neoButton(isToggle: false) {
+                .neoButton(isToggle: true) {
                     //code here
                     completion()
                 }
@@ -123,8 +147,12 @@ struct PostCard: View {
                         Spacer()
                     }
                 }.padding(.bottom, 80)
+//                    .opacity(index == 0 ? 1 : 0)
                   
             )
+            .onChange(of: profileLoaded) { newValue in
+                imageLoaded = imageLoaded + 1
+            }
         
     }
 }

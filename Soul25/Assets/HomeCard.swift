@@ -12,88 +12,123 @@ struct HomeCard: View {
     var avatar = ""
     var quote = "Do not go gently into that goodnight!"
     var poster = ""
+    @State var imageLoaded = false
+    @Binding var loaded : Int
     @State var percent = 56
     let completion: () -> Void
     var body: some View {
         
-        HStack {
+        
           
             //The image is this
-            ZStack {
-                GetImageAndUrl(url:poster, loaded: .constant(true), imageUrl: .constant(""))
-                    .blur(radius: 60)
-                    .frame(width: UIScreen.main.bounds.width - 20, height: 407)
-                    .cornerRadius(35)
-                   
-                GetImageAndUrl(url:poster, loaded: .constant(true), imageUrl: .constant(""))
-                    .frame(width: UIScreen.main.bounds.width - 29, height: 400)
-                    .cornerRadius(33)
-                
+            VStack {
                 //Bottom card avatar and quote
+                
                 VStack {
-                    Spacer()
                     HStack {
-                        GetImageAndUrl(url:avatar, loaded: .constant(true), imageUrl: .constant(""))
-                            .frame(width: 60,height: 60)
-                            .cornerRadius(60)
-                        
-                        HStack {
-                            Text("\(firstname): ")
-                                .font(.headline)
-                           
-                               
-                            +
-                            Text(quote)
-                                .font(.subheadline)
+                        HStack(spacing:4) {
+                            GetImageAndUrl(url:avatar, loaded: .constant(true), imageUrl: .constant(""))
+                                .frame(width: 40,height: 40)
+                                .cornerRadius(60)
                             
-                        }.lineLimit(2)
+                            VStack(alignment: .leading) {
+                               
+                                
+                                HStack {
+                                    Text(firstname)
+                                        .bold()
+                                        .font(.subheadline)
+                                    Image(systemName: "checkmark.circle.fill")
+                                        .foregroundColor(.blue)
+                                    .font(.system(size: 18, weight: .medium))
+                                }
+                                
+                                
+                                Text("2d")
+                                    .font(.callout)
+                                    .foregroundColor(.gray)
+                            }.padding(.leading,5)
+                        }
+                        
+                       
+                        Spacer()
+                        VStack {
+                            Image(systemName: "ellipsis")
+                                .onTapGesture {
+                                    withAnimation(.spring()){
+                                        
+                                    }
+                            }
+                            
+                        }
+                    }.padding(.trailing,20)
+                    Spacer()
+                    
+                    HStack {
+                        VStack {
+                            Image(systemName: "quote.opening")
+                                .font(.system(size: 18, weight: .medium))
+                            
+                        }
+                        Text(quote)
+                            .font(.callout)
+                            .italic()
                         
                         Spacer()
-                    }
-                    .padding(5)
-                    
-                    .background(Color("offwhite"))
-                    .cornerRadius(45)
-                    .padding(.horizontal,35)
-                    .padding(.bottom,20)
+                    }.padding(.trailing,10)
                 }
-            }
-            .overlay(
-                VStack{
-                    HStack{
-                        Spacer()
-                        Circle()
-                            .fill(Color("offwhite"))
-                            .frame(width: 30,height: 30)
-                            .padding(7)
-                            .background(Color("offwhite"))
-                            .cornerRadius(60)
-                            .overlay (
-                                ZStack {
-                                    
-                                    CircularView(value: Double(percent) / 100.0,lineWidth: 1.0)
-                                    
-                                    Text("\(percent)%")
-                                        .font(.footnote)
-                                        .foregroundColor(Color("black"))
-                                    
-                                    
+                .padding(.leading,20)
+                .padding(.vertical,10)
+                
+                HStack {
+                    Rectangle()
+                        .fill(Color("black").opacity(0.50))
+                        .frame(width:2)
+                        .padding(.vertical, 20)
+                    
+                    ZStack {
+                        GetImageAndUrl(url:avatar, width: UIScreen.main.bounds.width - 53, height: 400, loaded: .constant(false), imageUrl: .constant(""))
+                        
+                            .cornerRadius(14)
+                            .offset(x:7, y:-12)
+                        GetImageAndUrl(url:poster, width: UIScreen.main.bounds.width - 53, height: 400, loaded: $imageLoaded, imageUrl: .constant(""))
+                           
+                            .cornerRadius(14)
+                            .padding(.bottom,10)
+                            .onChange(of: imageLoaded) { newValue in
+                                if imageLoaded {
+                                    withAnimation(.spring()) {
+                                        loaded = loaded + 1
+                                    }
                                 }
-                            )
-                            .offset(x:-20)
-                    }.padding(15)
-                    Spacer()
-                })
+                                
+                        }
+                    }
+                }
+                
+              
+                
+                
+            
+            }
+          
             
             .neoButton(isToggle: false) {
                 //code here
                 completion()
             }
-        }//the whole two crds right and left individual
-        .frame(height: 400)
+
       
+        
         
     }
 }
 
 
+struct ViewControdller_Previews: PreviewProvider {
+    static var previews: some View {
+        ViewController()
+        
+        
+    }
+}

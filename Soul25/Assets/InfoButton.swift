@@ -8,14 +8,17 @@
 import SwiftUI
 
 struct InfoButton: View {
-    var icon : String = "person"
+    var icon : String = ""
     var label : String = "label"
+    
     
     
     var body: some View {
         HStack(spacing: 3.9){
-            Image(systemName: icon)
-                .font(.system(size: 18, weight: .medium))
+            if !icon.isEmpty {
+                Image(systemName: icon)
+                    .font(.system(size: 18, weight: .medium))
+            }
             
             
             Text(label)
@@ -24,12 +27,12 @@ struct InfoButton: View {
                 .lineLimit(1)
             
         }.foregroundColor(Color("black"))
-            .padding(.horizontal,5)
-            .padding(.vertical,4)
-            .background(Color("offwhite"))
+            .padding(.horizontal,9)
+            .padding(.vertical,5)
+            .background(Color("offwhiteneo"))
             .overlay(
                 RoundedRectangle(cornerRadius: 8)
-                    .stroke(Color("black"), lineWidth: 1)
+                    .stroke(Color("black").opacity(0.80), lineWidth: 1)
                 
             )
             .cornerRadius(8)

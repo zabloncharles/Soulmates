@@ -9,52 +9,36 @@ import SwiftUI
 
 struct ReportCard: View {
     var scrolled = 0;
+    var options = ["Report","Information"]
     @Binding var report : Bool
     @Binding var appeared : Bool
     var body: some View {
         VStack{
             Spacer()
-            HStack {
-                Image(systemName: "shield.slash")
-                    .foregroundColor(.red)
-                    .font(.title2)
-                Text("Report")
-                    .padding(.vertical,20)
-                
-                
-            }.padding(.horizontal,150)
-                .background(!report ? Color("offwhite") : Color("offwhiteneo"))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color("black").opacity(0.20), lineWidth: 1)
+            ForEach(options, id: \.self) { item in
+                HStack {
+                    Image(systemName: "shield.slash")
+                        .foregroundColor(.red)
+                        .font(.title2)
+                    Text(item)
+                        .padding(.vertical,20)
                     
-                )
-                .cornerRadius(12)
-            
-            
-            HStack {
-                Image(systemName: "xmark")
-                    .foregroundColor(Color("black"))
-                    .font(.title3)
-                Text("Cancel")
-                    .padding(.vertical,20)
-                
-                
-            }.padding(.horizontal,150)
-                .background(!report ? Color("offwhite") : Color("offwhiteneo"))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color("black").opacity(0.20), lineWidth: 1)
                     
-                )
+                }.frame(width: 380)
+                    .background(!report ? Color("offwhite") : Color("offwhiteneo"))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(Color("black").opacity(0.20), lineWidth: 1)
+                        
+                    )
                 .cornerRadius(12)
                 .onTapGesture {
                     withAnimation {
                         report = false
                     }
                 }
-            
-                .padding(.bottom,50)
+            }
+                
             
             
         }.background(Color.black.opacity(0.001))

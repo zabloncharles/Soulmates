@@ -10,6 +10,22 @@
 		7E52D23886849852767335C4 /* Pods_Soul25.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AE65DE2F6550D2F9B0273A2 /* Pods_Soul25.framework */; };
 		F71110312BCC8B880045A36B /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F71110302BCC8B880045A36B /* BackgroundView.swift */; };
 		F71110332BCC8BAF0045A36B /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F71110322BCC8BAF0045A36B /* LottieView.swift */; };
+		F755EEC22BD43E2300BFBB82 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F755EEC12BD43E2300BFBB82 /* SettingsView.swift */; };
+		F755EEC42BD445B500BFBB82 /* PreferenceInfoCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F755EEC32BD445B500BFBB82 /* PreferenceInfoCard.swift */; };
+		F755EEC62BD472BA00BFBB82 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F755EEC52BD472BA00BFBB82 /* MapView.swift */; };
+		F755EEC82BD4821100BFBB82 /* locationbubble.json in Resources */ = {isa = PBXBuildFile; fileRef = F755EEC72BD4821100BFBB82 /* locationbubble.json */; };
+		F755EECA2BD4840000BFBB82 /* RippleCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F755EEC92BD4840000BFBB82 /* RippleCircle.swift */; };
+		F755EECC2BD49D8700BFBB82 /* EditProfileInfoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F755EECB2BD49D8700BFBB82 /* EditProfileInfoDetailView.swift */; };
+		F755EECE2BD4C14400BFBB82 /* CompatibleProfilesCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = F755EECD2BD4C14400BFBB82 /* CompatibleProfilesCards.swift */; };
+		F755EED02BD4D14E00BFBB82 /* ActiveProfilesCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = F755EECF2BD4D14E00BFBB82 /* ActiveProfilesCards.swift */; };
+		F755EED22BD4D32A00BFBB82 /* ScrollDetectionModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = F755EED12BD4D32A00BFBB82 /* ScrollDetectionModifier.swift */; };
+		F755EED42BD4D46100BFBB82 /* NoProfilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F755EED32BD4D46100BFBB82 /* NoProfilesView.swift */; };
+		F755EED62BD4D4D800BFBB82 /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F755EED52BD4D4D800BFBB82 /* HomeHeaderView.swift */; };
+		F755EED82BD4D54F00BFBB82 /* NearMeProfilesCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = F755EED72BD4D54F00BFBB82 /* NearMeProfilesCards.swift */; };
+		F755EEDA2BD4DAED00BFBB82 /* HomeProfileHeaderCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F755EED92BD4DAED00BFBB82 /* HomeProfileHeaderCard.swift */; };
+		F755EEDC2BD4F20100BFBB82 /* ScrollDetectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F755EEDB2BD4F20100BFBB82 /* ScrollDetectionView.swift */; };
+		F755EEDE2BD4FCAA00BFBB82 /* DynamicTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F755EEDD2BD4FCAA00BFBB82 /* DynamicTopBar.swift */; };
+		F7B3BF1B2BD266DD00CE2425 /* RandomUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B3BF1A2BD266DD00CE2425 /* RandomUser.swift */; };
 		F7C37D1F2BCC8C0E002E6B25 /* HomeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C37D1E2BCC8C0E002E6B25 /* HomeCard.swift */; };
 		F7C37D212BCC8C87002E6B25 /* GetImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C37D202BCC8C87002E6B25 /* GetImage.swift */; };
 		F7C37D232BCC8D52002E6B25 /* LikesPill.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C37D222BCC8D52002E6B25 /* LikesPill.swift */; };
@@ -38,6 +54,7 @@
 		F7F6D34F2BD07B6900B9C526 /* ReportCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F6D34E2BD07B6900B9C526 /* ReportCard.swift */; };
 		F7F6D3512BD0837400B9C526 /* KeyboardModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F6D3502BD0837400B9C526 /* KeyboardModifier.swift */; };
 		F7F6D3532BD08D2900B9C526 /* loader.json in Resources */ = {isa = PBXBuildFile; fileRef = F7F6D3522BD08D2900B9C526 /* loader.json */; };
+		F7F6D3552BD0EC7D00B9C526 /* AddCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F6D3542BD0EC7D00B9C526 /* AddCards.swift */; };
 		F7FF11EE2BCC72D800880D0A /* Soul25App.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FF11ED2BCC72D800880D0A /* Soul25App.swift */; };
 		F7FF11F52BCC72DA00880D0A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7FF11F42BCC72DA00880D0A /* Preview Assets.xcassets */; };
 		F7FF12132BCC745400880D0A /* PreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FF12012BCC745300880D0A /* PreferenceKey.swift */; };
@@ -129,6 +146,22 @@
 		A68E6CDEC6DC3FC38611AF7C /* Pods-Soul25.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Soul25.release.xcconfig"; path = "Target Support Files/Pods-Soul25/Pods-Soul25.release.xcconfig"; sourceTree = "<group>"; };
 		F71110302BCC8B880045A36B /* BackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
 		F71110322BCC8BAF0045A36B /* LottieView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
+		F755EEC12BD43E2300BFBB82 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		F755EEC32BD445B500BFBB82 /* PreferenceInfoCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceInfoCard.swift; sourceTree = "<group>"; };
+		F755EEC52BD472BA00BFBB82 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		F755EEC72BD4821100BFBB82 /* locationbubble.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = locationbubble.json; sourceTree = "<group>"; };
+		F755EEC92BD4840000BFBB82 /* RippleCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RippleCircle.swift; sourceTree = "<group>"; };
+		F755EECB2BD49D8700BFBB82 /* EditProfileInfoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileInfoDetailView.swift; sourceTree = "<group>"; };
+		F755EECD2BD4C14400BFBB82 /* CompatibleProfilesCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompatibleProfilesCards.swift; sourceTree = "<group>"; };
+		F755EECF2BD4D14E00BFBB82 /* ActiveProfilesCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveProfilesCards.swift; sourceTree = "<group>"; };
+		F755EED12BD4D32A00BFBB82 /* ScrollDetectionModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollDetectionModifier.swift; sourceTree = "<group>"; };
+		F755EED32BD4D46100BFBB82 /* NoProfilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoProfilesView.swift; sourceTree = "<group>"; };
+		F755EED52BD4D4D800BFBB82 /* HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
+		F755EED72BD4D54F00BFBB82 /* NearMeProfilesCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearMeProfilesCards.swift; sourceTree = "<group>"; };
+		F755EED92BD4DAED00BFBB82 /* HomeProfileHeaderCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeProfileHeaderCard.swift; sourceTree = "<group>"; };
+		F755EEDB2BD4F20100BFBB82 /* ScrollDetectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollDetectionView.swift; sourceTree = "<group>"; };
+		F755EEDD2BD4FCAA00BFBB82 /* DynamicTopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTopBar.swift; sourceTree = "<group>"; };
+		F7B3BF1A2BD266DD00CE2425 /* RandomUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomUser.swift; sourceTree = "<group>"; };
 		F7C37D1E2BCC8C0E002E6B25 /* HomeCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeCard.swift; sourceTree = "<group>"; };
 		F7C37D202BCC8C87002E6B25 /* GetImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetImage.swift; sourceTree = "<group>"; };
 		F7C37D222BCC8D52002E6B25 /* LikesPill.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikesPill.swift; sourceTree = "<group>"; };
@@ -158,6 +191,7 @@
 		F7F6D34E2BD07B6900B9C526 /* ReportCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportCard.swift; sourceTree = "<group>"; };
 		F7F6D3502BD0837400B9C526 /* KeyboardModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardModifier.swift; sourceTree = "<group>"; };
 		F7F6D3522BD08D2900B9C526 /* loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loader.json; sourceTree = "<group>"; };
+		F7F6D3542BD0EC7D00B9C526 /* AddCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCards.swift; sourceTree = "<group>"; };
 		F7FF11EA2BCC72D800880D0A /* Soul25.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Soul25.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7FF11ED2BCC72D800880D0A /* Soul25App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Soul25App.swift; sourceTree = "<group>"; };
 		F7FF11F42BCC72DA00880D0A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -319,6 +353,7 @@
 				F7FF12012BCC745300880D0A /* PreferenceKey.swift */,
 				F7FF12062BCC745300880D0A /* MessagesModel.swift */,
 				F7FF120D2BCC745300880D0A /* AppUserData.swift */,
+				F7B3BF1A2BD266DD00CE2425 /* RandomUser.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -352,6 +387,17 @@
 				F7C37D4F2BCCFC21002E6B25 /* QuoteAnswerCard.swift */,
 				F7F6D34E2BD07B6900B9C526 /* ReportCard.swift */,
 				F7F6D3502BD0837400B9C526 /* KeyboardModifier.swift */,
+				F7F6D3542BD0EC7D00B9C526 /* AddCards.swift */,
+				F755EEC32BD445B500BFBB82 /* PreferenceInfoCard.swift */,
+				F755EEC52BD472BA00BFBB82 /* MapView.swift */,
+				F755EEC92BD4840000BFBB82 /* RippleCircle.swift */,
+				F755EECD2BD4C14400BFBB82 /* CompatibleProfilesCards.swift */,
+				F755EED12BD4D32A00BFBB82 /* ScrollDetectionModifier.swift */,
+				F755EED32BD4D46100BFBB82 /* NoProfilesView.swift */,
+				F755EED52BD4D4D800BFBB82 /* HomeHeaderView.swift */,
+				F755EED72BD4D54F00BFBB82 /* NearMeProfilesCards.swift */,
+				F755EED92BD4DAED00BFBB82 /* HomeProfileHeaderCard.swift */,
+				F755EEDB2BD4F20100BFBB82 /* ScrollDetectionView.swift */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -359,6 +405,7 @@
 		F7FF12592BCC746500880D0A /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
+				F755EEC72BD4821100BFBB82 /* locationbubble.json */,
 				F7FF125A2BCC746500880D0A /* woman3.json */,
 				F7FF125B2BCC746500880D0A /* girlwaving.json */,
 				F7FF125C2BCC746500880D0A /* paperplaneloading.json */,
@@ -439,6 +486,7 @@
 				F7FF12A42BCC746600880D0A /* BodoniLean.ttf */,
 				F7FF12A52BCC746600880D0A /* BodoniFancy.ttf */,
 				F7FF12A62BCC746600880D0A /* FontModifier.swift */,
+				F755EECF2BD4D14E00BFBB82 /* ActiveProfilesCards.swift */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -447,9 +495,9 @@
 			isa = PBXGroup;
 			children = (
 				F7FF13A62BCC74B700880D0A /* BeforeLogin */,
+				F7FF13C12BCC74B700880D0A /* Views */,
 				F7FF13B02BCC74B700880D0A /* TopView */,
 				F7FF13B42BCC74B700880D0A /* Detail */,
-				F7FF13C12BCC74B700880D0A /* Views */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -468,6 +516,7 @@
 			children = (
 				F7FF13B12BCC74B700880D0A /* NavigationBar.swift */,
 				F7FF13B32BCC74B700880D0A /* MainTab.swift */,
+				F755EEDD2BD4FCAA00BFBB82 /* DynamicTopBar.swift */,
 			);
 			path = TopView;
 			sourceTree = "<group>";
@@ -475,6 +524,9 @@
 		F7FF13B42BCC74B700880D0A /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				F7C37D342BCC9144002E6B25 /* SkullProfile.swift */,
+				F755EEC12BD43E2300BFBB82 /* SettingsView.swift */,
+				F755EECB2BD49D8700BFBB82 /* EditProfileInfoDetailView.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -485,7 +537,6 @@
 				F7C37D3F2BCC97C6002E6B25 /* LikesView.swift */,
 				F7C37D412BCCA42C002E6B25 /* HomeView.swift */,
 				F7FF13CC2BCC74B700880D0A /* ChatsView.swift */,
-				F7C37D342BCC9144002E6B25 /* SkullProfile.swift */,
 				F7C37D382BCC937B002E6B25 /* MatchView.swift */,
 				F7C37D472BCCB085002E6B25 /* ProfileView.swift */,
 			);
@@ -576,6 +627,7 @@
 				F7FF132C2BCC746A00880D0A /* dislikebrokeheart.json in Resources */,
 				F7FF13222BCC746A00880D0A /* logged.json in Resources */,
 				F7FF134C2BCC746A00880D0A /* Carlotte.ttf in Resources */,
+				F755EEC82BD4821100BFBB82 /* locationbubble.json in Resources */,
 				F7FF13352BCC746A00880D0A /* girllikingstuff.json in Resources */,
 				F7FF13102BCC746A00880D0A /* birth.json in Resources */,
 				F7FF133C2BCC746A00880D0A /* setComplete.json in Resources */,
@@ -678,17 +730,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F755EEC42BD445B500BFBB82 /* PreferenceInfoCard.swift in Sources */,
 				F7C37D4C2BCCF563002E6B25 /* QuoteImageCard.swift in Sources */,
 				F7C37D332BCC8F9B002E6B25 /* TextModifiers.swift in Sources */,
+				F755EEDE2BD4FCAA00BFBB82 /* DynamicTopBar.swift in Sources */,
+				F755EED22BD4D32A00BFBB82 /* ScrollDetectionModifier.swift in Sources */,
+				F755EECA2BD4840000BFBB82 /* RippleCircle.swift in Sources */,
+				F755EEDA2BD4DAED00BFBB82 /* HomeProfileHeaderCard.swift in Sources */,
 				F71110332BCC8BAF0045A36B /* LottieView.swift in Sources */,
 				F7FF12132BCC745400880D0A /* PreferenceKey.swift in Sources */,
 				F7C37D422BCCA42C002E6B25 /* HomeView.swift in Sources */,
 				F7C37D372BCC922B002E6B25 /* TextWriterAppear.swift in Sources */,
+				F755EEC62BD472BA00BFBB82 /* MapView.swift in Sources */,
+				F755EED42BD4D46100BFBB82 /* NoProfilesView.swift in Sources */,
 				F7C37D252BCC8D62002E6B25 /* NeoModifier.swift in Sources */,
 				F7C37D462BCCA7F6002E6B25 /* ShimmerText.swift in Sources */,
 				F7C37D312BCC8EBA002E6B25 /* OffWhiteButtonModifier.swift in Sources */,
 				F7FF13D82BCC74B800880D0A /* NavigationBar.swift in Sources */,
 				F7C37D272BCC8E13002E6B25 /* MessageDetailView.swift in Sources */,
+				F755EEC22BD43E2300BFBB82 /* SettingsView.swift in Sources */,
+				F755EED02BD4D14E00BFBB82 /* ActiveProfilesCards.swift in Sources */,
 				F7C37D1F2BCC8C0E002E6B25 /* HomeCard.swift in Sources */,
 				F7C37D352BCC9144002E6B25 /* SkullProfile.swift in Sources */,
 				F7C37D3B2BCC94DA002E6B25 /* ColorExtension.swift in Sources */,
@@ -696,8 +757,11 @@
 				F7C37D2D2BCC8E4D002E6B25 /* PostCard.swift in Sources */,
 				F7C37D232BCC8D52002E6B25 /* LikesPill.swift in Sources */,
 				F7FF13DA2BCC74B800880D0A /* MainTab.swift in Sources */,
+				F755EED82BD4D54F00BFBB82 /* NearMeProfilesCards.swift in Sources */,
 				F7FF12182BCC745400880D0A /* MessagesModel.swift in Sources */,
 				F7FF11EE2BCC72D800880D0A /* Soul25App.swift in Sources */,
+				F755EED62BD4D4D800BFBB82 /* HomeHeaderView.swift in Sources */,
+				F755EECE2BD4C14400BFBB82 /* CompatibleProfilesCards.swift in Sources */,
 				F7C37D502BCCFC21002E6B25 /* QuoteAnswerCard.swift in Sources */,
 				F7C37D2F2BCC8E7C002E6B25 /* MessageBubblesView.swift in Sources */,
 				F7FF121F2BCC745400880D0A /* AppUserData.swift in Sources */,
@@ -707,16 +771,20 @@
 				F7FF13D02BCC74B800880D0A /* LauchView.swift in Sources */,
 				F7FF13542BCC746A00880D0A /* FontModifier.swift in Sources */,
 				F7C37D4E2BCCF98F002E6B25 /* QuotePillsCard.swift in Sources */,
+				F755EEDC2BD4F20100BFBB82 /* ScrollDetectionView.swift in Sources */,
+				F755EECC2BD49D8700BFBB82 /* EditProfileInfoDetailView.swift in Sources */,
 				F7F6D3512BD0837400B9C526 /* KeyboardModifier.swift in Sources */,
 				F7F6D34F2BD07B6900B9C526 /* ReportCard.swift in Sources */,
 				F7C37D392BCC937B002E6B25 /* MatchView.swift in Sources */,
 				F7C37D4A2BCCF0B7002E6B25 /* InfoButton.swift in Sources */,
 				F7FF13F82BCC74C100880D0A /* ViewController.swift in Sources */,
 				F7C37D212BCC8C87002E6B25 /* GetImage.swift in Sources */,
+				F7B3BF1B2BD266DD00CE2425 /* RandomUser.swift in Sources */,
 				F7C37D292BCC8E19002E6B25 /* MessageCard.swift in Sources */,
 				F7C37D2B2BCC8E38002E6B25 /* CircularView.swift in Sources */,
 				F7C37D482BCCB085002E6B25 /* ProfileView.swift in Sources */,
 				F7FF13F12BCC74B800880D0A /* ChatsView.swift in Sources */,
+				F7F6D3552BD0EC7D00B9C526 /* AddCards.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

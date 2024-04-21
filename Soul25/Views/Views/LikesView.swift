@@ -10,37 +10,82 @@ import SwiftUI
 struct LikesView: View {
     @AppStorage("currentPage") var selected = 0
     @AppStorage("hidemainTab") var hidemainTab = false
+    @State var userScrolledAmount : CGFloat = 0
     @State var pageAppeared = false
-    @State var profiles: [UserStruct] = compatibleFakeUsers
+    @State var profiles: [UserStruct] = []
     @Binding var currentUser: UserStruct?
-    @State var profile = userStruct[0]
-    @State var userScrolledAmount = 0
+    @State var profile = fakeUsers[0]
+    @State var dataMessages = "Getting your likes :)"
+
+    @State var indexRemoved = 0
+    @State var unmatch = false
     @Namespace var namespace
     @State  var showProfile = false
     @State var profileAppeared = false
+    @State var profilesReady = false
+    @State var profileLoaded = 0
+    @State var showError = false
+    @State var noProfiles = false
+    @State var profileUrl = ""
     
     var body: some View {
         ZStack {
             BackgroundView()
             //hearts animation
-            maintabanimationhearts
             
-            //girllottie aniamtion
-            // girlanimation
             
-            //No Likes Yet
             
-            // nolikes
-           // likes2
-            if filteredProfiles.count != 0 {
-            stories
-            } else {
+            if profiles.count != 0{
+                
+               
+                    
+                    stories
+                    if profileLoaded < 5 {
+                        loading
+                    }
+                  
+                   
+                
+            }
+            if profiles.isEmpty && showError {
                 topbar
                 girlanimation
                 nolikes
             }
+            
+            
+            NavigationBar(userScrolledAmount: $userScrolledAmount, label:"Likes", labelicon: "fleuron", trailinglabel:"\(profiles.count)",trailingicon: "bell", action: .constant(false))
+            
+            
+            
           showprofile
+            
+            
+        }.onAppear{
+            profileAppeared = true
+            
+//            if loading for 10 seconds show error
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.10) {
+                showError = true
+            }
+            fetchUserData(parameter: "") { result in
+                
+                profiles = result ?? []
+                
+            }
         }
+        .onChange(of: unmatch) { newValue in
+            //
+            withAnimation(.spring()) {
+                if unmatch {
+                    profiles.remove(at: indexRemoved)
+                    // Remove the first item from the array when it appears
+                }
+               
+                
+            }
+        }
+        
         
     }
    
@@ -48,7 +93,11 @@ struct LikesView: View {
         ZStack {
             if showProfile {
                 SkullProfile(currentUser: $currentUser, profile: profile, showProfile: $showProfile, currentIndex: .constant(0))
-                  //  .background(Color("offwhite"))
+                    .animation(.spring(), value: showProfile)
+                    .cornerRadius(showProfile ?  40 : 43)
+                    .edgesIgnoringSafeArea(.all)
+                    .offset(y: !showProfile ? UIScreen.main.bounds.height *  1.02 : 0)
+                
                    
                     .transition(.asymmetric(
                         insertion: .push(from: .bottom),
@@ -67,6 +116,7 @@ struct LikesView: View {
             }
         }
     }
+  
     var topbar: some View {
         VStack {
             HStack {
@@ -85,24 +135,16 @@ struct LikesView: View {
                     .background(Color.blue.opacity(0.3))
                     .cornerRadius(20)
                 
-            }.padding(15)
-               
-                .offset(y: pageAppeared ? 0 : -300)
+            }
+                .padding(15)
+                .neoButtonOff(isToggle: false, cornerRadius: 16, perform: {
+                    
+                })
+//                .offset(y: pageAppeared ? 0 : -300)
             Spacer()
         }.padding(20)
-            .opacity(pageAppeared ? 1 : 0)
-            .onAppear{
-                hidemainTab = false
-                withAnimation(.spring().speed(0.4)){
-                    pageAppeared = true
-                }
-            }
-            .onDisappear{
-                
-                withAnimation(.spring()){
-                    pageAppeared = false
-                }
-            }
+          
+          
     }
     var girlanimation: some View {
         VStack {
@@ -121,10 +163,26 @@ struct LikesView: View {
         }.offset( x:-40, y:280)
             .opacity(0.7)
     }
+    var loading : some View {
+        VStack(alignment: .center) {
+            
+            ProgressView()
+                .progressViewStyle(CircularProgressViewStyle(tint: Color("black")))
+            
+        }
+    }
     var nolikes: some View {
         VStack(alignment: .center, spacing: 20.0) {
+          
+                
+                VStack(alignment: .center) {
+                    
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                        
+                }
             
-            Text("You're new here! No likes yet")
+            Text(dataMessages)
                 .font(.headline)
             Text("Likes are more intentional on Soulmate so don't worry, They'll come in very soon.")
                 .foregroundColor(.gray)
@@ -138,155 +196,109 @@ struct LikesView: View {
                 .background(Color(red: 1.0, green: 0.0, blue: 0.0, opacity: 1.0))
                 .cornerRadius(30)
         }.padding(20)
-           // .opacity(pageAppeared ? 1 : 0)
+            .offset(y:  profileLoaded < 2 ? 0 : UIScreen.main.bounds.height )
         
     }
-  
-  
+   
     var stories : some View {
-      
-            
-           
-        
-        VStack {
-            HStack {
-                HStack(spacing: 3.0) {
-                    
-                    
-                    
-                    Text("Likes")
-                        .font(.title)
-                        .bold()
-                    
-                    
-                    Image(systemName: "bubble.left.and.bubble.right")
-                        .font(.title3)
-                        .fontWeight(.bold)
-                    
-                    
-                    
-                    
-                    
-                    
-                }
-                
-                Spacer()
-                HStack {
-                    Image(systemName: profiles.count > 0 ? "bell.badge.fill" : "bell")
-                    
-                    
-                    //number of messages
-                    Text("\(filteredProfiles.count)")
-                }.padding(.horizontal,12)
-                    .padding(.vertical,5)
-                    .background(Color.blue.opacity(0.3))
-                    .cornerRadius(20)
-                
-            }.padding(.top,10)
-                .padding(.horizontal,18)
-            
-            Divider()
-            
+        ScrollView(.vertical,showsIndicators: false){
+            ScrollDetectionView(userScrolledAmount: $userScrolledAmount)
+            DynamicTopBar()
             ScrollView(.horizontal,showsIndicators: false){
-                        HStack(spacing: 15.0){
-                            VStack {
-                                
-                                Circle()
-                                
-                                    .fill(.angularGradient(colors: [.purple, .orange, .purple], center: .center, startAngle: .degrees(0), endAngle: .degrees(360)))
-                                
-                                    .overlay(
-                                        Image(systemName: "plus")
-                                            .font(.headline)
-                                            .foregroundColor(Color("black"))
-                                    )
-                                    .frame(width: 70,height: 70)
-                                    .cornerRadius(60)
-                                    .neoButton(isToggle: false) {
-                                        //Start matching
-                                        selected = 0
+                HStack(spacing: 15.0){
+                    VStack {
+                        
+                        Circle()
+                        
+                            .fill(.angularGradient(colors: [.purple, .orange, .purple], center: .center, startAngle: .degrees(0), endAngle: .degrees(360)))
+                        
+                            .overlay(
+                                Image(systemName: "plus")
+                                    .font(.headline)
+                                    .foregroundColor(Color("black"))
+                            )
+                            .frame(width: 65,height: 65)
+                            .cornerRadius(60)
+                            .neoButton(isToggle: false) {
+                                //Start matching
+                                selected = 0
+                            }
+                        
+                        Text("Start Matching")
+                            .font(.footnote)
+                            .lineLimit(1)
+                        
+                    }
+                    ForEach(profiles, id: \.id) { user in
+                        VStack {
+                            
+                            GetImageAndUrl(url:user.avatar, loaded: .constant(true), imageUrl: .constant(""))
+                                .frame(width: 65,height: 65)
+                                .cornerRadius(60)
+                                .overlay (
+                                    ZStack {
+                                        
+                                        CircularView(value: Double(99.9) / 100.0,lineWidth: 1.0,colors: [Color("black")])
+                                            .padding(-1)
+                                        
+                                        
+                                        //This one shows the percentage of match
+                                        CircularView(value: Double(56.9) / 100.0,lineWidth: 1.0,colors: [Color.green.opacity(0.67),Color.green])
+                                            .padding(-1)
+                                        
+                                        
                                     }
-                                
-                                Text("Start Matching")
-                                    .font(.footnote)
-                                    .lineLimit(1)
-                                    
-                            }
-                            ForEach(filteredProfiles, id: \.id) { user in
-                                VStack {
-                                    
-                                    GetImageAndUrl(url:user.avatar, loaded: .constant(true), imageUrl: .constant(""))
-                                        .frame(width: 70,height: 70)
-                                        .cornerRadius(60)
-                                        .overlay (
-                                            ZStack {
-                                                
-                                                CircularView(value: Double(99.9) / 100.0,lineWidth: 1.0,colors: [Color("black")])
-                                                    .padding(-1)
-                                                
-                                                
-                                                //This one shows the percentage of match
-                                                CircularView(value: Double(56.9) / 100.0,lineWidth: 1.0,colors: [Color.green.opacity(0.67),Color.green])
-                                                    .padding(-1)
-                                                
-                                                
-                                            }
-                                        )
-                                        .neoButton(isToggle: false) {
-                                            //when a story is clicked
-                                            showProfile = true
-                                            profile = user
-                                        }
-                                    
-                                    Text(user.firstname)
-                                        .font(.footnote)
-                                        .lineLimit(1)
-                                }
-                            }
-                        }
-                        
-                        .padding(.top,0)
-                      
-                        .offset(x:10)
-                      
-                        
-                        
-                        
-                       
-            }
-        
-            Divider()
-                
-                VStack(spacing: 25.0) {
-                    ScrollView(.vertical,showsIndicators: false){
-                        ForEach(filteredProfiles, id: \.id) { user in
-                            //
-                            PostCard(firstname: user.firstname,avatar: user.avatar,poster: user.images[0]){
-                                //tapp does what?
-                                withAnimation(.spring()) {
+                                )
+                                .neoButton(isToggle: false) {
+                                    //when a story is clicked
                                     showProfile = true
+                                    profile = user
                                 }
-                                profile = user
-                            }
-                            .padding(.bottom,5)
+                            
+                            Text(user.firstName)
+                                .font(.footnote)
+                                .lineLimit(1)
                         }
                     }
-                    
-                    
                 }
                 
+                .padding(.top,5)
                 
-                
-           
-            .offset(y: showProfile ? -30 : 0)
-            
-            .animation(.spring(), value: showProfile)
-            
-            Spacer()
-        }.animation(.easeOut, value: showProfile)
-            .opacity(showProfile ? 0 : 1)
-           
-                
+                .offset(x:10)
+            }.padding(.top, 30)
+            Divider()
+            likesprofiles
+        }.coordinateSpace(name: "scroll")
+    }
+    var likesprofiles : some View {
+      
+                VStack(spacing: 25.0) {
+          
+                    ForEach(Array(profiles.enumerated()), id: \.element.id) { index, user in
+                            //
+                        PostCard(firstname: user.firstName,avatar: user.avatar, post: user.photos[0], indexRemoved: $indexRemoved, imageUrlReturned: $profileUrl, imageLoaded: $profileLoaded, unmatch: $unmatch, index: index){
+                                //tapp does what?
+                                profile = user
+                                withAnimation(.spring()) {
+                                    showProfile = true
+                                    
+                                }
+                               
+                            }
+                           
+                            .padding(.bottom,5)
+                        if index != profiles.count - 1{
+                            Divider()
+                        }
+                        }
+                    
+                    
+                        
+                }
+                .padding(.top,20)
+                .padding(.bottom,80)
+                .offset(y:  profileLoaded > 2 ? 0 : UIScreen.main.bounds.height )
+            .animation(.spring(), value: profileLoaded)
             
         
     }
@@ -295,26 +307,19 @@ struct LikesView: View {
         else {
             return profiles
         }
-        let matchingEmails = Set(currentUser.matches)
+        let matchingEmails = Set(currentUser.matched)
         return profiles.filter { matchingEmails.contains($0.email) }
     }
-    var scrollDetection: some View {
-        GeometryReader { proxy in
-            let offset = proxy.frame(in: .named("scroll")).minY
-            Color.clear.preference(key: ScrollPreferenceKey.self, value: offset)
-            
+    
+    
+ 
+    func getDataMessages(){
+        
+        if profileLoaded < 2 {
+            dataMessages = "Getting your likes :)"
         }
-        .onPreferenceChange(ScrollPreferenceKey.self) { offset in
-            
-            withAnimation(.easeInOut) {
-                userScrolledAmount = Int(offset)
-            }
-        }
-        .onChange(of: userScrolledAmount) { newValue in
-            
-
-            
-            
+        if profileLoaded > 5 {
+            profilesReady = true
         }
     }
 }

@@ -56,9 +56,9 @@ struct MessageDetailView: View {
             }
         }
         .onDisappear {
-            hidemainTab = false
+            
             withAnimation(.spring()) {
-                
+                hidemainTab = false
             }
         }
     }
@@ -69,20 +69,13 @@ struct MessageDetailView: View {
                 Image(systemName: "chevron.left")
                     .font(.title)
                     .foregroundColor(backButtonTapped ? .clear : Color("black"))
-//                    .neoButton(isToggle: false) {
-//                        //go back to messages view
-//                        backButtonTapped = true
-//                        presentationMode.wrappedValue.dismiss()
-//                    })
+//
                     .onTapGesture {
                         //go back to messages view
                         backButtonTapped = true
                         presentationMode.wrappedValue.dismiss()
                     }
-               // Image(log.avatar)
-                //    .resizable(resizingMode: .stretch)
-                  //  .aspectRatio(contentMode: .fill)
-                //  ImageViewer(url: "")
+          
                 GetImageAndUrl(url:log.avatar, loaded: .constant(true), imageUrl: .constant(""))
                     .cornerRadius(80)
                     .neoButton(isToggle: false) {
@@ -96,19 +89,24 @@ struct MessageDetailView: View {
                         
                     )
                     .frame(width: 40, height: 40)
-                   // .padding(10)
+                 
                 VStack{
-                    Text(log.firstname)
-                    //  Text(log.docid)
-                        .font(.headline).bold()
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                    HStack(spacing: 4.0) {
+                        Text(log.firstName)
+                     
+                            .font(.headline).bold()
                         .foregroundColor(.primary)
+                        Image(systemName: "checkmark.circle")
+                            .foregroundColor( .blue)
+                            .font(.subheadline)
+                        Spacer()
+                    }
                     
                     HStack(spacing:2) {
                         Image(systemName: "circlebadge.fill")
                             .foregroundColor( .green)
                             .font(.caption2)
-                        Text("Was online \(log.cyclechange) minutes ago")
+                        Text(" 2 minutes ago")
                             .font(.footnote)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .foregroundColor(.primary.opacity(0.7))
@@ -126,121 +124,109 @@ struct MessageDetailView: View {
             .padding(.horizontal,10)
             .padding(.top,50)
             .padding(.bottom,10)
-            .background(
-                LinearGradient(colors: [Color("white"),Color("white"),Color("white")], startPoint: .top, endPoint: .bottom))
+            .background(Color("offwhiteneo"))
+            Divider()
+                .padding(.top,-8)
             Spacer()
-        }//.offset(y: CGFloat(scrolledItem - 20))
-        //.offset(y: userscrolled ? -40 : 0)
+        }
         .edgesIgnoringSafeArea(.all)
     }
     
     var content: some View {
-        ScrollViewReader { scrollViewProxy in
-            ScrollView(showsIndicators: false) {
-                scrollDetection
-                VStack{
-                    
-                    VStack {
-                        
-                        
-                        
-                        
-                        VStack {
-                            LazyVStack {
-                                ForEach(chatMessages.sorted(by: { $1.timestamp > $0.timestamp })) {section in
-                                    
-                              //  ForEach(chatMessages) {section in
-                                    
-                                   // Text(section.text)
-                                    VStack {
-                                        //Text("\(btapped) and \(section.timestamp)")
-                                        MessageBubblesView(section: section, blurPage: $blurPage, messageDeleted: $messageDeleted, bTapped: $btapped)
-                                          
-                                            .opacity(bubblesAppeared ? 1 : 0.30)
-                                            .onLongPressGesture {
-                                                blurPage.toggle()
-                                               // btapped =  Int(section.documentID) ?? 0
-                                                
-                                                
-                                                
-                                                
-                                            }
-                                            
-                                            .opacity( btapped == (section.timestamp ) ? 1 : blurPage ? 0 : 1)
-                                            .blur(radius: btapped == (section.timestamp ) ? 0 :  blurPage ? 13 : 0)
-                                            .id(section.id)
-                                            .onAppear {
-                                                
-                                                    scrollViewProxy.scrollTo(((chatMessages[chatMessages.count - 3]).id), anchor: .bottom)
-                                                    
-                                                    
-                                                
-                                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                                    withAnimation(.easeInOut) {
-                                                        bubblesAppeared = true
-                                                    }
-                                                    withAnimation(.spring()) {
-                                                        
-                                                            scrollViewProxy.scrollTo((chatMessages.last?.id), anchor: .bottom)
-                                                            scrollToBottom = true
-                                                        
-                                                    }
+        VStack {
+            ScrollViewReader { scrollViewProxy in
+                ScrollView(showsIndicators: false) {
+                  
+                                    ForEach(chatMessages.sorted(by: { $1.timestamp > $0.timestamp })) {section in
+                                   
+                                        VStack {
+                                        
+                                            MessageBubblesView(section: section, blurPage: $blurPage, messageDeleted: $messageDeleted, bTapped: $btapped)
+                                              
+    //                                            .opacity(bubblesAppeared ? 1 : 0.30)
+                                                .onLongPressGesture {
+                                                    blurPage.toggle()
+                                                 
                                                 }
+                                                
+                                                .opacity( btapped == (section.timestamp ) ? 1 : blurPage ? 0 : 1)
+                                                .blur(radius: btapped == (section.timestamp ) ? 0 :  blurPage ? 13 : 0)
+                                                .id(section.id)
+                                                .onAppear{
+                                                    scrollViewProxy.scrollTo(((chatMessages[chatMessages.count - 4]).id), anchor: .bottom)
+                                                }
+    //                                            .onAppear {
+    //
+    //                                                    scrollViewProxy.scrollTo(((chatMessages[chatMessages.count - 2]).id), anchor: .bottom)
+    //
+    //                                                    withAnimation(.easeInOut) {
+    //                                                        bubblesAppeared = true
+    //                                                    }
+    ////                                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+    ////                                                    withAnimation(.spring()) {
+    ////
+    ////                                                            scrollViewProxy.scrollTo((chatMessages.last?.id), anchor: .bottom)
+    ////                                                            scrollToBottom = true
+    ////
+    ////                                                    }
+    ////                                                }
+    //                                        }
                                         }
+                                        
+                                        
                                     }
                                     
-                                    
-                                }
                                 
-                            }
-                        }
-                        .coordinateSpace(name: "scrollView")
-                    }
-                    .onChange(of: blurPage) { newValue in
-                        if !blurPage {
-                            btapped = ""
-                        }
-                    }
-                    .onChange(of: messageDeleted) { newValue in
-                        if messageDeleted {
-                            blurPage = false
                             
-                            Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { timer in
-                                
-                                
-                              //  deleteMessage(messageID: "\(btapped)")
-                            }
                             
-                            typeWriteText("Message deleted!") {
-                                //Message was deleted
-                                messageDeleted = false
+                        
+                        .onChange(of: blurPage) { newValue in
+                            if !blurPage {
+                                btapped = ""
                             }
                         }
-                    }
+    //                    .onChange(of: messageDeleted) { newValue in
+    //                        if messageDeleted {
+    //                            blurPage = false
+    //
+    //                            Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { timer in
+    //
+    //                            }
+    //
+    //                            typeWriteText("Message deleted!") {
+    //                                //Message was deleted
+    //                                messageDeleted = false
+    //                            }
+    //                        }
+    //                    }
+                        
                     
-                }
-                
-                
-                
-                
-                .padding(.top, 150)
-                .coordinateSpace(name: "scroll")
-            }.background( Color("offwhiteneo"))
-                .onTapGesture{
-                    blurPage = false
-                }
-            // .overlay(Text("\(scrolledItem)"))
-                .onTapGesture{
-                    keyboardFocus = false
-                }
-               
-                .onDisappear{
-                    bubblesAppeared = false
-                   
-                }
+                    
+                    
+                    
+                    
+                    .padding(.top, 150)
+                    
+                 
+                  
+                }.coordinateSpace(name: "scrollView")
+                .background( Color("offwhiteneo"))
+                    .onTapGesture{
+                        blurPage = false
+                    }
             
+                    .onTapGesture{
+                        keyboardFocus = false
+                    }
+                  
+               
+                
+            }
+            .padding(.bottom,80)
+      
+            
+            Spacer()
         }
-            .offset(y:-90)
             
         
     }
@@ -253,19 +239,21 @@ struct MessageDetailView: View {
             
             
             HStack {
-                TextField("Type your message", text: $messageText)
-                    .padding(.vertical)
-                    .padding(.leading, 55)
-                    .foregroundColor(guardSending ? .gray : Color("black"))
-                    .background(Color("offwhite"))
-                    .focused($keyboardFocus)
-                    .cornerRadius(25)
-                    .overlay(  Image(systemName: "pencil.circle.fill")
-                        .font(.largeTitle)
-                        .foregroundColor(.white)
-                        .offset(x: -145)
-                    )
+                TextField("Message...", text: $messageText)
                     
+                    .padding(.vertical,10)
+                    .padding(.leading, 15)
+                    .foregroundColor(guardSending ? .gray : Color("black"))
+                  
+                    .focused($keyboardFocus)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(Color("black").opacity(0.70), lineWidth: 1)
+                        
+                    )
+                    .cornerRadius(20)
+                    
+                   
                     .onChange(of: typing) { newValue in
                         if keyboardFocus {
                             typing = true
@@ -274,7 +262,7 @@ struct MessageDetailView: View {
                         }
                     }
                 
-                Image(systemName: "arrow.up.circle.fill")
+                Image(systemName: "paperplane.circle.fill")
                     .font(.largeTitle)
                     .foregroundColor(messageText.count < 1 ? .gray : guardSending ? .red : .blue)
                     
@@ -295,72 +283,17 @@ struct MessageDetailView: View {
                         
                     }
                 
-            }.padding()
-               // .background(Color)
+            } .background( Color("offwhiteneo"))
+                
+                .padding()
+            
                 
             
-        }
+        }    .modifier(KeyboardAwareModifier())
         
         
     }
-    var scrollDetection: some View {
-        GeometryReader { proxy in
-            let offset = proxy.frame(in: .named("scroll")).minY
-            Color.clear.preference(key: ScrollPreferenceKey.self, value: offset)
-           
-        }
-        .onPreferenceChange(ScrollPreferenceKey.self) { offset in
-            withAnimation(.easeInOut) {
-                scrolledItem = Int(offset)
-                keyboardFocus = false
-                typing = false
-               
-                
-//                if offset < previousOffset {
-//                    scrollingUp = false
-//                } else {
-//                    scrollingUp = true
-//                }
-                
-                
-                if offset < 11 || offset > 50 {
-                    
-                    withAnimation(.spring()) {
-                        hideNav = true
-                        
-                    }
-                    
-                }
-                
-                else {
-                    withAnimation(.spring()) {
-                        hideNav = false
-                    }
-                    
-                    
-                }
-                
-                // Update the previous offset
-//                previousOffset = offset
-            }
-        }
-        .onChange(of: scrolledItem) { newValue in
-            
-            
-            withAnimation(.spring()) {
-                userscrolled = true
-            }
-            Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { timer in
-                withAnimation(.spring()) {
-                    userscrolled = false
-                }
-            }
-            
-            
-            
-            
-        }
-    }
+  
     
     func sendFakeText(){
         

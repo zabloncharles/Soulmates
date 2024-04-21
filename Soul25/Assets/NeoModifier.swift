@@ -24,20 +24,24 @@ struct DoubleTapCompletionModifier: ViewModifier {
                     .onEnded { _ in
                         // Handle single-tap action here
                         // For example, you can show/hide controls or perform other actions
-                        if isToggle {
-                            withAnimation(.spring()) {
-                                isTapped.toggle()
-                            }
-                            
-                        } else {
+                        
                             withAnimation(.spring()) {
                                 isTapped = true
                             }
+                        if isToggle {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                                withAnimation(.spring()) {
+                                    isTapped = false
+                                }
+                                
+                            }
+                            
+                        } else {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                                 withAnimation(.spring()) {
                                     isTapped = false
                                 }
-                              
+                                
                             }
                         }
                     }

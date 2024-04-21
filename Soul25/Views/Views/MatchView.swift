@@ -12,14 +12,15 @@ import SwiftUI
 struct MatchView: View {
     @AppStorage("hidemainTab") var hidemainTab = false
     @AppStorage("currentPage") var selected = 0
-    @State var profiles: [UserStruct] = compatibleFakeUsers
+    @State var profiles: [UserStruct] = []
     @Binding var currentUser: UserStruct?
-    @State var profile = userStruct[0]
+    @State var profile = fakeUsers[0]
     @State var viewState: CGSize = .zero
     @State var pageAppeared = false
     @State var showProfile = true
     @FocusState var sendMessageFocused: Bool
     @State var text = ""
+    @State var profilesFetched = 0
     @State var sendMessage = ""
     @State var typeText = ""
     @State var dislike = false
@@ -124,10 +125,12 @@ struct MatchView: View {
                                 
                                 .cornerRadius(index == currentIndex - 1 ? 45 : 45)
                                 .scaleEffect(index == currentIndex - 1 ? 0.90 : 1)
+                            
                                 .edgesIgnoringSafeArea(.all)
                                
-                                .animation(.spring().speed(0.45), value: currentIndex)
-//                                .overlay(Text("\(currentIndex)"))
+//                            adjust speed of a new profile showing up
+                                .animation(.spring().speed(0.55), value: currentIndex)
+//                                .overlay(Text("\(profiles.count)"))
                         }
                     
                 }.onAppear{
@@ -137,9 +140,15 @@ struct MatchView: View {
             else  {
                 outofmatchesView
             }
+        } .onAppear {
+            // Fetch user data when the view appears
+            fetchUserData(parameter: "") { result in
+                
+                    profiles += result ?? [fakeUser]
+                
+            }
+            
         }
-        
-        
         
         
         
@@ -153,8 +162,8 @@ struct MatchView: View {
             HStack {
                 HStack {
                     
-                    // TextWriterAppear(typeText:profile.firstname)
-                    Text(dislike ? "Disliked" : profile.firstname)
+                    // TextWriterAppear(typeText:profile.firstName)
+                    Text(dislike ? "Disliked" : profile.firstName)
                         .font(.title)
                         .fontWeight(.bold)
                     
@@ -428,7 +437,7 @@ struct MatchView: View {
                     
                 }
                 HStack { Image(systemName: "quote.opening")
-                    Text(profile.aboutme)
+                    Text("profile.lookingFor")
                         .lineLimit(1)
                     Image(systemName: "quote.closing")
                 }
@@ -551,7 +560,7 @@ struct MatchView: View {
         guard let currentUser = currentUser else {
             return [] // No current user, return an empty array
         }
-        let matchingEmails = Set(currentUser.matches)
+        let matchingEmails = Set(currentUser.matched)
         let filteredProfiles = profiles.filter { !matchingEmails.contains($0.email) }
         
         return filteredProfiles

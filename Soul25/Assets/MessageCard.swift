@@ -15,7 +15,7 @@ struct MessageCard: View {
     var section: UserStruct
     @Binding var profile : UserStruct
     @Binding var showProfile : Bool
-    @State var userAvatarLoaded = false
+    @Binding var userAvatarLoaded : Bool
     @State var isTapped = false
     @State var whoSent = ["Sent","Received","Seen"]
     
@@ -27,7 +27,7 @@ struct MessageCard: View {
               //  Image(section.avatar)
                   //  .resizable()
                   //  .aspectRatio(contentMode: .fill)
-                GetImageAndUrl(url:"", loaded: .constant(true), imageUrl: .constant(""))
+                GetImageAndUrl(url:section.avatar, loaded: $userAvatarLoaded, imageUrl: .constant(""))
                     .frame(width: 49, height: 49)
                     .mask(Circle())
                    
@@ -44,11 +44,11 @@ struct MessageCard: View {
                     
                     
                     // GradientText(text: section.name, gradient: [.black, .blue])
-                    Text(section.firstname)
+                    Text(section.firstName)
                         .customfontFunc(customFont: "sanfrancisco", style: .title3)
                         .foregroundColor(Color("black"))
                     
-                    Text(whoSent.randomElement() ?? "Error")
+                    Text(whoSent[0])
                         .customfontFunc(customFont: "sanfrancisco", style: .footnote)
                         .foregroundColor(.gray)
                         .lineLimit(1)

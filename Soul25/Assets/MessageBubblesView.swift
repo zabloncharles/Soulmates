@@ -71,10 +71,9 @@ struct MessageBubblesView: View {
                             .font(.subheadline)
                             .padding(.horizontal, 11.0)
                             .padding(.vertical, 9.0)
-                            .background(Color.gray.opacity(0.0))
-                            .neoButtonOff(isToggle: false, cornerRadius: 19, perform: {
-                                //code
-                                
+                            .background(Color.gray.opacity(0.2))
+                            .cornerRadius(12)
+                            .neoDoubleTapButton(isToggle: false, perform: {
                                 withAnimation(.easeIn) {
                                     bTapped = section.timestamp
                                     showDate.toggle()
@@ -143,8 +142,9 @@ struct MessageBubblesView: View {
                                 .font(.subheadline)
                                 .padding(.horizontal, 11.0)
                                 .padding(.vertical, 9.0)
-                                .background(Color.blue)
-                                .neoButtonOff(isToggle: false, cornerRadius: 19, perform: {
+                                .background(Color.purple.opacity(0.23))
+                                .cornerRadius(12)
+                                .neoDoubleTapButton(isToggle: false, perform: {
                                     //code
                                     withAnimation(.easeIn) {
                                             bTapped = section.timestamp

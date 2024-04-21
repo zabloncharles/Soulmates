@@ -10,131 +10,87 @@ import SwiftUI
 struct NavigationBar: View {
     @AppStorage("hidemainTab") var hidemainTab = false
     @AppStorage("currentPage") var selected = 0
-    @Environment(\.colorScheme) var colorScheme
-    var titlee = ""
-    @Namespace var namespace
-    @State var title = ""
+    @Binding var userScrolledAmount : CGFloat 
+    var label = "label"
+    var labelicon = ""
+    var trailinglabel = ""
+    var trailingicon = ""
+    @Binding var action : Bool
     @State var showSearch = false
-    @Binding var contentHasScrolled: Bool
-    @AppStorage("showAccount") var showAccount = false
-    @AppStorage("signedIn") var signIn = false
-    @AppStorage("notifications") var showNotifications = false
-    @AppStorage("editcalendar") var showEditCalendar = false
+    
+    
     @State var tappedAvatar = false
     
     var body: some View {
        
-            ZStack {
-                Rectangle()
-                    .fill(colorScheme == .dark ? Color.black : Color("offwhite"))
-                    .frame(maxWidth: .infinity)
-                    .frame(height: selected == 1 || selected == 2 ? 180 : 140)
-                    .offset(y: selected == 1 || selected == 2  ? -20 : -50)
-                    .ignoresSafeArea()
-                    .frame(maxHeight: .infinity, alignment: .top)
-                    .blur(radius: 1)
-                    .opacity(contentHasScrolled ? 1 : 0)
-                
-                VStack{
-                    HStack{
-                        VStack {
-                      
-                            Text("\(title)")
-                                .font(.custom("MrDafoe-Regular", size: contentHasScrolled ? 30 : 42))
+     
+            VStack {
+                        HStack {
+                            HStack(spacing: 3.0) {
                                 
-                                .foregroundColor(.clear)
-                                .background( LinearGradient(colors: [Color.red,.blue,.purple], startPoint: .leading, endPoint: .trailing))
-                                .mask(
+                                
+                                
+                                Text(label)
+                                    .font(.title)
+                                    .bold()
                                   
-                                        Text("\(title)")
-                                            .font(.custom("MrDafoe-Regular", size: contentHasScrolled ? 30 : 42))
-                                        
-                                    
-                                )
-                                .padding(.horizontal,15)
-                                .offset(y: contentHasScrolled ? 9 : 0)
-                               
-                          
-                        }
-                        .onTapGesture {
-                            hidemainTab = false
-                        }
-                        
-                       
-                        Spacer()
-                        HStack() {
-                           
-                          
-                          //  bell
-                             //   .padding(.trailing,10)
-                          
+                                
+                                
+                                if !labelicon.isEmpty {
+                                    Image(systemName: labelicon)
+                                        .font(.title3)
+                                    .fontWeight(.bold)
+                                }
+                            }
                             
+                            Spacer()
+                            
+                                HStack {
+                                    if !trailingicon.isEmpty {
+                                        Image(systemName: trailingicon)
+                                            .font(!trailinglabel.isEmpty ? nil : .title)
+                                    }
+                                    //number of messages
+                                    if !trailinglabel.isEmpty {
+                                        Text(trailinglabel)
+                                    }
+                                }.padding(.horizontal,8)
+                                    .padding(.vertical,8)
+                                    .background(Color.red.opacity(!trailinglabel.isEmpty ? 0.80 : 0))
+                              
+                                .neoButtonOff(isToggle: false, cornerRadius: 62, perform: {
+                                    withAnimation(.spring()){
+                                        action.toggle()
+                                    }
+                                })
+                            
+                            
+                        }.padding(.top,5)
+                            .padding(.horizontal,19)
+                            .padding(.bottom,10)
+                            .background(Color("offwhiteneo"))
+                            .offset(y: userScrolledAmount > -33 ?  -120 : 0)
 
-                            
-                           // avatar
-                            
-                            
-                        }
-                     
-                        
-                      
-                    }
-                    .padding(.horizontal)
-                    .frame(maxHeight: .infinity, alignment: .top)
-                }
-                .padding(.horizontal, contentHasScrolled ? 3 : 0)
+                    
+                    
+                  
+                Spacer()
             }
-            .navigationBarHidden(true)
-            .offset(y: contentHasScrolled ? -16 : 0)
-            .onAppear{
-                contentHasScrolled = false
-            }
+            
+        
+       
+          
         
         
     }
     
-    var bell : some View {
-        VStack {
-            Image(systemName: selected == 3 ? "calendar.badge.plus" : "bell.fill")
-                .font(.system(size: selected == 3 ? 24 : 17, weight: .bold))
-                .frame(width: 36, height: 36)
-                .foregroundColor(showEditCalendar ? .red : .secondary)
-                .background(selected == 3 ? Color.black.opacity(0) : Color("offwhite"))
-                .cornerRadius(30)
-                .scaleEffect(showEditCalendar ? 0.97 : 1)
-                .overlay(
-                    VStack{
-                    if selected != 3 {
-                    Text("4")
-                        .foregroundColor(.white)
-                        .font(.caption)
-                        .padding(2)
-                        .background(
-                            Circle()
-                            
-                                .fill(.red)
-                                .padding(-3)
-                        )
-                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-                    }
-                    }
-                )
-                .onTapGesture {
-                    if selected == 3 {
-                        showEditCalendar = true
-                 
-                    } else {
-                        showNotifications = true
-                    }
-            }
-        }
-    }
+    
     
 }
 
-struct NavigationBar_Previews: PreviewProvider {
-    static var previews: some View {
-        ViewController()
-            .preferredColorScheme(.dark)
-    }
-}
+//struct NavigationBar_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NavigationBar(action: .constant(false))
+//            .preferredColorScheme(.dark)
+//    }
+//}

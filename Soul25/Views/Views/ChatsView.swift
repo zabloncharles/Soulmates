@@ -16,14 +16,16 @@ import SwiftUI
 
 
 struct ChatsView: View {
-    @State var profiles: [UserStruct] = compatibleFakeUsers// Array to hold the user data
-    @State var profile = userStruct[0]
+    @State var profiles: [UserStruct] = fakeUsers// Array to hold the user data
+    @State var profile = fakeUsers[0]
     @State var currentUser: UserStruct? = fakeUser
+    @State var userScrolledAmount : CGFloat = 0
     @AppStorage("hidemainTab") var hidemainTab = false
     var isAnimated = true
     @State var viewState: CGSize = .zero
-    @State var showSection = false
+    @State var showMessages = false
     @State var showProfile = false
+    @State var userAvatarsLoaded = false
     @State var appear = [false, false, false]
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @State var pageAppeared = false
@@ -36,32 +38,28 @@ struct ChatsView: View {
     
     var body: some View {
         ZStack {
-  
                 VStack {
                     ScrollView(showsIndicators: false) {
-                        cover
-                        
-                        
-                        
+                        ScrollDetectionView(userScrolledAmount: $userScrolledAmount)
+                        navandmessages
                     }
                     .coordinateSpace(name: "scroll")
                     .background(BackgroundView())
                   
                 }
                 
-                
-            
-            if showProfile {
-               
-                    
-                
-                
+            if !showMessages {
+                gettingmessages
+                    .transition(.opacity)
             }
-            
         }.onAppear{
             hidemainTab = false
-            withAnimation(.spring()){
-                pageAppeared = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    withAnimation(.spring()){
+                        if userAvatarsLoaded {
+                            showMessages = true
+                        }
+                }
                 
             }
         }
@@ -70,97 +68,17 @@ struct ChatsView: View {
                 pageAppeared = false
             }
         }
-      
-        
     }
     
-    var cover: some View {
+    var navandmessages: some View {
         VStack {
-            GeometryReader { proxy in
-               
-                
-                VStack {
-                    Spacer()
-                }
-                .frame(maxWidth: .infinity)
-                .frame(height:40)
-            
-              
-                
-                .overlay(
-                    VStack(alignment: .trailing, spacing: 8) {
-                        HStack {
-                            HStack(spacing: 3.0) {
-                                
-                                
-                                
-                                Text("Chat")
-                                    .font(.title)
-                                    .bold()
-                                
-                                
-                                Image(systemName: "bubble.left.and.bubble.right")
-                                    .font(.title3)
-                                    .fontWeight(.bold)
-                                 
-                                
-                                
-                                
-                                
-                                
-                            }
-                           
-                            Spacer()
-                            HStack {
-                                Image(systemName: profiles.count > 0 ? "bell.badge.fill" : "bell")
-                                
-                                
-                                //number of messages
-                                Text("\(filteredProfiles.count)")
-                            }.padding(.horizontal,12)
-                                .padding(.vertical,5)
-                                .background(Color.blue.opacity(0.3))
-                                .cornerRadius(20)
-                            
-                        }.padding(.top,10)
-                            .padding(.horizontal,8)
-
-                        
-                        
-                        
-                       
-                        
-                        
-                        
-                        Divider()
-                            .foregroundColor(.secondary)
-                            .opacity(0.9)
-                        
-                        
-                            .accessibilityElement(children: .combine)
-                    }
-                    
-                        .background(
-                            Rectangle()
-                                .fill(Color("offWhite"))
-                                .opacity(appear[0] ? 1 : 0)
-                        )
-                    
-                    
-                        
-                        .padding(10)
-                )
-            }
-           
-            .offset(y: pageAppeared ?  0 : -150)
-            
-           
+  // top nav
+            DynamicTopBar()
+          
                 sectionsSection
-                    .offset(y: pageAppeared ?  0 : 520)
-                    .opacity(pageAppeared ?  1 : 0 )
                 .padding(.bottom, 30)
-         
-            
+                .offset(y: !showMessages ? UIScreen.main.bounds.height *  1.02 : 0)
+                
         }.onAppear{
             // fetchIncomingMessages()
             fetchFakeMessages()
@@ -171,13 +89,13 @@ struct ChatsView: View {
     var sectionsSection: some View {
         
         VStack(spacing: 10) {
-            if !filteredProfiles.isEmpty {
-                ForEach(filteredProfiles, id: \.id) { user in
+            if !profiles.isEmpty {
+                ForEach(profiles, id: \.id) { user in
 
                     NavigationLink(destination:
                                     MessageDetailView(log: user)
                     ) {
-                        MessageCard(section: user, profile: $profile, showProfile: $showProfile)
+                        MessageCard(section: user, profile: $profile, showProfile: $showProfile, userAvatarLoaded: $userAvatarsLoaded)
                         
                     }
                 }
@@ -190,6 +108,38 @@ struct ChatsView: View {
         .padding(.horizontal,10)
         .padding(.vertical, 40)
         
+    }
+    var gettingmessages: some View {
+        VStack {
+            Spacer()
+            VStack(alignment: .center) {
+                
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                   
+            }
+          
+            VStack(alignment: .center, spacing: 20.0) {
+                
+                Text("Getting your messages")
+                    .font(.headline)
+                Text("Oops well this is embarrassing. Making sure we have every message, They'll come in very soon.")
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal,25)
+                HStack {
+                    Text("Just a second :)")
+                        .font(.body)
+                        .fontWeight(.semibold)
+                }.padding(.horizontal,15)
+                    .padding(.vertical,10)
+                    .background(Color(red: 1.0, green: 0.0, blue: 0.0, opacity: 1.0))
+                    .cornerRadius(30)
+            }.padding(10)
+                
+                .offset(y: showMessages ? UIScreen.main.bounds.height *  1.02 : 0)
+            Spacer()
+        }
     }
     var nomessages: some View {
         VStack {
@@ -233,7 +183,7 @@ struct ChatsView: View {
         else {
             return profiles
         }
-        let matchingEmails = Set(currentUser.matches)
+        let matchingEmails = Set(currentUser.matched)
         return profiles.filter { !matchingEmails.contains($0.email) }
     }
     func close() {
@@ -253,3 +203,10 @@ struct ChatsView: View {
 
 
 
+struct MatchView_Previews: PreviewProvider {
+    static var previews: some View {
+        ViewController()
+        
+        
+    }
+    }

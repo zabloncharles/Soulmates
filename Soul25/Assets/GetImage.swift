@@ -24,11 +24,16 @@ struct GetImageAndUrl: View {
                         
                        
                             image!
+                               
+                                
+                                .renderingMode(.original)
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
+                                .frame(minWidth: 0, maxWidth: .infinity)
                                 .frame(width: height != 0 ? width : nil, height: height != 0 ? height : nil)
-                                .contentShape(Rectangle())
+                            
                                 .clipped()
+                                .contentShape(Rectangle())
 
                                 .onAppear{
                                     
@@ -54,8 +59,8 @@ struct GetImageAndUrl: View {
                 
                
             
-        }
-            .frame(width: height != 0 ? width : nil, height: height != 0 ? height : nil)
+       }
+            
           
         .onAppear {
             loadImageFromAPI()
@@ -63,7 +68,7 @@ struct GetImageAndUrl: View {
     }
     
     func loadImageFromAPI() {
-        guard let url = URL(string: url.isEmpty ? "https://source.unsplash.com/random/?robot" : url) else {
+        guard let url = URL(string: url.isEmpty ? "https://source.unsplash.com/random/?bikini" : url) else {
             return
         }
         

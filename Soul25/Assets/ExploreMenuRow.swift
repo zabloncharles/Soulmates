@@ -24,7 +24,7 @@ struct TypeofMenuRow:  View {
                             .padding(.vertical,5)
                             .padding(.horizontal,8)
                             .foregroundColor(.red)
-                            .background(Color("offwhite"))
+//                            .background(Color("offwhite"))
                             .cornerRadius(10)
                         
                         
