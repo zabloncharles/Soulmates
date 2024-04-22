@@ -9,7 +9,7 @@ import SwiftUI
 
 
 struct ShimmerVar: View {
-    var text = "Shimmer text here"
+    var text = "Fumble"
     var font = "sanfrancisco"
     var size : UIFont.TextStyle = .title3
     @State var shimmerAppeared = false
@@ -40,11 +40,12 @@ struct ShimmerVar: View {
                 .background(
                     VStack {
                         LinearGradient(gradient:
-                                        Gradient(colors: [Color("black"), .yellow, Color("black")]),
+                                        Gradient(colors: [Color("black"), .yellow.opacity(0.79), Color("black")]),
                                        startPoint: /*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/, endPoint: /*@START_MENU_TOKEN@*/.trailing/*@END_MENU_TOKEN@*/)
                         
                             .opacity(shimmerAppeared ? 1 : 1)
-                            .animation(.easeIn(duration: 2.3), value: shimmerAppeared)
+//                            .animation(.easeIn(duration: 2.3), value: shimmerAppeared)
+                            .animation(.easeIn(duration: 2.3).repeatCount(5).delay(0.5), value: shimmerAppeared)
                         
                         
                     }
@@ -103,7 +104,7 @@ struct ShimmerVar: View {
             
         }
         
-        
+       
     }
     func shimmerDisappearFunc(){
         withAnimation(.linear) {

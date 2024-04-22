@@ -8,6 +8,12 @@
 import SwiftUI
 
 struct DynamicTopBar: View {
+    var label : String
+    var labelicon : String
+    var trailinglabel = ""
+    var trailinglabelicon = ""
+    var notification = false
+    let completion: () -> Void
     var body: some View {
         VStack {
             GeometryReader { proxy in
@@ -19,52 +25,62 @@ struct DynamicTopBar: View {
                 .frame(maxWidth: .infinity)
                 .frame(height:40)
                 
-                
-                
                 .overlay(
                     VStack(alignment: .trailing, spacing: 8) {
                         HStack {
                             HStack(spacing: 3.0) {
                                 
-                                
-                                
-                                Text("Chat")
+                                Text(label)
                                     .font(.title)
                                     .bold()
                                 
                                 
-                                Image(systemName: "bubble.left.and.bubble.right")
+                                Image(systemName: labelicon)
                                     .font(.title3)
                                     .fontWeight(.bold)
-                                
-                                
-                                
-                                
-                                
                                 
                             }
                             
                             Spacer()
-                            HStack {
-                                Image(systemName: "bell")
+                            
+                            if notification {
+                                Text(trailinglabel)
+                                    .padding(5)
+                                    .background(Circle()
+                                        .fill(.red)
+                                                
+                                    .padding(-2))
+                                    .neoButton(isToggle: false) {
+                                        withAnimation(.spring()) {
+                                            completion()
+                                        }
+                                    }
+                            } else {
                                 
+                                HStack {
+                                    
+                                    Image(systemName: trailinglabelicon)
+                                        .font(.title)
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.red)
+                                    //number of messages
+                                    if  !trailinglabel.isEmpty {
+                                        Text(trailinglabel)
+                                    }
+                                }.padding(.horizontal,12)
+                                    .padding(.vertical,5)
+                                    .background(Color.red.opacity(!trailinglabelicon.isEmpty ? trailinglabel.isEmpty && !trailinglabelicon.isEmpty ? 0 : 0.8 : 0))
+                                    .cornerRadius(20)
+                                    .neoButton(isToggle: false) {
+                                        withAnimation(.spring()) {
+                                            completion()
+                                        }
+                                    }
                                 
-                                //number of messages
-                                Text("23")
-                            }.padding(.horizontal,12)
-                                .padding(.vertical,5)
-                                .background(Color.red.opacity(0.8))
-                                .cornerRadius(20)
+                            }
                             
                         }.padding(.top,10)
                             .padding(.horizontal,8)
-                        
-                        
-                        
-                        
-                        
-                        
-                        
                         
                         Divider()
                             .foregroundColor(.secondary)
@@ -80,8 +96,6 @@ struct DynamicTopBar: View {
                                 
                         )
                     
-                    
-                    
                         .padding(10)
                 )
             }
@@ -89,8 +103,4 @@ struct DynamicTopBar: View {
     }
 }
 
-struct DynamicTopBar_Previews: PreviewProvider {
-    static var previews: some View {
-        DynamicTopBar()
-    }
-}
+

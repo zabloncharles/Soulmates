@@ -15,14 +15,14 @@ struct HomeHeaderView: View {
     var body: some View {
         HStack {
             VStack {
-                Text("Soulmate")
+                Text("Fumble")
                     .font(.custom("MrDafoe-Regular", size: contentHasScrolled ? 30 : 42))
                     .foregroundColor(.clear)
                     .background(
-                        LinearGradient(colors: [Color.red, .blue, .purple], startPoint: .leading, endPoint: .trailing)
+                        LinearGradient(colors: [Color.green, .blue, .red], startPoint: .leading, endPoint: .trailing)
                     )
                     .mask(
-                        Text("Soulmate")
+                        Text("Fumble")
                             .font(.custom("MrDafoe-Regular", size: contentHasScrolled ? 30 : 42))
                     )
             }

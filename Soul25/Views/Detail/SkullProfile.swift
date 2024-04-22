@@ -9,6 +9,7 @@ import SwiftUI
 
 
 struct SkullProfile: View {
+    @State var userScrolledAmount = false
     @State  var previousOffset: CGFloat = 0
     @State var showblacknav = false
     @AppStorage("currentPage") var selected = 0
@@ -24,7 +25,6 @@ struct SkullProfile: View {
     @State var profileImagesLoaded = [false,false,false]
     @State var showHearts = false
     var editingProfile = false
-    @State var previewProfile = false
     @State private var isShowingModal = false
     
     @State var showDragProgressView = false
@@ -57,135 +57,43 @@ struct SkullProfile: View {
         
         
         ZStack {
-          
-            
-          
-          
-            
-            VStack {
-                if !outOfMatches && dislike {
-                    VStack {
-                        LottieView(filename: "girlonphone")
-                            .neoButton(isToggle: false) {
-                                //
-                            }
-                            .onAppear{
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                                    
-                                    dislike = false
-                                    animategirl = false
-                                    
-                                    
-                                }
-                            }
-                            .offset(y:-30)
-                    }
-                    .frame(width: 350, height: 350)
-                    .animation(.spring(), value: animategirl)
-                    .scaleEffect(animategirl ? 1 : 0.81)
-                    .overlay(
-                        VStack{
-                            Spacer()
-                            VStack(alignment: .leading) {
-                                Text("Looking for your soulmate..")
-                            }
-                        }.padding()
-                            .offset(y:-20)
-                    )
-                    .onAppear{
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            withAnimation(.spring()) {
-                                animategirl = true
-                            }
-                        }
-                    }
-                }
-            }
-            
-           
-                ZStack {
-                    
-
                     ScrollView(.vertical, showsIndicators: false) {
-                        
-//                        cover
-//                            .background(scrollDetection)
-                          
-                        
+                        ScrollDetectionView(userScrolledAmount: $userScrolledAmount)
                         content
-                            .background(scrollDetection)
                           
+                       
                         
                     }
                     .coordinateSpace(name: "scroll")
-                    
+                    .edgesIgnoringSafeArea(.all)
                     
                     .onAppear{
-                        // DispatchQueue.main.asyncAfter(deadline: .now() + 0.3)
                         profileNumber = profileNumber + 1
                     }
                    
-                    .onTapGesture {
-                        
-                        
-                        
-                    }
-                    .ignoresSafeArea()
-                    
-                    //the send text view that comes after liking a potential match
-                   
-                
-                   
-                           
-
                   
-                                      
-                      
                     
-                            
-                      
-                    
-                }.animation(.spring(), value: dislike)
-               
-            nameandheartnav
-                .opacity(liked ? 0 : editingProfile ? 1 : 1)
-                .offset(y:editingProfile ? -50 : 0)
-            
+          
            
-            
-           
-            
             if report {
-              ReportCard(report: $report, appeared: $hidemainTab)
+                EditPostPopUp(report:$report)
             }
-             
             
-              
+            
+            
+            NavigationBar(userScrolledAmount: $userScrolledAmount, label:editingProfile ? "profile" : "match", labelicon: editingProfile ? "person.crop.circle" : "person.2",trailingicon: editingProfile ?  "gear" : "heart.slash" ){
+                //call the next profile
+                nextProfile()
+            }
+          
+                .padding(.top,selected == 0 || selected == 1 ? 34 : 0)
+            
             
         }.background(Color("offwhiteneo"))
             .sheet(isPresented: $isShowingModal) {
                 likedcontent
             }
-           
-        .onAppear{
-          
-            
-                // Fetch user data when the view appears
-            
-                
-            
-                
-            
-            withAnimation(.spring()) {
-                animateapper = true
-            }
-        }
-        .onDisappear{
-            withAnimation(.spring()) {
-                animateapper = false
-                
-            }
-        }
+      
         .onChange(of: liked) { V in
             if liked {
                 hidemainTab = true
@@ -202,154 +110,7 @@ struct SkullProfile: View {
         }
         
     }
-    var nameandheart: some View{
-       
-            HStack {
-                HStack(spacing: 3.0) {
-                    
-                
-                   
-                    Text(editingProfile  && !previewProfile ? "Profile" : "Match")
-                            .font(.title)
-                        .bold()
-                
-                    
-                    Image(systemName:editingProfile   && !previewProfile ?  "person.crop.circle" : "person.2")
-                        .font(.title)
-                        .fontWeight(.bold)
-                        
-                    
-                    
-                 
-                    
-                    
-                }
-                    .padding(.vertical, 6)
-                 
-                
-                 
-                    
-                
-                Spacer()
-                Button {
-                    withAnimation(.spring()) {
-                        if editingProfile {
-                            showProfile = true
-                        } else {
-                            showProfile = false
-                        }
-                        
-                        
-                    }
-                    withAnimation {
-                       // if currentIndex != profiles.count - 1 {
-                            currentIndex += 1
-                       // }
-                        
-                    }
-                
-                    
-                } label: {
-                    if !liked {
-                        Image(systemName:editingProfile  && !previewProfile ?  "gear" : "heart.slash")
-                            .font(.title)
-                            .fontWeight(.bold)
-                            .foregroundColor(editingProfile   && !previewProfile ?  Color("black") : .red)
-                    } else {
-                        
-                        Image(systemName: "heart.slash.fill")
-                            .font(.title)
-                            .fontWeight(.bold)
-                            .foregroundColor(.red)
-                        
-                    }
-                    
-                    
-                }
-               
-                
-            }.padding(.horizontal,25)
-            .padding(.top,5)
-           
-        
-           
-       
-    }
-    var nameandheartnav: some View{
-        VStack {
-            HStack {
-                HStack {
-                    
-                    
-                    HStack(spacing: 2){
-                        Text(profile.firstName)
-                            .bold()
-                            .font(.title)
-                        Image(systemName: "square.and.arrow.down.fill")
-                            .foregroundColor(.blue)
-                            .font(.title2)
-                        
-                        
-                    }
-                    
-                    
-                    
-                }
-                    .padding(.vertical, 6)
-                    .background(Color("offwhiteneo"))
-                  
-                   
-                
-                Spacer()
-                Button {
-                    withAnimation(.spring()) {
-                        if !editingProfile {
-                            showProfile = false
-                        }
-                    }
-                  
-                    showblacknav = true
-                    withAnimation {
-                        // if currentIndex != profiles.count - 1 {
-                  
-                        currentIndex += 1
-                        
-                        // }
-                        
-                    }
-                    
-                    
-                } label: {
-                    if editingProfile && !previewProfile {
-                        Image(systemName: "gear")
-                            .font(.title)
-                            .fontWeight(.bold)
-                        .foregroundColor(.red)
-                    }
-                    
-                    if !dislike && !editingProfile {
-                        Image(systemName: "heart.slash")
-                            .font(.title)
-                            .fontWeight(.bold)
-                            .foregroundColor(.red)
-                    }
-                    
-                    
-                }
-            } .offset(y:69)
-                .padding(.horizontal,25)
-                
-                .frame(height: 190)
-                
-                .background(Color("offwhiteneo"))
-                .offset(y:-100)
-            Spacer()
-        }
-        .animation(.spring(), value: showblacknav)
-        .opacity(showblacknav ? 1 : 0)
-        .offset(y: showblacknav ? 0 : -100)
-      
-    }
+  
   
     var avatarandthreeinfo: some View {
         VStack {
@@ -423,60 +184,7 @@ struct SkullProfile: View {
                     }
                     
                     
-                    if (editingProfile){
-                        HStack(alignment: .center) {
-                            if !previewProfile {
-                                HStack{
-                                  
-                                    Text("Edit")
-                                     
-                                        .foregroundColor(editingProfile ? .white : Color("black"))
-                                    
-                                    
-                                }
-                                .padding(.horizontal,30)
-                                .padding(.vertical,5)
-                                .background(previewProfile ? Color("white") : editingProfile ? .gray : .blue)
-                                .cornerRadius(6)
-                                .neoButton(isToggle: false, perform: {
-                                  currentIndex = 1
-                                    if currentIndex == 1 {
-                                        withAnimation(.spring()) {
-                                            showProfile = true
-                                        }
-                                    }
-                                    
-                                    
-                            })
-                            }
-                        
-                            HStack{
-                            
-                            Text(previewProfile ? "End Preview" : "Preview")
-                               
-                                .foregroundColor(editingProfile ? .white : Color("black"))
-                               
-                            
-                        }
-                            .padding(.horizontal,30)
-                            .padding(.vertical,5)
-                            .background(previewProfile ? Color("white") : editingProfile ? .blue : .blue)
-                            .cornerRadius(6)
-                            .neoButton(isToggle: false, perform: {
-                               if  editingProfile && !previewProfile {
-                                   withAnimation(.spring()) {
-                                       previewProfile = true
-                                   }
-                                } else {
-                                    withAnimation(.spring()) {
-                                        previewProfile = false
-                                    }
-                                }
-                                
-                            })
-                        
-                        }
-                    }
+                    
                 }
                 
                
@@ -493,7 +201,7 @@ struct SkullProfile: View {
                     Image(systemName: "checkmark.circle.fill")
                         .foregroundColor(.blue)
                         .font(.system(size: 18, weight: .medium))
-                    Text("her/she")
+                    Text(profile.gender == "female" ?  "her/she" : "him/he")
                        
                         .font(.callout)
                     Spacer()
@@ -558,14 +266,12 @@ struct SkullProfile: View {
         }
     }
     var whatilike: some View{
-        QuotePillsCard(name: profile.firstName, caption: "Finding out what your matches like to do for fun shouldn't feel like a chore. With Match Interests, exploring hobbies and activities is enjoyable and interactive", report: $report)
+        QuotePillsCard(name: profile.firstName, caption: "I like to undwind and do fun activities on the run. I also like going to concerts and hiking.", report: $report)
             .neoDoubleTapButton(isToggle: false, perform: {
-                //
+      
                 likedImageUrl = ""
                 likedtext = true
-                //                withAnimation(.spring()) {
-                //                    liked = true
-                //                }
+             
                 isShowingModal.toggle()
                 likedquote = "What do you like to do for fun?"
             })
@@ -580,6 +286,7 @@ struct SkullProfile: View {
             
             
             VStack( spacing: 20.0) {
+               
                 if showDragProgressView {
                     VStack {
                         ProgressView()
@@ -587,56 +294,15 @@ struct SkullProfile: View {
                     }.padding(.top,30)
                 }
                 
-                nameandheart
+                DynamicTopBar(label: selected != 4 ? "match" : "profile",labelicon: "person", trailinglabelicon: "heart.slash"){
+                    //go to next profile
+                    nextProfile()
+                }
+                    .padding(.bottom, 27)
              
                 
                avatarandthreeinfo
-                   
-                 
-               
-          
-                if editingProfile  && !previewProfile {
-                    ScrollView(.horizontal) {
-                            HStack(spacing: 10.0) {
-                                AddCards(icon: "text.bubble.fill" ,caption: "prompt")
-                                    .neoButton(isToggle: false) {
-                                        //
-                                        likedImageUrl = ""
-                                        likedtext = true
-                                        //                withAnimation(.spring()) {
-                                        //                    liked = true
-                                        //                }
-                                        isShowingModal.toggle()
-                                        likedquote = "What do you like to do for fun?"
-                                    }
-                                
-                                Divider()
-                                AddCards(icon: "photo.circle.fill", caption: "photo")
-                                    .neoButton(isToggle: false) {
-                                        //
-                                    }
-                                Divider()
-                                AddCards(icon: "quote.bubble", caption: "quote")
-                                    .neoButton(isToggle: false) {
-                                        //
-                                    }
-                            }
-                          
-                    }.offset(x:20)
-                }
-             
-                
-//                About me card
-                
-                if !profileImagesLoaded[0] {
-                    VStack(alignment: .center) {
-                        Divider()
-                        
-                        ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                            .padding(.top,70)
-                    }
-                }
+           
                
                 VStack(alignment: .leading, spacing: 13.0) {
                     
@@ -691,17 +357,20 @@ struct SkullProfile: View {
                     
                     
                     
-                }.offset(y:  !profileImagesLoaded[0] && !profileImagesLoaded[1] ? UIScreen.main.bounds.height : 0)
+                }
+                //animate the profile loading and show it coming from the bottom
+                
+                .offset(y:  !profileImagesLoaded[0] && !profileImagesLoaded[1] ? UIScreen.main.bounds.height : 0)
                 
                 
                 
              
                     
             }
-            
+            .padding(.bottom,120)
             .padding(.top,40)
            
-            .padding(.bottom,120)
+   
             
         
     }
@@ -811,17 +480,7 @@ struct SkullProfile: View {
                     .bold()
                     .padding()
                     .padding(.bottom,-40)
-                
-                
-               
-          
-               
                 VStack(alignment: .leading) {
-                    
-                        
-                        
-                        
-                        
                         HStack {
                            
                                 GetImageAndUrl(url:likedImageUrl, width: 40 , height: 40, loaded: .constant(true), imageUrl: .constant(likedImageUrl))
@@ -850,19 +509,10 @@ struct SkullProfile: View {
                                         .foregroundColor(.red)
                                         .font(.title3)
                                         .padding(.trailing,10)
-                                
-                            
-                               
-                                
                             }
                            
                         }
-                     
-                        
                         HStack(spacing: 6.0) {
-                           
-                            
-                            
                             VStack {
                                 Text("\"\(likedquote)\"")
                                     .font(.callout)
@@ -985,31 +635,14 @@ struct SkullProfile: View {
                                 .onAppear{
                                     sendMessageFocused = true
                                 }
-                           
-                            
                     }
                 }
-                
-                       
-                        
-                      
-                        
-                        
-                        
-                        
-              
                 Spacer()
-                
-                
             }.padding(.horizontal, 10)
                 .padding(.bottom,10)
-                
-                
                 .onTapGesture {
                     withAnimation(.spring()) {
                         liked = false
-                        
-                        
                     }
                 }
                 .onAppear{
@@ -1024,19 +657,26 @@ struct SkullProfile: View {
                 .onDisappear{
                     
                     withAnimation(.spring()) {
-    //                    showblacknav = false
+
                     }
             }
-            
-           
-//
+    
         }.background(Color("offwhiteneo"))
             .modifier(KeyboardAwareModifier())
-        
+    }
+    func hideNavOnNextProfile(){
         
     }
-   
-   
+    func nextProfile(){
+        if editingProfile {
+            showProfile = true
+        } else {
+            showProfile = false
+        }
+      
+        currentIndex += 1
+       
+    }
     func roundDistance(distanceInMiles: Double) -> String {
         if distanceInMiles >= 1000 {
             let roundedDistance = Int(distanceInMiles / 1000)
@@ -1054,9 +694,6 @@ struct SkullProfile: View {
     }
     
 func calculateDistance() -> String {
-   
- 
-    
     let coordinatesA = (latitude: Double(profile.coordinates[0]), longitude: Double(profile.coordinates[1]))
     let coordinatesB = (latitude: Double(fakeUser.coordinates[0]), longitude: Double(fakeUser.coordinates[1]))
     
@@ -1069,59 +706,6 @@ func calculateDistance() -> String {
     let distanceInMiles = distanceInMeters * 0.000621371
     return roundDistance(distanceInMiles: distanceInMiles)
 }
-    var scrollDetection: some View {
-        GeometryReader { proxy in
-            let offset = proxy.frame(in: .named("scroll")).minY
-            Color.clear.preference(key: ScrollPreferenceKey.self, value: offset)
-        }
-        .onPreferenceChange(ScrollPreferenceKey.self) { offset in
-            
-            if offset > 60 {
-                //hide profile after pulling down cover
-                withAnimation(.spring()) {
-                    showProfile = false
-                    hidemainTab = false
-                    if profiles.count == 1 {
-                        topDragFunc()
-                    }
-                }
-            }
-            
-            if offset < -110 {
-                
-                withAnimation(.spring()) {
-                    showblacknav = true
-                    
-                }
-                if offset < previousOffset {
-                    // Scrolling up
-                    withAnimation(.spring()) {
-                        hidemainTab = true
-                    }
-                } else {
-                    // Scrolling down
-                    withAnimation(.spring()) {
-                        hidemainTab = false
-                    }
-                }
-                
-            }
-            
-            else {
-                withAnimation(.spring()) {
-                    showblacknav = false
-                
-                    
-                }
-                
-                
-            }
-            
-          
-            
-            previousOffset = offset
-        }
-    }
     
     func heartsFunc(){
         withAnimation(.spring()){
@@ -1146,37 +730,7 @@ func calculateDistance() -> String {
         }
     }
     
-    func typeWriter(_ text: String, completion: @escaping () -> Void) {
-      
-        //typeText = ""
-        var currentIndex = 0
-        
-        Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true) { timer in
-            if currentIndex < text.count {
-                let index = text.index(text.startIndex, offsetBy: currentIndex)
-                let character = text[index]
-                
-                DispatchQueue.main.async {
-                    withAnimation(.easeIn) {
-                        typeText += String(character)
-                    } // Update the typedText property on the main queue
-                }
-                
-                currentIndex += 1
-            } else {
-                
-                timer.invalidate()
-                completion()
-                // Timer.scheduledTimer(withTimeInterval: 0.6, repeats: false) { timer in
-                //   withAnimation(.easeInOut) {
-                //  typeText = original
-                //
-                //   }
-                // }
-                
-            }
-        }
-    }
+
     
 
    

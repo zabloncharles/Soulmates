@@ -63,11 +63,8 @@ struct QuoteImageCard: View {
             GetImageAndUrl(url:url, width: UIScreen.main.bounds.width , height: 400, loaded: $loaded, imageUrl: $urlReturned)
                 .frame(width:UIScreen.main.bounds.width, height: 400)
                 .cornerRadius(0)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 0)
-                        .stroke(Color("black").opacity(0.15), lineWidth: 1)
-                    
-                )
+                
+               
             
             
             

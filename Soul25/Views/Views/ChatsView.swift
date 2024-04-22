@@ -19,7 +19,7 @@ struct ChatsView: View {
     @State var profiles: [UserStruct] = fakeUsers// Array to hold the user data
     @State var profile = fakeUsers[0]
     @State var currentUser: UserStruct? = fakeUser
-    @State var userScrolledAmount : CGFloat = 0
+    @State var userScrolledAmount : Bool = false
     @AppStorage("hidemainTab") var hidemainTab = false
     var isAnimated = true
     @State var viewState: CGSize = .zero
@@ -40,7 +40,12 @@ struct ChatsView: View {
         ZStack {
                 VStack {
                     ScrollView(showsIndicators: false) {
-                        ScrollDetectionView(userScrolledAmount: $userScrolledAmount)
+                        DynamicTopBar(label: "chats", labelicon: "bubble.left.and.bubble.right",trailinglabel: "4",trailinglabelicon: ""){
+                            
+                        }
+                            .background{
+                                ScrollDetectionView(userScrolledAmount: $userScrolledAmount)
+                            }
                         navandmessages
                     }
                     .coordinateSpace(name: "scroll")
@@ -72,10 +77,8 @@ struct ChatsView: View {
     
     var navandmessages: some View {
         VStack {
-  // top nav
-            DynamicTopBar()
-          
                 sectionsSection
+            
                 .padding(.bottom, 30)
                 .offset(y: !showMessages ? UIScreen.main.bounds.height *  1.02 : 0)
                 

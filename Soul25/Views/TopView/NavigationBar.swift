@@ -10,16 +10,17 @@ import SwiftUI
 struct NavigationBar: View {
     @AppStorage("hidemainTab") var hidemainTab = false
     @AppStorage("currentPage") var selected = 0
-    @Binding var userScrolledAmount : CGFloat 
+    @Binding var userScrolledAmount : Bool
     var label = "label"
     var labelicon = ""
     var trailinglabel = ""
     var trailingicon = ""
-    @Binding var action : Bool
     @State var showSearch = false
+    @State var appeared = false
     
     
     @State var tappedAvatar = false
+    let completion: () -> Void
     
     var body: some View {
        
@@ -49,6 +50,8 @@ struct NavigationBar: View {
                                     if !trailingicon.isEmpty {
                                         Image(systemName: trailingicon)
                                             .font(!trailinglabel.isEmpty ? nil : .title)
+                                            .foregroundColor(.red)
+                                            .bold()
                                     }
                                     //number of messages
                                     if !trailinglabel.isEmpty {
@@ -58,9 +61,10 @@ struct NavigationBar: View {
                                     .padding(.vertical,8)
                                     .background(Color.red.opacity(!trailinglabel.isEmpty ? 0.80 : 0))
                               
-                                .neoButtonOff(isToggle: false, cornerRadius: 62, perform: {
+                                .neoButton(isToggle: false, perform: {
                                     withAnimation(.spring()){
-                                        action.toggle()
+                                        completion()
+                                        appeared = false
                                     }
                                 })
                             
@@ -69,28 +73,21 @@ struct NavigationBar: View {
                             .padding(.horizontal,19)
                             .padding(.bottom,10)
                             .background(Color("offwhiteneo"))
-                            .offset(y: userScrolledAmount > -33 ?  -120 : 0)
-
+                            .offset(y: userScrolledAmount ?  -120 : !appeared ? -120 : 0)
+                            .opacity(userScrolledAmount ? 0 : 1)
+                    
                     
                     
                   
                 Spacer()
+            }.onAppear{
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    withAnimation(.spring()) {
+                        appeared = true
+                    }
+                }
             }
-            
-        
-       
-          
-        
         
     }
     
-    
-    
 }
-
-//struct NavigationBar_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NavigationBar(action: .constant(false))
-//            .preferredColorScheme(.dark)
-//    }
-//}

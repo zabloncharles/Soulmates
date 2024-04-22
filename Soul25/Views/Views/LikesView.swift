@@ -10,7 +10,7 @@ import SwiftUI
 struct LikesView: View {
     @AppStorage("currentPage") var selected = 0
     @AppStorage("hidemainTab") var hidemainTab = false
-    @State var userScrolledAmount : CGFloat = 0
+    @State var userScrolledAmount : Bool = false
     @State var pageAppeared = false
     @State var profiles: [UserStruct] = []
     @Binding var currentUser: UserStruct?
@@ -54,9 +54,12 @@ struct LikesView: View {
             }
             
             
-            NavigationBar(userScrolledAmount: $userScrolledAmount, label:"Likes", labelicon: "fleuron", trailinglabel:"\(profiles.count)",trailingicon: "bell", action: .constant(false))
+            NavigationBar(userScrolledAmount: $userScrolledAmount, label:"Likes", labelicon: "fleuron", trailinglabel:"\(profiles.count)",trailingicon: "bell"){
+                
+            }
             
             
+           
             
           showprofile
             
@@ -202,8 +205,13 @@ struct LikesView: View {
    
     var stories : some View {
         ScrollView(.vertical,showsIndicators: false){
-            ScrollDetectionView(userScrolledAmount: $userScrolledAmount)
-            DynamicTopBar()
+            
+            DynamicTopBar(label: "likes", labelicon: "fleuron"){
+                
+            }
+                .background{
+                    ScrollDetectionView(userScrolledAmount: $userScrolledAmount)
+                }
             ScrollView(.horizontal,showsIndicators: false){
                 HStack(spacing: 15.0){
                     VStack {

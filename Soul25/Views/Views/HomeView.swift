@@ -15,7 +15,7 @@ struct HomeView: View {
     @State var profile = fakeUsers[0]
     @State var profiletype = 0
     @State var profilesLoaded = 0
-    @State var userScrolledAmount : CGFloat = 0
+    @State var userScrolledAmount : Bool = false
 
     @State var contentHasScrolled = false
     @State var noCardsPageAppeared = false
@@ -55,15 +55,23 @@ struct HomeView: View {
                 loading
             }
             
-            VStack {
-                HomeHeaderView(contentHasScrolled: .constant(false), showProfile: .constant(false), profiletype: .constant(0))
-                    .background(Color("offwhiteneo"))
-                    .offset(y: userScrolledAmount > -33 ?  -120 : 0)
-                   
-                 
-
-
-                Spacer()
+            
+            if userScrolledAmount  {
+                VStack {
+                    VStack {
+                        HomeHeaderView(contentHasScrolled: .constant(false), showProfile: .constant(false), profiletype: .constant(0))
+                        Divider()
+                        typeofprofiles
+                            .padding(.top,-40)
+                    }.background(Color("offwhiteneo"))
+//                        .offset(y: userScrolledAmount > -33 ?  -120 : 0)
+                        .transition(.offset(y:UIScreen.main.bounds.height))
+                        .animation(.spring(), value: userScrolledAmount)
+                    
+                    
+                    
+                    Spacer()
+                }
             }
         }
     }
@@ -80,8 +88,8 @@ struct HomeView: View {
                 .overlay{
                     //app name and right system icons
                 navigation
-                        .opacity(userScrolledAmount > -23 ? 1 : 0)
-                        .scaleEffect(userScrolledAmount > -23 ? 1 : 0.96)
+                        .opacity(!userScrolledAmount ? 1 : 0)
+                        .scaleEffect(!userScrolledAmount ? 1 : 0.96)
                     .offset(y:-90)
             }
             Divider()

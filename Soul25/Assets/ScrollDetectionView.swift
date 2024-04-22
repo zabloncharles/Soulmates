@@ -8,19 +8,12 @@
 import SwiftUI
 
 struct ScrollDetectionView: View {
-    @Binding var userScrolledAmount: CGFloat
+    @Binding var userScrolledAmount: Bool
     var body: some View {
         Rectangle()
             .frame(width: 0, height: 0.0001)
             .scrollDetection(userScrolledAmount: $userScrolledAmount)
-            .onAppear{
-                
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                        if userScrolledAmount != 0.000000 {
-                        userScrolledAmount = 0.000000
-                    }
-                }
-            }
+            
     }
 }
 

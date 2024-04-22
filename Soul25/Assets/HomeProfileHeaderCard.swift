@@ -68,8 +68,8 @@ struct HomeProfileHeaderCard: View {
             .padding(.vertical, 10)
             .padding(.horizontal, 20)
             .background(
-                RoundedRectangle(cornerRadius: 20)
-                    .stroke(Color.white.opacity(0.1), lineWidth: 1)
+                RoundedRectangle(cornerRadius: 15)
+                    .stroke(Color("black").opacity(0.1), lineWidth: 1)
                     .background(Color("offwhiteneo").opacity(0.40))
             )
 //            .overlay(
