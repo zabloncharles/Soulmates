@@ -528,8 +528,8 @@
 		F7FF13B02BCC74B700880D0A /* TopView */ = {
 			isa = PBXGroup;
 			children = (
-				F7FF13B12BCC74B700880D0A /* NavigationBar.swift */,
 				F7FF13B32BCC74B700880D0A /* MainTab.swift */,
+				F7FF13B12BCC74B700880D0A /* NavigationBar.swift */,
 				F755EEDD2BD4FCAA00BFBB82 /* DynamicTopBar.swift */,
 			);
 			path = TopView;

@@ -54,7 +54,7 @@ struct LikesView: View {
             }
             
             
-            NavigationBar(userScrolledAmount: $userScrolledAmount, label:"Likes", labelicon: "fleuron", trailinglabel:"\(profiles.count)",trailingicon: "bell"){
+            NavigationBar(userScrolledAmount: $userScrolledAmount, label:"Likes", labelicon: "fleuron", trailinglabel:"\(profiles.count)",notification: true){
                 
             }
             
@@ -68,7 +68,7 @@ struct LikesView: View {
             profileAppeared = true
             
 //            if loading for 10 seconds show error
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.10) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
                 showError = true
             }
             fetchUserData(parameter: "") { result in

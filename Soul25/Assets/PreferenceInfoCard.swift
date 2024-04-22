@@ -29,12 +29,15 @@ struct PreferenceInfoCard: View {
                     .foregroundColor(tapped ? .blue : .gray)
             }.background(Color("white").opacity(0.02))
             Divider()
-        }.neoButton(isToggle: false) {
-            withAnimation(.spring()){
-                tapped = true
-                optionType = option
-            }
         }
+        //
+        
+//        .neoButton(isToggle: false) {
+//            withAnimation(.spring()){
+//                tapped = true
+//                optionType = option
+//            }
+//        }
     }
 }
 

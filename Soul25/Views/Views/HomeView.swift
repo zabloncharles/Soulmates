@@ -56,24 +56,32 @@ struct HomeView: View {
             }
             
             
-            if userScrolledAmount  {
+          
                 VStack {
                     VStack {
+                     
                         HomeHeaderView(contentHasScrolled: .constant(false), showProfile: .constant(false), profiletype: .constant(0))
-                        Divider()
+                            .padding(.top,40)
+                       Rectangle()
+                            .fill(.gray.opacity(0.30))
+                            .padding(.horizontal)
+                            .frame(height:1)
+                            .offset(y:-44)
                         typeofprofiles
-                            .padding(.top,-40)
+                            .padding(.top,-45)
+                        
                     }.background(Color("offwhiteneo"))
-//                        .offset(y: userScrolledAmount > -33 ?  -120 : 0)
-                        .transition(.offset(y:UIScreen.main.bounds.height))
-                        .animation(.spring(), value: userScrolledAmount)
+                     
+                        .offset(y: userScrolledAmount  ?  -150 : 0)
+                    
+                        
                     
                     
                     
                     Spacer()
                 }
-            }
-        }
+            
+        }.edgesIgnoringSafeArea(.all)
     }
     var loading : some View {
         VStack(alignment: .center) {
@@ -88,15 +96,16 @@ struct HomeView: View {
                 .overlay{
                     //app name and right system icons
                 navigation
-                        .opacity(!userScrolledAmount ? 1 : 0)
-                        .scaleEffect(!userScrolledAmount ? 1 : 0.96)
+                        .opacity(userScrolledAmount ? 1 : 0)
+                        .scaleEffect(userScrolledAmount ? 1 : 0.96)
                     .offset(y:-90)
             }
             Divider()
             // type of profiles cards section
             typeofprofiles
+                .opacity(!userScrolledAmount ? 0.30 : 1)
             Divider()
-        }
+        }.padding(.top,50)
     }
     var nocards: some View {
       NoProfilesView(pageAppeared: $noCardsPageAppeared, profiletype: $profiletype)

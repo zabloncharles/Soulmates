@@ -59,6 +59,7 @@ struct SkullProfile: View {
         ZStack {
                     ScrollView(.vertical, showsIndicators: false) {
                         ScrollDetectionView(userScrolledAmount: $userScrolledAmount)
+                    
                         content
                           
                        
@@ -294,7 +295,7 @@ struct SkullProfile: View {
                     }.padding(.top,30)
                 }
                 
-                DynamicTopBar(label: selected != 4 ? "match" : "profile",labelicon: "person", trailinglabelicon: "heart.slash"){
+                DynamicTopBar(label: selected != 4 ? "match" : "profile",labelicon: "person", trailinglabelicon:  selected == 4 ? "gear" : "heart.slash"){
                     //go to next profile
                     nextProfile()
                 }

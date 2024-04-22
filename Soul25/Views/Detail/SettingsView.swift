@@ -42,19 +42,45 @@ struct SettingsView: View {
                         }.padding(.horizontal)
                             VStack {
                                 
-                                PreferenceInfoCard(label: "Interested in", sublabel: "Women", option: 0, tapped: $isPresented, optionType: $optionType)
+                                NavigationLink(destination: picklistview) {
+                                    VStack {
+                                        PreferenceInfoCard(label: "Interested in", tapped: .constant(false), optionType: .constant(0))
+                                    }
+                                }
                                 
-                                PreferenceInfoCard(label: "My hometown", sublabel: "Chicago", option: 1, tapped: $isPresented, optionType: $optionType)
-                                PreferenceInfoCard(label: "Maximum distance", sublabel: "100 mi", option: 2, tapped: $isPresented, optionType: $optionType)
-                                PreferenceInfoCard(label: "Age range", sublabel: "Women 18 - 30", option: 3, tapped: $isPresented, optionType: $optionType)
-                                PreferenceInfoCard(label: "Ethnicity", sublabel: "Black/African", tapped: $isPresented, optionType: $optionType)
-                                PreferenceInfoCard(label: "Religion", sublabel: "Christian", option: 4, tapped: $isPresented, optionType: $optionType)
+                                NavigationLink(destination: mapview) {
+                                    VStack {
+                                        PreferenceInfoCard(label: "My hometown", sublabel: "Chicago", option: 1, tapped: $isPresented, optionType: $optionType)
+                                    }
+                                }
+                                
+                                NavigationLink(destination: picklistview) {
+                                    VStack {
+                                        PreferenceInfoCard(label: "Maximum distance", sublabel: "100 mi", option: 2, tapped: $isPresented, optionType: $optionType)
+                                    }
+                                }
+                                
+                                NavigationLink(destination: picklistview) {
+                                    VStack {
+                                        PreferenceInfoCard(label: "Age range", sublabel: "Women 18 - 30", option: 3, tapped: $isPresented, optionType: $optionType)
+                                    }
+                                }
+                                
+                                NavigationLink(destination: picklistview) {
+                                    VStack {
+                                        PreferenceInfoCard(label: "Ethnicity", sublabel: "Black/African", tapped: $isPresented, optionType: $optionType)
+                                    }
+                                }
+                                
+                                NavigationLink(destination: picklistview) {
+                                    VStack {
+                                        PreferenceInfoCard(label: "Religion", sublabel: "Christian", option: 4, tapped: $isPresented, optionType: $optionType)
+                                    }
+                                }
                                 // Add more form fields for other personal information
                             }.padding()
                             
-                            .neoButtonOff(isToggle: false, cornerRadius: 19, perform: {
-                                //
-                            })
+                            
                             .padding(.horizontal)
                          
                             
@@ -70,39 +96,73 @@ struct SettingsView: View {
                             .padding(.horizontal)
                         VStack {
                             
-                            PreferenceInfoCard(label: "Height", sublabel: "Open", option: 5, tapped: $isPresented, optionType: $optionType)
+                            NavigationLink(destination:picklistview) {
+                                VStack {
+                                    PreferenceInfoCard(label: "Height", sublabel: "Open", option: 5, tapped: $isPresented, optionType: $optionType)
+                                }
+                            }
                             
-                            PreferenceInfoCard(label: "Dating Intentions", sublabel: "Open", option: 6, tapped: $isPresented, optionType: $optionType)
-                            PreferenceInfoCard(label: "Children", sublabel: "Open", option: 7, tapped: $isPresented, optionType: $optionType)
-                            PreferenceInfoCard(label: "Family Plans", sublabel: "Open", option: 8, tapped: $isPresented, optionType: $optionType)
-                            PreferenceInfoCard(label: "Drugs", sublabel: "Open", tapped: $isPresented, optionType: $optionType)
-                            PreferenceInfoCard(label: "Smoking", sublabel: "Open", option: 9, tapped: $isPresented, optionType: $optionType)
-                            PreferenceInfoCard(label: "Marijuana", sublabel: "Open", option: 10, tapped: $isPresented, optionType: $optionType)
-                            PreferenceInfoCard(label: "Drinking", sublabel: "Open", option: 11, tapped: $isPresented, optionType: $optionType)
-                            PreferenceInfoCard(label: "Politics", sublabel: "Open", option: 12, tapped: $isPresented, optionType: $optionType)
-                            PreferenceInfoCard(label: "Education Level", sublabel: "Open",option: 13, tapped: $isPresented, optionType: $optionType)
+                            NavigationLink(destination: picklistview) {
+                                VStack {
+                                    PreferenceInfoCard(label: "Dating Intentions", sublabel: "Open", option: 6, tapped: $isPresented, optionType: $optionType)
+                                }
+                            }
+                            
+                            NavigationLink(destination: picklistview) {
+                                VStack {
+                                    PreferenceInfoCard(label: "Children", sublabel: "Open", option: 7, tapped: $isPresented, optionType: $optionType)
+                                }
+                            }
+                            
+                            NavigationLink(destination: picklistview) {
+                                VStack {
+                                    PreferenceInfoCard(label: "Family Plans", sublabel: "Open", option: 8, tapped: $isPresented, optionType: $optionType)
+                                }
+                            }
+                            
+                            NavigationLink(destination: picklistview) {
+                                VStack {
+                                    PreferenceInfoCard(label: "Drugs", sublabel: "Open", tapped: $isPresented, optionType: $optionType)
+                                }
+                            }
+                            
+                            NavigationLink(destination: picklistview) {
+                                VStack {
+                                    PreferenceInfoCard(label: "Smoking", sublabel: "Open", option: 9, tapped: $isPresented, optionType: $optionType)
+                                }
+                            }
+                            
+                            NavigationLink(destination: picklistview) {
+                                VStack {
+                                    PreferenceInfoCard(label: "Marijuana", sublabel: "Open", option: 10, tapped: $isPresented, optionType: $optionType)
+                                }
+                            }
+                            
+                            NavigationLink(destination: picklistview) {
+                                VStack {
+                                    PreferenceInfoCard(label: "Drinking", sublabel: "Open", option: 11, tapped: $isPresented, optionType: $optionType)
+                                }
+                            }
+                            
+                            NavigationLink(destination: picklistview) {
+                                VStack {
+                                    PreferenceInfoCard(label: "Politics", sublabel: "Open", option: 12, tapped: $isPresented, optionType: $optionType)
+                                }
+                            }
+                            
+                            NavigationLink(destination: picklistview) {
+                                VStack {
+                                    PreferenceInfoCard(label: "Education Level", sublabel: "Open", option: 13, tapped: $isPresented, optionType: $optionType)
+                                }
+                            }
+
                            
                             // Add more form fields for other personal information
                         }.padding()
                         
-                            .neoButtonOff(isToggle: false, cornerRadius: 19, perform: {
-                                //
-                            })
                             .padding(.horizontal)
                         
                         
-                            Section {
-                                Text("Save Changes")
-                                    .padding(.horizontal,10)
-                                    .padding(.vertical,10)
-                                    .background(Color.blue)
-                                    .foregroundColor(.white)
-                                    .cornerRadius(10)
-                                    .neoButton(isToggle: false, perform: {
-                                    // Add code to save changes to the user's profile
-                                    trackChanges.removeAll()
-                                })
-                            }.padding(.top,20)
                 
                         Spacer()
                     }
@@ -110,46 +170,6 @@ struct SettingsView: View {
                 }
                 
     //        
-               
-            }.sheet(isPresented: $isPresented) {
-                
-                //optiontype helps us know where we are making the change
-               
-                if optionType != 1 {
-                    PicklistSheetView(isPresented: $isPresented, returned: $returnedChange, title: "Preferences", label: label, sublabel: sublabel, list: list)
-                        .onAppear{
-                            // if the modal sheet is showing
-                            if isPresented {
-                                
-                                // if we are editing the gender preference
-                               if  optionType == 0 {
-                                    
-                                    label = "Gender"
-                                    sublabel = "Woman"
-                                    list = ["Male", "Female"]
-                                }
-                                // if we are editing hometown
-                              
-                            }
-                        }
-                        .onDisappear{
-                            list = []
-                            label = ""
-        //                    title = ""
-                            sublabel = ""
-                    }
-                } else {
-                    MapSheetView(isPresented: $isPresented, returned: $returnedChange, title: "Preferences", label: label, sublabel: sublabel, list: list)
-                        .onAppear{
-                            if isPresented {
-                                if  optionType == 1 {
-                                    label = "Hometown"
-                                    sublabel = "Chicago"
-                                    list = ["Maryland", "Chestnut"]
-                                }
-                            }
-                        }
-                }
                
             }
             .onChange(of: isPresented) { newValue in
@@ -159,7 +179,44 @@ struct SettingsView: View {
                     trackChanges.insert(optionType)
                 }
         }
-        }    
+        }
+    
+    var picklistview : some View{
+        PicklistSheetView(isPresented: $isPresented, returned: $returnedChange, title: "Preferences", label: label, sublabel: sublabel, list: list)
+            .onAppear{
+                // if the modal sheet is showing
+                if isPresented {
+                    
+                    // if we are editing the gender preference
+                    if  optionType == 0 {
+                        
+                        label = "Gender"
+                        sublabel = "Woman"
+                        list = ["Male", "Female"]
+                    }
+                    // if we are editing hometown
+                    
+                }
+            }
+            .onDisappear{
+                list = []
+                label = ""
+                //                    title = ""
+                sublabel = ""
+            }
+    }
+    var mapview: some View {
+        MapSheetView(isPresented: $isPresented, returned: $returnedChange, title: "Preferences", label: label, sublabel: sublabel, list: list)
+            .onAppear{
+                if isPresented {
+                    if  optionType == 1 {
+                        label = "Hometown"
+                        sublabel = "Chicago"
+                        list = ["Maryland", "Chestnut"]
+                    }
+                }
+            }
+    }
 }
 
 

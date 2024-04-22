@@ -15,6 +15,7 @@ struct NavigationBar: View {
     var labelicon = ""
     var trailinglabel = ""
     var trailingicon = ""
+    var notification = false
     @State var showSearch = false
     @State var appeared = false
     
@@ -46,32 +47,44 @@ struct NavigationBar: View {
                             
                             Spacer()
                             
+                            if notification {
+                                Text(trailinglabel)
+                                    .font(.title3)
+                                    .padding(5)
+                                    .background(Circle()
+                                        .fill(.red.opacity(0.76))
+                                                
+                                        .padding(-1))
+                            }
+                            
+                            else  {
                                 HStack {
-                                    if !trailingicon.isEmpty {
-                                        Image(systemName: trailingicon)
-                                            .font(!trailinglabel.isEmpty ? nil : .title)
-                                            .foregroundColor(.red)
-                                            .bold()
-                                    }
-                                    //number of messages
-                                    if !trailinglabel.isEmpty {
-                                        Text(trailinglabel)
-                                    }
-                                }.padding(.horizontal,8)
-                                    .padding(.vertical,8)
-                                    .background(Color.red.opacity(!trailinglabel.isEmpty ? 0.80 : 0))
-                              
-                                .neoButton(isToggle: false, perform: {
-                                    withAnimation(.spring()){
-                                        completion()
-                                        appeared = false
-                                    }
+                                        if !trailingicon.isEmpty {
+                                            Image(systemName: trailingicon)
+                                                .font(!trailinglabel.isEmpty ? nil : .title)
+                                                .foregroundColor(.red)
+                                                .bold()
+                                        }
+                                        //number of messages
+                                        if !trailinglabel.isEmpty {
+                                            Text(trailinglabel)
+                                        }
+                                    }.padding(.horizontal,8)
+                                        .padding(.vertical,8)
+                                        .background(Color.red.opacity(!trailinglabel.isEmpty ? 0.80 : 0))
+                                  
+                                    .neoButton(isToggle: false, perform: {
+                                        withAnimation(.spring()){
+                                            completion()
+                                            appeared = false
+                                        }
                                 })
+                            }
                             
                             
                         }.padding(.top,5)
                             .padding(.horizontal,19)
-                            .padding(.bottom,10)
+                            .padding(.bottom,5)
                             .background(Color("offwhiteneo"))
                             .offset(y: userScrolledAmount ?  -120 : !appeared ? -120 : 0)
                             .opacity(userScrolledAmount ? 0 : 1)

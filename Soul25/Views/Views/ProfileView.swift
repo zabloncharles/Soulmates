@@ -17,16 +17,19 @@ struct ProfileView: View {
     var body: some View {
         ZStack {
           
-            SkullProfile(currentUser: $currentUser, profile: profile, showProfile:  $isSheetPresented, editingProfile: editingProfile, currentIndex: $currentIndex)
+          
+                SkullProfile(currentUser: $currentUser, profile: profile, showProfile:  $isSheetPresented, editingProfile: editingProfile, currentIndex: $currentIndex)
+           
         }.onAppear{
             editingProfile = true
            
         }
         .sheet(isPresented: $isSheetPresented, content: {
             if currentIndex != 1 {
-               
+                NavigationView {
                     SettingsView(isSheetPresented: $isSheetPresented)
-                    .navigationBarHidden(true) // Hide the top bar on the sheet
+                    
+                }.navigationViewStyle(StackNavigationViewStyle())
              
             } else {
                 EditProfileInfoDetailView(isSheetPresented: $isSheetPresented)
