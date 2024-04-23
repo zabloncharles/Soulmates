@@ -10,9 +10,8 @@ import SwiftUI
 struct PreferenceInfoCard: View {
     var label = "I'm Interested in"
     var sublabel = "Women"
-    var option = 0
-    @Binding var tapped : Bool
-    @Binding var optionType : Int
+    
+ 
 
     var body: some View {
         VStack {
@@ -26,23 +25,16 @@ struct PreferenceInfoCard: View {
                 }
                 Spacer()
                 Image(systemName:"arrow.right")
-                    .foregroundColor(tapped ? .blue : .gray)
+                    .foregroundColor(.gray)
             }.background(Color("white").opacity(0.02))
             Divider()
         }
-        //
-        
-//        .neoButton(isToggle: false) {
-//            withAnimation(.spring()){
-//                tapped = true
-//                optionType = option
-//            }
-//        }
+    
     }
 }
 
 struct PreferenceInfoCard_Previews: PreviewProvider {
     static var previews: some View {
-        PreferenceInfoCard(tapped: .constant(false), optionType: .constant(0))
+        PreferenceInfoCard()
     }
 }

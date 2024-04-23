@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DynamicTopBar: View {
+    @AppStorage("currentPage") var selected = 0
     var label : String
     var labelicon : String
     var trailinglabel = ""
@@ -62,7 +63,7 @@ struct DynamicTopBar: View {
                                     Image(systemName: trailinglabelicon)
                                         .font(.title)
                                         .fontWeight(.bold)
-                                        .foregroundColor(.red)
+                                        .foregroundColor(selected == 4 ? Color("black") : .red)
                                     //number of messages
                                     if  !trailinglabel.isEmpty {
                                         Text(trailinglabel)

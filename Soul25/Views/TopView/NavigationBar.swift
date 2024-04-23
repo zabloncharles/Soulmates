@@ -42,6 +42,7 @@ struct NavigationBar: View {
                                     Image(systemName: labelicon)
                                         .font(.title3)
                                     .fontWeight(.bold)
+                                    
                                 }
                             }
                             
@@ -62,8 +63,9 @@ struct NavigationBar: View {
                                         if !trailingicon.isEmpty {
                                             Image(systemName: trailingicon)
                                                 .font(!trailinglabel.isEmpty ? nil : .title)
-                                                .foregroundColor(.red)
+                                                
                                                 .bold()
+                                                .foregroundColor(selected == 4 ? Color("black") : .red)
                                         }
                                         //number of messages
                                         if !trailinglabel.isEmpty {

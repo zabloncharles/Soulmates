@@ -4,7 +4,6 @@
 //
 //  Created by Zablon Charles on 4/20/24.
 //
-
 import SwiftUI
 import MapKit
 
@@ -18,10 +17,11 @@ struct SettingsView: View {
     @State var returnedChange = ""
     @State var isPresented = false
     @State var list : [String] = []
+    @State var storedValues = ["Woman","Chicago"]
     @State var title = "title"
     @State var label = "label"
     @State var sublabel = "sublabel"
-    @State var optionType = 0
+    @State var optionType = 500
     @State var trackChanges : Set<Int> = []
     @Binding var isSheetPresented: Bool
     
@@ -35,46 +35,68 @@ struct SettingsView: View {
                     ScrollView(.vertical, showsIndicators: false) {
       
                         HStack {
-                            Text("Match Preferences: \(returnedChange)")
+                            Text("Match Preferences: \(returnedChange) + \(storedValues[0]) + \(optionType)")
 
                                 .foregroundColor(.gray)
                             Spacer()
                         }.padding(.horizontal)
                             VStack {
                                 
-                                NavigationLink(destination: picklistview) {
+                                NavigationLink(destination: picklistview
+                                    .onAppear{
+                                        label = "Gender"
+                                        sublabel = "Woman"
+                                        list = ["Male", "Female"]
+                                    }
+                                    .onDisappear{
+                                         storedValues[0] = returnedChange
+                                    }
+                                
+                                ) {
                                     VStack {
-                                        PreferenceInfoCard(label: "Interested in", tapped: .constant(false), optionType: .constant(0))
+                                        PreferenceInfoCard(label: "Interested in", sublabel: storedValues[0])
                                     }
                                 }
                                 
-                                NavigationLink(destination: mapview) {
+                                NavigationLink(destination:
+                                                mapview
+                                    .onAppear{
+                                        label = "Hometown"
+                                      
+                                        
+                                    }
+                                    .onDisappear{
+                                        storedValues[1] = returnedChange
+                                    }
+                                
+                                
+                                ) {
                                     VStack {
-                                        PreferenceInfoCard(label: "My hometown", sublabel: "Chicago", option: 1, tapped: $isPresented, optionType: $optionType)
+                                        PreferenceInfoCard(label: "My hometown", sublabel: storedValues[1])
                                     }
                                 }
                                 
                                 NavigationLink(destination: picklistview) {
                                     VStack {
-                                        PreferenceInfoCard(label: "Maximum distance", sublabel: "100 mi", option: 2, tapped: $isPresented, optionType: $optionType)
+                                        PreferenceInfoCard(label: "Maximum distance", sublabel: "100 mi")
                                     }
                                 }
                                 
                                 NavigationLink(destination: picklistview) {
                                     VStack {
-                                        PreferenceInfoCard(label: "Age range", sublabel: "Women 18 - 30", option: 3, tapped: $isPresented, optionType: $optionType)
+                                        PreferenceInfoCard(label: "Age range", sublabel: "Women 18 - 30")
                                     }
                                 }
                                 
                                 NavigationLink(destination: picklistview) {
                                     VStack {
-                                        PreferenceInfoCard(label: "Ethnicity", sublabel: "Black/African", tapped: $isPresented, optionType: $optionType)
+                                        PreferenceInfoCard(label: "Ethnicity", sublabel: "Black/African")
                                     }
                                 }
                                 
                                 NavigationLink(destination: picklistview) {
                                     VStack {
-                                        PreferenceInfoCard(label: "Religion", sublabel: "Christian", option: 4, tapped: $isPresented, optionType: $optionType)
+                                        PreferenceInfoCard(label: "Religion", sublabel: "Christian")
                                     }
                                 }
                                 // Add more form fields for other personal information
@@ -98,61 +120,61 @@ struct SettingsView: View {
                             
                             NavigationLink(destination:picklistview) {
                                 VStack {
-                                    PreferenceInfoCard(label: "Height", sublabel: "Open", option: 5, tapped: $isPresented, optionType: $optionType)
+                                    PreferenceInfoCard(label: "Height", sublabel: "Open")
                                 }
                             }
                             
                             NavigationLink(destination: picklistview) {
                                 VStack {
-                                    PreferenceInfoCard(label: "Dating Intentions", sublabel: "Open", option: 6, tapped: $isPresented, optionType: $optionType)
+                                    PreferenceInfoCard(label: "Dating Intentions", sublabel: "Open")
                                 }
                             }
                             
                             NavigationLink(destination: picklistview) {
                                 VStack {
-                                    PreferenceInfoCard(label: "Children", sublabel: "Open", option: 7, tapped: $isPresented, optionType: $optionType)
+                                    PreferenceInfoCard(label: "Children", sublabel: "Open")
                                 }
                             }
                             
                             NavigationLink(destination: picklistview) {
                                 VStack {
-                                    PreferenceInfoCard(label: "Family Plans", sublabel: "Open", option: 8, tapped: $isPresented, optionType: $optionType)
+                                    PreferenceInfoCard(label: "Family Plans", sublabel: "Open")
                                 }
                             }
                             
                             NavigationLink(destination: picklistview) {
                                 VStack {
-                                    PreferenceInfoCard(label: "Drugs", sublabel: "Open", tapped: $isPresented, optionType: $optionType)
+                                    PreferenceInfoCard(label: "Drugs", sublabel: "Open")
                                 }
                             }
                             
                             NavigationLink(destination: picklistview) {
                                 VStack {
-                                    PreferenceInfoCard(label: "Smoking", sublabel: "Open", option: 9, tapped: $isPresented, optionType: $optionType)
+                                    PreferenceInfoCard(label: "Smoking", sublabel: "Open")
                                 }
                             }
                             
                             NavigationLink(destination: picklistview) {
                                 VStack {
-                                    PreferenceInfoCard(label: "Marijuana", sublabel: "Open", option: 10, tapped: $isPresented, optionType: $optionType)
+                                    PreferenceInfoCard(label: "Marijuana", sublabel: "Open")
                                 }
                             }
                             
                             NavigationLink(destination: picklistview) {
                                 VStack {
-                                    PreferenceInfoCard(label: "Drinking", sublabel: "Open", option: 11, tapped: $isPresented, optionType: $optionType)
+                                    PreferenceInfoCard(label: "Drinking", sublabel: "Open")
                                 }
                             }
                             
                             NavigationLink(destination: picklistview) {
                                 VStack {
-                                    PreferenceInfoCard(label: "Politics", sublabel: "Open", option: 12, tapped: $isPresented, optionType: $optionType)
+                                    PreferenceInfoCard(label: "Politics", sublabel: "Open")
                                 }
                             }
                             
                             NavigationLink(destination: picklistview) {
                                 VStack {
-                                    PreferenceInfoCard(label: "Education Level", sublabel: "Open", option: 13, tapped: $isPresented, optionType: $optionType)
+                                    PreferenceInfoCard(label: "Education Level", sublabel: "Open")
                                 }
                             }
 
@@ -172,12 +194,14 @@ struct SettingsView: View {
     //        
                
             }
-            .onChange(of: isPresented) { newValue in
+            .onChange(of: optionType) { newValue in
                
                
                 if !isPresented && !returnedChange.isEmpty {
                     trackChanges.insert(optionType)
                 }
+                // if we are editing the gender preference
+               
         }
         }
     
@@ -185,36 +209,25 @@ struct SettingsView: View {
         PicklistSheetView(isPresented: $isPresented, returned: $returnedChange, title: "Preferences", label: label, sublabel: sublabel, list: list)
             .onAppear{
                 // if the modal sheet is showing
-                if isPresented {
-                    
-                    // if we are editing the gender preference
-                    if  optionType == 0 {
-                        
-                        label = "Gender"
-                        sublabel = "Woman"
-                        list = ["Male", "Female"]
-                    }
-                    // if we are editing hometown
-                    
-                }
+              
             }
             .onDisappear{
                 list = []
                 label = ""
                 //                    title = ""
                 sublabel = ""
+                if  optionType == 0 {
+                    withAnimation(){
+                        storedValues[0] = returnedChange
+                    }
+                    
+                }
             }
     }
     var mapview: some View {
         MapSheetView(isPresented: $isPresented, returned: $returnedChange, title: "Preferences", label: label, sublabel: sublabel, list: list)
             .onAppear{
-                if isPresented {
-                    if  optionType == 1 {
-                        label = "Hometown"
-                        sublabel = "Chicago"
-                        list = ["Maryland", "Chestnut"]
-                    }
-                }
+             
             }
     }
 }
@@ -230,18 +243,18 @@ struct SettingsView_Previews: PreviewProvider {
 
 struct PicklistSheetView: View {
     @Binding var isPresented: Bool
+  
     @Binding var returned : String
     var title : String
     var label : String
     var sublabel : String
     var list : [String]
     var lottie = "telescope"
+  
     
     var body: some View {
         VStack {
-            Text(title)
-                .padding()
-                .bold()
+           
             
             LottieView(filename: lottie ,loop: false)
                 .frame(height: 200)
@@ -276,27 +289,27 @@ struct PicklistSheetView: View {
                 }
             }.padding(.horizontal)
                 .padding(.vertical,10)
-                .neoButtonOff(isToggle: false, cornerRadius: 13) {
+                .neoButtonOff(isToggle: true, cornerRadius: 13) {
                     //
                 }
                 .padding(.horizontal)
               
             Spacer()
-            HStack {
+            HStack(spacing: 2.0) {
                 Image(systemName: returned.isEmpty ? "multiply" : "checkmark")
-                Text(returned.isEmpty ? "Cancel" : "Done")
+//                Text(returned.isEmpty ? "Cancel" : "Done")
             }
                 .animation(.easeInOut, value: returned.isEmpty)
                 .padding(.horizontal,30)
                 .padding(.vertical,10)
-                .foregroundColor(Color("black"))
+                .foregroundColor(!returned.isEmpty ? .green : Color("black"))
                 .neoButtonOff(isToggle: false, cornerRadius: 13) {
                     //
                     isPresented = false
             
             }
             
-        }
+        }.navigationBarTitle(title, displayMode: .inline)
        
         .background(Color("offwhiteneo"))
         .gesture(
@@ -310,6 +323,7 @@ struct PicklistSheetView: View {
     }
 }
 
+
 struct MapSheetView: View {
     @Binding var isPresented: Bool
     @Binding var returned : String
@@ -321,9 +335,6 @@ struct MapSheetView: View {
     @State var cityName = ""
     @State private var middleCoordinate: CLLocationCoordinate2D?
     @State private var coordinates = CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194) // San Francisco coordinates
-    
-                                                                                      // San Francisco coordinates
-
     
     var body: some View {
         ZStack {
@@ -339,7 +350,7 @@ struct MapSheetView: View {
                         VStack {
                             Spacer()
                             HStack {
-                                Text("Coordinates: \(middleCoordinate?.latitude ?? 0.45), \(middleCoordinate?.longitude ?? 0.50)")
+                                Text("Coordinates: \(middleCoordinate?.latitude ?? 0.00), \(middleCoordinate?.longitude ?? 0.00)")
                                     .font(.footnote)
                                     .foregroundColor(.gray)
                                     .rotationEffect(.degrees(90))
@@ -351,81 +362,71 @@ struct MapSheetView: View {
                     }
                     
                     
-                        
-                
+                    
+                    
                 )
                 .edgesIgnoringSafeArea(.all)
-                
+            
             VStack {
-                VStack {
-                    Text(title)
-                        .padding()
-                    .bold()
+                VStack(alignment: .center) {
+                    
                     HStack {
-                        Image(systemName: "location.north")
+                        Spacer()
                         
-                        VStack(alignment: .leading, spacing: 3.0) {
+                        
+                        VStack(alignment: .center, spacing: 3.0) {
                             Text(label)
                                 .foregroundColor(Color("black"))
-                            Text(cityName.isEmpty ? returned : cityName)
-                                .font(.subheadline)
-                                .foregroundColor(.gray)
+                            HStack {
+                                Image(systemName: "location.north")
+                                    .font(.subheadline)
+                                    .foregroundColor(.gray)
+                                Text(cityName.isEmpty ? returned : cityName)
+                                    .font(.subheadline)
+                                    .foregroundColor(.gray)
+                            }
                             
-                        }
-                        .overlay(
-                            Divider()
-                                .offset(x:-46)
-                        )
+                        }.multilineTextAlignment(.center)
+                        
                         Spacer()
                         
                     }.padding(.horizontal)
                         .padding(.vertical,10)
                         .padding(.top,-30)
-                       
-                      
                     
-                } .background(Color("offwhiteneo"))
+                    
+                    
+                }
+                .padding(.top,20)
+                .background(Color("offwhiteneo"))
                 
-    //            LottieView(filename: lottie ,loop: false)
-    //                .frame(height: 200)
-    //                .padding(.top, 30)
-    //                .padding(.bottom,10)
-    //
-    //            Text("Tailor Your Preferences")
-    //                .font(.headline)
-    //                .padding(.bottom,5)
-    //            Text("Your choices will help us refine your matches and make your experience more tailored to your preferences.")
-    //                .foregroundColor(.secondary)
-    //                .multilineTextAlignment(.center)
-    //                .padding(.horizontal,25)
-    //                .padding(.bottom,5)
                 
                 
                 
                 
                 
                 Spacer()
-               
-                 
-                    HStack {
-                       
-                        Text(returned.isEmpty ? "Cancel" : "Done")
-                    }
-                    .animation(.easeInOut, value: returned.isEmpty)
-                    .padding(.horizontal,30)
-                    .padding(.vertical,10)
+                
+                
+                HStack {
                     
-                    .foregroundColor(Color("black"))
-                    .neoButtonOff(isToggle: false, cornerRadius: 19) {
-                        //
-                        isPresented = false
-                        
+                    Text(returned.isEmpty ? "Cancel" : "Done")
                 }
-              
+                .animation(.easeInOut, value: returned.isEmpty)
+                .padding(.horizontal,30)
+                .padding(.vertical,10)
+                
+                .foregroundColor(Color("black"))
+                .neoButtonOff(isToggle: false, cornerRadius: 19) {
+                    //
+                    isPresented = false
+                    
+                }
+                
                 
             }
             
-           
+            
             .gesture(
                 DragGesture()
                     .onChanged { value in
@@ -433,9 +434,9 @@ struct MapSheetView: View {
                             isPresented = false
                         }
                     }
-        )
+            )
             
             
-        }
+        }.navigationBarTitle(title, displayMode: .inline)
     }
 }

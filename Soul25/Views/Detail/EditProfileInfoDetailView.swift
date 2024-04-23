@@ -39,13 +39,13 @@ struct EditProfileInfoDetailView: View {
                 }.padding(.horizontal)
                 VStack {
                     
-                    PreferenceInfoCard(label: "Interested in", sublabel: "Women", option: 0, tapped: $isPresented, optionType: $optionType)
+                    PreferenceInfoCard(label: "Interested in", sublabel: "Women")
                     
-                    PreferenceInfoCard(label: "My hometown", sublabel: "Chicago", option: 1, tapped: $isPresented, optionType: $optionType)
-                    PreferenceInfoCard(label: "Maximum distance", sublabel: "100 mi", option: 2, tapped: $isPresented, optionType: $optionType)
-                    PreferenceInfoCard(label: "Age range", sublabel: "Women 18 - 30", option: 3, tapped: $isPresented, optionType: $optionType)
-                    PreferenceInfoCard(label: "Ethnicity", sublabel: "Black/African", tapped: $isPresented, optionType: $optionType)
-                    PreferenceInfoCard(label: "Religion", sublabel: "Christian", option: 4, tapped: $isPresented, optionType: $optionType)
+                    PreferenceInfoCard(label: "My hometown", sublabel: "Chicago")
+                    PreferenceInfoCard(label: "Maximum distance", sublabel: "100 mi")
+                    PreferenceInfoCard(label: "Age range", sublabel: "Women 18 - 30")
+                    PreferenceInfoCard(label: "Ethnicity", sublabel: "Black/African")
+                    PreferenceInfoCard(label: "Religion", sublabel: "Christian")
                     // Add more form fields for other personal information
                 }.padding()
                 

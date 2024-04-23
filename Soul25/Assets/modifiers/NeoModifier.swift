@@ -150,15 +150,20 @@ struct TapCompletionModifier2: ViewModifier {
     @State var isTapped = false
     @State var appeared = false
     var isToggle = false
-    var cornerRadius = 15
+    var cornerRadius : CGFloat = 15
     let completion: () -> Void
     
     func body(content: Content) -> some View {
         content
-            .background(Color("offwhite").opacity( appeared ? 1 : 0.80))
+            .background(Color("offwhite").opacity( appeared ? 0.20 : 0.80))
             .cornerRadius(CGFloat(cornerRadius))
-            .shadow(color:  .black.opacity( appeared ? 0.2 : 0.15 ), radius: 15, x:isTapped ? appeared ? -5 : -1 : 10, y:isTapped ? appeared ? -5 : -2 : appeared ? 10 : 5 )
-            .shadow(color: Color("white").opacity( appeared ?  0.9 : 0.5),radius: 10, x:isTapped  ? appeared ? 10 : 5 : appeared ? -5 : -2, y:isTapped  ? appeared ? 10:5 : appeared ? -5 : -2)
+            .overlay(
+                RoundedRectangle(cornerRadius: cornerRadius)
+                    .stroke(Color("black").opacity(0.70), lineWidth: 0.5)
+                
+            )
+//            .shadow(color:  .black.opacity( appeared ? 0.2 : 0.15 ), radius: 15, x:isTapped ? appeared ? -5 : -1 : 10, y:isTapped ? appeared ? -5 : -2 : appeared ? 10 : 5 )
+//            .shadow(color: Color("white").opacity( appeared ?  0.9 : 0.5),radius: 10, x:isTapped  ? appeared ? 10 : 5 : appeared ? -5 : -2, y:isTapped  ? appeared ? 10:5 : appeared ? -5 : -2)
             .scaleEffect(isTapped ? 0.97 : appeared ? 1 : 0.97)
             .onTapGesture {
                 // Execute the completion closure when the view is tapped
@@ -203,7 +208,7 @@ struct TapCompletionModifier2: ViewModifier {
 
 
 extension View {
-    func neoButtonOff(isToggle: Bool, cornerRadius: Int, perform completion: @escaping () -> Void) -> some View {
+    func neoButtonOff(isToggle: Bool, cornerRadius: CGFloat, perform completion: @escaping () -> Void) -> some View {
         return modifier(TapCompletionModifier2(isToggle: isToggle, cornerRadius: cornerRadius, completion: completion))
     }
 }
